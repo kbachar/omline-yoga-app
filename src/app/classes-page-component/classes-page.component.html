@@ -1,0 +1,22 @@
+<section class="classes-page">
+  <header class="yoga-classes-header" id="yogaClassesHeader">
+    <nav class="classes-left-navbar">
+      <button type="button" class="navbar-item" (click)="openPopup('about')">About</button>
+      <!-- <button type="button" class="navbar-item" (click)="openPopup('contact')">Contact Us</button>
+      <button type="button" class="navbar-item" (click)="openPopup('plans')">Plans</button> -->
+    </nav>
+
+    <img class="classes-header-img" src="/assets/images/yoga-classes-logo.png" alt="Yoga Classes Logo" (click)="goHome()">
+
+    <nav class="navbar" id="yogaClassesNavbar">
+      <button type="button" class="navbar-item" (click)="openPopup('login')">Login</button>
+      <button type="button" class="navbar-item" (click)="subscribe()">Subscribe</button>
+      <div class="navbar-item">About Us</div>
+    </nav>
+  </header>
+
+  <main class="classes-main">
+    <h1>Yoga Classes</h1>
+    <p>Welcome to the classes page. List your yoga classes here.</p>
+  </main>
+</section>

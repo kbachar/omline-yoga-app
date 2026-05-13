@@ -1,0 +1,77 @@
+<header class="main-header">
+	<nav class="left-navbar">
+        <div type="button" class="navbar-item" (click)="openPopup('about')">About</div>
+		<div type="button" class="navbar-item" (click)="openPopup('contact')">Contact Us</div>
+		<div type="button" class="navbar-item" (click)="openPopup('plans')">Plans</div>
+	</nav>
+	<img class="main-header-img" src="/assets/images/logo-header-index.png">
+	<nav class="navbar">
+		<div class="navbar-item" (click)="openPopup('login')">Login</div>
+		<div class="navbar-item" (click)="openPopup('subscribe')">Subscribe</div>
+	</nav>
+</header>
+
+<main class="main">
+	<div class="intro">
+
+		<div class="first-row">Practice online Yoga Classes Anytime, Anywhere.</div>
+		<div class="second-row">
+			Discover a world of high-quality yoga classes from around the globe<br />
+			practice at your own pace, classes, wherever you are.
+		</div>
+
+
+	</div>
+
+	<div class="yoga-styles-box">
+		@for (item of yogaStyles; track item.id) {
+			<div class="yoga-style-item-with-image">
+				<img
+					[src]="imageFor(item)"
+					[id]="item.imageId"
+					[alt]="item.title"
+					tabindex="0"
+					(mouseenter)="setHoveredStyle(item.id)"
+					(mouseleave)="setHoveredStyle(null)"
+					(focus)="setHoveredStyle(item.id)"
+					(blur)="setHoveredStyle(null)"
+				>
+				<div class="yoga-style-header-box">
+					<div class="yoga-style-header" (click)="onStyleHeaderClick(item)">{{ item.title }}</div>
+				</div>
+				<div class="yoga-style-description">
+					{{ item.description }}
+				</div>
+			</div>
+		}
+	</div>
+
+	<div class="all-yoga-classes">
+		<img
+			[src]="allYogaImageSrc()"
+			id="allYogaImg"
+			alt="All yoga classes library"
+			tabindex="0"
+			(mouseenter)="setAllYogaHovered(true)"
+			(mouseleave)="setAllYogaHovered(false)"
+			(focus)="setAllYogaHovered(true)"
+			(blur)="setAllYogaHovered(false)"
+			(click)="onAllYogaClick()"
+		>
+		<img class="all-yoga-classes-arrow" src="/assets/images/all-classes-arrow.png" alt="">
+		<div class="all-yoga-classes-description" (click)="onAllYogaClick()">all yoga classes library</div>
+	</div>
+
+	<div class="our-yoga-teachers">
+		<div class="our-yoga-teachers-box">
+			<div class="our-yoga-teachers-header">Our yoga</div>
+			<div class="our-yoga-teachers-header-special">teachers</div>
+		</div>
+		<div class="our-yoga-teachers-list">
+			<div class="yoga-teacher-item">
+				<img src="/assets/images/blank-teacher.png">
+				<div class="yoga-teacher-name">Coming Soon</div>
+			</div>
+		</div>
+	</div>
+</main>

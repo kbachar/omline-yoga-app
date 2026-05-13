@@ -1,0 +1,412 @@
+:host {
+	--bright-blue: oklch(51.01% 0.274 263.83);
+	--electric-violet: oklch(53.18% 0.28 296.97);
+	--french-violet: oklch(47.66% 0.246 305.88);
+	--vivid-pink: oklch(69.02% 0.277 332.77);
+	--hot-red: oklch(61.42% 0.238 15.34);
+	--orange-red: oklch(63.32% 0.24 31.68);
+
+	--gray-900: oklch(19.37% 0.006 300.98);
+	--gray-700: oklch(36.98% 0.014 302.71);
+	--gray-400: oklch(70.9% 0.015 304.04);
+
+	--red-to-pink-to-purple-vertical-gradient: linear-gradient(180deg,
+			var(--orange-red) 0%,
+			var(--vivid-pink) 50%,
+			var(--electric-violet) 100%);
+
+	--red-to-pink-to-purple-horizontal-gradient: linear-gradient(90deg,
+			var(--orange-red) 0%,
+			var(--vivid-pink) 50%,
+			var(--electric-violet) 100%);
+
+	--pill-accent: var(--bright-blue);
+
+	font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+		"Segoe UI Symbol";
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	display: block;
+	height: 100dvh;
+}
+
+main {
+	width: 100%;
+	min-height: 100%;
+}
+
+.content {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	max-width: 700px;
+	margin-bottom: 3rem;
+}
+
+.main {
+	position: relative;
+	margin: 0;
+	background-image: url('/assets/images/main-background.png');
+}
+
+header {
+	width: auto;
+	display: flex;
+	align-items: center;
+	position: relative;
+	background: #0B1339;
+}
+
+.main-header {
+	height: 180px;
+}
+
+.navbar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	right: 28px;
+}
+
+
+.classes-left-navbar,
+.left-navbar {
+	width: 456px;
+	height: 65px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	text-transform: capitalize;
+	color: #FFFFFF;
+	position: absolute;
+	left: 55px;
+	top: 60px;
+}
+
+.classes-left-navbar {
+	top: 30px;
+}
+
+
+.navbar-item {
+	font-family: 'Montserrat Alternates';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 15px;
+	line-height: 0px;
+	/* or 0% */
+	display: flex;
+	align-items: center;
+	text-transform: capitalize;
+	color: #6DBDB9;
+	border: 1px solid #000000;
+	margin-right: 15px;
+	cursor: pointer;
+}
+
+
+.main-header-img {
+	cursor: pointer;
+	position: absolute;
+	width: 515px;
+	height: 182px;
+	left: calc(50% - 515px/2 + 0.5px);
+	top: 1px;
+}
+
+.intro {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0px;
+	gap: 6px;
+	position: relative;
+	width: 926px;
+	height: 146px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	padding-top: 40px;
+}
+
+.first-row {
+
+	width: 1106px;
+	height: 50px;
+
+	font-family: 'Cinzel Decorative';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 35px;
+	line-height: 40px;
+	/* or 114% */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	text-transform: capitalize;
+
+	color: #F6EEDB;
+	/* Inside auto layout */
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+}
+
+.second-row {
+	width: 900px;
+	height: 65px;
+
+	font-family: 'Raleway';
+	font-style: italic;
+	font-weight: 300;
+	font-size: 20px;
+	line-height: 28px;
+	/* or 100% */
+	text-align: center;
+	letter-spacing: 0.06em;
+	text-transform: capitalize;
+
+	color: #F2DFB2;
+	/* Inside auto layout */
+	flex: none;
+	order: 1;
+	flex-grow: 0;
+}
+
+.yoga-styles-box {
+	width: calc((260px * 3) + (50px * 2));
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 100px;
+}
+
+.yoga-style-item-with-image {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	text-align: center;
+}
+
+.all-yoga-styles-box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.yoga-style-header-box {
+	box-sizing: border-box;
+
+	width: 260px;
+	height: 40px;
+
+	border: 1px solid #F6EEDB;
+	filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.25));
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.yoga-style-header {
+	height: 25px;
+
+	font-family: 'Cinzel Decorative';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 25px;
+	line-height: 25px;
+	/* identical to box height, or 100% */
+	display: flex;
+	align-items: center;
+	text-align: center;
+	text-transform: capitalize;
+
+	color: #FFF8E6;
+	cursor: pointer;
+}
+
+.yoga-style-header:hover {
+	transform: scale(1.06);
+}
+
+.yoga-style-description {
+	width: 260px;
+	font-family: 'Montserrat';
+	font-style: normal;
+	font-weight: 400;
+	line-height: 30px;
+	text-align: start;
+	letter-spacing: 0.02em;
+	text-transform: capitalize;
+	color: #FFFBFB;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+
+	height: 107px;
+
+	font-size: 18px;
+	line-height: 25px;
+	/* or 139% */
+	letter-spacing: 0.02em;
+	text-transform: capitalize;
+
+	color: #FFFBFB;
+
+	margin-top: 20px;
+}
+
+
+
+.all-yoga-classes {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	margin-top: 20px;
+}
+
+
+.all-yoga-classes-arrow {
+	width: 13.78px;
+	position: relative;
+	line-height: 25px;
+	top: -24px;
+	margin-right: 10px;
+}
+
+.all-yoga-classes-description {
+	font-family: 'Cinzel Decorative';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 38px;
+	line-height: 25px;
+	text-align: center;
+	letter-spacing: 0.04em;
+	text-transform: capitalize;
+	color: #FFF8E6;
+	position: relative;
+	top: -24px;
+	cursor: pointer;
+}
+
+.our-yoga-teachers {
+	box-sizing: border-box;
+	position: relative;
+	width: 100%;
+	height: 510px;
+	background: #CBD3F3;
+	border-top: 1px solid #F6EEDB;
+	margin-top: 100px;
+
+}
+
+.our-yoga-teachers-box {
+	width: 600px;
+	height: 86px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Cinzel Decorative';
+	font-style: normal;
+	font-weight: 400;
+	line-height: 70px;
+	font-size: 50px;
+	text-align: center;
+	text-transform: capitalize;
+	color: #FFF8E6;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+}
+
+.our-yoga-teachers-header {
+	font-style: normal;
+	margin: 0;
+}
+
+.our-yoga-teachers-header-special {
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+.our-yoga-teachers-list {
+	width: calc((187px * 5) + (41px * 4));
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 0px;
+	gap: 41px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.yoga-teacher-item {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0px;
+	gap: 34px;
+	width: 187px;
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+}
+
+.yoga-teacher-name {
+	width: 180px;
+	height: 17px;
+	font-family: 'Montserrat Alternates';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 15px;
+	text-align: center;
+	letter-spacing: 0.04em;
+	text-transform: capitalize;
+	color: #FFF8E6;
+	flex: none;
+	order: 1;
+	flex-grow: 0;
+
+}
+
+@media screen and (max-width: 650px) {
+	.main-header {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.left-navbar,
+	.navbar {
+		justify-content: center;
+	}
+
+	.content {
+		flex-direction: column;
+		width: max-content;
+	}
+
+	.divider {
+		height: 1px;
+		width: 100%;
+		background: var(--red-to-pink-to-purple-horizontal-gradient);
+		margin-block: 1.5rem;
+	}
+
+}

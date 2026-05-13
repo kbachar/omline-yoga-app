@@ -1,0 +1,69 @@
+.yoga-classes-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  background: #0B1339;
+}
+
+.classes-navbar {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 200px;
+  gap: 8px;
+  background: #243376;
+  margin-right: auto;
+  margin-left: auto;
+  width: auto;
+  height: 50px;
+  left: 0px;
+  top: 130px;
+  background: #243376;
+  display: none;
+  margin: 0;
+  opacity: 1;
+  order: 1;
+  flex-grow: 0;
+}
+
+.navbar-item {
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 0px;
+  /* or 0% */
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+  color: #6DBDB9;
+  border: 1px solid #000000;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.classes-navbar-item {
+  max-width: 260px;
+  min-width: 190px;
+  height: 25px;
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 35px;
+  text-align: left;
+  text-transform: capitalize;
+  color: #FFF8E6;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.classes-navbar-item :hover {
+  color: #717586;
+}
