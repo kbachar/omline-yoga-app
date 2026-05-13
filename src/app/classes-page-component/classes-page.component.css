@@ -1,5 +1,6 @@
 .yoga-classes-header {
   width: 100%;
+  height: 130px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -27,6 +28,37 @@
   opacity: 1;
   order: 1;
   flex-grow: 0;
+}
+
+.classes-left-navbar,
+.left-navbar {
+  width: 456px;
+  height: 65px;
+
+
+  /* or 0% */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-transform: capitalize;
+  color: #FFFFFF;
+  position: absolute;
+  left: 55px;
+  top: 60px;
+}
+
+.classes-left-navbar {
+  top: 30px;
+}
+
+.classes-header-img {
+  position: absolute;
+  width: 368.78px;
+  height: 130px;
+  left: 50%;
+  top: 0px;
+  transform: translateX(-50%);
+  cursor: pointer;
 }
 
 .navbar-item {
@@ -66,4 +98,12 @@
 
 .classes-navbar-item :hover {
   color: #717586;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 28px;
 }
