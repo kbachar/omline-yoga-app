@@ -1,0 +1,54 @@
+.subscribe-field {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0px;
+      gap: 10px;
+      width: 499x;
+      height: 50px;
+      background: rgba(194, 235, 233, 0.2);
+      border: 1px solid #CAD7DC;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .subscribe-large-field {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 0px;
+      gap: 10px;
+      background: rgba(194, 235, 233, 0.2);
+      border: 1px solid #CAD7DC;
+      border-radius: 10px;
+      height: 200px;
+    }
+
+    .subscribe-field-text {
+      margin-left: 10px;
+      height: 25px;
+      font-family: 'Mona Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 25px;
+      border: none;
+      background: transparent;
+      text-transform: capitalize;
+      color: rgba(36, 51, 118, 0.7);
+      outline: none;
+      flex: 1;
+      width: 513px;
+    }
+
+    .subscribe-field-text::placeholder {
+      color: rgba(36, 51, 118, 0.7);
+    }
+
+    .subscribe-large-field .subscribe-field-text {
+      height: 100%;
+      resize: none;
+      padding: 10px 0;
+    }

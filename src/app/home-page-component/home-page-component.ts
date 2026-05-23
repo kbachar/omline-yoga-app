@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { MainHeader } from '../main-header-component/main-header/main-header';
 
 type YogaStyle = {
   id: 'hatha' | 'vinyasa' | 'ashtanga';
@@ -12,7 +13,7 @@ type YogaStyle = {
 
 @Component({
   selector: 'app-home-page-component',
-  imports: [],
+  imports: [MainHeader],
   templateUrl: './home-page-component.html',
   styleUrl: './home-page-component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -60,10 +61,10 @@ export class HomePageComponent {
     return this.hoveredStyleId() === style.id ? style.hoverSrc : style.defaultSrc;
   }
 
-  protected onStyleHeaderClick(style: YogaStyle): void {
-    this.router.navigate(['/classes'], { queryParams: { id: style.id } });
+  protected onStyleHeaderClick(id: string): void {
+    this.router.navigate(['/classes', id]);
   }
-
+  
   protected setAllYogaHovered(value: boolean): void {
     this.allYogaHovered.set(value);
   }
@@ -78,11 +79,5 @@ export class HomePageComponent {
     this.router.navigate(['/classes'], { queryParams: { id: 'all' } });
   }
 
-  protected openPopup(page: 'about' | 'contact' | 'plans' | 'login' | 'subscribe'): void {
-  // Option A: route to a page
-  // this.router.navigate([`/${page}`]);
-
-  // Option B: open a modal state in this component/service
-  // this.activePopup.set(page);
-}
+  
 }

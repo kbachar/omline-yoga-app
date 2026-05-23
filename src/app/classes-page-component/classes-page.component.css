@@ -1,33 +1,38 @@
-.yoga-classes-header {
+.classes-header {
   width: 100%;
   height: 130px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 30;
   background: #0B1339;
 }
 
 .classes-navbar {
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  position: sticky;
+  top: 130px;
+  z-index: 20;
   padding: 0px 200px;
   gap: 8px;
-  background: #243376;
   margin-right: auto;
   margin-left: auto;
   width: auto;
   height: 50px;
   left: 0px;
   top: 130px;
-  background: #243376;
-  display: none;
   margin: 0;
   opacity: 1;
   order: 1;
   flex-grow: 0;
+  background: #243376;
+
 }
 
 .classes-left-navbar,
@@ -96,6 +101,10 @@
 
 }
 
+.classes-navbar-item.is-selected {
+  color: #FFC43D;
+}
+
 .classes-navbar-item :hover {
   color: #717586;
 }
@@ -106,4 +115,497 @@
   align-items: center;
   position: absolute;
   right: 28px;
+}
+
+.header-section {
+  width: auto;
+  height: 378px;
+  display: flex;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.yoga-style-img {
+  width: 477px;
+  height: 378px;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  /* gap: 12px; */
+  max-width: 900px;
+}
+
+.yoga-classes-header {
+  font-family: 'Cinzel Decorative';
+  font-style: normal;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 70px;
+  text-transform: capitalize;
+  color: #FFF8E6;
+  margin: 0;
+  width: auto;
+  height: 171px;
+  padding-left: 5px;
+}
+
+
+.yoga-classes-header-bold {
+  font-weight: 700;
+  font-style: normal;
+  margin-right: 12px;
+}
+
+.yoga-classes-header-normal {
+  font-weight: 300;
+  font-style: normal;
+}
+
+.yoga-style-description {
+  width: auto;
+  height: 207px;
+
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 30px;
+  /* or 150% */
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #F8F8FF;
+  text-align: left;
+  margin: 0;
+  padding-left: 5px;
+}
+
+.filters-row-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 40px;
+}
+
+.filter-img-container {
+  width: 300px;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+
+.filter-img {
+  width: 16px;
+  height: 13px;
+
+
+}
+
+.filters-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.filters-text-box {
+  height: 20px;
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin-right: 40px;
+}
+
+.duration-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  height: 20px;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.challenge-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+  height: 20px;
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+  margin-left: 50px;
+}
+
+.container-text {
+  height: 20px;
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+
+.container-check-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  /* gap: 8px; */
+  height: 20px;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.check-box {
+  box-sizing: border-box;
+  width: 15px;
+  height: 15px;
+  background: #DEE8F2;
+  border: 1px solid #243376;
+  border-radius: 2px;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.check-box-description {
+  height: 20px;
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  text-align: center;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.clear {
+  width: fit-content;
+  height: 20px;
+  margin-left: auto;
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+  /* Inside auto layout */
+  flex: none;
+  order: 3;
+  flex-grow: 0;
+  padding-right: 140px;
+  cursor: pointer;
+}
+
+.selected-classes-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  /* width: 1300px; */
+  height: 154px;
+  background: rgba(28, 90, 142, 0.1);
+  border: 1px solid #1F6B9A;
+  border-radius: 10px;
+  margin-left: 316px;
+  margin-right: 200px;
+  gap: 35px;
+  padding: 30px;
+}
+
+.selected-class-small {
+  box-sizing: border-box;
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 0px;
+  gap: 0;
+
+  width: 155px;
+  height: 93px;
+
+  background: #F8F8FF;
+  opacity: 0.5;
+  border: 1px solid #1C5B90;
+  border-radius: 10px;
+}
+
+
+.goto-selected-container {
+  width: 270px;
+  height: 22px;
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  font-family: 'Cinzel Decorative';
+  font-style: normal;
+  font-size: 18px;
+  line-height: 20px;
+  /* or 111% */
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+
+  color: #101C50;
+
+  gap: 10px;
+  cursor: pointer;
+}
+
+.goto-selected {
+  font-weight: 400;
+}
+
+.goto-selected-bold {
+  font-weight: 700;
+}
+
+.small-arrow {
+  width: 8px;
+  height: 16px;
+  margin-bottom: 1px;
+}
+
+.small-class-img {
+  width: 155px;
+  height: 93px;
+  position: absolute;
+  inset: 0;
+}
+
+.selected-class-caption {
+  font-family: 'Mona Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 25px;
+  /* identical to box height, or 167% */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  text-transform: capitalize;
+  color: rgba(36, 51, 118, 0.7);
+  width: 100%;
+  text-align: center;
+}
+
+.small-img-frame {
+  width: 155px;
+  height: 93px;
+  opacity: 0.5;
+  border: 1px solid #1C5B90;
+  border-radius: 10px;
+  display: block;
+
+}
+
+.yoga-classes-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-content: flex-start;
+  text-align: left;
+  min-height: 1500px;
+  margin-left: 316px;
+  margin-right: 200px;
+}
+
+.yoga-classes {
+  display: flex;
+  margin: 50px 0;
+  margin-right: 0;
+  margin-left: 0;
+  gap: 24px;
+}
+
+.yoga-class-img {
+  width: 391px;
+  height: 228px;
+  border-radius: 5px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.yoga-class-meta {
+  width: 391px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.yoga-class-meta.is-selected {
+  border-color: #1F6B9A;
+}
+
+.class-header-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.teacher-name {
+  width: auto;
+  font-family: 'Cinzel Decorative';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 20px;
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+  color: #101C50;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.class-name {
+  width: 391px;
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+}
+
+.yoga-style-color {
+  width: 25px;
+  height: 11px;
+  background: #7183D7;
+  border-radius: 2px;
+}
+
+.class-style-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.style-description {
+  font-family: 'Raleway';
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+  margin-left: 10px;
+}
+
+.yoga-class-time {
+  margin-left: auto;
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 20px;
+  /* or 167% */
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+
+  color: #101C50;
+}
+
+.minutes {
+  margin-left: 4px;
+  font-family: 'Raleway';
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+}
+
+
+
+.yoga-class-img video {
+  width: 391px;
+  height: 228px;
+  border-radius: 5px;
+  border: none;
+  display: block;
+}
+
+.class-description {
+  width: 391px;
+
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-transform: capitalize;
+  color: #101C50;
 }

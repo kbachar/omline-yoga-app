@@ -1,0 +1,75 @@
+<app-main-header></app-main-header>
+
+<div class="header-wrapper">
+
+    <div class="header-section">
+      <div class="welcome-section">
+        <div class="welcome-section-header">we welcome you</div>
+        <div class="welcome-section-subscribe">To Join Our International Platform as a Yoga Teacher</div>
+      </div>
+    </div>
+    <div class="subscribe-wrapper">
+
+      <div class="left-section">
+        <div class="left-section-header-box">
+          <div class="left-section-header">Join our growing platform! </div>
+          <div class="left-section-bold-description">
+            We are looking for dedicated yoga teachers who wish to share their knowledge, legacy, and classes with
+            yoga practitioners around the world.
+          </div>
+        </div>
+        <div class="bullet-section">
+          <img src="/assets/images/bullet.png">
+          <div class="bullet-section-text">
+            <span class="left-section-description">Our vision is to create </span>
+            <span class="left-section-bold-description">a top-quality online library of yoga class videos </span>
+            <span class="left-section-description">that inspires students everywhere.</span>
+          </div>
+        </div>
+        <div class="bullet-section">
+          <img src="/assets/images/bullet.png">
+          <div class="bullet-section-text">
+            <span class="left-section-bold-description">our main goal</span>
+            <span class="left-section-description">
+              is to provide a convenient platform for people to practice from home and easily find
+              classes that suit their level. For this reason, all class videos should be between 40 minutes and one
+              hour.
+            </span>
+          </div>
+        </div>
+
+        <div class="bullet-section">
+          <img src="/assets/images/bullet.png">
+          <div class="bullet-section-text">
+            <span class="left-section-bold-description">
+              This is only the beginning of the journey. By joining now, you become a pioneer in a new land,
+              helping shape something meaningful from the very start.
+            </span>
+          </div>
+        </div>
+
+        <div class="bullet-section">
+          <img src="/assets/images/bullet.png">
+          <div class="bullet-section-text">
+            <span class="left-section-bold-description">We hope for great success together.</span>
+
+          </div>
+        </div>
+      </div>
+      <div class="right-section">
+        <app-teacher></app-teacher>
+        <!-- <iframe src="teacher.html?fromApp=true&callerOrigin=index" scrolling="no"></iframe> -->
+        <div class="subscribe-btn-box">
+          <img
+            [src]="subscribeButtonSrc()"
+            id="subscribeImg"
+            tabindex="0"
+            (mouseenter)="setSubscribeHovered(true)"
+            (mouseleave)="setSubscribeHovered(false)"
+            (focus)="setSubscribeHovered(true)"
+            (blur)="setSubscribeHovered(false)"
+          >
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,4 +1,4 @@
-<header class="yoga-classes-header" id="yogaClassesHeader">
+<header class="classes-header" id="yogaClassesHeader">
   <nav class="classes-left-navbar">
     <div type="button" class="navbar-item" (click)="openPopup('about')">About</div>
     <div type="button" class="navbar-item" (click)="openPopup('contact')">Contact Us</div>
@@ -13,10 +13,128 @@
     <div class="navbar-item">About Us</div>
   </nav>
 </header>
+<div class="classes-navbar">
+  @for (item of items; track item.id) {
+  <div class="classes-navbar-item" [class.is-selected]="selectedStyleId === item.id"
+    (click)="classesNavbarClick(item.id)">
+    {{ item.title }}
+  </div>
+  }
+</div>
+
+@if (yogaStyle$ | async; as yogaStyle) {
+
 <section class="classes-page">
 
 
-  <main class="classes-main">
+  <main class="classes-main" [style.background-color]="yogaStyle.classesBodyBackgroundColor">
 
+    <div class="header-section" [style.background-color]="yogaStyle.headerBackgroundColor"
+      [style.background-image]="yogaStyle.headerBackgroundImage">
+      <img class="yoga-style-img" [src]="isYogaImageHovered ? yogaStyle.yogaImgHover : yogaStyle.yogaImg"
+        [alt]="yogaStyle.id + ' yoga'" (mouseenter)="setYogaImageHovered(true)"
+        (mouseleave)="setYogaImageHovered(false)" (focus)="setYogaImageHovered(true)"
+        (blur)="setYogaImageHovered(false)" tabindex="0">
+      <div class="header-content">
+        <div class="yoga-classes-header">
+          <div class="yoga-classes-header-bold">{{ yogaStyle.id }}</div>
+          <div class="yoga-classes-header-normal">yoga classes</div>
+        </div>
+        <div class="yoga-style-description">{{ yogaStyle.description }}</div>
+
+      </div>
+    </div>
+
+    <div class="filters-row-container" #filtersRowContainer>
+      <div class="filter-img-container">
+        <img src="/assets/images/filter.png" class="filter-img">
+      </div>
+      <div class="filters-text-box">Filters</div>
+      <div class="filters-row">
+        <div class="duration-container">
+          <div class="container-text">Duration:</div>
+          <div class="container-check-box">
+            <input class="check-box" type="checkbox">
+            <div class="check-box-description">40 min</div>
+          </div>
+          <div class="container-check-box">
+            <input class="check-box" type="checkbox">
+            <div class="check-box-description">50 min</div>
+          </div>
+          <div class="container-check-box">
+            <input class="check-box" type="checkbox">
+            <div class="check-box-description">60 min</div>
+          </div>
+        </div>
+        <div class="challenge-container">
+          <div class="container-text">Challenge level:</div>
+          <div class="container-check-box">
+            <input class="check-box" type="checkbox">
+            <div class="check-box-description">beginner</div>
+          </div>
+          <div class="container-check-box">
+            <input class="check-box" type="checkbox">
+            <div class="check-box-description">intermediate</div>
+          </div>
+          <div class="container-check-box">
+            <input class="check-box" type="checkbox">
+            <div class="check-box-description">advanced</div>
+          </div>
+        </div>
+      </div>
+      <div class="clear" (click)="clearFilters()">x clear</div>
+
+    </div>
+
+    <div class="selected-classes-container">
+      @if (selectedClasses.length === 0) {
+      <div class="selected-class-small">
+        <div class="small-class-img">
+          <video class="small-img-frame"></video>
+        </div>
+        <div class="selected-class-caption">Select a class</div>
+      </div>
+      }
+
+      @for (selectedClass of selectedClasses; track selectedClass.id) {
+      <div class="selected-class-small">
+        <div class="small-class-img">
+          <video class="small-img-frame" [src]="selectedClass.videoLink"></video>
+        </div>
+        <div class="selected-class-caption">{{ selectedClass.title }}</div>
+      </div>
+      }
+    </div>
+    @if (classes$ | async; as classes) {
+    <div class="yoga-classes-container">
+
+      <div class="yoga-classes">
+        @for (classItem of classes; track classItem.id) {
+        <div class="yoga-class-meta" [class.is-selected]="isClassSelected(classItem)" (click)="addSelectedClass(classItem)">
+          <div class="yoga-class-img">
+            <video [src]="classItem.videoLink"></video>
+          </div>
+            <div class="class-header-row">
+              <div class="teacher-name">{{ classItem.teacherName}}</div>
+              <div class="yoga-class-time">{{classItem.classLength}} Min</div>
+            </div>
+            <div class="class-name">{{ classItem.title }}</div>
+            <div class="minutes"></div>
+          <div class="class-style-row">
+            <div class="yoga-style-color" [style.background-color]="classItem.yogaStyleColor"></div>
+            <div class="style-description">
+              {{classItem.yogaStyle}} {{classItem.difficulty}} {{classItem.classLength}} Min
+            </div>
+          </div>
+          <div class="class-description">
+            {{classItem.description}}
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    }
   </main>
 </section>
+}

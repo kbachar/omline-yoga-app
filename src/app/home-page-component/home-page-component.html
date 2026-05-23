@@ -1,16 +1,4 @@
-<header class="main-header">
-	<nav class="left-navbar">
-        <div type="button" class="navbar-item" (click)="openPopup('about')">About</div>
-		<div type="button" class="navbar-item" (click)="openPopup('contact')">Contact Us</div>
-		<div type="button" class="navbar-item" (click)="openPopup('plans')">Plans</div>
-	</nav>
-	<img class="main-header-img" src="/assets/images/logo-header-index.png">
-	<nav class="navbar">
-		<div class="navbar-item" (click)="openPopup('login')">Login</div>
-		<div class="navbar-item" (click)="openPopup('subscribe')">Subscribe</div>
-	</nav>
-</header>
-
+<app-main-header></app-main-header>
 <main class="main">
 	<div class="intro">
 
@@ -37,7 +25,7 @@
 					(blur)="setHoveredStyle(null)"
 				>
 				<div class="yoga-style-header-box">
-					<div class="yoga-style-header" (click)="onStyleHeaderClick(item)">{{ item.title }}</div>
+					<div class="yoga-style-header" (click)="onStyleHeaderClick(item.id)">{{ item.title }}</div>
 				</div>
 				<div class="yoga-style-description">
 					{{ item.description }}
