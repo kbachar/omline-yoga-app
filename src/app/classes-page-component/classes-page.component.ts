@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, inject, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, inject, signal, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { YogaClass, YogaService, YogaStyle } from '../services/yoga-service';
 import { Observable, map, switchMap, tap } from 'rxjs';
+import { LoginComponent } from '../shared/login-component/login-component';
 
 @Component({
   selector: 'app-classes-page',
-  imports: [CommonModule],
+  imports: [CommonModule, LoginComponent],
   templateUrl: './classes-page.component.html',
   styleUrl: './classes-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,6 +17,7 @@ export class ClassesPageComponent implements OnInit {
   classes$!: Observable<YogaClass[]>;
   protected selectedClasses: YogaClass[] = [];
   protected isYogaImageHovered = false;
+  protected readonly isLoginModalOpen = signal(false);
   protected selectedStyleId: 'hatha' | 'vinyasa' | 'ashtanga' | 'all' = 'all';
   protected readonly items: Array<{
     id: 'hatha' | 'vinyasa' | 'ashtanga' | 'all';
@@ -75,6 +77,14 @@ export class ClassesPageComponent implements OnInit {
     });
   }
 
+  protected login(): void {
+    this.isLoginModalOpen.set(true);
+  }
+
+  protected closeLoginModal(): void {
+    this.isLoginModalOpen.set(false);
+  }
+
 
   protected openPopup(page: 'about' | 'contact' | 'plans' | 'login'): void {
     this.router.navigate([`/${page}`]);
@@ -85,6 +95,6 @@ export class ClassesPageComponent implements OnInit {
   }
 
   protected subscribe(): void {
-    // TODO: implement subscribe flow
+    this.router.navigate(['/teacher-subscribe-page']);
   }
 }

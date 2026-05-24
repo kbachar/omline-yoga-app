@@ -8,11 +8,13 @@
   <img class="classes-header-img" src="/assets/images/yoga-classes-logo.png" alt="Yoga Classes Logo" (click)="goHome()">
 
   <nav class="navbar" id="yogaClassesNavbar">
-    <div type="button" class="navbar-item" (click)="openPopup('login')">Login</div>
+    <div type="button" class="navbar-item" (click)="login()">Login</div>
     <div type="button" class="navbar-item" (click)="subscribe()">Subscribe</div>
-    <div class="navbar-item">About Us</div>
   </nav>
 </header>
+
+<app-login-component [isOpen]="isLoginModalOpen()" (closed)="closeLoginModal()"></app-login-component>
+
 <div class="classes-navbar">
   @for (item of items; track item.id) {
   <div class="classes-navbar-item" [class.is-selected]="selectedStyleId === item.id"

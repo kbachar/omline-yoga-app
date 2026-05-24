@@ -1,12 +1,14 @@
 <header class="main-header">
 	<nav class="left-navbar">
-        <div type="button" class="navbar-item" (click)="openPopup('about')">About</div>
+		<div type="button" class="navbar-item" (click)="openPopup('about')">About</div>
 		<div type="button" class="navbar-item" (click)="openPopup('contact')">Contact Us</div>
 		<div type="button" class="navbar-item" (click)="openPopup('plans')">Plans</div>
 	</nav>
 	<img class="main-header-img" src="/assets/images/logo-header-index.png" (click)="home()">
 	<nav class="navbar">
-		<div class="navbar-item" (click)="openPopup('login')">Login</div>
+		<div class="navbar-item" (click)="login()">Login</div>
 		<div class="navbar-item" (click)="onSubscribeClick()">Subscribe</div>
 	</nav>
 </header>
+
+<app-login-component [isOpen]="isLoginModalOpen()" (closed)="closeLoginModal()"></app-login-component>
