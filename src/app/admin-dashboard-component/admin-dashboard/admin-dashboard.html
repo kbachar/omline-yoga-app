@@ -1,0 +1,18 @@
+<header>
+    <img src="/assets/images/dashboard-logo.png" (click)="home()">
+</header>
+<div class="dashboard-layout">
+    <div class="side-bar">
+        <div class="side-bar-item" routerLink="/admin-dashboard">Home</div>
+        <div class="side-bar-item">Show recent activity</div>
+        <div class="side-bar-item" routerLink="/admin-dashboard/teachers" routerLinkActive="active">Teachers</div>
+        <div class="side-bar-item">Newsletters</div>
+        <div class="side-bar-item">Letters</div>
+        <div class="side-bar-item">Videos</div>
+    </div>
+    <div class="body">
+        <main class="content">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>
