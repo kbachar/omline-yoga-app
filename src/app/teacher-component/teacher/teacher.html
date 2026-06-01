@@ -1,10 +1,10 @@
 
 <div class="right-section">
     <div class="subscribe-field">
-      <input type="text" class="subscribe-field-text" placeholder="Full Name" id="contactName">
+      <input type="text" class="subscribe-field-text" placeholder="Full Name" [value]="form().fullName" (input)="onFieldInput('fullName', $event)">
     </div>
     <div class="subscribe-field">
-      <select class="subscribe-field-text" id="yogaStyle">
+      <select class="subscribe-field-text" [value]="form().yogaStyle" (change)="onFieldInput('yogaStyle', $event)">
         <option value="">Select Yoga Style</option>
         <option value="hatha">Hatha Yoga</option>
         <option value="Vinyasa">Vinyasa</option>
@@ -12,13 +12,13 @@
       </select>
     </div>
     <div class="subscribe-field">
-      <input type="email" class="subscribe-field-text" placeholder="Email Address" id="teacherEmail">
+      <input type="email" class="subscribe-field-text" placeholder="Email Address" [value]="form().email" (input)="onFieldInput('email', $event)">
     </div>
     <div class="subscribe-field">
-      <input type="url" class="subscribe-field-text" placeholder="web site" id="website">
+      <input type="url" class="subscribe-field-text" placeholder="web site" [value]="form().website" (input)="onFieldInput('website', $event)">
     </div>
     <div class="subscribe-field">
-      <select class="subscribe-field-text" id="country">
+      <select class="subscribe-field-text" [value]="form().country" (change)="onFieldInput('country', $event)">
         <option value="">-- Select Country --</option>
         <option value="AU">Australia</option>
         <option value="BR">Brazil</option>
@@ -32,10 +32,7 @@
         <option value="US">United States</option>
       </select>
     </div>
-    <div class="subscribe-field">
-      <input type="password" class="subscribe-field-text" placeholder="Password" id="password">
-    </div>
     <div class="subscribe-large-field">
-      <textarea class="subscribe-field-text" placeholder="Optional Message" id="message"></textarea>
+      <textarea class="subscribe-field-text" placeholder="Optional Message" [value]="form().message" (input)="onFieldInput('message', $event)"></textarea>
     </div>
   </div>

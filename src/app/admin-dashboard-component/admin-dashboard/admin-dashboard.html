@@ -9,8 +9,15 @@
         <div class="side-bar-item">Newsletters</div>
         <div class="side-bar-item">Letters</div>
         <div class="side-bar-item">Videos</div>
+        <div class="side-bar-item" (click)="logout()">Logout</div>
     </div>
     <div class="body">
+        <div class="welcome-bar">
+            <div class="welcome-text">Welcome, </div>
+            @if (profile$ | async; as profile) {
+            <div class="welcome-text-bold">{{ profile['Name'] }}</div>
+            }
+        </div>
         <main class="content">
             <router-outlet></router-outlet>
         </main>

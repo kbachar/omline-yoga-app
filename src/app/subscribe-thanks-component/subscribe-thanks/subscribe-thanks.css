@@ -1,0 +1,48 @@
+.subscribe-thanks-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    position: relative;
+    width: 716px;
+    height: 336px;
+    margin: 0 auto;
+    background: rgba(194, 235, 233, 0.2);
+    border: 1px solid #CAD7DC;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.subscribe-thanks-header {
+    width: auto;
+    height: 40px;
+    font-family: 'Cinzel Decorative';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    color: #2148C8;
+}
+
+.subscribe-thanks-message {
+    margin-top: 20px;
+    width: 407px;
+    font-family: 'Mona Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 0px;
+    text-transform: capitalize;
+    color: #243376;
+}
+
+img {
+    margin-top: 20px;
+}

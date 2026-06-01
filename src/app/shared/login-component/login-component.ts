@@ -10,6 +10,7 @@ import { firstValueFrom } from 'rxjs';
     styleUrl: './login-component.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class LoginComponent {
     readonly isOpen = input(false);
     readonly closed = output<void>();
@@ -81,11 +82,12 @@ export class LoginComponent {
         }
 
         const roles = (profile as Record<string, unknown>)['role'];
-        if (!roles || typeof roles !== 'object') {
-            return false;
+        console.log(roles)
+        if (roles == 'admin') {
+            return true;
         }
 
-        return Boolean((roles as Record<string, unknown>)['admin']);
+        return false;
     }
 
     private getLoginErrorMessage(error: unknown): string {
