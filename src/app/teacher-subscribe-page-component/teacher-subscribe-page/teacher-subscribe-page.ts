@@ -1,7 +1,7 @@
 import { Component, EnvironmentInjector, inject, runInInjectionContext, signal } from '@angular/core';
 import { MainHeader } from '../../main-header-component/main-header/main-header';
 import { Teacher, TeacherFormData } from '../../teacher-component/teacher/teacher';
-import { addDoc, collection, doc, Firestore, serverTimestamp, setDoc } from '@angular/fire/firestore';
+import { doc, Firestore, serverTimestamp, setDoc } from '@angular/fire/firestore';
 import { SubscribeThanks } from "../../subscribe-thanks-component/subscribe-thanks/subscribe-thanks";
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 
@@ -60,13 +60,11 @@ export class TeacherSubscribePage {
       );
 
       await runInInjectionContext(this.injector, async () => {
-        const teachers = collection(
-          this.firestore,
-          'teachers'
-        );
+        const { password: _password, ...teacherFormDataWithoutPassword } = this.teacherFormData;
 
         const teacherPayload = {
-          ...this.teacherFormData,
+          ...teacherFormDataWithoutPassword,
+          userId: credential.user.uid,
           status: 'pending',
           createdAt: serverTimestamp()
         };
@@ -74,8 +72,12 @@ export class TeacherSubscribePage {
         console.log('Teacher invite payload:', teacherPayload);
         console.table(teacherPayload);
 
-        const teacherRef = await addDoc(teachers, teacherPayload);
-        console.log('Teacher invite created with id:', teacherRef.id);
+        await setDoc(
+          doc(this.firestore, `teachers/${credential.user.uid}`),
+          teacherPayload,
+          { merge: true }
+        );
+        console.log('Teacher record created/updated with user id:', credential.user.uid);
         this.isThanksModalOpen.set(true);
       });
     });
