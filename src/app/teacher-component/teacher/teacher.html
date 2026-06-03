@@ -32,6 +32,9 @@
         <option value="US">United States</option>
       </select>
     </div>
+    <div class="subscribe-field">
+      <input type="password" class="subscribe-field-text" placeholder="Password" [value]="form().password" (input)="onFieldInput('password', $event)">
+    </div>
     <div class="subscribe-large-field">
       <textarea class="subscribe-field-text" placeholder="Optional Message" [value]="form().message" (input)="onFieldInput('message', $event)"></textarea>
     </div>

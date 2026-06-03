@@ -6,6 +6,7 @@ export interface TeacherFormData {
   email: string;
   website: string;
   country: string;
+  password: string;
   message: string;
 }
 
@@ -24,6 +25,7 @@ export class Teacher {
     email: '',
     website: '',
     country: '',
+    password: '',
     message: '',
   });
 
