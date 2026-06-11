@@ -1,0 +1,16 @@
+@if (classData(); as yogaClass) {
+
+<div class="container">
+  <div class="class-name">{{ yogaClass.title }}</div>
+  <div class="minutes"></div>
+  <div class="class-style-row">
+    <div class="yoga-style-color" [style.background-color]="yogaClass.yogaStyleColor"></div>
+    <div class="style-description">
+      {{yogaClass.yogaStyle}} {{yogaClass.difficulty}} {{yogaClass.classLength}} Min
+    </div>
+  </div>
+  <div class="class-description">
+    {{yogaClass.description}}
+  </div>
+</div>
+}

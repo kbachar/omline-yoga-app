@@ -1,0 +1,5 @@
+@if (classes$ | async; as classes) {
+@for (yogaClass of classes; track yogaClass.id) {
+<app-yoga-class [classData]="yogaClass"></app-yoga-class>
+}
+}

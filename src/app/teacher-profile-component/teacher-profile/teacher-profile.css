@@ -1,0 +1,75 @@
+@import "@fontsource/mona-sans/index.css";
+
+header {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 60px;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    color: #101C50;
+    padding-left: 130px;
+}
+
+.container {
+    position: relative;
+    width: 1085px;
+    height: 659px;
+    padding-left: 130px;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.profile-data,
+.teacher-container {
+    width: 50%;
+    margin-top: 30px;
+}
+
+
+.upload-photo {
+    box-sizing: border-box;
+    position: relative;
+    width: 50%;
+    height: 115px;
+    border-radius: 10px;
+}
+
+.about-me-container {
+    box-sizing: border-box;
+    /* display: flex;
+    flex-direction: row;
+    align-items: flex-start; */
+    padding: 0px;
+    gap: 10px;
+    position: relative;
+    width: auto;
+    height: 318px;
+    background: rgba(194, 235, 233, 0.2);
+    border: 1px solid #CAD7DC;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.about-me-text {
+    font-family: 'Mona Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 25px;
+    text-transform: capitalize;
+    color: #243376;
+    border: none;
+    background: inherit;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.about-me-text:focus {
+    outline: none;
+    box-shadow: none;
+}
+

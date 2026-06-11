@@ -3,11 +3,14 @@ import { Routes } from '@angular/router';
 import { ClassesPageComponent } from './classes-page-component/classes-page.component';
 import { HomePageComponent } from './home-page-component/home-page-component';
 import { TeacherSubscribePage } from './teacher-subscribe-page-component/teacher-subscribe-page/teacher-subscribe-page';
-import { Teacher } from './teacher-component/teacher/teacher';
+import { Teacher } from './shared/teacher-component/teacher/teacher';
 import { AdminDashboard } from './admin-dashboard-component/admin-dashboard/admin-dashboard';
 import { TeachersComponent } from './teachers-component/teachers/teachers';
 import { TeacherDashboard } from './teacher-dashboard-component/teacher-dashboard/teacher-dashboard';
 import { authGuard } from './guards/auth-guard';
+import { TeacherCompleteRegister } from './teacher-complete-register-component/teacher-complete-register/teacher-complete-register';
+import { TeacherProfile } from './teacher-profile-component/teacher-profile/teacher-profile';
+import { TeacherClasses } from './teacher-classes-component/teacher-classes/teacher-classes';
 
 export const routes: Routes = [
 
@@ -23,14 +26,15 @@ export const routes: Routes = [
 		path: 'teacher-subscribe-page',
 		component: TeacherSubscribePage
 	},
-	{
-		path: 'teacher',
-		component: Teacher
-	},
+	
 	{
 		path: 'teacher-dashboard',
 		canActivate: [authGuard],
-		component: TeacherDashboard
+		component: TeacherDashboard,
+		children: [
+			{ path: 'teacher-profile', component: TeacherProfile },
+			{ path: 'teacher-classes/:teacherId', component: TeacherClasses }
+		]
 	},
 	{
 		path: 'admin-dashboard',

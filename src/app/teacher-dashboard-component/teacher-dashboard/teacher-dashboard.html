@@ -1,25 +1,36 @@
 <header>
     <img src="/assets/images/dashboard-logo.png" (click)="home()">
+    <div class="back-container">
+        <div class="back"> Back to site</div>
+    </div>
 </header>
 <div class="dashboard-layout">
     <div class="side-bar">
-        <div class="side-bar-item" routerLink="/admin-dashboard">Home</div>
-        <div class="side-bar-item">my profile</div>
-        <div class="side-bar-item">my classes</div>
-        <div class="side-bar-item">upload class</div>
-        <div class="side-bar-item">views info</div>
-        <div class="side-bar-item">Payments</div>
+        <div class="side-bar-item" 
+        
+            [routerLink]="'/teacher-dashboard'">Home</div>
+        <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()" [routerLink]="teacherStatusPending() ? null : 'teacher-profile'">my profile</div>
+        <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()" [routerLink]="teacherStatusPending() ? null : ['teacher-classes', uid]">my classes</div>
+        <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()">upload class</div>
+        <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()">views info</div>
+        <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()">Payments</div>
         <div class="side-bar-item" (click)="logout()">Logout</div>
     </div>
     <div class="body">
         <div class="welcome-bar">
             <div class="welcome-text">Welcome, </div>
             @if (profile$ | async; as profile) {
-            <div class="welcome-text-bold">{{ profile['Name'] }}</div>
+            <div class="welcome-text-bold">{{ profile['fullName'] ?? profile['Name'] }}</div>
             }
         </div>
         <main class="content">
-            <router-outlet></router-outlet>
+            @if (teacherStatusPending() && !hideCompleteRegister()) {
+                <app-teacher-complete-register (updateProfileRequested)="openTeacherProfile()"></app-teacher-complete-register>
+            }
+
+        <router-outlet></router-outlet>
+
+
         </main>
     </div>
 </div>

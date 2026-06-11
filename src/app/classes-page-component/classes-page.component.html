@@ -112,25 +112,16 @@
 
       <div class="yoga-classes">
         @for (classItem of classes; track classItem.id) {
-        <div class="yoga-class-meta" [class.is-selected]="isClassSelected(classItem)" (click)="addSelectedClass(classItem)">
+        <div class="yoga-class-meta" [class.is-selected]="isClassSelected(classItem)"
+          (click)="addSelectedClass(classItem)">
           <div class="yoga-class-img">
             <video [src]="classItem.videoLink"></video>
           </div>
-            <div class="class-header-row">
-              <div class="teacher-name">{{ classItem.teacherName}}</div>
-              <div class="yoga-class-time">{{classItem.classLength}} Min</div>
-            </div>
-            <div class="class-name">{{ classItem.title }}</div>
-            <div class="minutes"></div>
-          <div class="class-style-row">
-            <div class="yoga-style-color" [style.background-color]="classItem.yogaStyleColor"></div>
-            <div class="style-description">
-              {{classItem.yogaStyle}} {{classItem.difficulty}} {{classItem.classLength}} Min
-            </div>
+          <div class="class-header-row">
+            <div class="teacher-name">{{ classItem.teacherName}}</div>
+            <div class="yoga-class-time">{{classItem.classLength}} Min</div>
           </div>
-          <div class="class-description">
-            {{classItem.description}}
-          </div>
+          <app-yoga-class [classData]="classItem"></app-yoga-class>
         </div>
         }
       </div>

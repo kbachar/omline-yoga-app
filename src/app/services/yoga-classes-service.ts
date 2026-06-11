@@ -1,20 +1,10 @@
 import { Injectable, EnvironmentInjector, inject, runInInjectionContext } from '@angular/core';
 import { Firestore, collection, getDocs } from '@angular/fire/firestore';
 import { Observable, from, map, shareReplay, switchMap, tap } from 'rxjs';
+import { YogaClassData } from '../shared/yoga-class-data';
+import { YogaClass } from '../shared/yoga-class-component/yoga-class/yoga-class';
 
-export interface YogaClass {
-  id: string;
-  title: string;
-  teacherId?: string;
-  classLength: number;
-  description: string;
-  difficulty: string;
-  videoLink: string;
-  yogaStyle: string;
-  teacherName?: string;
-  yogaStyleColor?: string;
-
-}
+export type { YogaClassData };
 
 export interface YogaStyle {
   id: string;
@@ -29,7 +19,7 @@ export interface YogaStyle {
 
 export interface YogaTeacher {
   teacherId?: string;
-  ContactName?: string;
+  fullName?: string;
   address?: string;
   approved?: boolean;
   bankVerified?: boolean;
@@ -66,9 +56,9 @@ const STYLE_THEME: Record<YogaStyleId, Omit<YogaStyle, 'id' | 'description' | 'y
 @Injectable({
   providedIn: 'root',
 })
-export class YogaService {
+export class YogaClassesService {
   private yogaStyles$?: Observable<YogaStyle[]>;
-  private yogaClasses$?: Observable<YogaClass[]>;
+  private yogaClasses$?: Observable<YogaClassData[]>;
   private yogaTeachers$?: Observable<YogaTeacher[]>;
   private readonly firestore = inject(Firestore);
   private readonly injector = inject(EnvironmentInjector);
@@ -137,7 +127,7 @@ export class YogaService {
     );
   }
 
-  getClasses(): Observable<YogaClass[]> {
+  getClasses(): Observable<YogaClassData[]> {
     if (this.yogaClasses$) {
       return this.yogaClasses$;
     }
@@ -150,7 +140,7 @@ export class YogaService {
     ).pipe(
       map((snapshot) =>
         snapshot.docs.map((doc) => {
-          const data = doc.data() as Partial<YogaClass>;
+          const data = doc.data() as Partial<YogaClassData>;
           const theme = STYLE_THEME[(data.yogaStyle?.toLowerCase() as YogaStyleId)];
           return {
             id: data.id ?? doc.id,
@@ -162,7 +152,7 @@ export class YogaService {
             videoLink: data.videoLink,
             yogaStyle: data.yogaStyle,
             yogaStyleColor: theme.headerBackgroundColor
-          } as YogaClass;
+          } as YogaClassData;
         })
       ),
 
@@ -171,7 +161,7 @@ export class YogaService {
         this.getTeachers().pipe(
           map((teachers) => {
             const teachersById = new Map(
-              teachers.map((teacher) => [teacher.teacherId, teacher.ContactName] as const)
+              teachers.map((teacher) => [teacher.teacherId, teacher.fullName] as const)
             );
 
             return classes.map((yogaClass) => ({
@@ -189,7 +179,17 @@ export class YogaService {
     return this.yogaClasses$;
   }
 
-  getFilteredClasses(yogaStyle: string, difficulty: string | null, duration: number | null): Observable<YogaClass[]> {
+  getClassesByTeacherID(teacherID: string | undefined): Observable<YogaClassData[]> {
+    console.log(`Teacher classes ${teacherID}`)
+    return this.getClasses().pipe(
+      map((classes) =>
+        classes.filter((yogaClass) => yogaClass.teacherId === teacherID)
+      )
+    );
+  }
+  
+  
+  getFilteredClasses(yogaStyle: string, difficulty: string | null, duration: number | null): Observable<YogaClassData[]> {
     const normalizedStyle = yogaStyle.trim().toLowerCase();
     const normalizedDifficulty = difficulty?.trim().toLowerCase();
 
@@ -225,7 +225,7 @@ export class YogaService {
           const data = doc.data() as Partial<YogaTeacher>;
           return {
             teacherId: data.teacherId ?? doc.id,
-            ContactName: data.ContactName,
+            fullName: data.fullName,
             address: data.address,
             approved: data.approved,
             bankVerified: data.bankVerified,

@@ -1,6 +1,7 @@
 import { Component, EnvironmentInjector, inject, runInInjectionContext, signal } from '@angular/core';
 import { MainHeader } from '../../main-header-component/main-header/main-header';
-import { Teacher, TeacherFormData } from '../../teacher-component/teacher/teacher';
+import { Teacher } from '../../shared/teacher-component/teacher/teacher';
+import { TeacherFormData } from '../../shared/teacher-form-data';
 import { doc, Firestore, serverTimestamp, setDoc } from '@angular/fire/firestore';
 import { SubscribeThanks } from "../../subscribe-thanks-component/subscribe-thanks/subscribe-thanks";
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
@@ -23,7 +24,7 @@ export class TeacherSubscribePage {
     website: '',
     country: '',
     password: '',
-    message: ''
+    teacherID: ''
   };
 
   private auth = inject(Auth);

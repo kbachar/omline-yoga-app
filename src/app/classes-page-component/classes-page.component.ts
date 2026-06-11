@@ -1,21 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, inject, signal, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { YogaClass, YogaService, YogaStyle } from '../services/yoga-service';
+import { YogaClassesService, YogaStyle } from '../services/yoga-classes-service';
+import { YogaClassData } from '../shared/yoga-class-data';
 import { Observable, map, switchMap, tap } from 'rxjs';
 import { LoginComponent } from '../shared/login-component/login-component';
+import { YogaClass } from "../shared/yoga-class-component/yoga-class/yoga-class";
 
 @Component({
   selector: 'app-classes-page',
-  imports: [CommonModule, LoginComponent],
+  imports: [CommonModule, LoginComponent, YogaClass],
   templateUrl: './classes-page.component.html',
   styleUrl: './classes-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClassesPageComponent implements OnInit {
   yogaStyle$!: Observable<YogaStyle>;
-  classes$!: Observable<YogaClass[]>;
-  protected selectedClasses: YogaClass[] = [];
+  classes$!: Observable<YogaClassData[]>;
+  protected selectedClasses: YogaClassData[] = [];
   protected isYogaImageHovered = false;
   protected readonly isLoginModalOpen = signal(false);
   protected selectedStyleId: 'hatha' | 'vinyasa' | 'ashtanga' | 'all' = 'all';
@@ -31,7 +33,7 @@ export class ClassesPageComponent implements OnInit {
 
   private route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private yogaService = inject(YogaService);
+  private yogaService = inject(YogaClassesService);
   private readonly filtersRowContainer = viewChild.required<ElementRef<HTMLDivElement>>('filtersRowContainer');
 
   ngOnInit() {
@@ -55,7 +57,7 @@ export class ClassesPageComponent implements OnInit {
     this.isYogaImageHovered = isHovered;
   }
 
-  protected addSelectedClass(yogaClass: YogaClass): void {
+  protected addSelectedClass(yogaClass: YogaClassData): void {
     const isAlreadySelected = this.selectedClasses.some((selected) => selected.id === yogaClass.id);
     if (isAlreadySelected) {
       this.selectedClasses = this.selectedClasses.filter((selected) => selected.id !== yogaClass.id);
@@ -65,7 +67,7 @@ export class ClassesPageComponent implements OnInit {
     this.selectedClasses = [...this.selectedClasses, yogaClass];
   }
 
-  protected isClassSelected(yogaClass: YogaClass): boolean {
+  protected isClassSelected(yogaClass: YogaClassData): boolean {
     return this.selectedClasses.some((selected) => selected.id === yogaClass.id);
   }
 
