@@ -9,7 +9,7 @@ import { YogaClass } from '../../shared/yoga-class-component/yoga-class/yoga-cla
 import { doc, Firestore } from '@angular/fire/firestore';
 import { docData } from '@angular/fire/firestore';
 import { TeacherFormData } from '../../shared/teacher-form-data';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-teacher-classes',
@@ -21,6 +21,7 @@ export class TeacherClasses implements OnInit {
   private readonly auth = inject(Auth);
   private readonly firestore = inject(Firestore);
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
 
   readonly user$ = authState(this.auth);
 
@@ -46,6 +47,15 @@ export class TeacherClasses implements OnInit {
       map(params => params.get('teacherId') ?? undefined),
       switchMap(teacherId => this.yogaService.getClassesByTeacherID(teacherId))
     );
+  }
+
+  editClass(yogaClass: YogaClassData) {
+    this.router.navigate(['/teacher-dashboard/yoga-class-details', yogaClass.id]);
+
+  }
+  
+  changeImgSrc() {
+    
   }
 
 }

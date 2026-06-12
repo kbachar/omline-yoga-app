@@ -11,6 +11,7 @@ import { authGuard } from './guards/auth-guard';
 import { TeacherCompleteRegister } from './teacher-complete-register-component/teacher-complete-register/teacher-complete-register';
 import { TeacherProfile } from './teacher-profile-component/teacher-profile/teacher-profile';
 import { TeacherClasses } from './teacher-classes-component/teacher-classes/teacher-classes';
+import { YogaClassDetails } from './shared/yoga-class-details-component/yoga-class-details/yoga-class-details';
 
 export const routes: Routes = [
 
@@ -33,7 +34,8 @@ export const routes: Routes = [
 		component: TeacherDashboard,
 		children: [
 			{ path: 'teacher-profile', component: TeacherProfile },
-			{ path: 'teacher-classes/:teacherId', component: TeacherClasses }
+			{ path: 'teacher-classes/:teacherId', component: TeacherClasses},
+				{ path: 'yoga-class-details/:classID', component: YogaClassDetails }
 		]
 	},
 	{
