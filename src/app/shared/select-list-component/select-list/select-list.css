@@ -1,0 +1,31 @@
+.select-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    height: 50px;
+    background: rgba(194, 235, 233, 0.2);
+    border: 1px solid #CAD7DC;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    width: 513px;
+}
+
+select {
+    width: 513px;
+    margin-left: 10px;
+    background: transparent;
+    font-family: 'Mona Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    color: rgba(36, 51, 118, 0.7);
+    border: none;
+    outline: none;
+}

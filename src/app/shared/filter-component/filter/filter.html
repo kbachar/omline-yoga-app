@@ -1,0 +1,7 @@
+    <div class="container">
+        <div class="text-container">{{inputValue()}}</div>
+        @for (item of checkBoxes; track item) {
+            <app-check-box [inputValue]="item"></app-check-box>
+        }
+    </div>
+

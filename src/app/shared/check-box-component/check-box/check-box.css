@@ -1,0 +1,42 @@
+
+.container-check-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    height: 20px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.check-box {
+    box-sizing: border-box;
+    width: 15px;
+    height: 15px;
+    background: #DEE8F2;
+    border: 1px solid #243376;
+    border-radius: 2px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.check-box-description {
+    height: 20px;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    color: #101C50;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}

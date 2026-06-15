@@ -3,6 +3,7 @@ import { Firestore, collection, getDocs } from '@angular/fire/firestore';
 import { Observable, from, map, shareReplay, switchMap, tap } from 'rxjs';
 import { YogaClassData } from '../shared/yoga-class-data';
 import { YogaClass } from '../shared/yoga-class-component/yoga-class/yoga-class';
+import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 
 export type { YogaClassData };
 
@@ -180,7 +181,6 @@ export class YogaClassesService {
   }
 
   getClassesByTeacherID(teacherID: string | undefined): Observable<YogaClassData[]> {
-    console.log(`Teacher classes ${teacherID}`)
     return this.getClasses().pipe(
       map((classes) =>
         classes.filter((yogaClass) => yogaClass.teacherId === teacherID)
@@ -188,6 +188,12 @@ export class YogaClassesService {
     );
   }
   
+  getClassByID(classId: string | undefined): Observable<YogaClassData | undefined> {
+    console.log(`class id ${classId}`)
+    return this.getClasses().pipe(
+      map((classes) => classes.find((yogaClass) => yogaClass.id === classId))
+    );
+  }
   
   getFilteredClasses(yogaStyle: string, difficulty: string | null, duration: number | null): Observable<YogaClassData[]> {
     const normalizedStyle = yogaStyle.trim().toLowerCase();

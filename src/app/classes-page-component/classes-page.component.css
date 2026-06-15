@@ -358,10 +358,11 @@
   background: rgba(28, 90, 142, 0.1);
   border: 1px solid #1F6B9A;
   border-radius: 10px;
-  margin-left: 316px;
-  margin-right: 200px;
+  margin-left: 220px;
+  margin-right: 220px;
   gap: 35px;
   padding: 30px;
+  min-width: 1227px;
 }
 
 .selected-class-small {
@@ -464,16 +465,19 @@
   align-content: flex-start;
   text-align: left;
   min-height: 1500px;
-  margin-left: 316px;
-  margin-right: 200px;
+   margin-left: 220px;
+  margin-right: 220px;
 }
 
 .yoga-classes {
-  display: flex;
   margin: 50px 0;
   margin-right: 0;
   margin-left: 0;
   gap: 24px;
+  width: 412px;
+  height: 606px;
+  display: flex;
+  flex-direction: row;
 }
 
 .yoga-class-img {
@@ -550,7 +554,7 @@
   gap: 8px;
 }
 
-.style-description {
+/* .style-description {
   font-family: 'Raleway';
   font-style: italic;
   font-weight: 400;
@@ -560,7 +564,7 @@
   text-transform: capitalize;
   color: #101C50;
   margin-left: 10px;
-}
+} */
 
 .yoga-class-time {
   margin-left: auto;

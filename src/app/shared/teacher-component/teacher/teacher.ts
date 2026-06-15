@@ -2,23 +2,44 @@ import { Component, effect, inject, input, output, signal } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Auth, authState } from '@angular/fire/auth';
 import { TeacherFormData } from '../../teacher-form-data';
+import { TextBox } from "../../text-box-component/text-box/text-box";
+import { SelectList } from "../../select-list-component/select-list/select-list";
+import { YogaClassesFilter } from "../../yoga-classes-filter-component/yoga-classes-filter/yoga-classes-filter";
+import { yogaStyles } from "../../yoga-class-details-component/yoga-class-details/yoga-styles-data";
 
 @Component({
   selector: 'app-teacher',
-  imports: [],
+  imports: [ TextBox, SelectList, YogaClassesFilter],
   templateUrl: './teacher.html',
   styleUrl: './teacher.css',
 })
+
 export class Teacher {
   private readonly auth = inject(Auth);
   readonly profileData = input<TeacherFormData | null>(null);
   readonly teacherDataChange = output<TeacherFormData>();
   protected readonly isPasswordVisible = signal(false);
   protected readonly user = toSignal(authState(this.auth), {
-    
-    initialValue: null 
+
+    initialValue: null
   });
-  
+
+  readonly yogaStyles = yogaStyles;
+
+  countries = [
+    'Australia',
+    'Brazil',
+    'Canada',
+    'Germany',
+    'France',
+    'United Kingdom',
+    'Israel',
+    'India',
+    'Japan',
+    'United States',
+    'Other'
+  ];
+
 
   protected readonly form = signal<TeacherFormData>({
     fullName: '',
@@ -63,5 +84,4 @@ export class Teacher {
       : '/assets/images/hide-password.png';
   }
 }
-//export { TeacherFormData };
 

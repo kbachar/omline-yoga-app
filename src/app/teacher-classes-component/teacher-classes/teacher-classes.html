@@ -1,13 +1,15 @@
 <div class="container">
-    @if (classes$ | async; as classes) {
-    @for (yogaClass of classes; track yogaClass.id) {
-    <div class="class-container">
-        <video [src]="yogaClass.videoLink"></video>
-        <app-yoga-class [classData]="yogaClass"></app-yoga-class>
-        <button (click)="editClass(yogaClass)">view & edit</button>
-        <!-- <div class="img-container">
+    <div class="classes-container">
+        @if (classes$ | async; as classes) {
+        @for (yogaClass of classes; track yogaClass.id) {
+        <div class="class-container">
+            <video [src]="yogaClass.videoLink"></video>
+            <app-yoga-class [classData]="yogaClass" [descriptionWidth]="880"></app-yoga-class>
+            <img (click)="editClass(yogaClass)" [src]="'/assets/images/view-edit-btn.png'">
+            <!-- <div class="img-container">
             <img [src]="'/assets/images/hide-icon.png'" (click)="changeImgSrc()">
         </div> -->
+        </div>
+        }}
     </div>
-    }}
 </div>

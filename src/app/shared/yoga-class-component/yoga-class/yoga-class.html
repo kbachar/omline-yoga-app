@@ -9,7 +9,7 @@
       {{yogaClass.yogaStyle}} {{yogaClass.difficulty}} {{yogaClass.classLength}} Min
     </div>
   </div>
-  <div class="class-description">
+  <div class="class-description" [style.maxWidth.px]="descriptionWidth()">
     {{yogaClass.description}}
   </div>
 </div>

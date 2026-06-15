@@ -13,8 +13,8 @@ export class YogaClass implements OnInit {
 
   private yogaService = inject(YogaClassesService);
 readonly classData = input.required<YogaClassData>();
+readonly descriptionWidth = input<number>();
   ngOnInit(): void {
-    console.log(this.classData)
   }
 
 }

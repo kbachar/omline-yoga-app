@@ -1,1 +1,7 @@
-<p>yoga-class-details works!</p>
+@if (yogaClass$ | async; as yogaClass) {
+<div class="container">
+    <div class="left-side">
+        <app-text-box [inputValue]="yogaClass.title" [placeholderValue]="'class name'"></app-text-box>
+    </div>
+</div>
+}

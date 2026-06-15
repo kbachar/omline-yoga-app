@@ -1,0 +1,18 @@
+.container {
+max-width: 1638px;
+min-height: 1283px;
+
+background: #FFFFFF;
+border-radius: 20px 0px 0px 0px;
+
+}
+
+.left-side {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+

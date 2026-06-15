@@ -1,4 +1,12 @@
 .container {
+    position: relative;
+    max-width: 1638px;
+    min-height: 1283px;
+    background: #FFFFFF;
+    border-radius: 20px 0px 0px 0px;
+}
+
+.classes-container {
     flex-direction: column;
     display: flex;
     gap: 20px;
@@ -10,20 +18,21 @@
     box-sizing: border-box;
 
     position: relative;
-    width: auto;
+    max-width: 1107px;
     min-height: 154px;
+    max-height: 154px;
 
     background: rgba(113, 131, 215, 0.1);
     border: 1px solid #1F6B9A;
     border-radius: 10px;
 
-    padding: 10px;
+    padding: 24px;
     flex-direction: row;
     display: flex;
     gap: 20px;
     align-items: center;
     justify-content: flex-start;
-    
+
 
 }
 
@@ -38,25 +47,20 @@ video {
 
 }
 
-button {
-    /* Button */
-
-/* Auto layout */
-align-self: flex-start;
-margin-left: auto;
-padding: 4px 12px;
-
-background: #FFFFFF;
-border: 1px solid #1F6B9A;
-border-radius: 50px;
-cursor: pointer;
+img {
+    position: relative;
+    cursor: pointer;
+    width: 109px;
+    height: 28px;
+    margin-left: auto;
+    align-self: flex-start;
 
 }
 
-button:hover {
+/* img:hover {
 background-color: #aeb2b4;
 
-}
+} */
 
 /* .img-container {
     height: 104px;
