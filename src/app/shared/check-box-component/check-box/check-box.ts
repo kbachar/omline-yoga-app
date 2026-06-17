@@ -8,5 +8,6 @@ import { Component, input } from '@angular/core';
 })
 export class CheckBox {
   readonly inputValue = input<string | null>(null);
+  readonly checked = input<boolean>(false);
 
 }

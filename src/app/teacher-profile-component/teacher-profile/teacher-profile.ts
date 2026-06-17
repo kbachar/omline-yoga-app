@@ -3,13 +3,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Auth, authState } from '@angular/fire/auth';
 import { doc, Firestore, getDoc } from '@angular/fire/firestore';
 import { Teacher } from '../../shared/teacher-component/teacher/teacher';
-import { TeacherFormData } from '../../shared/teacher-form-data';
+import { YogaTeacher } from '../../shared/yoga-teacher-data';
 import { from, map, of, switchMap } from 'rxjs';
+import { TextArea } from "../../shared/text-area-component/text-area/text-area";
 
 
 @Component({
   selector: 'app-teacher-profile',
-  imports: [Teacher],
+  imports: [Teacher, TextArea],
   templateUrl: './teacher-profile.html',
   styleUrl: './teacher-profile.css',
 })
@@ -35,17 +36,23 @@ export class TeacherProfile {
     { initialValue: null }
   );
 
-  readonly profileData = computed<TeacherFormData>(() => {
+  
+
+  readonly profileData = computed<YogaTeacher>(() => {
     const profile = this.rawProfileData();
 
+    console.log(profile);
     return {
       fullName: typeof profile?.['fullName'] === 'string' ? profile['fullName'] : '',
-      yogaStyle: typeof profile?.['yogaStyle'] === 'string' ? profile['yogaStyle'] : '',
+      yogaStyle: Array.isArray(profile?.['yogaStyle'])
+        ? profile['yogaStyle'].filter((style): style is string => typeof style === 'string')
+        : [],
       email: typeof profile?.['email'] === 'string' ? profile['email'] : '',
       website: typeof profile?.['website'] === 'string' ? profile['website'] : '',
       country: typeof profile?.['country'] === 'string' ? profile['country'] : '',
       password: '',
-      teacherID: typeof profile?.['teacherID'] === 'string' ? profile['teacherID'] : ''
+      teacherID: typeof profile?.['teacherID'] === 'string' ? profile['teacherID'] : '',
+      status: typeof profile?.['status'] === 'string' ? profile['status'] : ''
     };
   });
 }

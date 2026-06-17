@@ -1,0 +1,29 @@
+.container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    position: relative;
+    width: 633px;
+    height: 308px;
+    border: 1px solid #CAD7DC;
+    border-radius: 10px;
+    margin-left: 20px;
+}
+
+textarea {
+    font-family: 'Mona Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 25px;
+    text-transform: capitalize;
+    color: #243376;
+    width: 633px;
+    height: 308px;
+    background: rgba(194, 235, 233, 0.2);
+    border: none;
+    outline: none;
+    resize: none;
+}

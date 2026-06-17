@@ -33,7 +33,7 @@
 
 .subscribe-thanks-message {
     margin-top: 20px;
-    width: 407px;
+    width: auto;
     font-family: 'Mona Sans';
     font-style: normal;
     font-weight: 400;
@@ -45,4 +45,5 @@
 
 img {
     margin-top: 20px;
+    cursor: pointer;
 }

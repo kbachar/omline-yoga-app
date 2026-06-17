@@ -4,10 +4,12 @@ import { Observable, from, map, shareReplay, switchMap, tap } from 'rxjs';
 import { YogaClassData } from '../shared/yoga-class-data';
 import { YogaClass } from '../shared/yoga-class-component/yoga-class/yoga-class';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
+import { yogaStyles } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
+import { YogaTeacher } from '../shared/yoga-teacher-data';
 
 export type { YogaClassData };
 
-export interface YogaStyle {
+export interface YogaStyleDescription {
   id: string;
   description: string;
   yogaImg: string;
@@ -18,24 +20,24 @@ export interface YogaStyle {
 
 }
 
-export interface YogaTeacher {
-  teacherId?: string;
-  fullName?: string;
-  address?: string;
-  approved?: boolean;
-  bankVerified?: boolean;
-  company?: string;
-  country?: string;
-  email?: string;
-  message?: string;
-  website?: string;
-  yogaStyle?: string;
+// export interface YogaTeacher {
+//   teacherId?: string;
+//   fullName?: string;
+//   address?: string;
+//   approved?: boolean;
+//   bankVerified?: boolean;
+//   company?: string;
+//   country?: string;
+//   email?: string;
+//   message?: string;
+//   website?: string;
+//   yogaStyle?: [];
 
-}
+// }
 
-type YogaStyleId = 'hatha' | 'vinyasa' | 'ashtanga' | 'all';
+type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 
-const STYLE_THEME: Record<YogaStyleId, Omit<YogaStyle, 'id' | 'description' | 'yogaImg' | 'yogaImgHover' | 'headerBackgroundImage'>> = {
+const STYLE_THEME: Record<YogaStyleId, Omit<YogaStyleDescription, 'id' | 'description' | 'yogaImg' | 'yogaImgHover' | 'headerBackgroundImage'>> = {
   hatha: {
     headerBackgroundColor: '#4456A9',
     classesBodyBackgroundColor: '#EBEBF5'
@@ -58,7 +60,7 @@ const STYLE_THEME: Record<YogaStyleId, Omit<YogaStyle, 'id' | 'description' | 'y
   providedIn: 'root',
 })
 export class YogaClassesService {
-  private yogaStyles$?: Observable<YogaStyle[]>;
+  private yogaStyles$?: Observable<YogaStyleDescription[]>;
   private yogaClasses$?: Observable<YogaClassData[]>;
   private yogaTeachers$?: Observable<YogaTeacher[]>;
   private readonly firestore = inject(Firestore);
@@ -68,7 +70,7 @@ export class YogaClassesService {
     this.yogaTeachers$ = this.getTeachers();
   }
   
-  getYogaStyles(): Observable<YogaStyle[]> {
+  getYogaStyles(): Observable<YogaStyleDescription[]> {
     if (this.yogaStyles$) {
       return this.yogaStyles$;
     }
@@ -81,15 +83,15 @@ export class YogaClassesService {
     ).pipe(
       map((snapshot) =>
         snapshot.docs.map((doc) => {
-          const data = doc.data() as Partial<YogaStyle>;
+          const data = doc.data() as Partial<YogaStyleDescription>;
           const styleId = (data.id ?? doc.id).toLowerCase();
           return {
-            ...(data as Omit<YogaStyle, 'id'>),
+            ...(data as Omit<YogaStyleDescription, 'id'>),
             id: styleId,
             yogaImg: `/assets/images/${styleId}1.png`,
             yogaImgHover: `/assets/images/${styleId}2.png`,
             headerBackgroundImage: `url('/assets/images/${styleId}-background.png')`
-          } as YogaStyle;
+          } as YogaStyleDescription;
         })
       ),
     );
@@ -97,7 +99,7 @@ export class YogaClassesService {
     return this.yogaStyles$;
   }
 
-  getYogaStyle(id: string | null): Observable<YogaStyle> {
+  getYogaStyle(id: string | null): Observable<YogaStyleDescription> {
     const styleId = (id ?? 'all').toLowerCase();
     const theme = STYLE_THEME[(styleId as YogaStyleId)];
     return this.getYogaStyles().pipe(
@@ -162,7 +164,7 @@ export class YogaClassesService {
         this.getTeachers().pipe(
           map((teachers) => {
             const teachersById = new Map(
-              teachers.map((teacher) => [teacher.teacherId, teacher.fullName] as const)
+              teachers.map((teacher) => [teacher.teacherID, teacher.fullName] as const)
             );
 
             return classes.map((yogaClass) => ({
@@ -228,19 +230,15 @@ export class YogaClassesService {
     ).pipe(
       map((snapshot) =>
         snapshot.docs.map((doc) => {
-          const data = doc.data() as Partial<YogaTeacher>;
+          const data = doc.data() as YogaTeacher;
           return {
-            teacherId: data.teacherId ?? doc.id,
             fullName: data.fullName,
-            address: data.address,
-            approved: data.approved,
-            bankVerified: data.bankVerified,
-            company: data.company,
-            country: data.country,
+            yogaStyle: data.yogaStyle,
             email: data.email,
-            message: data.message,
             website: data.website,
-            yogaStyle: data.yogaStyle
+            country: data.country,
+            teacherID: data.teacherID,
+            status: data.status,
           } as YogaTeacher;
         })
       ),

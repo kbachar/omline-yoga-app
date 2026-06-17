@@ -1,7 +1,11 @@
-    <div class="container">
-        <div class="filter-text">{{filterName()}}</div>
-        @for (filterOption of filterOptions(); track filterOption) {
-            <app-check-box [inputValue]="filterOption"></app-check-box>
-        }
-    </div>
-
+<div class="container">
+    <div class="filter-text">{{filterName()}}</div>
+    @for (filterOption of filterOptions(); track filterOption) {
+    @if (selectedOptions()?.find(o => o == filterOption)) {
+    <app-check-box [inputValue]="filterOption" [checked]="true"></app-check-box>
+    }
+    @else {
+    <app-check-box [inputValue]="filterOption"></app-check-box>
+    }
+    }
+</div>

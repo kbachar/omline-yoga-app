@@ -25,7 +25,7 @@ export class TeacherDashboard {
   user$ = runInInjectionContext(this.injector, () => authState(this.auth));
   profile$ = this.user$.pipe(
     switchMap(user => {
-      if (!user) return of(null);      
+      if (!user) return of(null);
       return from(
         runInInjectionContext(this.injector, () => getDoc(doc(this.firestore, `teachers/${user.uid}`)))
       ).pipe(
@@ -58,7 +58,7 @@ export class TeacherDashboard {
   readonly hideCompleteRegister = computed(
     () => !this.teacherStatusPending() || this.currentUrl().includes('/teacher-dashboard/teacher')
   );
-  
+
   async logout() {
     await this.authService.logout();
     this.home();

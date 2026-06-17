@@ -10,5 +10,6 @@ import { CheckBox } from "../../check-box-component/check-box/check-box";
 export class YogaClassesFilter {
   readonly filterName = input<string | null>(null);
   readonly filterOptions = input<string[] | null>(null);
+  readonly selectedOptions = input<string[] | null>(null);
 
 }

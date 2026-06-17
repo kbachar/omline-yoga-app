@@ -1,10 +1,12 @@
-import { Component, EnvironmentInjector, inject, runInInjectionContext, signal } from '@angular/core';
+import { Component, computed, effect, EnvironmentInjector, inject, runInInjectionContext, signal } from '@angular/core';
 import { MainHeader } from '../../main-header-component/main-header/main-header';
 import { Teacher } from '../../shared/teacher-component/teacher/teacher';
-import { TeacherFormData } from '../../shared/teacher-form-data';
-import { doc, Firestore, serverTimestamp, setDoc } from '@angular/fire/firestore';
+import { YogaTeacher } from '../../shared/yoga-teacher-data';
+import { doc, Firestore, getDoc, serverTimestamp, setDoc } from '@angular/fire/firestore';
 import { SubscribeThanks } from "../../subscribe-thanks-component/subscribe-thanks/subscribe-thanks";
-import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, authState, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { from, map, of, switchMap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-teacher-subscribe-page',
@@ -17,20 +19,40 @@ export class TeacherSubscribePage {
   protected readonly isSubscribeHovered = signal(false);
   private readonly injector = inject(EnvironmentInjector);
   private firestore = inject(Firestore);
-  protected teacherFormData: TeacherFormData = {
+  protected yogaTeacherData: YogaTeacher = {
     fullName: '',
-    yogaStyle: '',
+    yogaStyle: [],
     email: '',
     website: '',
     country: '',
-    password: '',
-    teacherID: ''
+    teacherID: '',
+    status: ''
   };
 
   private auth = inject(Auth);
 
+  readonly user = toSignal(
+    runInInjectionContext(this.injector, () => authState(this.auth)),
+    { initialValue: null }
+  );
+
+  readonly isLoggedUser = computed(() => this.user() !== null);
+  password: string = '';
+
+  constructor() {
+    effect(() => {
+      const isLoggedIn = this.isLoggedUser();
+      console.log('isLoggedUser:', isLoggedIn);
+      if (isLoggedIn) {
+        this.isThanksModalOpen.set(true);
+      }
+    });
+  }
+
   protected setSubscribeHovered(isHovered: boolean): void {
     this.isSubscribeHovered.set(isHovered);
+
+
   }
 
   protected subscribeButtonSrc(): string {
@@ -43,8 +65,8 @@ export class TeacherSubscribePage {
     await runInInjectionContext(this.injector, async () => {
       const credential = await createUserWithEmailAndPassword(
         this.auth,
-        this.teacherFormData.email,
-        this.teacherFormData.password
+        this.yogaTeacherData.email,
+        this.password
       );
 
       console.log(credential.user.uid);
@@ -53,7 +75,7 @@ export class TeacherSubscribePage {
         setDoc(
           doc(this.firestore, `users/${credential.user.uid}`),
           {
-            Name: this.teacherFormData.fullName,
+            Name: this.yogaTeacherData?.fullName,
             role: 'teacher',
             isAdmin: false
           }
@@ -61,10 +83,10 @@ export class TeacherSubscribePage {
       );
 
       await runInInjectionContext(this.injector, async () => {
-        const { password: _password, ...teacherFormDataWithoutPassword } = this.teacherFormData;
+        //const { password: _password, ...teacherFormDataWithoutPassword } = this.yogaTeacherData;
 
         const teacherPayload = {
-          ...teacherFormDataWithoutPassword,
+          password: '',
           userId: credential.user.uid,
           status: 'pending',
           createdAt: serverTimestamp()
@@ -84,8 +106,12 @@ export class TeacherSubscribePage {
     });
   }
 
-  protected onTeacherDataChange(data: TeacherFormData): void {
-    this.teacherFormData = data;
+  protected onTeacherDataChange(data: YogaTeacher): void {
+    this.yogaTeacherData = data;
+  }
+
+  protected onPasswordChange(password: string) {
+    this.password = password;
   }
 
   protected closeThanksModal() {
