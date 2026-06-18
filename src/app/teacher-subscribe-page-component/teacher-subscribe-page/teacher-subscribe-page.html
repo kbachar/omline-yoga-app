@@ -55,9 +55,11 @@
       </div>
     </div>
     <div class="right-section">
-    @if (isThanksModalOpen()) {
+    @if (role$ | async; as role) {
+      @if (role == 'teacher') {
       <app-subscribe-thanks [isOpen]="true" (closed)="closeThanksModal()"></app-subscribe-thanks>
-      } @else {
+      
+      } @else if (role == '') {
       <app-teacher (teacherDataChange)="onTeacherDataChange($event)"
         (passwordChange)="onPasswordChange(password)"></app-teacher>
       <div class="subscribe-btn-box">
@@ -65,7 +67,7 @@
           (mouseleave)="setSubscribeHovered(false)" (focus)="setSubscribeHovered(true)"
           (blur)="setSubscribeHovered(false)" (click)="subscribe()">
       </div>}
-
+    }
   </div>
   </div>
 </div>

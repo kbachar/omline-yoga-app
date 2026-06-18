@@ -1,7 +1,9 @@
 import { EnvironmentInjector, inject, Injectable, runInInjectionContext } from '@angular/core';
-import { Auth, authState, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
+import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
 import { doc, Firestore, getDoc, serverTimestamp, setDoc } from '@angular/fire/firestore';
-import { from, map } from 'rxjs';
+import { Observable } from 'rxjs';
+import { from, map, of, switchMap } from 'rxjs';
+import { UserProfile } from '../shared/user-profile-data';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +24,44 @@ export class AuthService {
 
   async logout() {
     return runInInjectionContext(this.injector, () => signOut(this.auth));
+  }
+
+  async subscribe(fullName:string, email: string, password: string, role: string) {
+    await runInInjectionContext(this.injector, async () => {
+      const credential = await createUserWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+
+      await runInInjectionContext(this.injector, () =>
+        setDoc(
+          doc(this.firestore, `users/${credential.user.uid}`),
+          {
+            Name: fullName,
+            role: role,
+            isAdmin: false
+          }
+        )
+      );
+
+      await runInInjectionContext(this.injector, async () => {
+        const teacherPayload = {
+          password: password,
+          userId: credential.user.uid,
+          status: 'pending',
+          createdAt: serverTimestamp()
+        };
+
+        console.table(teacherPayload);
+
+        await setDoc(
+          doc(this.firestore, `teachers/${credential.user.uid}`),
+          teacherPayload,
+          { merge: true }
+        );
+      });
+    });
   }
 
   async createUserProfile(user: User) {
@@ -47,6 +87,31 @@ export class AuthService {
     ).pipe(
       map((snapshot) => {
         return snapshot.exists() ? (snapshot.data() as Record<string, unknown>) : null;
+      })
+    );
+  }
+
+  getUserRole(): Observable<string> {
+    return authState(this.auth).pipe(
+      switchMap(user => {
+        if (!user) {
+          return of('');
+        }
+
+        return from(
+          runInInjectionContext(this.injector, () =>
+            getDoc(doc(this.firestore, `users/${user.uid}`))
+          )
+        ).pipe(
+          map((snapshot) => {
+            if (!snapshot.exists()) {
+              return '';
+            }
+
+            const data = snapshot.data() as Record<string, unknown>;
+            return typeof data['role'] === 'string' ? data['role'] : '';
+          })
+        );
       })
     );
   }

@@ -26,6 +26,7 @@ export class TeacherDashboard {
   profile$ = this.user$.pipe(
     switchMap(user => {
       if (!user) return of(null);
+
       return from(
         runInInjectionContext(this.injector, () => getDoc(doc(this.firestore, `teachers/${user.uid}`)))
       ).pipe(
