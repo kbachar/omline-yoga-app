@@ -3,7 +3,6 @@ import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPass
 import { doc, Firestore, getDoc, serverTimestamp, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { from, map, of, switchMap } from 'rxjs';
-import { UserProfile } from '../shared/user-profile-data';
 
 @Injectable({
   providedIn: 'root',
