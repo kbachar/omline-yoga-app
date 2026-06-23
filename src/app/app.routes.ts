@@ -33,7 +33,7 @@ export const routes: Routes = [
 		canActivate: [authGuard],
 		component: TeacherDashboard,
 		children: [
-			{ path: 'teacher-profile', component: TeacherProfile },
+			{ path: 'teacher-profile/:teacherId', component: TeacherProfile },
 			{ path: 'teacher-classes/:teacherId', component: TeacherClasses},
 				{ path: 'yoga-class-details/:classID', component: YogaClassDetails }
 		]

@@ -4,19 +4,29 @@ import { Auth, authState } from '@angular/fire/auth';
 import { YogaTeacher } from '../../yoga-teacher-data';
 import { TextBox } from "../../text-box-component/text-box/text-box";
 import { SelectList } from "../../select-list-component/select-list/select-list";
-import { YogaClassesFilter } from "../../yoga-classes-filter-component/yoga-classes-filter/yoga-classes-filter";
 import { yogaStyles } from "../../yoga-class-details-component/yoga-class-details/yoga-styles-data";
+import { AuthService } from '../../../services/auth-service';
+
+const DEFAULT_TEACHER: YogaTeacher = {
+  fullName: '',
+  yogaStyle: [],
+  email: '',
+  website: '',
+  country: '',
+  teacherID: '',
+  status: ''
+};
 
 @Component({
   selector: 'app-teacher',
-  imports: [ TextBox, SelectList, YogaClassesFilter],
+  imports: [ TextBox, SelectList],
   templateUrl: './teacher.html',
   styleUrl: './teacher.css',
 })
 
 export class Teacher {
   private readonly auth = inject(Auth);
-  readonly profileData = input<YogaTeacher | null>(null);
+  readonly profileData = input<YogaTeacher>(DEFAULT_TEACHER);
   readonly teacherPassword = input<string | ''>('');
   readonly teacherDataChange = output<YogaTeacher>();
   readonly passwordChange = output<string>();
@@ -42,42 +52,13 @@ export class Teacher {
     'Other'
   ];
 
+private authService = inject(AuthService);
+    
+  uid$ = this.authService.getUserID();
+  profile$ = this.authService.getUserProfile(this.uid$)
 
-  protected readonly form = signal<YogaTeacher>({
-    fullName: '',
-    yogaStyle: [],
-    email: '',
-    website: '',
-    country: '',
-    teacherID: '',
-    status: ''
-  });
-
-  constructor() {
-
-
-    effect(() => {
-      const profileData = this.profileData();
-
-      if (!profileData) {
-        return;
-      }
-
-      //this.form.set({ ...profileData });
-    });
-  }
-
-  // protected onFieldInput(field: keyof TeacherFormData, event: Event): void {
-  //   const value = (event.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).value;
-
-  //   this.form.update((current) => ({
-  //     ...current,
-  //     [field]: value.trim(),
-  //   }));
-
-  //   this.teacherDataChange.emit(this.form());
-  // }
-
+  form = input.required<YogaTeacher>();
+   
   protected handlePassword() {
     this.isPasswordVisible.update((visible) => !visible);
   }

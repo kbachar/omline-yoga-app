@@ -2,8 +2,6 @@ import { Injectable, EnvironmentInjector, inject, runInInjectionContext } from '
 import { Firestore, collection, getDocs } from '@angular/fire/firestore';
 import { Observable, from, map, shareReplay, switchMap, tap } from 'rxjs';
 import { YogaClassData } from '../shared/yoga-class-data';
-import { YogaClass } from '../shared/yoga-class-component/yoga-class/yoga-class';
-import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { yogaStyles } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
 import { YogaTeacher } from '../shared/yoga-teacher-data';
 
@@ -19,21 +17,6 @@ export interface YogaStyleDescription {
   classesBodyBackgroundColor: string;
 
 }
-
-// export interface YogaTeacher {
-//   teacherId?: string;
-//   fullName?: string;
-//   address?: string;
-//   approved?: boolean;
-//   bankVerified?: boolean;
-//   company?: string;
-//   country?: string;
-//   email?: string;
-//   message?: string;
-//   website?: string;
-//   yogaStyle?: [];
-
-// }
 
 type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 
@@ -219,6 +202,8 @@ export class YogaClassesService {
 
   getTeachers(): Observable<YogaTeacher[]> {
     if (this.yogaTeachers$) {
+    console.log(this.yogaTeachers$)
+
       return this.yogaTeachers$;
     }
 
@@ -248,7 +233,30 @@ export class YogaClassesService {
     return this.yogaTeachers$;
   }
 
-  
 
+  getTeacher(id: string | undefined): Observable<YogaTeacher> {
+    console.log('from service Teacher id:', id);
+    
+    return this.getTeachers().pipe(
+      map((teachers) => {
+        const found = teachers.find((teacher) => teacher.teacherID === id);
+        return found ?? {
+          fullName: 'Unknown Teacher',
+          yogaStyle: [],
+          email: '',
+          website: '',
+          country: '',
+          teacherID: id ?? '',
+          status: ''
+        };
+      })
+    );
+  }
+
+  getTeacherStatus(teacherID: string): Observable<string> {
+    return this.getTeacher(teacherID).pipe(
+      map((teacher) => teacher.status ?? '')
+    );
+  }
   
 }

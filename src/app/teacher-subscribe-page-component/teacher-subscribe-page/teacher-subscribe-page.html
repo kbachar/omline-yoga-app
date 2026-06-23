@@ -60,7 +60,7 @@
       <app-subscribe-thanks [isOpen]="true" (closed)="closeThanksModal()"></app-subscribe-thanks>
       
       } @else if (role == '') {
-      <app-teacher (teacherDataChange)="onTeacherDataChange($event)"
+      <app-teacher [form]="yogaTeacherData" (teacherDataChange)="onTeacherDataChange($event)"
         (passwordChange)="onPasswordChange(password)"></app-teacher>
       <div class="subscribe-btn-box">
         <img [src]="subscribeButtonSrc()" id="subscribeImg" tabindex="0" (mouseenter)="setSubscribeHovered(true)"

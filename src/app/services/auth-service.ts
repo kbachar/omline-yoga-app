@@ -114,4 +114,8 @@ export class AuthService {
       })
     );
   }
+
+  getUserID(): string {
+    return this.auth.currentUser?.uid ?? '';
+  }
 }

@@ -18,23 +18,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './teacher-classes.css',
 })
 export class TeacherClasses implements OnInit {
-  private readonly auth = inject(Auth);
-  private readonly firestore = inject(Firestore);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-
-  readonly user$ = authState(this.auth);
-
-  readonly profile$ = this.user$.pipe(
-    switchMap(user => {
-      if (!user) {
-        return of(null);
-      }
-      console.log(user.uid)
-      const teacherRef = doc(this.firestore, `teachers/${user.uid}`);
-      return docData(teacherRef, { idField: 'teacherID' }) as Observable<YogaTeacher>;
-    })
-  );
+ 
 
   classes$!: Observable<YogaClassData[]>;
   private yogaService = inject(YogaClassesService);
