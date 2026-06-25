@@ -1,5 +1,6 @@
 import { Injectable, EnvironmentInjector, inject, runInInjectionContext } from '@angular/core';
-import { Firestore, collection, getDocs } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDocs, setDoc } from '@angular/fire/firestore';
+import { Storage, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage';
 import { Observable, from, map, shareReplay, switchMap, tap } from 'rxjs';
 import { YogaClassData } from '../shared/yoga-class-data';
 import { yogaStyles } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
@@ -36,7 +37,7 @@ const STYLE_THEME: Record<YogaStyleId, Omit<YogaStyleDescription, 'id' | 'descri
   all: {
     headerBackgroundColor: '#3A559A',
     classesBodyBackgroundColor: '#DEE8F2'
-  } 
+  }
 };
 
 @Injectable({
@@ -47,12 +48,13 @@ export class YogaClassesService {
   private yogaClasses$?: Observable<YogaClassData[]>;
   private yogaTeachers$?: Observable<YogaTeacher[]>;
   private readonly firestore = inject(Firestore);
+  private readonly storage = inject(Storage);
   private readonly injector = inject(EnvironmentInjector);
 
   constructor() {
     this.yogaTeachers$ = this.getTeachers();
   }
-  
+
   getYogaStyles(): Observable<YogaStyleDescription[]> {
     if (this.yogaStyles$) {
       return this.yogaStyles$;
@@ -107,7 +109,7 @@ export class YogaClassesService {
           yogaImgHover: `/assets/images/${styleId}2.png`,
           headerBackgroundImage: `url('/assets/images/${styleId}-background.png')`,
           classesBodyBackgroundColor: theme.classesBodyBackgroundColor,
-          headerBackgroundColor: theme.headerBackgroundColor          
+          headerBackgroundColor: theme.headerBackgroundColor
         };
       })
     );
@@ -172,14 +174,13 @@ export class YogaClassesService {
       )
     );
   }
-  
+
   getClassByID(classId: string | undefined): Observable<YogaClassData | undefined> {
-    console.log(`class id ${classId}`)
     return this.getClasses().pipe(
       map((classes) => classes.find((yogaClass) => yogaClass.id === classId))
     );
   }
-  
+
   getFilteredClasses(yogaStyle: string, difficulty: string | null, duration: number | null): Observable<YogaClassData[]> {
     const normalizedStyle = yogaStyle.trim().toLowerCase();
     const normalizedDifficulty = difficulty?.trim().toLowerCase();
@@ -202,8 +203,6 @@ export class YogaClassesService {
 
   getTeachers(): Observable<YogaTeacher[]> {
     if (this.yogaTeachers$) {
-    console.log(this.yogaTeachers$)
-
       return this.yogaTeachers$;
     }
 
@@ -216,6 +215,7 @@ export class YogaClassesService {
       map((snapshot) =>
         snapshot.docs.map((doc) => {
           const data = doc.data() as YogaTeacher;
+          console.log('teacher data:', data);
           return {
             fullName: data.fullName,
             yogaStyle: data.yogaStyle,
@@ -224,6 +224,8 @@ export class YogaClassesService {
             country: data.country,
             teacherID: data.teacherID,
             status: data.status,
+            photo: data.photo,
+            description: data.description
           } as YogaTeacher;
         })
       ),
@@ -235,8 +237,6 @@ export class YogaClassesService {
 
 
   getTeacher(id: string | undefined): Observable<YogaTeacher> {
-    console.log('from service Teacher id:', id);
-    
     return this.getTeachers().pipe(
       map((teachers) => {
         const found = teachers.find((teacher) => teacher.teacherID === id);
@@ -247,7 +247,9 @@ export class YogaClassesService {
           website: '',
           country: '',
           teacherID: id ?? '',
-          status: ''
+          status: '',
+          photo: '',
+          description: ''
         };
       })
     );
@@ -258,5 +260,35 @@ export class YogaClassesService {
       map((teacher) => teacher.status ?? '')
     );
   }
-  
+
+  async saveTeacher(teacher: YogaTeacher, photoFile?: File | null): Promise<void> {
+    const teacherID = teacher.teacherID.trim();
+
+    if (!teacherID) {
+      throw new Error('Teacher ID is required to save teacher details.');
+    }
+
+    let photoUrl = teacher.photo ?? '';
+
+    if (photoFile) {
+      const storageRef = ref(this.storage, `teachers/${teacherID}/photo`);
+
+      await runInInjectionContext(this.injector, () => uploadBytes(storageRef, photoFile));
+      photoUrl = await runInInjectionContext(this.injector, () => getDownloadURL(storageRef));
+      console.log(photoUrl)
+    }
+
+    const teacherToSave: YogaTeacher = {
+      ...teacher,
+      teacherID,
+      photo: photoUrl
+    };
+
+    await runInInjectionContext(this.injector, () =>
+      setDoc(doc(this.firestore, `teachers/${teacherID}`), teacherToSave, { merge: true })
+    );
+
+    this.yogaTeachers$ = undefined;
+    this.yogaTeachers$ = this.getTeachers();
+  }
 }

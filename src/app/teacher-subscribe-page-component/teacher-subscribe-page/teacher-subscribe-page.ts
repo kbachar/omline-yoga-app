@@ -18,7 +18,6 @@ export class TeacherSubscribePage {
   protected readonly isThanksModalOpen = signal(false);
   protected readonly isSubscribeHovered = signal(false);
   private readonly injector = inject(EnvironmentInjector);
-  private firestore = inject(Firestore);
   protected yogaTeacherData: YogaTeacher = {
     fullName: '',
     yogaStyle: [],
@@ -26,13 +25,13 @@ export class TeacherSubscribePage {
     website: '',
     country: '',
     teacherID: '',
-    status: ''
+    status: '',
+    photo: '',
+    description: ''
   };
 
   private authService = inject(AuthService);
-  private auth = inject(Auth);
-
-  role$ =  this.authService.getUserRole();
+  role$ = this.authService.getUserRole();
   password: string = '';
 
   protected setSubscribeHovered(isHovered: boolean): void {
@@ -47,44 +46,6 @@ export class TeacherSubscribePage {
 
   protected async subscribe() {
     await this.authService.subscribe(this.yogaTeacherData?.fullName, this.yogaTeacherData?.email, this.password, 'teacher');
-    // await runInInjectionContext(this.injector, async () => {
-    //   const credential = await createUserWithEmailAndPassword(
-    //     this.auth,
-    //     this.yogaTeacherData.email,
-    //     this.password
-    //   );
-
-    //   await runInInjectionContext(this.injector, () =>
-    //     setDoc(
-    //       doc(this.firestore, `users/${credential.user.uid}`),
-    //       {
-    //         Name: this.yogaTeacherData?.fullName,
-    //         role: 'teacher',
-    //         isAdmin: false
-    //       }
-    //     )
-    //   );
-
-    //   await runInInjectionContext(this.injector, async () => {
-    //     const teacherPayload = {
-    //       password: '',
-    //       userId: credential.user.uid,
-    //       status: 'pending',
-    //       createdAt: serverTimestamp()
-    //     };
-
-    //     console.log('Teacher invite payload:', teacherPayload);
-    //     console.table(teacherPayload);
-
-    //     await setDoc(
-    //       doc(this.firestore, `teachers/${credential.user.uid}`),
-    //       teacherPayload,
-    //       { merge: true }
-    //     );
-    //     console.log('Teacher record created/updated with user id:', credential.user.uid);
-    //     this.isThanksModalOpen.set(true);
-    //   });
-    // });
   }
 
   protected onTeacherDataChange(data: YogaTeacher): void {

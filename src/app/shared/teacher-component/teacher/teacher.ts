@@ -14,12 +14,14 @@ const DEFAULT_TEACHER: YogaTeacher = {
   website: '',
   country: '',
   teacherID: '',
-  status: ''
+  status: '',
+  photo: '',
+  description: ''
 };
 
 @Component({
   selector: 'app-teacher',
-  imports: [ TextBox, SelectList],
+  imports: [TextBox, SelectList],
   templateUrl: './teacher.html',
   styleUrl: './teacher.css',
 })
@@ -52,13 +54,13 @@ export class Teacher {
     'Other'
   ];
 
-private authService = inject(AuthService);
-    
+  private authService = inject(AuthService);
+
   uid$ = this.authService.getUserID();
   profile$ = this.authService.getUserProfile(this.uid$)
 
   form = input.required<YogaTeacher>();
-   
+
   protected handlePassword() {
     this.isPasswordVisible.update((visible) => !visible);
   }

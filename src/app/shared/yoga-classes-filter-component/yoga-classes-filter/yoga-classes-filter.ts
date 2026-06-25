@@ -13,10 +13,5 @@ export class YogaClassesFilter {
   readonly selectedOptions = input<string[] | null>(null);
 
   
-  constructor() {
-    //console.log('filterOptions' + this.filterOptions)
-    console.log('selectedOptions - ' + this.selectedOptions()?.includes('Vinyasa'))
-
-  }
-
+  
 }

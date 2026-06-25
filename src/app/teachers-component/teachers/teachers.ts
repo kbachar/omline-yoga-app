@@ -7,7 +7,5 @@ import { Component, input, output } from '@angular/core';
   styleUrl: './teachers.css',
 })
 export class TeachersComponent {
-  constructor() {
-    console.log('teachers hello')
-  }
+  
 }

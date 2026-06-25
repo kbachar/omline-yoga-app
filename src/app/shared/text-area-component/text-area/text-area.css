@@ -3,10 +3,9 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    padding: 0px;
     position: relative;
     width: 633px;
-    height: 308px;
+    height: 251px;
     border: 1px solid #CAD7DC;
     border-radius: 10px;
     margin-left: 20px;
@@ -21,9 +20,11 @@ textarea {
     text-transform: capitalize;
     color: #243376;
     width: 633px;
-    height: 308px;
+    height: 211px;
     background: rgba(194, 235, 233, 0.2);
     border: none;
     outline: none;
     resize: none;
+    padding: 15px;
+
 }

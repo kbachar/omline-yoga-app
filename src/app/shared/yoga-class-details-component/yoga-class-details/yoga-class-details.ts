@@ -21,7 +21,6 @@ export class YogaClassDetails implements OnInit {
       switchMap(classId => this.yogaService.getClassByID(classId))
     );
 
-    console.log(this.yogaClass$)
   }
   private yogaService = inject(YogaClassesService);
   private readonly route = inject(ActivatedRoute);

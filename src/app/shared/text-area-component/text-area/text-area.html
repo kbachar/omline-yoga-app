@@ -1,3 +1,7 @@
 <div class="container">
-    <textarea type="text" placeholder="{{textAreaName()}}"></textarea>
+    <textarea
+        type="text"
+        [value]="textValue()"
+        [placeholder]="textAreaName() ?? ''"
+        (input)="onInput($event)"></textarea>
 </div>

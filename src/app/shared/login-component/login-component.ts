@@ -40,7 +40,6 @@ export class LoginComponent {
     }
 
     protected async login(): Promise<void> {
-        console.log('log in' )
         if (this.isSubmitting()) {
             return;
         }
@@ -82,7 +81,6 @@ export class LoginComponent {
         }
 
         const roles = (profile as Record<string, unknown>)['role'];
-        console.log(roles)
         if (roles == 'admin') {
             return true;
         }

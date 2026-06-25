@@ -6,4 +6,6 @@ export interface YogaTeacher {
   country: string;
   teacherID: string;
   status: string;
+  photo: string;
+  description: string;
 }

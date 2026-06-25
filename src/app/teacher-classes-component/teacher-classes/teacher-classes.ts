@@ -27,8 +27,6 @@ export class TeacherClasses implements OnInit {
 
 
   ngOnInit(): void {
-    console.log('hello')
-
     this.classes$ = this.route.paramMap.pipe(
       map(params => params.get('teacherId') ?? undefined),
       switchMap(teacherId => this.yogaService.getClassesByTeacherID(teacherId))

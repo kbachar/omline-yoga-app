@@ -1,11 +1,17 @@
 <div class="container">
     @if (profile$ | async; as profile) {
-    <header>Please complete Your details to continue:</header>
+    <div class="header-container">
+        <header>My profile</header>
+        <button (click)="save(profile)">save</button>
+    </div>
+    <div class="body-container">
+        <input #fileInput type="file" accept="image/*" hidden (change)="onPhotoSelected($event)" />
+        <img [src]="photoPreview()" alt="Selected photo" (click)="fileInput.click()" />
 
-    <img src="/assets/images/upload-photo.png">
-    <div class="teacher-container">
-        <app-teacher [form]="profile"></app-teacher>
-        <app-text-area [textAreaName]="'about me'"></app-text-area>
+        <div class="teacher-container">
+            <app-teacher [form]="profile" (teacherDataChange)="profile$"></app-teacher>
+            <app-text-area [textAreaName]="'about me'" [textValue]="description$" (textValueChange)="onTeacherDescriptionChange($event)"></app-text-area>
+        </div>
     </div>
     }
 </div>

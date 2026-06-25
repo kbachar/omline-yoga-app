@@ -15,7 +15,6 @@ export class AuthService {
   user$ = runInInjectionContext(this.injector, () => authState(this.auth));
 
   async login(email: string, password: string) {
-    console.log("log in")
     return runInInjectionContext(this.injector, () =>
       signInWithEmailAndPassword(this.auth, email, password)
     );
