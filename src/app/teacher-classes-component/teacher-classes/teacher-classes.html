@@ -1,4 +1,5 @@
 <div class="container">
+    <app-page-header [headerText]="'my classes'" [buttonText]="'+ add class'"></app-page-header>
     <div class="classes-container">
         @if (classes$ | async; as classes) {
         @for (yogaClass of classes; track yogaClass.id) {

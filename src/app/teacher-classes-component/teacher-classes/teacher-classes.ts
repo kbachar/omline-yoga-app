@@ -10,10 +10,11 @@ import { doc, Firestore } from '@angular/fire/firestore';
 import { docData } from '@angular/fire/firestore';
 import { YogaTeacher } from '../../shared/yoga-teacher-data';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PageHeader } from "../../shared/page-header-component/page-header/page-header";
 
 @Component({
   selector: 'app-teacher-classes',
-  imports: [AsyncPipe, YogaClass],
+  imports: [AsyncPipe, YogaClass, PageHeader],
   templateUrl: './teacher-classes.html',
   styleUrl: './teacher-classes.css',
 })

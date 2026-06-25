@@ -6,11 +6,12 @@ import { TextArea } from "../../shared/text-area-component/text-area/text-area";
 import { YogaClassesService } from '../../services/yoga-classes-service';
 import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { PageHeader } from "../../shared/page-header-component/page-header/page-header";
 
 
 @Component({
   selector: 'app-teacher-profile',
-  imports: [Teacher, TextArea, AsyncPipe],
+  imports: [Teacher, TextArea, AsyncPipe, PageHeader],
   templateUrl: './teacher-profile.html',
   styleUrl: './teacher-profile.css',
 })

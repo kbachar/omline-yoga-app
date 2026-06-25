@@ -1,0 +1,40 @@
+.header-container {
+    height: 110px;
+    width: 100%;
+    background: #CED6ED;
+    border-radius: 0px 0px 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    margin-bottom: 20px;
+}
+
+header {
+    height: 76px;
+    font-family: 'Montserrat Alternates';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 60px;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    color: #101C50;
+    margin-left: 50px;
+}
+
+button {
+    background: #78BDDC;
+    border-radius: 10px;
+    width: auto;
+    height: 60px;
+    font-family: 'Mona Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    margin-right: 40px;
+    cursor: pointer;
+}
