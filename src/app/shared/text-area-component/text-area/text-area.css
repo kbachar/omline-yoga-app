@@ -1,16 +1,3 @@
-.container {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    position: relative;
-    width: 633px;
-    height: 251px;
-    border: 1px solid #CAD7DC;
-    border-radius: 10px;
-    margin-left: 20px;
-}
-
 textarea {
     font-family: 'Mona Sans';
     font-style: normal;
@@ -20,11 +7,12 @@ textarea {
     text-transform: capitalize;
     color: #243376;
     width: 633px;
-    height: 211px;
+    height: 289px;
     background: rgba(194, 235, 233, 0.2);
     border: none;
     outline: none;
     resize: none;
-    padding: 15px;
-
+    border: 1px solid #CAD7DC;
+    border-radius: 10px;
+    padding: 10px;
 }

@@ -1,7 +1,46 @@
 @if (yogaClass$ | async; as yogaClass) {
 <div class="container">
-    <div class="left-side">
-        <app-text-box [inputValue]="yogaClass.title" [placeholderValue]="'class name'"></app-text-box>
+    <app-page-header [showBack]="true" [headerText]="'class page - ' + yogaClass.title" [buttonText]="'save'"
+        (backToListClick)="backToList()"></app-page-header>
+    <div class="body-container">
+        <div class="left-side">
+            <app-text-box [inputValue]="yogaClass.title" [placeholderValue]="'class name'"></app-text-box>
+            <app-yoga-classes-filter [filterName]="'yoga style'" [filterOptions]="yogaStyles"
+                [selectedOption]="yogaClass.yogaStyle"></app-yoga-classes-filter>
+            <app-yoga-classes-filter [filterName]="'duration'" [filterOptions]="durations"
+                [selectedOption]="yogaClass.classLength"></app-yoga-classes-filter>
+            <app-yoga-classes-filter [filterName]="'challenge level'" [filterOptions]="challengeLevels"
+                [selectedOption]="yogaClass.difficulty"></app-yoga-classes-filter>
+            <app-text-area [textAreaName]="'class description'" [textValue]="yogaClass.description"
+                [textWidth]="500"></app-text-area>
+        </div>
+        <div class="right-side">
+            @if (yogaClass.status == 'approved')
+            {
+            <div class="update-container">
+                <app-toggle-setting [labelText]="'hide video from site'" [imageSrc]="'/assets/images/class-hidden.png'"
+                    [toggleImageSrc]="'/assets/images/class-shows.png'"></app-toggle-setting>
+                <app-toggle-setting [labelText]="'boost class video'" [imageSrc]="'/assets/images/boost.png'"
+                    [toggleImageSrc]="'/assets/images/boost.png'"></app-toggle-setting>
+                <app-text-box [inputType]="'text'" [inputValue]="yogaClass.videoLink" [readonly]="true"></app-text-box>
+            </div>
+            }
+            <video [src]="yogaClass.videoLink"></video>
+            <div class="labels-container">
+                <div class="start-label-container">
+                    <label>Upload date:</label>
+                    <label class="date">{{ yogaClass.createDate | date:'dd/MM/yyyy' }}</label>
+                </div>
+                <div class="end-label-container">
+                    <label>number of views</label>
+                </div>
+            </div>
+        </div>
     </div>
+        <hr class="divider">
+            <img src="/assets/images/delete.png">
+
+
+
 </div>
 }

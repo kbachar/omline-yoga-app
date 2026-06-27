@@ -10,6 +10,7 @@ export class TextArea {
   readonly textAreaName = input<string | null>(null);
   readonly textValue = input<string>('');
   readonly textValueChange = output<string>();
+  readonly textWidth = input<number>();
 
   protected onInput(event: Event): void {
     const value = (event.target as HTMLTextAreaElement).value;

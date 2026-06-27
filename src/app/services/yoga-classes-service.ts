@@ -129,6 +129,7 @@ export class YogaClassesService {
       map((snapshot) =>
         snapshot.docs.map((doc) => {
           const data = doc.data() as Partial<YogaClassData>;
+          const rawCreateDate = (data as { createDate?: Date | { toDate: () => Date } }).createDate;
           const theme = STYLE_THEME[(data.yogaStyle?.toLowerCase() as YogaStyleId)];
           return {
             id: data.id ?? doc.id,
@@ -139,6 +140,8 @@ export class YogaClassesService {
             difficulty: data.difficulty,
             videoLink: data.videoLink,
             yogaStyle: data.yogaStyle,
+            status: data.status,
+            createDate: rawCreateDate instanceof Date ? rawCreateDate : rawCreateDate?.toDate(),
             yogaStyleColor: theme.headerBackgroundColor
           } as YogaClassData;
         })
@@ -181,14 +184,14 @@ export class YogaClassesService {
     );
   }
 
-  getFilteredClasses(yogaStyle: string, difficulty: string | null, duration: number | null): Observable<YogaClassData[]> {
+  getFilteredClasses(yogaStyle: string, difficulty: string | null, duration: string | null): Observable<YogaClassData[]> {
     const normalizedStyle = yogaStyle.trim().toLowerCase();
     const normalizedDifficulty = difficulty?.trim().toLowerCase();
 
     return this.getClasses().pipe(
       map((classes) =>
         classes.filter((yogaClass) => {
-          const classStyle = yogaClass.yogaStyle?.toLowerCase() ?? '';
+          const classStyle = yogaClass.yogaStyle;
           const classDifficulty = yogaClass.difficulty?.toLowerCase() ?? '';
 
           const matchesStyle = !normalizedStyle || normalizedStyle === 'all' || classStyle === normalizedStyle;

@@ -3,7 +3,7 @@
     @for (filterOption of filterOptions(); track filterOption) {
     <app-check-box 
       [inputValue]="filterOption" 
-      [checked]="(selectedOptions() ?? []).includes(filterOption)"
+      [checked]="selectedOption() == filterOption"
       >
     </app-check-box>
     }

@@ -1,7 +1,4 @@
 <div class="container">
-    <textarea
-        type="text"
-        [value]="textValue()"
-        [placeholder]="textAreaName() ?? ''"
+    <textarea [style.width.px]="textWidth() ?? null" [value]="textValue()" [placeholder]="textAreaName() ?? ''"
         (input)="onInput($event)"></textarea>
 </div>

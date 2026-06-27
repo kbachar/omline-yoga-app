@@ -6,7 +6,7 @@
     padding: 0px;
     gap: 10px;
     height: 50px;
-    background: rgba(194, 235, 233, 0.2);
+    /* background: rgba(194, 235, 233, 0.2); */
     border: 1px solid #CAD7DC;
     border-radius: 10px;
     margin-bottom: 15px;
@@ -15,7 +15,7 @@
 
 .filter-text {
     position: relative;
-    width: 77px;
+    min-width: 77px;
     height: 25px;
     font-family: 'Mona Sans';
     font-style: normal;

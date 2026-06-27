@@ -1,0 +1,5 @@
+<div class="container">
+    <img [src]="switchState() ? imageSrc() : toggleImageSrc()">
+    <label>{{labelText()}}</label>
+    <img [src]="switchState() ? '/assets/images/switch-on.png' : '/assets/images/switch-off.png'" (click)="toggleSwitch()">
+</div>

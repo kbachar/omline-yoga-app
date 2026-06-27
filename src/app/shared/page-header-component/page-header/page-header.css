@@ -1,4 +1,4 @@
-.header-container {
+.container {
     height: 110px;
     width: 100%;
     background: #CED6ED;
@@ -7,6 +7,13 @@
     align-items: center;
     justify-content:space-between;
     margin-bottom: 20px;
+}
+
+.header-container {
+    margin-left: 20px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
 }
 
 header {
@@ -36,5 +43,9 @@ button {
     text-transform: capitalize;
     color: #FFFFFF;
     margin-right: 40px;
+    cursor: pointer;
+}
+
+img {
     cursor: pointer;
 }

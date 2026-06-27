@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    gap: 12px;
+    position: relative;
+    width: 236px;
+    height: 26px;
+    margin-bottom: 10px;
+}
+
+label {
+    width: 148px;
+    height: 26px;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+    color: #101D51;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
