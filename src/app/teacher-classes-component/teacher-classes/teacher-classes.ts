@@ -3,12 +3,7 @@ import { AsyncPipe } from '@angular/common';
 import { YogaClassData } from '../../shared/yoga-class-data';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { YogaClassesService } from '../../services/yoga-classes-service';
-import { Auth, authState } from '@angular/fire/auth';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { YogaClass } from '../../shared/yoga-class-component/yoga-class/yoga-class';
-import { doc, Firestore } from '@angular/fire/firestore';
-import { docData } from '@angular/fire/firestore';
-import { YogaTeacher } from '../../shared/yoga-teacher-data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageHeader } from "../../shared/page-header-component/page-header/page-header";
 
@@ -38,13 +33,10 @@ export class TeacherClasses implements OnInit {
 
   editClass(yogaClass: YogaClassData) {
     this.router.navigate(['/teacher-dashboard/yoga-class-details', yogaClass.id]);
-
   }
 
   setYogaImageHovered(classId: string): void {
-    //this.isEditImageHovered = isHovered;
       this.hoveredClassId = classId;
-
   }
 
   changeImgSrc() {
