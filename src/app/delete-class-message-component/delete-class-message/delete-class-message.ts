@@ -1,0 +1,14 @@
+import { Component, input, output } from '@angular/core';
+
+@Component({
+  selector: 'app-delete-class-message',
+  imports: [],
+  templateUrl: './delete-class-message.html',
+  styleUrl: './delete-class-message.css',
+})
+export class DeleteClassMessage {
+  readonly isOpen = input(false);
+  public removeClick = output<void>();
+  public keepClick = output<void>();
+
+}

@@ -37,9 +37,9 @@
             </div>
         </div>
     </div>
-        <hr class="divider">
-            <img src="/assets/images/delete.png">
-
+    <hr class="divider">
+    <img src="/assets/images/delete.png" (click)="deleteClass()">
+    <app-delete-class-message [isOpen]="isDeleteModalOpen()" (keepClick)="keepClass()"></app-delete-class-message>
 
 
 </div>

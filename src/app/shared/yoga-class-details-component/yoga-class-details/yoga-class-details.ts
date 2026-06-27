@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { YogaClassData } from '../../yoga-class-data';
 import { YogaClassesService } from '../../../services/yoga-classes-service';
@@ -10,10 +10,11 @@ import { challengeLevels, yogaStyles, durations } from './yoga-styles-data';
 import { YogaClassesFilter } from "../../yoga-classes-filter-component/yoga-classes-filter/yoga-classes-filter";
 import { TextArea } from "../../text-area-component/text-area/text-area";
 import { ToggleSetting } from "../../toggle-setting-component/toggle-setting/toggle-setting";
+import { DeleteClassMessage } from "../../../delete-class-message-component/delete-class-message/delete-class-message";
 
 @Component({
   selector: 'app-yoga-class-details',
-  imports: [AsyncPipe, DatePipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting],
+  imports: [AsyncPipe, DatePipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, DeleteClassMessage],
   templateUrl: './yoga-class-details.html',
   styleUrl: './yoga-class-details.css',
 })
@@ -23,6 +24,7 @@ export class YogaClassDetails implements OnInit {
   readonly yogaStyles = yogaStyles;
   readonly durations = durations;
   readonly challengeLevels = challengeLevels;
+  protected readonly isDeleteModalOpen = signal(false);
 
   ngOnInit(): void {
     this.yogaClass$ = this.route.paramMap.pipe(
@@ -38,6 +40,15 @@ export class YogaClassDetails implements OnInit {
   private yogaService = inject(YogaClassesService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+
+  deleteClass() {
+    this.isDeleteModalOpen.set(true);
+  }
+
+  keepClass() {
+    this.isDeleteModalOpen.set(false);
+
+  }
 
   backToList() {
     console.log('ID is -' + this.teacherId)
