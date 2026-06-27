@@ -6,9 +6,10 @@
 </header>
 <div class="dashboard-layout">
     <div class="side-bar">
-        <div class="side-bar-item" [routerLink]="'/teacher-dashboard'" [class.side-bar-item-disabled]="teacherStatusPending()">Home</div>
-        <div class="side-bar-item"
-            [routerLink]="teacherStatusPending() ? null : ['teacher-profile', uid$]">my profile</div>
+        <div class="side-bar-item" [routerLink]="'/teacher-dashboard'"
+            [class.side-bar-item-disabled]="teacherStatusPending()">Home</div>
+        <div class="side-bar-item" [routerLink]="teacherStatusPending() ? null : ['teacher-profile', uid$]">my profile
+        </div>
         <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()"
             [routerLink]="teacherStatusPending() ? null : ['teacher-classes', uid$]">my classes</div>
         <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()">upload class</div>

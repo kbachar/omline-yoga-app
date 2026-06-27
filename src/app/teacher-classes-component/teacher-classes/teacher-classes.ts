@@ -21,7 +21,9 @@ import { PageHeader } from "../../shared/page-header-component/page-header/page-
 export class TeacherClasses implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
- 
+  isEditImageHovered: boolean = false;
+  hoveredClassId: string | null = null;
+
 
   classes$!: Observable<YogaClassData[]>;
   private yogaService = inject(YogaClassesService);
@@ -38,9 +40,15 @@ export class TeacherClasses implements OnInit {
     this.router.navigate(['/teacher-dashboard/yoga-class-details', yogaClass.id]);
 
   }
-  
+
+  setYogaImageHovered(classId: string): void {
+    //this.isEditImageHovered = isHovered;
+      this.hoveredClassId = classId;
+
+  }
+
   changeImgSrc() {
-    
+
   }
 
 }

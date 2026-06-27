@@ -98,4 +98,5 @@ label {
 img {
     margin-left: 100px;
     margin-top: 20PX;
+    cursor: pointer;
 }
