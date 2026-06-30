@@ -1,7 +1,4 @@
 <div class="container-text-box">
-    <input class="text-box" type="{{inputType()}}" placeholder="{{placeholderValue()}}" value="{{inputValue()}}" [readOnly]="readonly()">
+    <input class="text-box" type="{{inputType()}}" placeholder="{{placeholderValue()}}" value="{{inputValue()}}" [style.width.px]="textBoxWidth()"
+        [readOnly]="readonly()">
 </div>
-
-
-
-

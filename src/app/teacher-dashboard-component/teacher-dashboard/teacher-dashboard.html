@@ -12,7 +12,8 @@
         </div>
         <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()"
             [routerLink]="teacherStatusPending() ? null : ['teacher-classes', uid$]">my classes</div>
-        <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()">upload class</div>
+        <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()"
+            [routerLink]="teacherStatusPending() ? null : ['yoga-class-details', '']">upload class</div>
         <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()">views info</div>
         <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()">Payments</div>
         <div class="side-bar-item" (click)="logout()">Logout</div>

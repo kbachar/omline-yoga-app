@@ -1,7 +1,7 @@
 @if (yogaClass$ | async; as yogaClass) {
 <div class="container">
-    <app-page-header [showBack]="true" [headerText]="'class page - ' + yogaClass.title" [buttonText]="'save'"
-        (backToListClick)="backToList()"></app-page-header>
+    <app-page-header [showBack]="yogaClass.status == 'approved'" [headerText]="'class page - ' + yogaClass.title"
+        [buttonText]="'save'" (backToListClick)="backToList()"></app-page-header>
     <div class="body-container">
         <div class="left-side">
             <app-text-box [inputValue]="yogaClass.title" [placeholderValue]="'class name'"></app-text-box>
@@ -25,7 +25,24 @@
                 <app-text-box [inputType]="'text'" [inputValue]="yogaClass.videoLink" [readonly]="true"></app-text-box>
             </div>
             }
-            <video [src]="yogaClass.videoLink"></video>
+            @else {
+            <div class="new-class-container">
+                <div class="upload-container">
+                    <button (click)="uploadVideo()">upload video</button>
+                    <label class="video-name">video name</label>
+                </div>
+                <label class="or">or</label>
+                <app-text-box [inputType]="'text'" [placeholderValue]="'add video link'" [textBoxWidth]="700" ></app-text-box>
+            </div>
+            }
+            @if (yogaClass.videoLink) {
+            <video [src]="yogaClass.videoLink" controls></video>
+            } @else {
+            <div class="video-preview">
+                <img class="video-preview-img" src="/assets/images/video-preview.png" alt="No video selected">
+            </div>
+            }
+            @if (yogaClass.status == 'approved') {
             <div class="labels-container">
                 <div class="start-label-container">
                     <label>Upload date:</label>
@@ -35,12 +52,14 @@
                     <label>number of views</label>
                 </div>
             </div>
+            }
+
         </div>
     </div>
     <hr class="divider">
+    @if (yogaClass.status == 'approved') {
     <img src="/assets/images/delete.png" (click)="deleteClass()">
     <app-delete-class-message [isOpen]="isDeleteModalOpen()" (keepClick)="keepClass()"></app-delete-class-message>
-
-
+    }
 </div>
 }

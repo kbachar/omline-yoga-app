@@ -27,12 +27,12 @@ export class YogaClassDetails implements OnInit {
   protected readonly isDeleteModalOpen = signal(false);
 
   ngOnInit(): void {
+    console.log('hello')
     this.yogaClass$ = this.route.paramMap.pipe(
       map(params => params.get('classID') ?? undefined),
       switchMap(classId => this.yogaService.getClassByID(classId)),
       tap((yogaClass) => {
         this.teacherId = yogaClass?.teacherId ?? '';
-        console.log(yogaClass)
       })
     );
 
@@ -50,8 +50,15 @@ export class YogaClassDetails implements OnInit {
 
   }
 
+  uploadVideo() {
+    
+  }
+
+  save() {
+
+  }
+
   backToList() {
-    console.log('ID is -' + this.teacherId)
     if (this.teacherId) {
       this.router.navigate(['/teacher-dashboard/teacher-classes', this.teacherId]);
       return;

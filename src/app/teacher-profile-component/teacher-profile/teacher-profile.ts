@@ -45,6 +45,7 @@ export class TeacherProfile implements OnInit {
     }
 
     const file = input.files[0];
+    console.log(file.type)
 
     if (!file.type.startsWith('image/')) {
       alert('Please select an image file');

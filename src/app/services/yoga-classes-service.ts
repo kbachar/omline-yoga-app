@@ -1,7 +1,7 @@
 import { Injectable, EnvironmentInjector, inject, runInInjectionContext } from '@angular/core';
 import { Firestore, collection, doc, getDocs, setDoc } from '@angular/fire/firestore';
 import { Storage, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage';
-import { Observable, from, map, shareReplay, switchMap, tap } from 'rxjs';
+import { Observable, from, map, of, shareReplay, switchMap, tap } from 'rxjs';
 import { YogaClassData } from '../shared/yoga-class-data';
 import { yogaStyles } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
 import { YogaTeacher } from '../shared/yoga-teacher-data';
@@ -38,6 +38,16 @@ const STYLE_THEME: Record<YogaStyleId, Omit<YogaStyleDescription, 'id' | 'descri
     headerBackgroundColor: '#3A559A',
     classesBodyBackgroundColor: '#DEE8F2'
   }
+};
+
+const EMPTY_YOGA_CLASS: YogaClassData = {
+  id: '',
+  title: '',
+  classLength: '',
+  description: '',
+  difficulty: '',
+  videoLink: '',
+  yogaStyle: ''
 };
 
 @Injectable({
@@ -179,6 +189,10 @@ export class YogaClassesService {
   }
 
   getClassByID(classId: string | undefined): Observable<YogaClassData | undefined> {
+    if (!classId) {
+      return of(EMPTY_YOGA_CLASS);
+
+    }
     return this.getClasses().pipe(
       map((classes) => classes.find((yogaClass) => yogaClass.id === classId))
     );
@@ -218,7 +232,6 @@ export class YogaClassesService {
       map((snapshot) =>
         snapshot.docs.map((doc) => {
           const data = doc.data() as YogaTeacher;
-          console.log('teacher data:', data);
           return {
             fullName: data.fullName,
             yogaStyle: data.yogaStyle,

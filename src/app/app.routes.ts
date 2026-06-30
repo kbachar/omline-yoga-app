@@ -27,15 +27,15 @@ export const routes: Routes = [
 		path: 'teacher-subscribe-page',
 		component: TeacherSubscribePage
 	},
-	
+
 	{
 		path: 'teacher-dashboard',
 		canActivate: [authGuard],
 		component: TeacherDashboard,
 		children: [
 			{ path: 'teacher-profile/:teacherId', component: TeacherProfile },
-			{ path: 'teacher-classes/:teacherId', component: TeacherClasses},
-				{ path: 'yoga-class-details/:classID', component: YogaClassDetails }
+			{ path: 'teacher-classes/:teacherId', component: TeacherClasses },
+			{ path: 'yoga-class-details/:classID', component: YogaClassDetails }
 		]
 	},
 	{

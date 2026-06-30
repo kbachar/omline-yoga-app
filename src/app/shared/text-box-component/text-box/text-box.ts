@@ -11,5 +11,6 @@ export class TextBox {
   readonly placeholderValue = input<string | null>(null);
   readonly inputType = input<string>('text');
   readonly readonly = input<boolean>();
+   readonly textBoxWidth = input<number>();
 
 }
