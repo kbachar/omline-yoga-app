@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { CheckBox } from "../../check-box-component/check-box/check-box";
 
 @Component({
@@ -10,8 +10,14 @@ import { CheckBox } from "../../check-box-component/check-box/check-box";
 export class YogaClassesFilter {
   readonly filterName = input<string | null>(null);
   readonly filterOptions = input<string[] | null>(null);
-  readonly selectedOption = input<string>();
+  readonly savedOption = input<string>();
+  readonly selectedOption = signal<string>('');
 
+  readonly filterChange = output<string>();
   
+  onFilterChange(filterOption: string) {
+    this.filterChange.emit(filterOption);
+    this.selectedOption.set(filterOption)
+  }
   
 }

@@ -14,7 +14,6 @@ import { TeacherClasses } from './teacher-classes-component/teacher-classes/teac
 import { YogaClassDetails } from './shared/yoga-class-details-component/yoga-class-details/yoga-class-details';
 
 export const routes: Routes = [
-
 	{
 		path: '',
 		component: HomePageComponent
@@ -27,7 +26,6 @@ export const routes: Routes = [
 		path: 'teacher-subscribe-page',
 		component: TeacherSubscribePage
 	},
-
 	{
 		path: 'teacher-dashboard',
 		canActivate: [authGuard],
@@ -35,7 +33,8 @@ export const routes: Routes = [
 		children: [
 			{ path: 'teacher-profile/:teacherId', component: TeacherProfile },
 			{ path: 'teacher-classes/:teacherId', component: TeacherClasses },
-			{ path: 'yoga-class-details/:classID', component: YogaClassDetails }
+			{ path: 'yoga-class-details/:classID', component: YogaClassDetails },
+			{ path: 'yoga-class-details', component: YogaClassDetails }
 		]
 	},
 	{

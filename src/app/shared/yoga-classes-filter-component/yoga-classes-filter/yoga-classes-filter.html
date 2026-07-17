@@ -3,7 +3,8 @@
     @for (filterOption of filterOptions(); track filterOption) {
     <app-check-box 
       [inputValue]="filterOption" 
-      [checked]="selectedOption() == filterOption"
+      [checked]="savedOption() == filterOption"
+      (checkChange)="onFilterChange(filterOption)"
       >
     </app-check-box>
     }

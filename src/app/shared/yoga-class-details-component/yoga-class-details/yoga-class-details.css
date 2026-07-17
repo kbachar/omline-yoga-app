@@ -149,7 +149,6 @@ img:hover {
 
 button {
     box-sizing: border-box;
-    display: flex;
     width: 136px;
     height: 46px;
     background: rgba(194, 235, 233, 0.2);

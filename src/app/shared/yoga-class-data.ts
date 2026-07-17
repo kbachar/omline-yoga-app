@@ -1,5 +1,5 @@
 export interface YogaClassData {
-  id: string;
+  id: string | null; 
   title: string;
   teacherId?: string;
   classLength: string;
@@ -9,6 +9,6 @@ export interface YogaClassData {
   yogaStyle: string;
   teacherName?: string;
   yogaStyleColor?: string;
-  status?: string;
+  approved?: boolean;
   createDate?: Date
 }

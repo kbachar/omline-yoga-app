@@ -1,4 +1,4 @@
 <div class="container-check-box">
-    <input class="check-box" type="checkbox" [checked]="checked()">
+    <input class="check-box" type="checkbox" [checked]="checked()" (change)="onCheckChange($event)">
     <div class="check-box-description">{{inputValue()}}</div>
 </div>
