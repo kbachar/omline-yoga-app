@@ -35,6 +35,11 @@ export class TeacherClasses implements OnInit {
     this.router.navigate(['/teacher-dashboard/yoga-class-details', yogaClass.id]);
   }
 
+  addClass() {
+    this.router.navigate(['/teacher-dashboard/yoga-class-details', ""]);
+
+  }
+
   setYogaImageHovered(classId: string): void {
       this.hoveredClassId = classId;
   }

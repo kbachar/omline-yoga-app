@@ -1,13 +1,16 @@
 <div class="container">
-    <app-page-header [headerText]="'my classes'" [buttonText]="'+ add class'"></app-page-header>
+    <app-page-header [headerText]="'my classes'" [buttonText]="'+ add class'" (buttonClick)="addClass()"></app-page-header>
     <div class="classes-container">
         @if (classes$ | async; as classes) {
         @for (yogaClass of classes; track yogaClass.id) {
         <div class="class-container">
             <video [src]="yogaClass.videoLink"></video>
             <app-yoga-class [classData]="yogaClass" [descriptionWidth]="880"></app-yoga-class>
-            <img (click)="editClass(yogaClass)" [src]="hoveredClassId == yogaClass.id ? '/assets/images/view-edit-btn-hover.png' : '/assets/images/view-edit-btn.png'" 
-            (mouseenter)="setYogaImageHovered(yogaClass.id)" (mouseleave)="setYogaImageHovered('')">
+            @if (yogaClass.approved == true) {
+            <img (click)="editClass(yogaClass)"
+                [src]="hoveredClassId == yogaClass.id ? '/assets/images/view-edit-btn-hover.png' : '/assets/images/view-edit-btn.png'"
+                (mouseenter)="setYogaImageHovered(yogaClass.id)" (mouseleave)="setYogaImageHovered('')">
+            }
         </div>
         }}
     </div>

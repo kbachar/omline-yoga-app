@@ -1,5 +1,5 @@
 export interface YogaClassData {
-  id: string | null; 
+  id: string; 
   title: string;
   teacherId?: string;
   classLength: string;

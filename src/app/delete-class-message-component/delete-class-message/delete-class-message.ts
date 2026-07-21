@@ -8,7 +8,9 @@ import { Component, input, output } from '@angular/core';
 })
 export class DeleteClassMessage {
   readonly isOpen = input(false);
-  public removeClick = output<void>();
-  public keepClick = output<void>();
+  public Click = output<boolean>();
 
+  onClick(remove: boolean) {
+    this.Click.emit(remove);
+  }
 }

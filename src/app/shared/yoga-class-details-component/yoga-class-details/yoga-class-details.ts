@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { YogaClassData } from '../../yoga-class-data';
 import { YogaClassesService } from '../../../services/yoga-classes-service';
-import { map, Observable, switchMap, tap } from 'rxjs';
+import { map, Observable, of, switchMap, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TextBox } from "../../text-box-component/text-box/text-box";
 import { PageHeader } from "../../page-header-component/page-header/page-header";
@@ -13,12 +13,23 @@ import { ToggleSetting } from "../../toggle-setting-component/toggle-setting/tog
 import { DeleteClassMessage } from "../../../delete-class-message-component/delete-class-message/delete-class-message";
 import { AuthService } from '../../../services/auth-service';
 
+const createEmptyYogaClass = (): YogaClassData => ({
+  id: '',
+  title: '',
+  classLength: '',
+  description: '',
+  difficulty: '',
+  videoLink: '',
+  yogaStyle: ''
+});
+
 @Component({
   selector: 'app-yoga-class-details',
   imports: [AsyncPipe, DatePipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, DeleteClassMessage],
   templateUrl: './yoga-class-details.html',
   styleUrl: './yoga-class-details.css',
 })
+
 export class YogaClassDetails implements OnInit {
   yogaClass$: Observable<YogaClassData | undefined> | undefined;
   private teacherId = '';
@@ -39,12 +50,14 @@ export class YogaClassDetails implements OnInit {
     this.photoPreview.set('');
     this.yogaClass$ = this.route.paramMap.pipe(
       map(params => params.get('classID') ?? undefined),
-      switchMap(classId => this.yogaService.getClassByID(classId)),
+      switchMap((classId) =>
+        classId ? this.yogaService.getClassByID(classId) : of(createEmptyYogaClass())
+      ),
       tap((yogaClass) => {
-      console.log('is approved - ' + yogaClass?.approved)
+        console.log('yoga class id- ' + yogaClass?.id);
 
         this.teacherId = yogaClass?.teacherId ?? this.auth.getUserID();
-        if (yogaClass?.videoLink){
+        if (yogaClass?.videoLink) {
           this.photoPreview.set(yogaClass?.videoLink)
           this.headerText = 'class page - '
         }
@@ -54,15 +67,6 @@ export class YogaClassDetails implements OnInit {
         }
       })
     );
-
-  }
-
-  deleteClass() {
-    this.isDeleteModalOpen.set(true);
-  }
-
-  keepClass() {
-    this.isDeleteModalOpen.set(false);
 
   }
 
@@ -116,15 +120,32 @@ export class YogaClassDetails implements OnInit {
     yogaClass.title = title;
   }
 
-  save(yogaClass: YogaClassData) {
+  showDeleteClass() {
+    this.isDeleteModalOpen.set(true);
+
+  }
+
+  async save(yogaClass: YogaClassData) {
 
     yogaClass.teacherId = this.teacherId;
     yogaClass.approved = false;
     yogaClass.createDate = new Date();
-    
-    //console.log('yoga class - ' + yogaClass)
-    
-    this.yogaService.saveClass(yogaClass, this.photoFile)
+
+    await this.yogaService.saveClass(yogaClass, this.photoFile);
+    this.resetYogaClassForm();
+    this.router.navigate(['/teacher-dashboard/teacher-classes', this.teacherId]);
+
+  }
+
+  async deleteClass(yogaClass: YogaClassData, remove: boolean) {
+    this.isDeleteModalOpen.set(false);
+
+    if (remove == true) {
+      await this.yogaService.deleteYogaClass(yogaClass)
+    }
+
+    this.router.navigate(['/teacher-dashboard/teacher-classes', this.teacherId]);
+
   }
 
   backToList() {
@@ -135,6 +156,13 @@ export class YogaClassDetails implements OnInit {
 
     this.router.navigate(['/teacher-dashboard']);
 
+  }
+
+  private resetYogaClassForm(): void {
+    this.yogaClass$ = of(createEmptyYogaClass());
+    this.photoFile = null;
+    this.photoPreview.set('');
+    this.headerText = 'upload class ';
   }
 
 }

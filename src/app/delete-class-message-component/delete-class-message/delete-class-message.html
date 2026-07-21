@@ -5,9 +5,9 @@
         <div class="remove-row">
             <div class="remove-container">
                 <img src="/assets/images/trash.png">
-                <div class="remove">yes, remove</div>
+                <div class="remove" (click)="onClick(true)">yes, remove</div>
             </div>
-            <div class="keep" >keep</div>
+            <div class="keep" (click)="onClick(false)">keep</div>
         </div>
     </div>
 </div>
