@@ -1,0 +1,3 @@
+<img (click)="viewEditButtonClick.emit()"
+    [src]="isHovered == true ? '/assets/images/view-edit-btn-hover.png' : '/assets/images/view-edit-btn.png'"
+    (mouseenter)="setImageHovered(true)" (mouseleave)="setImageHovered(false)">
