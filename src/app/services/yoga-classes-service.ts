@@ -232,6 +232,10 @@ export class YogaClassesService {
       map((snapshot) =>
         snapshot.docs.map((doc) => {
           const data = doc.data() as YogaTeacher;
+                  
+                  
+          //console.log('yoga class - ' + JSON.stringify(data, null, 2));
+
           return {
             fullName: data.fullName,
             yogaStyle: data.yogaStyle,

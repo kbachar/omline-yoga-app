@@ -7,9 +7,10 @@
             <video [src]="yogaClass.videoLink"></video>
             <app-yoga-class [classData]="yogaClass" [descriptionWidth]="880"></app-yoga-class>
             @if (yogaClass.approved == true) {
-            <img (click)="editClass(yogaClass)"
+            <!-- <img (click)="editClass(yogaClass)"
                 [src]="hoveredClassId == yogaClass.id ? '/assets/images/view-edit-btn-hover.png' : '/assets/images/view-edit-btn.png'"
-                (mouseenter)="setYogaImageHovered(yogaClass.id)" (mouseleave)="setYogaImageHovered('')">
+                (mouseenter)="setYogaImageHovered(yogaClass.id)" (mouseleave)="setYogaImageHovered('')"> -->
+                <app-view-edit-button></app-view-edit-button>
             }
         </div>
         }}

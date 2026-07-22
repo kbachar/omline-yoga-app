@@ -42,7 +42,7 @@ export const routes: Routes = [
 		canActivate: [authGuard],
 		component: AdminDashboard,
 		children: [
-			{ path: '', redirectTo: 'teachers', pathMatch: 'full' },
+			// { path: '', redirectTo: 'teachers', pathMatch: 'full' },
 			{ path: 'teachers', component: TeachersComponent }
 		]
 	}

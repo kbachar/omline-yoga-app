@@ -1,15 +1,34 @@
+<div class="container">
+    <app-page-header [headerText]="'Our Yoga Teachers'" [buttonText]="'add teacher'"></app-page-header>
+    <div class="classes-container">
+        @if (teachers$ | async; as teachers) {
+        <table>
+            <tbody>
+                @for (teacher of teachers; track teacher) {
+                    <tr>
+                        <td>#</td>
+                        <td>{{teacher.fullName}}</td>
+                        <td>{{teacher.email}}</td>
+                        <td>{{teacher.status}}</td>
+                        <td>
+                            <app-view-edit-button (viewEditButtonClick)="onViewEditClick()"></app-view-edit-button>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+
+        }
+    </div>
+
+</div>
+
+
+
+
 <h1 id="teachers-title">Our Yoga Teachers</h1>
 <div class="nl-actions">
     <button type="button">Add Teacher</button>
 </div>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Style</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody id="teacherRows"></tbody>
-</table>
