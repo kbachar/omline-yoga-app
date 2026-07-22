@@ -1,15 +1,16 @@
 <div class="container">
     <app-page-header [headerText]="'Our Yoga Teachers'" [buttonText]="'add teacher'"></app-page-header>
     <div class="classes-container">
-        @if (teachers$ | async; as teachers) {
+        @if (classes$ | async; as classes) {
         <table>
             <tbody>
-                @for (teacher of teachers; track teacher) {
+                @for (class of classes; track class) {
                     <tr>
                         <td>#</td>
-                        <td>{{teacher.fullName}}</td>
-                        <td>{{teacher.email}}</td>
-                        <td>{{teacher.status}}</td>
+                        <td>{{class.title}}</td>
+                        <td>{{class.yogaStyle}}</td>
+                        <td>{{class.difficulty}}</td>
+                        <td>{{class.classLength}}</td>
                         <td>
                             <app-view-edit-button (viewEditButtonClick)="onViewEditClick()"></app-view-edit-button>
                         </td>

@@ -12,6 +12,7 @@ import { TeacherCompleteRegister } from './teacher-complete-register-component/t
 import { TeacherProfile } from './teacher-profile-component/teacher-profile/teacher-profile';
 import { TeacherClasses } from './teacher-classes-component/teacher-classes/teacher-classes';
 import { YogaClassDetails } from './shared/yoga-class-details-component/yoga-class-details/yoga-class-details';
+import { Videos } from './videos-component/videos/videos';
 
 export const routes: Routes = [
 	{
@@ -42,8 +43,8 @@ export const routes: Routes = [
 		canActivate: [authGuard],
 		component: AdminDashboard,
 		children: [
-			// { path: '', redirectTo: 'teachers', pathMatch: 'full' },
-			{ path: 'teachers', component: TeachersComponent }
+			{ path: 'teachers', component: TeachersComponent },
+			{ path: 'videos', component: Videos }
 		]
 	}
 ];
