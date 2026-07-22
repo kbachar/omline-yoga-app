@@ -1,5 +1,5 @@
 <div class="container">
-    <app-page-header [headerText]="'Our Yoga Teachers'" [buttonText]="'add teacher'"></app-page-header>
+    <app-page-header [headerText]="'Our Yoga Classes'" [showButton]="false"></app-page-header>
     <div class="classes-container">
         @if (classes$ | async; as classes) {
         <table>

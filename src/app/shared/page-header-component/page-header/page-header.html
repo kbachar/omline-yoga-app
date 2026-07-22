@@ -6,5 +6,7 @@
         <header>{{headerText()}}</header>
     </div>
 
+    @if (showButton()) {
     <button (click)="onButtonClick()">{{buttonText()}}</button>
+    }
 </div>

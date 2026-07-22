@@ -10,6 +10,7 @@ export class PageHeader {
   readonly buttonText = input<string>('');
   readonly headerText = input<string>('');
   readonly showBack = input<boolean>(false);
+  readonly showButton = input<boolean>(true);
   public buttonClick = output<void>();
   public backToListClick = output<void>();
 
