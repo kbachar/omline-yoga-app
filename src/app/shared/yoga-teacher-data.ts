@@ -8,4 +8,5 @@ export interface YogaTeacher {
   status: string;
   photo: string;
   description: string;
+  approved: boolean;
 }

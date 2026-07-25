@@ -1,0 +1,52 @@
+<app-page-header [headerText]="'new letter'" [buttonText]="'save'"></app-page-header>
+<div class="container">
+        <div class="letter-editor">
+            <h2>Letter Editor</h2>
+            <span id="closeBtn" class="close-btn" onclick="closeIframe('letter')">x</span>
+
+            <div class="main-row">
+                <label>
+                    <input type="checkbox" id="showHeaderCheckbox">
+                    Show Logo
+                </label>
+                <div class="nl-actions">
+                    <button id="saveLetterBtn" type="button" onclick="saveLetter()">Save</button>
+                    <button id="sendBtn" type="button" onclick="send()">Send</button>
+                </div>
+            </div>
+
+            <div class="main-row">
+                <label for="teacherSelect">Teacher</label>
+                <select id="teacherSelect">
+                    <option value="">Select Teacher</option>
+                </select>
+            </div>
+            <div class="main-row">
+                <label for="letterTitle">Title</label>
+                <input type="text" id="letterTitle" placeholder="Enter title">
+            </div>
+
+            <div class="main-row">
+                <label for="letterContent"></label>
+                <textarea id="letterContent" placeholder="Write your letter..."></textarea>
+            </div>
+
+            <div class="main-row">
+                <label for="letterFiles">Add Files</label>
+                <select id="letterFiles" multiple size="1"></select>
+                <small class="letter-files-help">Select one or more files from Firebase Storage</small>
+                <div id="fileList" class="file-list"></div>
+            </div>
+
+            <p id="letterStatus" class="nl-status"></p>
+        </div>
+        <div class="letter-preview">
+            <h2>Live Preview</h2>
+            <header id="letterHeader">
+                <img src="" class="letter-logo">
+            </header>
+
+            <iframe id="previewFrame" class="preview-frame">
+            </iframe>
+        </div>
+    </div>

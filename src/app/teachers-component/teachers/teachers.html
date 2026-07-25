@@ -1,5 +1,4 @@
-<div class="container">
-    <app-page-header [headerText]="'Our Yoga Teachers'" [buttonText]="'add teacher'"></app-page-header>
+<app-page-header [headerText]="'Our Yoga Teachers'" [buttonText]="'add teacher'"></app-page-header>
     <div class="classes-container">
         @if (teachers$ | async; as teachers) {
         <table>
@@ -9,9 +8,9 @@
                         <td>#</td>
                         <td>{{teacher.fullName}}</td>
                         <td>{{teacher.email}}</td>
-                        <td>{{teacher.status}}</td>
+                        <td>{{ teacher.status }}</td>
                         <td>
-                            <app-view-edit-button (viewEditButtonClick)="onViewEditClick()"></app-view-edit-button>
+                            <app-view-edit-button (viewEditButtonClick)="onViewEditClick(teacher.teacherID)"></app-view-edit-button>
                         </td>
                     </tr>
                 }
@@ -19,4 +18,3 @@
         </table>
         }
     </div>
-</div>

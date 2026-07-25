@@ -5,6 +5,7 @@ import { Observable, firstValueFrom, from, map, merge, of, shareReplay, switchMa
 import { YogaClassData } from '../shared/yoga-class-data';
 import { yogaStyles } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
 import { YogaTeacher } from '../shared/yoga-teacher-data';
+import { LetterData } from '../shared/letter-date';
 
 export type { YogaClassData };
 
@@ -54,9 +55,11 @@ const EMPTY_YOGA_CLASS: YogaClassData = {
   providedIn: 'root',
 })
 export class YogaClassesService {
+  
   private yogaStyles$?: Observable<YogaStyleDescription[]>;
   private yogaClasses$?: Observable<YogaClassData[]>;
   private yogaTeachers$?: Observable<YogaTeacher[]>;
+  private letters$?: Observable<LetterData[]>;
   private readonly firestore = inject(Firestore);
   private readonly storage = inject(Storage);
   private readonly injector = inject(EnvironmentInjector);
@@ -218,95 +221,6 @@ export class YogaClassesService {
     );
   }
  
-  getTeachers(): Observable<YogaTeacher[]> {
-    if (this.yogaTeachers$) {
-      return this.yogaTeachers$;
-    }
-
-    this.yogaTeachers$ = from(
-      runInInjectionContext(this.injector, () => {
-        const teachersRef = collection(this.firestore, 'teachers');
-        return getDocs(teachersRef);
-      })
-    ).pipe(
-      map((snapshot) =>
-        snapshot.docs.map((doc) => {
-          const data = doc.data() as YogaTeacher;
-                  
-                  
-          //console.log('yoga class - ' + JSON.stringify(data, null, 2));
-
-          return {
-            fullName: data.fullName,
-            yogaStyle: data.yogaStyle,
-            email: data.email,
-            website: data.website,
-            country: data.country,
-            teacherID: data.teacherID,
-            status: data.status,
-            photo: data.photo,
-            description: data.description
-          } as YogaTeacher;
-        })
-      ),
-      shareReplay({ bufferSize: 1, refCount: true })
-    );
-
-    return this.yogaTeachers$;
-  }
-
-
-  getTeacher(id: string | undefined): Observable<YogaTeacher> {
-    return this.getTeachers().pipe(
-      map((teachers) => {
-        const found = teachers.find((teacher) => teacher.teacherID === id);
-        return found ?? {
-          fullName: 'Unknown Teacher',
-          yogaStyle: [],
-          email: '',
-          website: '',
-          country: '',
-          teacherID: id ?? '',
-          status: '',
-          photo: '',
-          description: ''
-        };
-      })
-    );
-  }
-
-  getTeacherStatus(teacherID: string): Observable<string> {
-    return this.getTeacher(teacherID).pipe(
-      map((teacher) => teacher.status ?? '')
-    );
-  }
-
-  async saveTeacher(teacher: YogaTeacher, photoFile?: File | null): Promise<void> {
-    const teacherID = teacher.teacherID.trim();
-
-    let photoUrl = teacher.photo ?? '';
-
-    if (photoFile) {
-      const storageRef = ref(this.storage, `teachers/${teacherID}/photo`);
-
-      await runInInjectionContext(this.injector, () => uploadBytes(storageRef, photoFile));
-      photoUrl = await runInInjectionContext(this.injector, () => getDownloadURL(storageRef));
-    }
-
-    const teacherToSave: YogaTeacher = {
-      ...teacher,
-      teacherID,
-      photo: photoUrl
-    };
-
-    await runInInjectionContext(this.injector, () =>
-      setDoc(doc(this.firestore, `teachers/${teacherID}`), teacherToSave, { merge: true })
-    );
-
-    this.yogaTeachers$ = undefined;
-    this.yogaTeachers$ = this.getTeachers();
-  }
-
   async saveClass(yogaClass: YogaClassData, videoFile?: File | null): Promise<void> {
 
     const videoDocRef = yogaClass.id
@@ -356,5 +270,130 @@ export class YogaClassesService {
 
     this.yogaClasses$ = undefined;
     this.yogaClasses$ = this.getClasses();
+  }
+
+  getTeachers(): Observable<YogaTeacher[]> {
+    if (this.yogaTeachers$) {
+      return this.yogaTeachers$;
+    }
+
+    this.yogaTeachers$ = from(
+      runInInjectionContext(this.injector, () => {
+        const teachersRef = collection(this.firestore, 'teachers');
+        return getDocs(teachersRef);
+      })
+    ).pipe(
+      map((snapshot) =>
+        snapshot.docs.map((doc) => {
+          const data = doc.data() as YogaTeacher;
+                  
+                  
+          //console.log('yoga class - ' + JSON.stringify(data, null, 2));
+
+          return {
+            fullName: data.fullName,
+            yogaStyle: data.yogaStyle,
+            email: data.email,
+            website: data.website,
+            country: data.country,
+            teacherID: data.teacherID,
+            status: data.status,
+            photo: data.photo,
+            description: data.description,
+            approved: data.approved
+          } as YogaTeacher;
+        })
+      ),
+      shareReplay({ bufferSize: 1, refCount: true })
+    );
+
+    return this.yogaTeachers$;
+  }
+
+
+  getTeacher(id: string | undefined): Observable<YogaTeacher> {
+    return this.getTeachers().pipe(
+      map((teachers) => {
+        const found = teachers.find((teacher) => teacher.teacherID === id);
+        return found ?? {
+          fullName: 'Unknown Teacher',
+          yogaStyle: [],
+          email: '',
+          website: '',
+          country: '',
+          teacherID: id ?? '',
+          photo: '',
+          description: '',
+          status: 'pending',
+          approved: false
+        };
+      })
+    );
+  }
+
+  getTeacherStatus(teacherID: string): Observable<string> {
+    return this.getTeacher(teacherID).pipe(
+      map((teacher) => (teacher.status ?? ''))
+    );
+  }
+
+  async saveTeacher(teacher: YogaTeacher, photoFile?: File | null): Promise<void> {
+    const teacherID = teacher.teacherID.trim();
+
+    let photoUrl = teacher.photo ?? '';
+
+    if (photoFile && teacher.photo == '') {
+      const storageRef = ref(this.storage, `teachers/${teacherID}/photo`);
+
+      await runInInjectionContext(this.injector, () => uploadBytes(storageRef, photoFile));
+      photoUrl = await runInInjectionContext(this.injector, () => getDownloadURL(storageRef));
+    }
+
+    const teacherToSave: YogaTeacher = {
+      ...teacher,
+      teacherID,
+      photo: photoUrl
+    };
+
+    await runInInjectionContext(this.injector, () =>
+      setDoc(doc(this.firestore, `teachers/${teacherID}`), teacherToSave, { merge: true })
+    );
+
+    this.yogaTeachers$ = undefined;
+    this.yogaTeachers$ = this.getTeachers();
+  }
+
+  getLetters(): Observable<LetterData[]> {
+    if (this.letters$)
+      return this.letters$;
+
+    this.letters$ = from(
+      runInInjectionContext(this.injector, () => {
+        const letterRef = collection(this.firestore, 'letters');
+        return getDocs(letterRef);
+      })
+    ).pipe(
+      map((snapshot) =>
+        snapshot.docs.map((doc) => {
+          const data = doc.data() as LetterData;
+                  
+          //console.log('yoga class - ' + JSON.stringify(data, null, 2));
+
+          return {
+            title: data.title,
+            content: data.content,
+            createdAt: data.createdAt,
+            createdBy: data.createdBy,
+            recipients: data.recipients,
+            sent: data.sent,
+            updatedAt: data.updatedAt,
+            updatedBy: data.updatedBy,
+          } as LetterData;
+        })
+      ),
+      shareReplay({ bufferSize: 1, refCount: true })
+    );
+
+    return this.letters$;
   }
 }

@@ -9,11 +9,15 @@ import { Component, input, output } from '@angular/core';
 export class CheckBox {
   readonly inputValue = input<string | null>(null);
   readonly checked = input<boolean>(false);
-  readonly checkChange = output<string>();
+  readonly checkValue = output<string>();
+  readonly checkChange = output<boolean>();
 
   onCheckChange(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
-    this.checkChange.emit(value);
+    const target = event.target as HTMLInputElement;
+    const value = target.value;
+    const checked = target.checked;
+    this.checkValue.emit(value);
+    this.checkChange.emit(checked);
 
   }
 }

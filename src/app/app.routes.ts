@@ -13,6 +13,8 @@ import { TeacherProfile } from './teacher-profile-component/teacher-profile/teac
 import { TeacherClasses } from './teacher-classes-component/teacher-classes/teacher-classes';
 import { YogaClassDetails } from './shared/yoga-class-details-component/yoga-class-details/yoga-class-details';
 import { Videos } from './videos-component/videos/videos';
+import { Letters } from './Letters-component/letters/letters';
+import { Letter } from './Letter-component/letter/letter';
 
 export const routes: Routes = [
 	{
@@ -44,7 +46,10 @@ export const routes: Routes = [
 		component: AdminDashboard,
 		children: [
 			{ path: 'teachers', component: TeachersComponent },
-			{ path: 'videos', component: Videos }
+			{ path: 'teacher-profile/:teacherId', component: TeacherProfile },
+			{ path: 'videos', component: Videos },
+			{ path: 'letters', component: Letters },
+			{ path: 'letter', component: Letter }
 		]
 	}
 ];

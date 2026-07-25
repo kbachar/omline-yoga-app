@@ -1,0 +1,10 @@
+<div class="container">
+    <app-page-header [headerText]="'our letters'" [buttonText]="'+ new letter'" (buttonClick)="addLetter()"></app-page-header>
+    <div class="classes-container">
+        @if (letters$ | async; as letters) {
+        @for (letter of letters; track letter) {
+        <div class="letter-container">
+        </div>
+        }}
+    </div>
+</div>

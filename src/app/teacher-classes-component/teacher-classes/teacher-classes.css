@@ -2,7 +2,7 @@
     position: relative;
     width: 100%;
     min-height: 1283px;
-    background: #FFFFFF;
+    background: #A6AECB;
     border-radius: 20px 0px 0px 0px;
 }
 
@@ -25,12 +25,11 @@ header {
     flex-direction: column;
     display: flex;
     gap: 20px;
-    width: 100%;
     height: 1283px;
-    background: #FFFFFF;
+    background: #F7F8FA;
     border-radius: 20px 0px 0px 0px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding: 3%
+    ;
 }
 
 .class-container {
@@ -49,11 +48,21 @@ header {
     gap: 20px;
     align-items: center;
     justify-content: flex-start;
+    margin-left: 23px;
 }
 
 app-yoga-class {
     flex: 1;
     min-width: 0;
+}
+
+app-view-edit-button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
 }
 
 video {

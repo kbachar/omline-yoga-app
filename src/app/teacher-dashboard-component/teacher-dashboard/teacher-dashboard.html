@@ -6,9 +6,8 @@
 </header>
 <div class="dashboard-layout">
     <div class="side-bar">
-        <div class="side-bar-item" [routerLink]="'/teacher-dashboard'"
-            [class.side-bar-item-disabled]="teacherStatusPending()">Home</div>
-        <div class="side-bar-item" [routerLink]="teacherStatusPending() ? null : ['teacher-profile', uid$]">my profile
+        <div class="side-bar-item" [routerLink]="'/teacher-dashboard'">Home</div>
+        <div class="side-bar-item" [routerLink]="['teacher-profile', uid$]">my profile
         </div>
         <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()"
             [routerLink]="teacherStatusPending() ? null : ['teacher-classes', uid$]">my classes</div>
@@ -18,21 +17,7 @@
         <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()">Payments</div>
         <div class="side-bar-item" (click)="logout()">Logout</div>
     </div>
-    <div class="body">
-        <!-- <div class="welcome-bar">
-            <div class="welcome-text">Welcome, </div>
-            @if (profile$ | async; as profile) {
-            <div class="welcome-text-bold">{{ profile['fullName'] ?? profile['Name'] }}</div>
-            }
-        </div> -->
-        <main class="content">
-            <!-- @if (teacherStatusPending()) {
-                <app-teacher-complete-register (updateProfileRequested)="openTeacherProfile()"></app-teacher-complete-register>
-            } -->
-
             <router-outlet></router-outlet>
 
-
-        </main>
-    </div>
+    
 </div>

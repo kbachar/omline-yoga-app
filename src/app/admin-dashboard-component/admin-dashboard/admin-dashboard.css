@@ -25,12 +25,12 @@ header {
 .body {
     flex: 1;
     min-width: 0;
-    background: #eef3fb;
+    background: #9097AF;
 }
 
 .content {
     min-height: 100%;
-    background: #ffffff;
+    background: #9097AF;
     border-radius: 12px;
     box-sizing: border-box;
 }
@@ -64,6 +64,14 @@ header {
     background-color: #7f88a5;
     color: #ffffff;
 }
+
+.side-bar-item.active:hover,
+.side-bar-item.active:focus,
+.side-bar-item.active:focus-visible {
+    background-color: #7f88a5;
+    color: #ffffff;
+}
+
 
 .welcome-bar {
     width: 100%;

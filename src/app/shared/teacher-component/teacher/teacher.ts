@@ -16,7 +16,8 @@ const DEFAULT_TEACHER: YogaTeacher = {
   teacherID: '',
   status: '',
   photo: '',
-  description: ''
+  description: '',
+  approved: false
 };
 
 @Component({

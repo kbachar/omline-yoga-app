@@ -1,7 +1,15 @@
 <div class="container">
     @if (profile$ | async; as profile) {
-    <app-page-header [headerText]="'My profile'" [buttonText]="'save'" (buttonClick)="save(profile)">My profile</app-page-header>
+    <app-page-header [headerText]="(headerText$ | async) ?? 'My profile'" [buttonText]="'save'"
+        (buttonClick)="save(profile)" [showBack]="(role$ | async) === 'admin'"
+        (backToListClick)="back()"></app-page-header>
     <div class="body-container">
+        @if (isAdmin$ | async;) {
+        <div class="check-box">
+            <app-check-box [inputValue]="'approved'" [checked]="profile.approved"
+                (checkChange)="onApproveCheckChange(profile, $event)"></app-check-box>
+        </div>
+        }
         <input #fileInput type="file" accept="image/*" hidden (change)="onPhotoSelected($event)" />
         <img [src]="photoPreview()" alt="Selected photo" (click)="fileInput.click()" />
 

@@ -1,27 +1,36 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Teacher } from '../../shared/teacher-component/teacher/teacher';
 import { YogaTeacher } from '../../shared/yoga-teacher-data';
-import { map, Observable, switchMap, tap } from 'rxjs';
+import { combineLatest, map, Observable, shareReplay, switchMap, tap } from 'rxjs';
 import { TextArea } from "../../shared/text-area-component/text-area/text-area";
 import { YogaClassesService } from '../../services/yoga-classes-service';
 import { AsyncPipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PageHeader } from "../../shared/page-header-component/page-header/page-header";
+import { AuthService } from '../../services/auth-service';
+import { CheckBox } from '../../shared/check-box-component/check-box/check-box';
 
 
 @Component({
   selector: 'app-teacher-profile',
-  imports: [Teacher, TextArea, AsyncPipe, PageHeader],
+  imports: [Teacher, TextArea, AsyncPipe, PageHeader, CheckBox],
   templateUrl: './teacher-profile.html',
   styleUrl: './teacher-profile.css',
 })
+
 export class TeacherProfile implements OnInit {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private yogaService = inject(YogaClassesService);
+  private authService = inject(AuthService);
+
   profile$!: Observable<YogaTeacher>;
   description$: string = '';
   photoFile: File | null = null;
   photoPreview = signal<string>('/assets/images/upload-photo.png');
+  role$ = this.authService.getUserRole();
+  headerText$!: Observable<string>;
+  isAdmin$ = this.authService.isAdmin();
 
   ngOnInit(): void {
     this.profile$ = this.route.paramMap.pipe(
@@ -30,8 +39,14 @@ export class TeacherProfile implements OnInit {
       tap((profile) => {
         this.description$ = profile.description;
         this.photoPreview.set(profile.photo);
-        
-      })
+      }),
+      shareReplay({ bufferSize: 1, refCount: true })
+    );
+
+    this.headerText$ = combineLatest([this.role$, this.profile$]).pipe(
+      map(([userRole, profile]) =>
+        userRole === 'admin' ? (profile.fullName || 'My profile') : 'My profile'
+      )
     );
 
   }
@@ -67,12 +82,34 @@ export class TeacherProfile implements OnInit {
     this.description$ = description;
   }
 
+  onApproveCheckChange(teacher: YogaTeacher, approved: boolean) {
+    teacher.approved = approved;
+    if (approved == true)
+      teacher.status = 'approved';
+    else
+      teacher.status = 'pending';
+
+  }
+
   async save(teacher: YogaTeacher): Promise<void> {
     const teacherToSave: YogaTeacher = {
       ...teacher,
       description: this.description$ || teacher.description || ''
     };
 
+
+
     await this.yogaService.saveTeacher(teacherToSave, this.photoFile);
+
+    this.isAdmin$.then((isAdmin) => {
+      if (isAdmin)
+        this.router.navigate(['/admin-dashboard/teachers']);
+
+    })
+  }
+
+  back() {
+    this.router.navigate(['/admin-dashboard/teachers']);
+
   }
 }

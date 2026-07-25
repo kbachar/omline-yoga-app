@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { YogaClassesService } from '../../services/yoga-classes-service';
 import { AsyncPipe } from '@angular/common';
 import { ViewEditButton } from '../../shared/view-edit-button-component/view-edit-button/view-edit-button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-teachers',
@@ -14,6 +15,7 @@ import { ViewEditButton } from '../../shared/view-edit-button-component/view-edi
 })
 export class TeachersComponent implements OnInit {
   
+  private readonly router = inject(Router);
   private yogaService = inject(YogaClassesService);
   teachers$!: Observable<YogaTeacher[]>;
   
@@ -21,7 +23,8 @@ export class TeachersComponent implements OnInit {
     this.teachers$ = this.yogaService.getTeachers();
   }
 
-  onViewEditClick() {
+  onViewEditClick(teacherId: string) {
+    this.router.navigate(['/admin-dashboard/teacher-profile', teacherId]);
 
   }
   

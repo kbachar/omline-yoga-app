@@ -27,7 +27,8 @@ export class TeacherSubscribePage {
     teacherID: '',
     status: '',
     photo: '',
-    description: ''
+    description: '',
+    approved: false
   };
 
   private authService = inject(AuthService);

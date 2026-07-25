@@ -117,4 +117,23 @@ export class AuthService {
   getUserID(): string {
     return this.auth.currentUser?.uid ?? '';
   }
+
+  async isAdmin(): Promise<boolean> {
+    const uid = this.auth.currentUser?.uid;
+
+    if (!uid) {
+      return false;
+    }
+
+    const snapshot = await runInInjectionContext(this.injector, () =>
+      getDoc(doc(this.firestore, `users/${uid}`))
+    );
+
+    if (!snapshot.exists()) {
+      return false;
+    }
+
+    const data = snapshot.data() as Record<string, unknown>;
+    return data['isAdmin'] === true || data['role'] === 'admin';
+  } 
 }

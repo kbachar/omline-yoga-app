@@ -47,14 +47,14 @@ img {
 }
 
 .body {
-    flex: 1;
-    min-width: 0;
-    background: #eef3fb;
+    /* flex: 1; */
+    /* min-width: 0; */
+    /* background: #9097AF; */
 }
 
 .content {
     min-height: 100%;
-    background: #ffffff;
+    /* background: #9097AF; */
     border-radius: 12px;
     box-sizing: border-box;
 }
