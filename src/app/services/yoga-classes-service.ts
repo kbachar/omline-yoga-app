@@ -48,7 +48,8 @@ const EMPTY_YOGA_CLASS: YogaClassData = {
   description: '',
   difficulty: '',
   videoLink: '',
-  yogaStyle: ''
+  yogaStyle: '',
+  approved: false
 };
 
 @Injectable({
@@ -208,6 +209,7 @@ export class YogaClassesService {
     return this.getClasses().pipe(
       map((classes) =>
         classes.filter((yogaClass) => {
+          const approved = yogaClass.approved;
           const classStyle = yogaClass.yogaStyle;
           const classDifficulty = yogaClass.difficulty?.toLowerCase() ?? '';
 
@@ -215,7 +217,7 @@ export class YogaClassesService {
           const matchesDifficulty = !normalizedDifficulty || classDifficulty === normalizedDifficulty;
           const matchesDuration = !duration || yogaClass.classLength === duration;
 
-          return matchesStyle && matchesDifficulty && matchesDuration;
+          return matchesStyle && matchesDifficulty && matchesDuration && approved;
         })
       )
     );

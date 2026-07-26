@@ -12,6 +12,7 @@ import { TextArea } from "../../text-area-component/text-area/text-area";
 import { ToggleSetting } from "../../toggle-setting-component/toggle-setting/toggle-setting";
 import { DeleteClassMessage } from "../../../delete-class-message-component/delete-class-message/delete-class-message";
 import { AuthService } from '../../../services/auth-service';
+import { CheckBox } from '../../check-box-component/check-box/check-box';
 
 const createEmptyYogaClass = (): YogaClassData => ({
   id: '',
@@ -20,12 +21,13 @@ const createEmptyYogaClass = (): YogaClassData => ({
   description: '',
   difficulty: '',
   videoLink: '',
-  yogaStyle: ''
+  yogaStyle: '',
+  approved: false
 });
 
 @Component({
   selector: 'app-yoga-class-details',
-  imports: [AsyncPipe, DatePipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, DeleteClassMessage],
+  imports: [AsyncPipe, DatePipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, DeleteClassMessage, CheckBox],
   templateUrl: './yoga-class-details.html',
   styleUrl: './yoga-class-details.css',
 })
@@ -45,6 +47,7 @@ export class YogaClassDetails implements OnInit {
   photoFile: File | null = null;
   photoPreview = signal<string>('');
   headerText: string = '';
+  isAdmin = this.auth.isAdmin();
 
   ngOnInit(): void {
     this.photoPreview.set('');
@@ -54,7 +57,6 @@ export class YogaClassDetails implements OnInit {
         classId ? this.yogaService.getClassByID(classId) : of(createEmptyYogaClass())
       ),
       tap((yogaClass) => {
-        console.log('yoga class id- ' + yogaClass?.id);
 
         this.teacherId = yogaClass?.teacherId ?? this.auth.getUserID();
         if (yogaClass?.videoLink) {
@@ -120,6 +122,10 @@ export class YogaClassDetails implements OnInit {
     yogaClass.title = title;
   }
 
+  onApproveCheckChange(yogaClass: YogaClassData, approved: boolean) {
+    yogaClass.approved = approved;
+  }
+
   showDeleteClass() {
     this.isDeleteModalOpen.set(true);
 
@@ -128,12 +134,18 @@ export class YogaClassDetails implements OnInit {
   async save(yogaClass: YogaClassData) {
 
     yogaClass.teacherId = this.teacherId;
-    yogaClass.approved = false;
     yogaClass.createDate = new Date();
 
     await this.yogaService.saveClass(yogaClass, this.photoFile);
     this.resetYogaClassForm();
-    this.router.navigate(['/teacher-dashboard/teacher-classes', this.teacherId]);
+
+    this.isAdmin.then((isAdmin) => {
+      if (isAdmin)
+        this.router.navigate(['/admin-dashboard/videos']);
+      else
+        this.router.navigate(['/teacher-dashboard/teacher-classes', this.teacherId]);
+
+    })
 
   }
 
@@ -149,6 +161,11 @@ export class YogaClassDetails implements OnInit {
   }
 
   backToList() {
+    this.isAdmin.then((isAdmin) => {
+      if (isAdmin) {
+        this.router.navigate(['/admin-dashboard/videos']);
+      }
+    })
     if (this.teacherId) {
       this.router.navigate(['/teacher-dashboard/teacher-classes', this.teacherId]);
       return;

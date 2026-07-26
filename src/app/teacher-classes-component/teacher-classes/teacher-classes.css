@@ -37,8 +37,6 @@ header {
     position: relative;
     width: 100%;
     max-width: 1107px;
-    min-height: 154px;
-    max-height: 154px;
     background: rgba(113, 131, 215, 0.1);
     border: 1px solid #1F6B9A;
     border-radius: 10px;

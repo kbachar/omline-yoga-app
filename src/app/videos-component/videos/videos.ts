@@ -4,6 +4,7 @@ import { ViewEditButton } from "../../shared/view-edit-button-component/view-edi
 import { YogaClassData, YogaClassesService } from '../../services/yoga-classes-service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-videos',
@@ -13,6 +14,7 @@ import { AsyncPipe } from '@angular/common';
 })
 export class Videos implements OnInit {
   
+  private readonly router = inject(Router);
   private yogaService = inject(YogaClassesService);
   classes$!: Observable<YogaClassData[]>;
 
@@ -20,7 +22,8 @@ export class Videos implements OnInit {
     this.classes$ = this.yogaService.getClasses();
   }
 
-  onViewEditClick() {
+  onViewEditClick(classId: string) {
+    this.router.navigate(['/admin-dashboard/yoga-class-details', classId]);
     
   }
 }

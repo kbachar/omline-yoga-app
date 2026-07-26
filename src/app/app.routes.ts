@@ -48,6 +48,7 @@ export const routes: Routes = [
 			{ path: 'teachers', component: TeachersComponent },
 			{ path: 'teacher-profile/:teacherId', component: TeacherProfile },
 			{ path: 'videos', component: Videos },
+			{ path: 'yoga-class-details/:classID', component: YogaClassDetails },
 			{ path: 'letters', component: Letters },
 			{ path: 'letter', component: Letter }
 		]

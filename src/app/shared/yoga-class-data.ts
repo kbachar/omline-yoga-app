@@ -9,6 +9,6 @@ export interface YogaClassData {
   yogaStyle: string;
   teacherName?: string;
   yogaStyleColor?: string;
-  approved?: boolean;
+  approved: boolean;
   createDate?: Date
 }

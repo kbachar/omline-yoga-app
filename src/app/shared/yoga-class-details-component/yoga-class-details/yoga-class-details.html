@@ -1,7 +1,8 @@
 @if (yogaClass$ | async; as yogaClass) {
 <div class="container">
-    <app-page-header [showBack]="yogaClass.approved == true" [headerText]="headerText + yogaClass.title"
-        [buttonText]="'save'" (backToListClick)="backToList()" (buttonClick)="save(yogaClass)"></app-page-header>
+    <app-page-header [showBack]="(isAdmin | async) === true || yogaClass.approved === true"
+        [headerText]="headerText + yogaClass.title" [buttonText]="'save'" (backToListClick)="backToList()"
+        (buttonClick)="save(yogaClass)"></app-page-header>
     <div class="body-container">
         <div class="left-side">
             <app-text-box [inputValue]="yogaClass.title" [placeholderValue]="'class name'"
@@ -16,11 +17,17 @@
                 [savedOption]="yogaClass.difficulty"
                 (filterChange)="onChallengeFilterChange(yogaClass, $event)"></app-yoga-classes-filter>
             <app-text-area [textAreaName]="'class description'" [textValue]="yogaClass.description" [textWidth]="500"
-                (textValueChange)="onTextValueChanged(yogaClass, $event)"></app-text-area>
+                [textHeight]="250" (textValueChange)="onTextValueChanged(yogaClass, $event)"></app-text-area>
         </div>
         <div class="right-side">
-            @if (yogaClass.approved == true)
-            {
+            @if (isAdmin | async) {
+            <div class="check-box">
+                <app-check-box [inputValue]="'approved'" [checked]="yogaClass.approved"
+                    (checkChange)="onApproveCheckChange(yogaClass, $event)"></app-check-box>
+            </div>
+            <app-text-box [inputType]="'text'" [inputValue]="yogaClass.videoLink" [readonly]="true"></app-text-box>
+            }
+            @else if (yogaClass.approved === true) {
             <div class="update-container">
                 <app-toggle-setting [labelText]="'hide video from site'" [imageSrc]="'/assets/images/class-hidden.png'"
                     [toggleImageSrc]="'/assets/images/class-shows.png'"></app-toggle-setting>
@@ -34,14 +41,13 @@
                 <div class="upload-container">
                     <input #fileInput type="file" accept="video/*" hidden (change)="onSelectVideo($event)" />
                     <button (click)="fileInput.click()">upload video</button>
-
-                    
                     <label class="video-name">{{photoFile?.name}}</label>
                 </div>
                 <label class="or">or</label>
                 <app-text-box [inputType]="'text'" [placeholderValue]="'add video link'"
                     [textBoxWidth]="700"></app-text-box>
-                                <app-text-box [inputType]="'text'" [textBoxWidth]="700" ></app-text-box>
+
+                <app-text-box [inputType]="'text'" [textBoxWidth]="700"></app-text-box>
 
             </div>
             }
@@ -53,7 +59,6 @@
                 <img class="video-preview-img" src="/assets/images/video-preview.png" alt="No video selected">
             </div>
             }
-            @if (yogaClass.approved == false) {
             <div class="labels-container">
                 <div class="start-label-container">
                     <label>Upload date:</label>
@@ -63,14 +68,14 @@
                     <label>number of views</label>
                 </div>
             </div>
-            }
 
         </div>
     </div>
     <hr class="divider">
     @if (yogaClass.approved == true) {
     <img src="/assets/images/delete.png" (click)="showDeleteClass()">
-    <app-delete-class-message [isOpen]="isDeleteModalOpen()" (Click)="deleteClass(yogaClass, $event)"></app-delete-class-message>
+    <app-delete-class-message [isOpen]="isDeleteModalOpen()"
+        (Click)="deleteClass(yogaClass, $event)"></app-delete-class-message>
     }
 </div>
 }
