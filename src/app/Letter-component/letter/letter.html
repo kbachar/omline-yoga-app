@@ -1,18 +1,11 @@
-<app-page-header [headerText]="'new letter'" [buttonText]="'save'"></app-page-header>
+<app-page-header [headerText]="'letter-editor - new letter'" [buttonText]="'save'"></app-page-header>
 <div class="container">
         <div class="letter-editor">
-            <h2>Letter Editor</h2>
-            <span id="closeBtn" class="close-btn" onclick="closeIframe('letter')">x</span>
-
             <div class="main-row">
                 <label>
                     <input type="checkbox" id="showHeaderCheckbox">
                     Show Logo
                 </label>
-                <div class="nl-actions">
-                    <button id="saveLetterBtn" type="button" onclick="saveLetter()">Save</button>
-                    <button id="sendBtn" type="button" onclick="send()">Send</button>
-                </div>
             </div>
 
             <div class="main-row">
@@ -48,5 +41,7 @@
 
             <iframe id="previewFrame" class="preview-frame">
             </iframe>
+                    <button id="sendBtn" type="button" onclick="send()">Send</button>
         </div>
+
     </div>

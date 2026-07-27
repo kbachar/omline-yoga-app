@@ -1,10 +1,21 @@
-<div class="container">
-    <app-page-header [headerText]="'our letters'" [buttonText]="'+ new letter'" (buttonClick)="addLetter()"></app-page-header>
-    <div class="classes-container">
-        @if (letters$ | async; as letters) {
-        @for (letter of letters; track letter) {
-        <div class="letter-container">
-        </div>
-        }}
-    </div>
+<app-page-header [headerText]="'our letters'" [buttonText]="'+ new letter'"
+    (buttonClick)="addLetter()"></app-page-header>
+<div class="letters-container">
+    <table class="letters-table">
+        <tbody>
+            @if (letters$ | async; as letters) {
+            @for (letter of letters; track letter.id; let index = $index) {
+            <tr>
+                <td>{{ index + 1 }}</td>
+                <td>{{ letter.title }}</td>
+                <td>{{ letter.content }}</td>
+                <td>
+                    <app-view-edit-button (viewEditButtonClick)="onViewEditClick(letter.id)">
+                    </app-view-edit-button>
+                </td>
+            </tr>
+            }
+            }
+        </tbody>
+    </table>
 </div>

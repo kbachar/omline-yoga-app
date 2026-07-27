@@ -22,6 +22,8 @@ export class Videos implements OnInit {
     this.classes$ = this.yogaService.getClasses();
   }
 
+  
+  
   onViewEditClick(classId: string) {
     this.router.navigate(['/admin-dashboard/yoga-class-details', classId]);
     

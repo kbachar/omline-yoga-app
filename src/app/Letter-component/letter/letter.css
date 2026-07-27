@@ -4,5 +4,7 @@
     height: 874px;
     background: #F7F8FA;
     border-radius: 20px 0px 0px 0px;
+  display: flex;
+
 }
 

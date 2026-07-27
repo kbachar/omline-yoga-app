@@ -372,6 +372,7 @@ export class YogaClassesService {
     this.letters$ = from(
       runInInjectionContext(this.injector, () => {
         const letterRef = collection(this.firestore, 'letters');
+        console.log('letterRef - ' + letterRef)
         return getDocs(letterRef);
       })
     ).pipe(
