@@ -128,16 +128,6 @@ label {
     margin-left: 100px;
 }
 
-img {
-    margin-left: 100px;
-    margin-top: 20PX;
-    cursor: pointer;
-    padding: 2px;
-}
-
-img:hover {
-    border: 3px solid #f52f0c;
-}
 
 .new-class-container {
     margin-bottom: 20px;

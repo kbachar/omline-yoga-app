@@ -47,6 +47,7 @@ export const routes: Routes = [
 		children: [
 			{ path: 'teachers', component: TeachersComponent },
 			{ path: 'teacher-profile/:teacherId', component: TeacherProfile },
+			{ path: 'teacher-profile', component: TeacherProfile },
 			{ path: 'videos', component: Videos },
 			{ path: 'yoga-class-details/:classID', component: YogaClassDetails },
 			{ path: 'letters', component: Letters },

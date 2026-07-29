@@ -6,6 +6,7 @@ import { YogaClassData } from '../shared/yoga-class-data';
 import { yogaStyles } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
 import { YogaTeacher } from '../shared/yoga-teacher-data';
 import { LetterData } from '../shared/letter-date';
+import { TeacherInvite } from '../shared/teacher-invite-data';
 
 export type { YogaClassData };
 
@@ -318,7 +319,7 @@ export class YogaClassesService {
       map((teachers) => {
         const found = teachers.find((teacher) => teacher.teacherID === id);
         return found ?? {
-          fullName: 'Unknown Teacher',
+          fullName: '',
           yogaStyle: [],
           email: '',
           website: '',
@@ -326,7 +327,7 @@ export class YogaClassesService {
           teacherID: id ?? '',
           photo: '',
           description: '',
-          status: 'pending',
+          status: 'invited',
           approved: false
         };
       })
@@ -364,6 +365,21 @@ export class YogaClassesService {
     this.yogaTeachers$ = undefined;
     this.yogaTeachers$ = this.getTeachers();
   }
+
+
+  async saveTeacherInvite(teacher: TeacherInvite): Promise<void> {
+    const inviteDocRef = teacher.id
+      ? doc(this.firestore, `teacherInvites/${teacher.id}`)
+      : doc(collection(this.firestore, 'teacherInvites'));
+
+    const inviteToSave: TeacherInvite = {
+      ...teacher,
+      id: inviteDocRef.id
+    };
+
+    await runInInjectionContext(this.injector, () => setDoc(inviteDocRef, inviteToSave, { merge: true }));
+  }
+
 
   getLetters(): Observable<LetterData[]> {
     if (this.letters$)

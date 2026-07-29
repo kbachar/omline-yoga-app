@@ -31,12 +31,19 @@ export class TeacherProfile implements OnInit {
   role$ = this.authService.getUserRole();
   headerText$!: Observable<string>;
   isAdmin$ = this.authService.isAdmin();
+  newTeacher = false;
 
   ngOnInit(): void {
     this.profile$ = this.route.paramMap.pipe(
       map((params) => params.get('teacherId') ?? undefined),
+      tap((teacherID) => {
+        if (teacherID == undefined)
+          this.newTeacher = true;
+
+      }),
       switchMap((teacherId) => this.yogaService.getTeacher(teacherId)),
       tap((profile) => {
+        console.log('profile = ' + JSON.stringify(profile))
         this.description$ = profile.description;
         this.photoPreview.set(profile.photo);
       }),
@@ -44,8 +51,17 @@ export class TeacherProfile implements OnInit {
     );
 
     this.headerText$ = combineLatest([this.role$, this.profile$]).pipe(
-      map(([userRole, profile]) =>
-        userRole === 'admin' ? (profile.fullName || 'My profile') : 'My profile'
+      map(([userRole, profile]) => {
+        if (userRole === 'admin') {
+          if (profile?.teacherID != '') {
+            return profile.fullName;
+          }
+          else
+            return 'new teacher';
+          
+        }
+        return 'My profile'
+      }
       )
     );
 

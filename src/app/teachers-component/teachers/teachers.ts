@@ -25,7 +25,9 @@ export class TeachersComponent implements OnInit {
 
   onViewEditClick(teacherId: string) {
     this.router.navigate(['/admin-dashboard/teacher-profile', teacherId]);
-
   }
   
+  addTeacher() {
+    this.router.navigate(['/admin-dashboard/teacher-profile']);
+  }
 }

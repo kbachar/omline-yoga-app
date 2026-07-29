@@ -4,19 +4,22 @@
         (buttonClick)="save(profile)" [showBack]="(role$ | async) === 'admin'"
         (backToListClick)="back()"></app-page-header>
     <div class="body-container">
-        @if (isAdmin$ | async;) {
+        @if ((isAdmin$ | async) && !newTeacher) {
         <div class="check-box">
             <app-check-box [inputValue]="'approved'" [checked]="profile.approved"
                 (checkChange)="onApproveCheckChange(profile, $event)"></app-check-box>
         </div>
         }
+        @if (!newTeacher) {
         <input #fileInput type="file" accept="image/*" hidden (change)="onPhotoSelected($event)" />
         <img [src]="photoPreview()" alt="Selected photo" (click)="fileInput.click()" />
-
+        }
         <div class="teacher-container">
             <app-teacher [form]="profile" (teacherDataChange)="profile$"></app-teacher>
+            @if (newTeacher == false) {
             <app-text-area [textAreaName]="'about me'" [textValue]="description$" [textHeight]="225" [textWidth]="600"
                 (textValueChange)="onTeacherDescriptionChange($event)"></app-text-area>
+            }
         </div>
     </div>
     }

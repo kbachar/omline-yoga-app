@@ -10,9 +10,9 @@ import { challengeLevels, yogaStyles, durations } from './yoga-styles-data';
 import { YogaClassesFilter } from "../../yoga-classes-filter-component/yoga-classes-filter/yoga-classes-filter";
 import { TextArea } from "../../text-area-component/text-area/text-area";
 import { ToggleSetting } from "../../toggle-setting-component/toggle-setting/toggle-setting";
-import { DeleteClassMessage } from "../../../delete-class-message-component/delete-class-message/delete-class-message";
 import { AuthService } from '../../../services/auth-service';
 import { CheckBox } from '../../check-box-component/check-box/check-box';
+import { DeleteComponent } from "../../delete-component-component/delete-component/delete-component";
 
 const createEmptyYogaClass = (): YogaClassData => ({
   id: '',
@@ -27,7 +27,7 @@ const createEmptyYogaClass = (): YogaClassData => ({
 
 @Component({
   selector: 'app-yoga-class-details',
-  imports: [AsyncPipe, DatePipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, DeleteClassMessage, CheckBox],
+  imports: [AsyncPipe, DatePipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, CheckBox, DeleteComponent],
   templateUrl: './yoga-class-details.html',
   styleUrl: './yoga-class-details.css',
 })
@@ -126,11 +126,7 @@ export class YogaClassDetails implements OnInit {
     yogaClass.approved = approved;
   }
 
-  showDeleteClass() {
-    this.isDeleteModalOpen.set(true);
-
-  }
-
+  
   async save(yogaClass: YogaClassData) {
 
     yogaClass.teacherId = this.teacherId;
