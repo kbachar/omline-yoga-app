@@ -17,7 +17,10 @@
         <div class="side-bar-item" [class.side-bar-item-disabled]="teacherStatusPending()">Payments</div>
         <div class="side-bar-item" (click)="logout()">Logout</div>
     </div>
+    <div class="body">
+        <main class="content">
             <router-outlet></router-outlet>
+        </main>
+    </div>
 
-    
 </div>
