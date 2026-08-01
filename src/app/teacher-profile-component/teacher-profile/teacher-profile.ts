@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Teacher } from '../../shared/teacher-component/teacher/teacher';
 import { YogaTeacher } from '../../shared/yoga-teacher-data';
-import { combineLatest, map, Observable, shareReplay, switchMap, tap } from 'rxjs';
+import { combineLatest, map, Observable, of, shareReplay, switchMap, tap } from 'rxjs';
 import { TextArea } from "../../shared/text-area-component/text-area/text-area";
 import { YogaClassesService } from '../../services/yoga-classes-service';
 import { AsyncPipe } from '@angular/common';
@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PageHeader } from "../../shared/page-header-component/page-header/page-header";
 import { AuthService } from '../../services/auth-service';
 import { CheckBox } from '../../shared/check-box-component/check-box/check-box';
+import { TeacherInvite } from '../../shared/teacher-invite-data';
 
 
 @Component({
@@ -43,7 +44,7 @@ export class TeacherProfile implements OnInit {
       }),
       switchMap((teacherId) => this.yogaService.getTeacher(teacherId)),
       tap((profile) => {
-        console.log('profile = ' + JSON.stringify(profile))
+        //console.log('profile = ' + JSON.stringify(profile))
         this.description$ = profile.description;
         this.photoPreview.set(profile.photo);
       }),
@@ -58,7 +59,7 @@ export class TeacherProfile implements OnInit {
           }
           else
             return 'new teacher';
-          
+
         }
         return 'My profile'
       }
@@ -98,6 +99,12 @@ export class TeacherProfile implements OnInit {
     this.description$ = description;
   }
 
+  onTeacherChange(teacher: YogaTeacher) {
+    this.description$ = teacher.description;
+    this.photoPreview.set(teacher.photo);
+    this.profile$ = of(teacher);
+  }
+
   onApproveCheckChange(teacher: YogaTeacher, approved: boolean) {
     teacher.approved = approved;
     if (approved == true)
@@ -108,20 +115,29 @@ export class TeacherProfile implements OnInit {
   }
 
   async save(teacher: YogaTeacher): Promise<void> {
-    const teacherToSave: YogaTeacher = {
-      ...teacher,
-      description: this.description$ || teacher.description || ''
-    };
+    const admin = await this.isAdmin$;
+    if (admin) {
+      const teacherInvite: TeacherInvite = {
+        id: '',
+        email: teacher.email,
+        name: teacher.fullName,
+        website: teacher.website,
+        invitedAt: new Date(),
+        invitedBy: '',
+        status: 'invited',
+      }
+    console.log('teacherInvite - ' + JSON.stringify(teacherInvite))
 
-
-
-    await this.yogaService.saveTeacher(teacherToSave, this.photoFile);
-
-    this.isAdmin$.then((isAdmin) => {
-      if (isAdmin)
-        this.router.navigate(['/admin-dashboard/teachers']);
-
-    })
+      await this.yogaService.saveTeacherInvite(teacherInvite);
+      this.router.navigate(['/admin-dashboard/teachers']);
+    }
+    else {
+      const teacherToSave: YogaTeacher = {
+        ...teacher,
+        description: this.description$ || teacher.description || ''
+      };
+      await this.yogaService.saveTeacher(teacherToSave, this.photoFile);
+    }
   }
 
   back() {

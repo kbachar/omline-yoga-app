@@ -66,6 +66,21 @@ export class Teacher {
     this.isPasswordVisible.update((visible) => !visible);
   }
 
+  async onNameChange(teacher: YogaTeacher, name: string) {
+    teacher.fullName = name;
+    this.teacherDataChange.emit(teacher);
+  }
+
+  async onEmailChange(teacher: YogaTeacher, email: string) {
+    teacher.email = email
+    this.teacherDataChange.emit(teacher);
+  }
+
+  async onWebsiteChange(teacher: YogaTeacher, website: string) {
+    teacher.website = website
+    this.teacherDataChange.emit(teacher);
+  }
+
   protected passwordIconSrc(): string {
     return this.isPasswordVisible()
       ? '/assets/images/show-password.png'

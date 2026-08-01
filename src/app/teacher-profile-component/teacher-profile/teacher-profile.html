@@ -15,7 +15,7 @@
         <img [src]="photoPreview()" alt="Selected photo" (click)="fileInput.click()" />
         }
         <div class="teacher-container">
-            <app-teacher [form]="profile" (teacherDataChange)="profile$"></app-teacher>
+            <app-teacher [form]="profile" (teacherDataChange)="onTeacherChange(profile)"></app-teacher>
             @if (newTeacher == false) {
             <app-text-area [textAreaName]="'about me'" [textValue]="description$" [textHeight]="225" [textWidth]="600"
                 (textValueChange)="onTeacherDescriptionChange($event)"></app-text-area>

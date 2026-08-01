@@ -1,14 +1,16 @@
-  <app-text-box [inputValue]="form().fullName
-  
-  " [placeholderValue]="'Full Name'"></app-text-box>
-  <!-- <app-yoga-classes-filter [filterName]="'yoga style'" [filterOptions]="yogaStyles" ></app-yoga-classes-filter> -->
-  
-  <app-text-box [inputValue]="form().email" [placeholderValue]="'Email Address'"></app-text-box>
-  <app-text-box [inputValue]="form().website" [placeholderValue]="'web site'"></app-text-box>
-  <app-select-list [selectName]="'country'" [inputValue]="form().country" [options]="countries"></app-select-list>
-  
-  @if (!user()) {
-  <app-text-box [inputValue]="teacherPassword()" [placeholderValue]="'password'" [inputType]="'password'"></app-text-box>
-  <app-text-box [inputValue]="teacherPassword()" [placeholderValue]="'confirm password'" [inputType]="'password'"></app-text-box>
+<app-text-box [inputValue]="form().fullName" [placeholderValue]="'Full Name'"
+(textChange)="onNameChange(form(), $event)"></app-text-box>
+<!-- <app-yoga-classes-filter [filterName]="'yoga style'" [filterOptions]="yogaStyles" ></app-yoga-classes-filter> -->
 
-  }
+<app-text-box [inputValue]="form().email" [placeholderValue]="'Email Address'"
+  (textChange)="onEmailChange(form(), $event)"></app-text-box>
+<app-text-box [inputValue]="form().website" [placeholderValue]="'web site'"
+(textChange)="onWebsiteChange(form(), $event)"></app-text-box>
+<app-select-list [selectName]="'country'" [inputValue]="form().country" [options]="countries"></app-select-list>
+
+@if (!user()) {
+<app-text-box [inputValue]="teacherPassword()" [placeholderValue]="'password'" [inputType]="'password'"></app-text-box>
+<app-text-box [inputValue]="teacherPassword()" [placeholderValue]="'confirm password'"
+  [inputType]="'password'"></app-text-box>
+
+}
