@@ -51,7 +51,8 @@ export const routes: Routes = [
 			{ path: 'videos', component: Videos },
 			{ path: 'yoga-class-details/:classID', component: YogaClassDetails },
 			{ path: 'letters', component: Letters },
-			{ path: 'letter', component: Letter }
+			{ path: 'letter', component: Letter },
+			{ path: 'letter/:letterID', component: Letter }
 		]
 	}
 ];

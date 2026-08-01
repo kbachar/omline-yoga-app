@@ -1,48 +1,51 @@
 <app-page-header [headerText]="'letters - new letter'" [buttonText]="'save'" [showBack]="true"></app-page-header>
 <div class="container">
-        <div class="letter-editor">
-            <app-toggle-setting [labelText]="'Show Logo'" [width]="80"></app-toggle-setting>
-            <div class="main-row">
-                <label>
-                    <input type="checkbox" id="showHeaderCheckbox">
-                    Show Logo
-                </label>
-            </div>
 
-            <div class="main-row">
-                <label for="teacherSelect">Teacher</label>
-                <select id="teacherSelect">
-                    <option value="">Select Teacher</option>
-                </select>
-            </div>
-            <div class="main-row">
-                <label for="letterTitle">Title</label>
-                <input type="text" id="letterTitle" placeholder="Enter title">
-            </div>
+    @if (letter$ | async; as letter) {
+    <app-toggle-setting [labelText]="'Show Logo'" (switchStateChange)="showLogo($event)"></app-toggle-setting>
 
-            <div class="main-row">
-                <label for="letterContent"></label>
-                <textarea id="letterContent" placeholder="Write your letter..."></textarea>
-            </div>
+    <app-text-box [placeholderValue]="'enter title'" (textChange)="updatePreview($event)"
+        [inputValue]="letter.title"></app-text-box>
 
-            <div class="main-row">
-                <label for="letterFiles">Add Files</label>
-                <select id="letterFiles" multiple size="1"></select>
-                <small class="letter-files-help">Select one or more files from Firebase Storage</small>
-                <div id="fileList" class="file-list"></div>
-            </div>
-
-            <p id="letterStatus" class="nl-status"></p>
-        </div>
-        <div class="letter-preview">
-            <h2>Live Preview</h2>
-            <header id="letterHeader">
-                <img src="" class="letter-logo">
-            </header>
-
-            <iframe id="previewFrame" class="preview-frame">
-            </iframe>
-                    <button id="sendBtn" type="button" onclick="send()">Send</button>
-        </div>
-
+    <div class="logo">
+        <img src="{{logo}}">
     </div>
+
+    <app-text-area [textAreaName]="'Write your letter...'" [textWidth]="750" [textHeight]="600"
+        [textValue]="letter.content" (textValueChange)="updatePreview($event)"></app-text-area>
+
+    }
+
+</div>
+
+
+<!-- <div class="main-row">
+            <label for="teacherSelect">Teacher</label>
+            <select id="teacherSelect">
+                <option value="">Select Teacher</option>
+            </select>
+        </div> -->
+
+
+
+<!-- <div class="main-row">
+            <label for="letterFiles">Add Files</label>
+            <select id="letterFiles" multiple size="1"></select>
+            <small class="letter-files-help">Select one or more files from Firebase Storage</small>
+            <div id="fileList" class="file-list"></div>
+        </div>
+
+        <p id="letterStatus" class="nl-status"></p>
+    </div> -->
+<!-- <div class="letter-preview">
+        <div class="preview-header">
+            <h2>Live Preview</h2>
+            <app-toggle-setting [labelText]="'Show Logo'" (switchStateChange)="showLogo($event)"></app-toggle-setting>
+        </div>
+        <div class="preview-container">
+            <div class="logo">
+                <img src="{{logo}}">
+            </div>
+            <label></label>
+        </div>
+    </div> -->

@@ -28,6 +28,7 @@ export class Letters implements OnInit {
   }
 
   onViewEditClick(letterId: string) {
+    this.router.navigate(['/admin-dashboard/letter', letterId]);
     
   }
 }

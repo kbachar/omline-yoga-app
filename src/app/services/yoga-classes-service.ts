@@ -399,6 +399,7 @@ export class YogaClassesService {
           //console.log('yoga class - ' + JSON.stringify(data, null, 2));
 
           return {
+            id: data.id || doc.id,
             title: data.title,
             content: data.content,
             createdAt: data.createdAt,
@@ -414,5 +415,11 @@ export class YogaClassesService {
     );
 
     return this.letters$;
+  }
+
+  getLetter(letterID: string) {
+    return this.getLetters().pipe(
+      map((letters) => letters.find((letter) => letter.id === letterID))
+    );
   }
 }

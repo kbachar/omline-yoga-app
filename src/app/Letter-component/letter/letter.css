@@ -1,19 +1,21 @@
 .container {
   position: relative;
-  width: 100%;
   height: 1283px;
   background: #F7F8FA;
   border-radius: 20px 0px 0px 0px;
   padding: 50px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
-.letter-editor {
-  width: 50%;
+.logo {
+  width: 765px;
+  background: #0C133A;
+
 }
 
-.letter-preview {
-  width: 50%;
-
+img {
+  align-self: center;
+  display: block;
+  margin-top: 0;
 }
