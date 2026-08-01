@@ -9,6 +9,7 @@ import { Component, input, model } from '@angular/core';
 export class ToggleSetting {
   readonly labelText = input<string>();
   readonly imageSrc = input<string>();
+  readonly width = input<number>();
   readonly toggleImageSrc = input<string>();
   readonly switchState = model<boolean>(false);
 

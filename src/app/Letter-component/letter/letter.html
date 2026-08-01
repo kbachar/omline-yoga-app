@@ -1,6 +1,7 @@
-<app-page-header [headerText]="'letter-editor - new letter'" [buttonText]="'save'"></app-page-header>
+<app-page-header [headerText]="'letters - new letter'" [buttonText]="'save'" [showBack]="true"></app-page-header>
 <div class="container">
         <div class="letter-editor">
+            <app-toggle-setting [labelText]="'Show Logo'" [width]="80"></app-toggle-setting>
             <div class="main-row">
                 <label>
                     <input type="checkbox" id="showHeaderCheckbox">
