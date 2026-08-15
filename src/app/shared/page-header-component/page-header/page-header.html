@@ -3,7 +3,7 @@
         @if (showBack()) {
         <img src="/assets/images/back-to-list.png" (click)="onBackClick()">
         }
-        <header>{{headerText()}}</header>
+        <header [style.font-size.px]="headerTextHeight()">{{headerText()}}</header>
     </div>
 
     @if (showButton()) {

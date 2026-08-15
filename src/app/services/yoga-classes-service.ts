@@ -1,12 +1,13 @@
 import { Injectable, EnvironmentInjector, inject, runInInjectionContext } from '@angular/core';
 import { Firestore, collection, deleteDoc, doc, getDocs, setDoc } from '@angular/fire/firestore';
-import { Storage, deleteObject, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage';
+import { Storage, deleteObject, getDownloadURL, listAll, ref, uploadBytes } from '@angular/fire/storage';
 import { Observable, firstValueFrom, from, map, merge, of, shareReplay, switchMap, tap } from 'rxjs';
 import { YogaClassData } from '../shared/yoga-class-data';
 import { yogaStyles } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
 import { YogaTeacher } from '../shared/yoga-teacher-data';
 import { LetterData } from '../shared/letter-date';
 import { TeacherInvite } from '../shared/teacher-invite-data';
+import { AuthService } from './auth-service';
 
 export type { YogaClassData };
 
@@ -57,7 +58,7 @@ const EMPTY_YOGA_CLASS: YogaClassData = {
   providedIn: 'root',
 })
 export class YogaClassesService {
-  
+
   private yogaStyles$?: Observable<YogaStyleDescription[]>;
   private yogaClasses$?: Observable<YogaClassData[]>;
   private yogaTeachers$?: Observable<YogaTeacher[]>;
@@ -65,6 +66,7 @@ export class YogaClassesService {
   private readonly firestore = inject(Firestore);
   private readonly storage = inject(Storage);
   private readonly injector = inject(EnvironmentInjector);
+  private authService = inject(AuthService);
 
   constructor() {
     this.yogaTeachers$ = this.getTeachers();
@@ -223,7 +225,7 @@ export class YogaClassesService {
       )
     );
   }
- 
+
   async saveClass(yogaClass: YogaClassData, videoFile?: File | null): Promise<void> {
 
     const videoDocRef = yogaClass.id
@@ -231,7 +233,7 @@ export class YogaClassesService {
       : doc(collection(this.firestore, 'videos'));
 
     const videoId = videoDocRef.id;
-    
+
     if (yogaClass.videoLink == '') {
       const videoRef = ref(this.storage, `class-videos/${videoId}/${yogaClass.title}`);
       if (videoFile) {
@@ -245,7 +247,7 @@ export class YogaClassesService {
       id: videoId
     });
 
-        //console.log('yoga class - ' + JSON.stringify(yogaClass, null, 2));
+    //console.log('yoga class - ' + JSON.stringify(yogaClass, null, 2));
     this.yogaClasses$ = undefined;
     this.yogaClasses$ = this.getClasses();
   }
@@ -267,7 +269,7 @@ export class YogaClassesService {
         }
       }
     }
-    
+
     //console.log(JSON.stringify(this.yogaClasses$, null, 2));  
     await deleteDoc(doc(this.firestore, `videos/${yogaClass.id}`));
 
@@ -289,8 +291,7 @@ export class YogaClassesService {
       map((snapshot) =>
         snapshot.docs.map((doc) => {
           const data = doc.data() as YogaTeacher;
-                  
-                  
+
           //console.log('yoga class - ' + JSON.stringify(data, null, 2));
 
           return {
@@ -331,6 +332,58 @@ export class YogaClassesService {
           approved: false
         };
       })
+    );
+  }
+
+  getTeacherInvites(): Observable<TeacherInvite[]> {
+    return from(
+      runInInjectionContext(this.injector, () => {
+        const invitesRef = collection(this.firestore, 'teacherInvites');
+        return getDocs(invitesRef);
+      })
+    ).pipe(
+      map((snapshot) =>
+        snapshot.docs.map((doc) => {
+          const data = doc.data() as TeacherInvite;
+
+          return {
+            id: data.id || doc.id,
+            email: data.email ?? '',
+            name: data.name ?? '',
+            website: data.website ?? '',
+            invitedAt: data.invitedAt ?? new Date(),
+            invitedBy: data.invitedBy ?? '',
+            status: data.status ?? ''
+          } as TeacherInvite;
+        })
+      ),
+      shareReplay({ bufferSize: 1, refCount: true })
+    );
+  }
+
+  getTeacherNamesAndIds(): Observable<Array<{ name: string; email: string }>> {
+    return this.getTeachers().pipe(
+      switchMap((teachers) =>
+        this.getTeacherInvites().pipe(
+          map((invites) => {
+            const teacherNamesAndIds = teachers
+              .map((teacher) => ({
+                name: teacher.fullName ?? '',
+                email: teacher.email ?? ''
+              }))
+              .filter((teacher) => teacher.name && teacher.email);
+
+            const inviteNamesAndIds = invites
+              .map((invite) => ({
+                name: invite.name ?? '',
+                email: invite.email ?? ''
+              }))
+              .filter((invite) => invite.name && invite.email);
+
+            return [...teacherNamesAndIds, ...inviteNamesAndIds];
+          })
+        )
+      )
     );
   }
 
@@ -388,14 +441,24 @@ export class YogaClassesService {
     this.letters$ = from(
       runInInjectionContext(this.injector, () => {
         const letterRef = collection(this.firestore, 'letters');
-        console.log('letterRef - ' + letterRef)
+        // console.log('letterRef - ' + letterRef)
         return getDocs(letterRef);
       })
     ).pipe(
       map((snapshot) =>
         snapshot.docs.map((doc) => {
           const data = doc.data() as LetterData;
-                  
+          const recipients = (data.recipients ?? []).map((recipient) => {
+            const rawDate = recipient.date as unknown;
+            const date = rawDate instanceof Date
+              ? rawDate
+              : rawDate && typeof rawDate === 'object' && 'toDate' in rawDate && typeof rawDate.toDate === 'function'
+                ? rawDate.toDate()
+                : new Date(String(rawDate));
+
+            return { ...recipient, date };
+          });
+
           //console.log('yoga class - ' + JSON.stringify(data, null, 2));
 
           return {
@@ -404,10 +467,12 @@ export class YogaClassesService {
             content: data.content,
             createdAt: data.createdAt,
             createdBy: data.createdBy,
-            recipients: data.recipients,
+            recipients,
             sent: data.sent,
             updatedAt: data.updatedAt,
             updatedBy: data.updatedBy,
+            showLogo: data.showLogo,
+            image: data.image
           } as LetterData;
         })
       ),
@@ -422,4 +487,102 @@ export class YogaClassesService {
       map((letters) => letters.find((letter) => letter.id === letterID))
     );
   }
+
+  async saveLetter(letter: LetterData): Promise<void> {
+    const letterDocRef = letter.id
+      ? doc(this.firestore, `letters/${letter.id}`)
+      : doc(collection(this.firestore, 'letters'));
+
+    console.log('letter.recipients - ' + JSON.stringify(letter.recipients))
+
+    const letterToSave: LetterData = {
+      ...letter,
+      id: letter.id || letterDocRef.id,
+      title: letter.title?.trim() ?? '',
+      content: letter.content ?? '',
+      createdAt: letter.createdAt ?? new Date(),
+      createdBy: letter.createdBy ?? '',
+      updatedAt: new Date(),
+      updatedBy: letter.updatedBy ?? '',
+      recipients: letter.recipients ?? [],
+      sent: !!letter.sent,
+      image: letter.image ?? '',
+      showLogo: !!letter.showLogo,
+    };
+
+    await runInInjectionContext(this.injector, () =>
+      setDoc(letterDocRef, letterToSave, { merge: true })
+    );
+
+    this.letters$ = undefined;
+    this.letters$ = this.getLetters();
+  }
+
+  async sendLetter(letter: LetterData): Promise<void> {
+    try {
+      const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+      const endpoint = isLocal
+        ? "http://127.0.0.1:5001/yoga-app-a3585/us-central1/sendEmail"
+        : "https://us-central1-yoga-app-a3585.cloudfunctions.net/sendEmail";
+
+      const idToken = this.authService.getUserID();
+
+      if (!idToken) {
+        throw new Error("No authentication token available");
+      }
+
+      if (!letter.recipients || letter.recipients.length === 0) {
+        throw new Error("No recipients specified for letter");
+      }
+
+      const payload = {
+        recipients: letter.recipients.map((recipient) => recipient.email),
+        title: letter.title?.trim() || "Untitled",
+        content: letter.content,
+        image: letter.image || "",
+        showLogo: letter.showLogo || false
+      };
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${idToken}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP ${response.status}: Failed to send email`);
+      }
+
+      console.log("Letter sent successfully:", letter.id);
+    } catch (error) {
+      console.error("Error sending letter:", error);
+      throw error;
+    }
+  }
+
+  getStorageFiles(): Observable<string[]> {
+    return from(
+      runInInjectionContext(this.injector, () => listAll(ref(this.storage, 'Files')))
+    ).pipe(
+      map((result) => result.items.map((item) => item.name)),
+      // tap((images) => console.log("images - " + JSON.stringify(images)))
+    );
+  }
+
+  getStorageFile(selectedOption: string): Observable<string> {
+    if (!selectedOption?.trim()) {
+      return of('');
+    }
+
+    return from(
+      runInInjectionContext(this.injector, () =>
+        getDownloadURL(ref(this.storage, `Files/${selectedOption.trim()}`))
+      )
+    );
+  }
+
 }

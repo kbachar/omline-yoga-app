@@ -5,7 +5,85 @@
   border-radius: 20px 0px 0px 0px;
   padding: 50px;
   display: flex;
+  flex-direction: row;
+  gap: 70px;
+}
+
+.left-side {
+  display: flex;
   flex-direction: column;
+}
+
+.left-side label {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+  margin-bottom: 20px;
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.sent-to {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.right-side label {
+  width: 289px;
+  height: 25px;
+  font-family: 'Mona Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.05em;
+  text-transform: capitalize;
+  color: #243376;
+}
+
+ .right-side .small-label {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+  margin-bottom: 20px;
+}
+
+button {
+    background: #78BDDC;
+    border-radius: 10px;
+    width: 120px;
+    height: 30px;
+    font-family: 'Mona Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    margin-right: 40px;
+    cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
 
 .logo {
@@ -14,8 +92,13 @@
 
 }
 
-img {
+.logo img {
   align-self: center;
   display: block;
   margin-top: 0;
+}
+
+
+.image img {
+  max-width: 765px;
 }

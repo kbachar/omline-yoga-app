@@ -1,51 +1,52 @@
-<app-page-header [headerText]="'letters - new letter'" [buttonText]="'save'" [showBack]="true"></app-page-header>
+@if (letter$ | async; as letter) {
+<app-page-header [headerText]="'letters - ' + letter.title" [buttonText]="'save'" [showBack]="true"
+    [headerTextHeight]="30" (backToListClick)="backToLetters()" (buttonClick)="saveLetter(letter)"></app-page-header>
+}
+
 <div class="container">
-
     @if (letter$ | async; as letter) {
-    <app-toggle-setting [labelText]="'Show Logo'" (switchStateChange)="showLogo($event)"></app-toggle-setting>
+    <div class="left-side">
 
-    <app-text-box [placeholderValue]="'enter title'" (textChange)="updatePreview($event)"
-        [inputValue]="letter.title"></app-text-box>
+        <app-toggle-setting [labelText]="'Show Logo'" (switchStateChange)="showLogo($event)"
+            [setState]="letter.showLogo"></app-toggle-setting>
+        @if (images$ | async; as images) {
+        <app-select-list [inputValue]="letter.image" [options]="images"
+            (selectedOption)="OnSelectedOption($event, letter)"></app-select-list>
+        <label>send to: {{ letter.recipients.length > 0 ? letter.recipients.map(recipient => recipient.email).join('; ')
+            : 'None selected' }}</label>
 
-    <div class="logo">
-        <img src="{{logo}}">
+        <app-text-box [placeholderValue]="'enter title'" (textChange)="updatePreview($event)"
+            [inputValue]="letter.title" [textBoxWidth]="750"></app-text-box>
+
+        <div class="logo">
+            <img src="{{logo}}">
+        </div>
+
+        <app-text-area #emailPreview [textAreaName]="'Write your letter...'" [textWidth]="750" [textHeight]="600"
+            [textValue]="letter.content" (textValueChange)="updatePreview($event)"></app-text-area>
+        }
+
+        @if (image$ | async; as image) {
+        <div class="image">
+            <img src="{{image}}">
+        </div>
+        }
     </div>
 
-    <app-text-area [textAreaName]="'Write your letter...'" [textWidth]="750" [textHeight]="600"
-        [textValue]="letter.content" (textValueChange)="updatePreview($event)"></app-text-area>
-
+    <div class="right-side">
+        <button (click)="sendMail(letter)" [disabled]="letter.recipients.length == 0">Send</button>
+        <label>select teachers</label>
+        @for (teacher of teacherNamesAndIds$ | async; track teacher) {
+        <app-check-box [inputValue]="teacher.name" (checkChange)="addTeacher($event, teacher, letter)"></app-check-box>
+        }
+        <label>sent to</label>
+        @for (recipient of recipients; track recipient) {
+        <div class="sent-to">
+            <label class="small-label">{{recipient.name}}</label>
+            <label class="small-label">{{ recipient.date | date:'dd/MM/yyyy' }}</label>
+        </div>
+        }
+    </div>
     }
 
 </div>
-
-
-<!-- <div class="main-row">
-            <label for="teacherSelect">Teacher</label>
-            <select id="teacherSelect">
-                <option value="">Select Teacher</option>
-            </select>
-        </div> -->
-
-
-
-<!-- <div class="main-row">
-            <label for="letterFiles">Add Files</label>
-            <select id="letterFiles" multiple size="1"></select>
-            <small class="letter-files-help">Select one or more files from Firebase Storage</small>
-            <div id="fileList" class="file-list"></div>
-        </div>
-
-        <p id="letterStatus" class="nl-status"></p>
-    </div> -->
-<!-- <div class="letter-preview">
-        <div class="preview-header">
-            <h2>Live Preview</h2>
-            <app-toggle-setting [labelText]="'Show Logo'" (switchStateChange)="showLogo($event)"></app-toggle-setting>
-        </div>
-        <div class="preview-container">
-            <div class="logo">
-                <img src="{{logo}}">
-            </div>
-            <label></label>
-        </div>
-    </div> -->

@@ -6,6 +6,8 @@ export interface LetterData {
     createdBy: string;
     updatedAt: Date;
     updatedBy: string;
-    recipients: [];
+    recipients: Array<{ name: string; email: string; date: Date }>;
     sent: boolean;
+    image: string;
+    showLogo: boolean;
 }

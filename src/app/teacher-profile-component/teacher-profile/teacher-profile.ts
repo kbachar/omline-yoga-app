@@ -126,7 +126,6 @@ export class TeacherProfile implements OnInit {
         invitedBy: '',
         status: 'invited',
       }
-    console.log('teacherInvite - ' + JSON.stringify(teacherInvite))
 
       await this.yogaService.saveTeacherInvite(teacherInvite);
       this.router.navigate(['/admin-dashboard/teachers']);

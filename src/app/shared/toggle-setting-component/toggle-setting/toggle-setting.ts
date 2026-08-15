@@ -12,6 +12,7 @@ export class ToggleSetting {
   readonly width = input<number>();
   readonly toggleImageSrc = input<string>();
   readonly switchState = model<boolean>(false);
+  readonly setState = input<boolean>(false);
 
   toggleSwitch() {
     this.switchState.update((value) => !value);

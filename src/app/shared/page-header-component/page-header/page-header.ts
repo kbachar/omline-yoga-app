@@ -9,6 +9,7 @@ import { Component, input, output } from '@angular/core';
 export class PageHeader {
   readonly buttonText = input<string>('');
   readonly headerText = input<string>('');
+  readonly headerTextHeight = input<number>();
   readonly showBack = input<boolean>(false);
   readonly showButton = input<boolean>(true);
   public buttonClick = output<void>();
