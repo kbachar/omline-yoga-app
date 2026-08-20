@@ -21,7 +21,7 @@ type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 export class ClassesPageComponent implements OnInit {
   yogaStyle$!: Observable<YogaStyle>;
   classes$!: Observable<YogaClassData[]>;
-  protected selectedClasses: YogaClassData[] = [];
+  protected selectedClasses$!: YogaClassData[];
   protected isYogaImageHovered = false;
   protected readonly isLoginModalOpen = signal(false);
   protected selectedStyleId: YogaStyleId = 'all';
