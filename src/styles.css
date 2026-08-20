@@ -1,1 +1,227 @@
 /* You can add global styles to this file, and also import other style files */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	min-width: 320px;
+	overflow-x: hidden;
+}
+
+img,
+video {
+	max-width: 100%;
+}
+
+@media (max-width: 768px) {
+	.classes-header,
+	.main-header {
+		height: auto !important;
+		min-height: 96px;
+		padding: 12px 16px;
+		display: flex !important;
+		flex-direction: column;
+		gap: 12px;
+		position: relative !important;
+	}
+
+	.classes-header-img,
+	.main-header-img {
+		position: static !important;
+		width: min(260px, 85vw) !important;
+		height: auto !important;
+		transform: none !important;
+		order: -1;
+	}
+
+	.classes-left-navbar,
+	.left-navbar,
+	.navbar {
+		position: static !important;
+		width: 100% !important;
+		height: auto !important;
+		display: flex !important;
+		flex-wrap: wrap;
+		justify-content: center !important;
+		gap: 8px;
+	}
+
+	.navbar-item {
+		margin: 0 !important;
+		line-height: 20px !important;
+	}
+
+	.classes-navbar {
+		position: static !important;
+		width: 100% !important;
+		height: auto !important;
+		padding: 10px 12px !important;
+		display: grid !important;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 8px;
+	}
+
+	.classes-navbar-item {
+		width: 100% !important;
+		min-width: 0 !important;
+		max-width: none !important;
+		height: auto !important;
+		min-height: 36px;
+		font-size: 15px !important;
+		line-height: 20px !important;
+		text-align: center;
+	}
+
+	.header-section {
+		width: 100% !important;
+		height: auto !important;
+		min-height: 0;
+		display: flex !important;
+		flex-direction: column;
+	}
+
+	.yoga-style-img {
+		width: 100% !important;
+		height: auto !important;
+		max-height: 280px;
+		object-fit: cover;
+	}
+
+	.header-content {
+		width: 100% !important;
+		max-width: none !important;
+		padding: 24px 16px;
+	}
+
+	.yoga-classes-header {
+		width: 100% !important;
+		height: auto !important;
+		min-height: 0;
+		display: block !important;
+		font-size: clamp(28px, 8vw, 42px) !important;
+		line-height: 1.2 !important;
+		padding: 0 !important;
+	}
+
+	.yoga-classes-header-bold {
+		display: inline;
+		margin-right: 8px;
+	}
+
+	.yoga-style-description {
+		width: 100% !important;
+		height: auto !important;
+		padding: 16px 0 0 !important;
+		font-size: 16px !important;
+		line-height: 1.5 !important;
+	}
+
+	.filters-row-container {
+		width: 100% !important;
+		padding: 20px 16px !important;
+		display: flex !important;
+		flex-direction: column;
+		align-items: stretch !important;
+		gap: 12px;
+	}
+
+	.filter-img-container {
+		width: auto !important;
+		justify-content: flex-start !important;
+		margin: 0 !important;
+	}
+
+	.filters-row,
+	.duration-container,
+	.challenge-container {
+		width: 100% !important;
+		height: auto !important;
+		margin: 0 !important;
+		display: flex !important;
+		flex-wrap: wrap;
+		gap: 10px !important;
+	}
+
+	.filters-row {
+		flex-direction: column;
+	}
+
+	.clear {
+		width: fit-content !important;
+		padding: 0 !important;
+		margin-left: auto !important;
+	}
+
+	.selected-classes-container,
+	.yoga-classes-container {
+		width: 100% !important;
+		min-width: 0 !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+
+	.selected-classes-container {
+		height: auto !important;
+		min-height: 130px;
+		overflow-x: auto;
+		padding: 16px !important;
+		gap: 16px !important;
+	}
+
+	.yoga-classes-container {
+		min-height: 0 !important;
+		padding: 0 16px;
+	}
+
+	.yoga-classes {
+		width: 100% !important;
+		margin: 24px 0 !important;
+		display: flex !important;
+		flex-direction: column;
+		gap: 20px !important;
+	}
+
+	.yoga-class-meta,
+	.yoga-class-img,
+	.yoga-class-img video,
+	.class-description,
+	.class-name {
+		width: 100% !important;
+		max-width: 100%;
+	}
+
+	.yoga-class-img,
+	.yoga-class-img video {
+		height: auto !important;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+	}
+
+	.container {
+		width: 100% !important;
+		height: auto !important;
+		min-height: 100vh;
+		padding: 20px 16px !important;
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 24px !important;
+	}
+
+	table {
+		width: 100% !important;
+		table-layout: auto !important;
+	}
+
+	app-text-box,
+	app-text-area,
+	app-select-list {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+	}
+}

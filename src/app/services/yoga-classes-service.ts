@@ -8,19 +8,11 @@ import { YogaTeacher } from '../shared/yoga-teacher-data';
 import { LetterData } from '../shared/letter-date';
 import { TeacherInvite } from '../shared/teacher-invite-data';
 import { AuthService } from './auth-service';
+import { YogaStyleDescription } from '../shared/yoga-style-description-data';
 
 export type { YogaClassData };
 
-export interface YogaStyleDescription {
-  id: string;
-  description: string;
-  yogaImg: string;
-  yogaImgHover: string;
-  headerBackgroundImage: string;
-  headerBackgroundColor: string;
-  classesBodyBackgroundColor: string;
 
-}
 
 type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 
@@ -58,7 +50,7 @@ const EMPTY_YOGA_CLASS: YogaClassData = {
   providedIn: 'root',
 })
 export class YogaClassesService {
-
+  
   private yogaStyles$?: Observable<YogaStyleDescription[]>;
   private yogaClasses$?: Observable<YogaClassData[]>;
   private yogaTeachers$?: Observable<YogaTeacher[]>;
@@ -102,6 +94,7 @@ export class YogaClassesService {
   }
 
   getYogaStyle(id: string | null): Observable<YogaStyleDescription> {
+    //console.log('page - ' + id )
     const styleId = (id ?? 'all').toLowerCase();
     const theme = STYLE_THEME[(styleId as YogaStyleId)];
     return this.getYogaStyles().pipe(
@@ -196,6 +189,7 @@ export class YogaClassesService {
   }
 
   getClassByID(classId: string | undefined): Observable<YogaClassData | undefined> {
+    
     if (classId == '') {
       return of(EMPTY_YOGA_CLASS);
 
@@ -204,6 +198,28 @@ export class YogaClassesService {
       map((classes) => classes.find((yogaClass) => yogaClass.id === classId))
     );
   }
+
+  getClassByIDs(classesIds: string[]): Observable<YogaClassData[]> {
+    const filteredIds = classesIds.filter((id) => !!id);
+
+    if (filteredIds.length === 0) {
+      return of([]);
+    }
+
+    return this.getClasses().pipe(
+      map((classes) => {
+        const classMap = new Map(
+          classes.map((yogaClass) => [yogaClass.id, yogaClass] as const)
+        );
+
+        return filteredIds
+          .map((id) => classMap.get(id))
+          .filter((yogaClass): yogaClass is YogaClassData => !!yogaClass);
+      })
+    );
+  }
+
+    //console.log('yogaClasses - ' + JSON.stringify(classes));
 
   getFilteredClasses(yogaStyle: string, difficulty: string | null, duration: string | null): Observable<YogaClassData[]> {
     const normalizedStyle = yogaStyle.trim().toLowerCase();
@@ -247,7 +263,6 @@ export class YogaClassesService {
       id: videoId
     });
 
-    //console.log('yoga class - ' + JSON.stringify(yogaClass, null, 2));
     this.yogaClasses$ = undefined;
     this.yogaClasses$ = this.getClasses();
   }
@@ -285,6 +300,7 @@ export class YogaClassesService {
     this.yogaTeachers$ = from(
       runInInjectionContext(this.injector, () => {
         const teachersRef = collection(this.firestore, 'teachers');
+          //console.log('teachersRef - ' + JSON.stringify(teachersRef));
         return getDocs(teachersRef);
       })
     ).pipe(
@@ -292,7 +308,6 @@ export class YogaClassesService {
         snapshot.docs.map((doc) => {
           const data = doc.data() as YogaTeacher;
 
-          //console.log('yoga class - ' + JSON.stringify(data, null, 2));
 
           return {
             fullName: data.fullName,
@@ -493,7 +508,7 @@ export class YogaClassesService {
       ? doc(this.firestore, `letters/${letter.id}`)
       : doc(collection(this.firestore, 'letters'));
 
-    console.log('letter.recipients - ' + JSON.stringify(letter.recipients))
+    //console.log('letter.recipients - ' + JSON.stringify(letter.recipients))
 
     const letterToSave: LetterData = {
       ...letter,

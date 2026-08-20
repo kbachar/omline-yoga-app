@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MainHeader } from '../main-header-component/main-header/main-header';
 
 type YogaStyle = {
-  id: 'hatha' | 'vinyasa' | 'ashtanga';
+  id: 'hatha' | 'vinyasa' | 'ashtanga' | 'all';
   title: string;
   description: string;
   defaultSrc: string;
@@ -50,6 +50,16 @@ export class HomePageComponent {
       defaultSrc: '/assets/images/ashtanga-main1.png',
       hoverSrc: '/assets/images/ashtanga-main2.png',
       imageId: 'ashtangaImg'
+    },
+    {
+      id: 'all',
+      title: 'all classes library',
+      description:
+        'Select videos from different yoga styles. Filter videos with style, difficulty and duration. Select several videos ' +
+        'to choose from selected videos tab..',
+      defaultSrc: '/assets/images/all-main1.png',
+      hoverSrc: '/assets/images/all-main2.png',
+      imageId: 'allImg'
     }
   ];
 
@@ -64,7 +74,7 @@ export class HomePageComponent {
   protected onStyleHeaderClick(id: string): void {
     this.router.navigate(['/classes', id]);
   }
-  
+
   protected setAllYogaHovered(value: boolean): void {
     this.allYogaHovered.set(value);
   }
@@ -76,8 +86,8 @@ export class HomePageComponent {
   }
 
   protected onAllYogaClick(): void {
-    this.router.navigate(['/classes'], { queryParams: { id: 'all' } });
+    this.router.navigate(['/classes', 'all']);
   }
 
-  
+
 }

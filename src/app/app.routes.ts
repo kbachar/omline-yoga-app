@@ -15,6 +15,7 @@ import { YogaClassDetails } from './shared/yoga-class-details-component/yoga-cla
 import { Videos } from './videos-component/videos/videos';
 import { Letters } from './Letters-component/letters/letters';
 import { Letter } from './Letter-component/letter/letter';
+import { SelectedClasses } from './selected-classes-component/selected-classes/selected-classes';
 
 export const routes: Routes = [
 	{
@@ -24,6 +25,10 @@ export const routes: Routes = [
 	{
 		path: 'classes/:id',
 		component: ClassesPageComponent
+	},
+	{
+		path: 'selected-classes',
+		component: SelectedClasses
 	},
 	{
 		path: 'teacher-subscribe-page',

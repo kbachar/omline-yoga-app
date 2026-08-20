@@ -1,0 +1,18 @@
+<app-inner-header [yogaStyleId]="yogaStyleId()" (onClassesNavbarClick)="classesNavbarClick($event)"></app-inner-header>
+<div class="container">
+    <div class="classes-container">
+        @for (yogaClass of classes$ | async; track yogaClass) {
+        <div class="class-container">
+            <div class="inner-class-container">
+                <label class="teacher-name">{{yogaClass.teacherName}}</label>
+                <app-yoga-class [classData]="yogaClass" [descriptionWidth]="600"></app-yoga-class>
+            </div>
+            <video [src]="yogaClass.videoLink"></video>
+        </div>
+        }
+    </div>
+    <div class="suggested-classes-continer">
+        <div class="suggested-classes">
+        </div>
+    </div>
+</div>

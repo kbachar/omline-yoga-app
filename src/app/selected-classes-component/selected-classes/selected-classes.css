@@ -1,0 +1,62 @@
+
+.container {
+    padding: 100px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    background: #EAEAFA;
+    gap: 150px;
+}
+
+.classes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.inner-class-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.class-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.teacher-name {
+  width: auto;
+  font-family: 'Cinzel Decorative';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 20px;
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+  color: #101C50;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+video {
+    width: 400px;
+    border-radius: 10px; 
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.suggested-classes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.suggested-classes {
+    display: flex;
+    flex-direction: column;
+}

@@ -4,36 +4,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { YogaClassesService } from '../services/yoga-classes-service';
 import { YogaClassData } from '../shared/yoga-class-data';
 import { Observable, map, switchMap, tap } from 'rxjs';
-import { LoginComponent } from '../shared/login-component/login-component';
 import { YogaClass } from "../shared/yoga-class-component/yoga-class/yoga-class";
-import { YogaStyleDescription as YogaStyle } from '../services/yoga-classes-service';
 import { yogaStyles } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
+import { InnerHeader } from "../shared/inner-header-component/inner-header/inner-header";
+import { YogaStyleDescription } from '../shared/yoga-style-description-data';
 
 type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 
 @Component({
   selector: 'app-classes-page',
-  imports: [CommonModule, LoginComponent, YogaClass],
+  imports: [CommonModule, YogaClass, InnerHeader],
   templateUrl: './classes-page.component.html',
   styleUrl: './classes-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClassesPageComponent implements OnInit {
-  yogaStyle$!: Observable<YogaStyle>;
+  yogaStyle$!: Observable<YogaStyleDescription>;
   classes$!: Observable<YogaClassData[]>;
-  protected selectedClasses$!: YogaClassData[];
+  protected selectedClasses: YogaClassData[] = [];
   protected isYogaImageHovered = false;
-  protected readonly isLoginModalOpen = signal(false);
   protected selectedStyleId: YogaStyleId = 'all';
-  protected readonly items: Array<{
-    id: YogaStyleId;
-    title: string;
-  }> = [
-      { id: 'hatha', title: 'Hatha Yoga' },
-      { id: 'vinyasa', title: 'Vinyasa Yoga' },
-      { id: 'ashtanga', title: 'Ashtanga Yoga' },
-      { id: 'all', title: 'All Classes' }
-    ];
 
   private route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -49,6 +39,14 @@ export class ClassesPageComponent implements OnInit {
       }),
       switchMap((id) => this.yogaService.getYogaStyle(id))
     );
+
+    const classesIds = this.route.snapshot.queryParamMap
+      .get('ids')
+      ?.split(',')
+      .filter(Boolean) ?? [];
+    console.log('classesIds - ' + JSON.stringify(classesIds))
+    //this.selectedClasses = this.yogaService.getClassByIDs(classesIds);
+
   }
 
   protected classesNavbarClick(page: YogaStyleId): void {
@@ -83,24 +81,9 @@ export class ClassesPageComponent implements OnInit {
     });
   }
 
-  protected login(): void {
-    this.isLoginModalOpen.set(true);
-  }
-
-  protected closeLoginModal(): void {
-    this.isLoginModalOpen.set(false);
-  }
-
-
-  protected openPopup(page: 'about' | 'contact' | 'plans' | 'login'): void {
-    this.router.navigate([`/${page}`]);
-  }
-
-  protected goHome(): void {
-    this.router.navigate(['/']);
-  }
-
-  protected subscribe(): void {
-    this.router.navigate(['/teacher-subscribe-page']);
+  selectedClassesClick(classes: YogaClassData[]) {
+    this.router.navigate(['/selected-classes'], {
+      queryParams: { ids: classes.map((yogaClass) => yogaClass.id).join(',') }
+    });
   }
 }

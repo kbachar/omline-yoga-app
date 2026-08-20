@@ -1,30 +1,6 @@
-<header class="classes-header">
-  <nav class="classes-left-navbar">
-    <div type="button" class="navbar-item" (click)="openPopup('about')">About</div>
-    <div type="button" class="navbar-item" (click)="openPopup('contact')">Contact Us</div>
-    <div type="button" class="navbar-item" (click)="openPopup('plans')">Plans</div>
-  </nav>
-
-  <img class="classes-header-img" src="/assets/images/yoga-classes-logo.png" alt="Yoga Classes Logo" (click)="goHome()">
-
-  <nav class="navbar" id="yogaClassesNavbar">
-    <div type="button" class="navbar-item" (click)="login()">Login</div>
-    <div type="button" class="navbar-item" (click)="subscribe()">Subscribe</div>
-  </nav>
-</header>
-
-<app-login-component [isOpen]="isLoginModalOpen()" (closed)="closeLoginModal()"></app-login-component>
-
-<div class="classes-navbar">
-  @for (item of items; track item.id) {
-  <div class="classes-navbar-item" [class.is-selected]="selectedStyleId === item.id"
-    (click)="classesNavbarClick(item.id)">
-    {{ item.title }}
-  </div>
-  }
-</div>
-
 @if (yogaStyle$ | async; as yogaStyle) {
+
+<app-inner-header [yogaStyleId]="yogaStyle.id" (onClassesNavbarClick)="classesNavbarClick($event)"></app-inner-header>
 
 <section class="classes-page">
 
@@ -106,6 +82,10 @@
         <div class="selected-class-caption">{{ selectedClass.title }}</div>
       </div>
       }
+      <div class="show-on-page-container" (click)="selectedClassesClick(selectedClasses)">
+        <div class="show-on-page">Show on page</div>
+        <img src="/assets/images/ShowOnPageArrow.png">
+      </div>
     </div>
     @if (classes$ | async; as classes) {
     <div class="yoga-classes-container">
@@ -119,7 +99,7 @@
           </div>
           <div class="class-header-row">
             <div class="teacher-name">{{ classItem.teacherName}}</div>
-            <div class="yoga-class-time">{{classItem.classLength}} Min</div>
+            <div class="yoga-class-time">{{classItem.classLength}}</div>
           </div>
           <app-yoga-class [classData]="classItem" [descriptionWidth]="391"></app-yoga-class>
         </div>
