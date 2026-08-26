@@ -58,8 +58,8 @@ header {
 .main-header-img {
 	cursor: pointer;
 	position: absolute;
-	width: 515px;
-	height: 182px;
+	width: 430px;
+	height: 164px;
 	left: calc(50% - 515px/2 + 0.5px);
 	top: 1px;
 }

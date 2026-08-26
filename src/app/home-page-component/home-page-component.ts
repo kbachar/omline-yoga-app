@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MainHeader } from '../main-header-component/main-header/main-header';
 
 type YogaStyle = {
-  id: 'hatha' | 'vinyasa' | 'ashtanga' | 'all';
+  id: 'hatha' | 'vinyasa' | 'ashtanga' | 'all' | 'beyond';
   title: string;
   description: string;
   defaultSrc: string;
@@ -29,7 +29,7 @@ export class HomePageComponent {
       id: 'hatha',
       title: 'Hatha Yoga',
       description:
-        'A gentle and traditional yoga practice focused on postures, breathing, and relaxation.',
+        'a Gentle and traditional yoga practice focused on postures, breathing, and relaxation.',
       defaultSrc: '/assets/images/hatha-main1.png',
       hoverSrc: '/assets/images/hatha-main2.png',
       imageId: 'hathaImg'
@@ -37,7 +37,7 @@ export class HomePageComponent {
     {
       id: 'vinyasa',
       title: 'Vinyasa yoga',
-      description: 'A dynamic flow of movements synchronized with the breath.',
+      description: 'A dynamic flow of movements synchronized with the breath..',
       defaultSrc: '/assets/images/vinyasa-main1.png',
       hoverSrc: '/assets/images/vinyasa-main2.png',
       imageId: 'vinyasaImg'
@@ -53,13 +53,21 @@ export class HomePageComponent {
     },
     {
       id: 'all',
-      title: 'all classes library',
+      title: 'all yoga classes',
       description:
-        'Select videos from different yoga styles. Filter videos with style, difficulty and duration. Select several videos ' +
-        'to choose from selected videos tab..',
+        'Welcome to all our yoga styles classes in one place',
       defaultSrc: '/assets/images/all-main1.png',
       hoverSrc: '/assets/images/all-main2.png',
       imageId: 'allImg'
+    },
+    {
+      id: 'beyond',
+      title: 'beyond practice',
+      description:
+        'links to yoga philosophy history, and enriching knowledge',
+      defaultSrc: '/assets/images/beyond-main1.png',
+      hoverSrc: '/assets/images/beyond-main2.png',
+      imageId: 'beyondImg'
     }
   ];
 
