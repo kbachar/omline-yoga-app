@@ -1,0 +1,14 @@
+@if (email$ | async; as email) {
+<app-page-header [headerText]="'emails - ' + email.title" [showBack]="true" [headerTextHeight]="30"
+    [buttonText]="'reply'" (buttonClick)="reply(email)" (backToListClick)="backToEmails()"></app-page-header>
+
+<div class="container">
+    <div class="left-side">
+        <label>from: {{ email.recipients.length ? email.recipients[0].email : 'Unknown sender' }}</label>
+        <app-text-box [inputValue]="email.title" [readonly]="true" [textBoxWidth]="750" (textChange)="contentChanged(email, $event)"></app-text-box>
+        <app-text-area [textAreaName]="'Email content'" [textWidth]="750" [textHeight]="600"
+            [textValue]="email.content"></app-text-area>
+    </div>
+</div>
+}
+

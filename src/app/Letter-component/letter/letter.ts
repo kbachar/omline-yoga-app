@@ -41,7 +41,8 @@ export class Letter implements OnInit {
     recipients: [],
     sent: false,
     image: '',
-    showLogo: false
+    showLogo: false,
+    read: false
   };
 
   ngOnInit() {

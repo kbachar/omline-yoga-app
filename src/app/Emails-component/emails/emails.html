@@ -1,0 +1,21 @@
+<app-page-header [headerText]="'our emails'" [buttonText]="'+ new email'"
+    (buttonClick)="addEmail()"></app-page-header>
+<div class="emails-container">
+    <table class="emails-table">
+        <tbody>
+            @if (emails$ | async; as emails) {
+            @for (email of emails; track email.id; let index = $index) {
+            <tr [class.unread-row]="email.read === false">
+                <td>{{ index + 1 }}</td>
+                <td>{{ email.title }}</td>
+                <td>{{ email.content }}</td>
+                <td>
+                    <app-view-edit-button (viewEditButtonClick)="onViewEditClick(email.id)">
+                    </app-view-edit-button>
+                </td>
+            </tr>
+            }
+            }
+        </tbody>
+    </table>
+</div>

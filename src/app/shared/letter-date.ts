@@ -10,4 +10,5 @@ export interface LetterData {
     sent: boolean;
     image: string;
     showLogo: boolean;
+    read: boolean
 }

@@ -55,6 +55,7 @@ export class YogaClassesService {
   private yogaClasses$?: Observable<YogaClassData[]>;
   private yogaTeachers$?: Observable<YogaTeacher[]>;
   private letters$?: Observable<LetterData[]>;
+  private emails$?: Observable<LetterData[]>;
   private readonly firestore = inject(Firestore);
   private readonly storage = inject(Storage);
   private readonly injector = inject(EnvironmentInjector);
@@ -446,8 +447,7 @@ export class YogaClassesService {
     };
 
     await runInInjectionContext(this.injector, () => setDoc(inviteDocRef, inviteToSave, { merge: true }));
-  }
-
+  } 
 
   getLetters(): Observable<LetterData[]> {
     if (this.letters$)
@@ -557,6 +557,7 @@ export class YogaClassesService {
         image: letter.image || "",
         showLogo: letter.showLogo || false
       };
+          console.log('payload - ' + JSON.stringify(payload))
 
       const response = await fetch(endpoint, {
         method: "POST",
@@ -577,6 +578,56 @@ export class YogaClassesService {
       console.error("Error sending letter:", error);
       throw error;
     }
+  }
+
+  getEmails(): Observable<LetterData[]> {
+    if (this.emails$)
+      return this.emails$;
+
+    this.emails$ = from(
+      runInInjectionContext(this.injector, () => {
+        const emailRef = collection(this.firestore, 'emails');
+        return getDocs(emailRef);
+      })
+    ).pipe(
+      map((snapshot) =>
+        snapshot.docs.map((doc) => {
+          const data = doc.data();
+          
+          return {
+            id: doc.id,
+            title: data['subject'],
+            content: data['text'],
+            createdAt: data['created_at'],
+            recipients: [{ email: data['from'] }],
+            read: data['read'] === true
+          } as LetterData;
+        })
+      ),
+      shareReplay({ bufferSize: 1, refCount: true })
+    );
+
+    return this.emails$;
+  }
+
+  getEmail(emailID: string): Observable<LetterData | undefined> {
+    return this.getEmails().pipe(
+      map((emails) => emails.find((email) => email.id === emailID))
+    );
+  }
+
+  async saveEmail(email: LetterData): Promise<void> {
+    if (!email.id) {
+      throw new Error('Cannot save an email without an id');
+    }
+
+    const emailDocRef = doc(this.firestore, `emails/${email.id}`);
+
+    await runInInjectionContext(this.injector, () =>
+      setDoc(emailDocRef, { read: email.read }, { merge: true })
+    );
+
+    this.emails$ = undefined;
   }
 
   getStorageFiles(): Observable<string[]> {

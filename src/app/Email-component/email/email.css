@@ -1,0 +1,31 @@
+.container {
+  position: relative;
+  height: 1283px;
+  background: #F7F8FA;
+  border-radius: 20px 0px 0px 0px;
+  padding: 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 70px;
+}
+
+.left-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+label {
+    font-family: 'Mona Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 25px;
+    text-transform: capitalize;
+    color: #243376;
+    border: none;
+    outline: none;
+    resize: none;
+    border-radius: 10px;
+    padding: 10px;
+}

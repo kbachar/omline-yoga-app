@@ -14,7 +14,9 @@ import { TeacherClasses } from './teacher-classes-component/teacher-classes/teac
 import { YogaClassDetails } from './shared/yoga-class-details-component/yoga-class-details/yoga-class-details';
 import { Videos } from './videos-component/videos/videos';
 import { Letters } from './Letters-component/letters/letters';
+import { Emails } from './Emails-component/emails/emails';
 import { Letter } from './Letter-component/letter/letter';
+import { Email } from './Email-component/email/email';
 import { SelectedClasses } from './selected-classes-component/selected-classes/selected-classes';
 
 export const routes: Routes = [
@@ -56,8 +58,11 @@ export const routes: Routes = [
 			{ path: 'videos', component: Videos },
 			{ path: 'yoga-class-details/:classID', component: YogaClassDetails },
 			{ path: 'letters', component: Letters },
+			{ path: 'emails', component: Emails },
 			{ path: 'letter', component: Letter },
-			{ path: 'letter/:letterID', component: Letter }
+			{ path: 'letter/:letterID', component: Letter },
+			{ path: 'email', component: Email },
+			{ path: 'email/:emailID', component: Email },
 		]
 	}
 ];
