@@ -22,7 +22,7 @@ export class Letter implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private yogaService = inject(YogaClassesService);
   private readonly router = inject(Router);
-  
+
   logo = '';
   letter$!: Observable<LetterData>;
   images$!: Observable<string[]>
@@ -42,7 +42,8 @@ export class Letter implements OnInit {
     sent: false,
     image: '',
     showLogo: false,
-    read: false
+    read: false,
+    from: ''
   };
 
   ngOnInit() {
@@ -93,11 +94,13 @@ export class Letter implements OnInit {
     else this.logo = '';
   }
 
-  updatePreview(text: string) {
-    const previewContainer = document.querySelector('.preview-container');
-    if (previewContainer) {
-      previewContainer.textContent = text;
-    }
+  titleChanged(letter: LetterData, title: string) {
+    letter.title = title;
+  }
+
+  contentChanged(letter: LetterData, content: string) {
+    letter.content = content;
+
   }
 
   OnSelectedOption(selectedOption: string, letter: LetterData) {
@@ -120,7 +123,7 @@ export class Letter implements OnInit {
       );
     }
 
-    console.log('letter.recipients - ' + JSON.stringify(letter.recipients))
+    //console.log('letter.recipients - ' + JSON.stringify(letter.recipients))
   }
 
   backToLetters() {
@@ -129,9 +132,6 @@ export class Letter implements OnInit {
 
   async saveLetter(letter: LetterData) {
     letter.showLogo = this.logo != '';
-
-    //console.log("letter - " + JSON.stringify(letter))
-
     await this.yogaService.saveLetter(letter);
     await this.router.navigate(['/admin-dashboard/letters']);
   }
@@ -140,7 +140,7 @@ export class Letter implements OnInit {
     const imageUrl = letter.image
       ? await firstValueFrom(this.yogaService.getStorageFile(letter.image))
       : '';
-    
+
     const bodyHtml = this.escapeHtml(letter.content).replace(/\r?\n/g, '<br>');
     const htmlContent = [
       '<div style="max-width: 750px; margin: 0 auto; font-family: Arial, sans-serif; color: #333; line-height: 1.6;">',
@@ -162,7 +162,11 @@ export class Letter implements OnInit {
         [...this.recipients, ...letter.recipients].map((recipient) => [recipient.email, recipient])
       );
       letter.recipients = [...recipientsByEmail.values()];
-      await this.saveLetter(letter);
+      letter.from = 'support@yoga-om-line.com'
+      //console.log(letter.content)
+
+      await this.yogaService.saveEmail(letter);
+      this.backToLetters();
     } catch (error) {
       console.error('Unable to send letter:', error);
     }

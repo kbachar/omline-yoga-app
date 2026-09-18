@@ -50,7 +50,7 @@ const EMPTY_YOGA_CLASS: YogaClassData = {
   providedIn: 'root',
 })
 export class YogaClassesService {
-  
+
   private yogaStyles$?: Observable<YogaStyleDescription[]>;
   private yogaClasses$?: Observable<YogaClassData[]>;
   private yogaTeachers$?: Observable<YogaTeacher[]>;
@@ -190,7 +190,7 @@ export class YogaClassesService {
   }
 
   getClassByID(classId: string | undefined): Observable<YogaClassData | undefined> {
-    
+
     if (classId == '') {
       return of(EMPTY_YOGA_CLASS);
 
@@ -220,7 +220,6 @@ export class YogaClassesService {
     );
   }
 
-    //console.log('yogaClasses - ' + JSON.stringify(classes));
 
   getFilteredClasses(yogaStyle: string, difficulty: string | null, duration: string | null): Observable<YogaClassData[]> {
     const normalizedStyle = yogaStyle.trim().toLowerCase();
@@ -301,7 +300,7 @@ export class YogaClassesService {
     this.yogaTeachers$ = from(
       runInInjectionContext(this.injector, () => {
         const teachersRef = collection(this.firestore, 'teachers');
-          //console.log('teachersRef - ' + JSON.stringify(teachersRef));
+        //console.log('teachersRef - ' + JSON.stringify(teachersRef));
         return getDocs(teachersRef);
       })
     ).pipe(
@@ -447,7 +446,7 @@ export class YogaClassesService {
     };
 
     await runInInjectionContext(this.injector, () => setDoc(inviteDocRef, inviteToSave, { merge: true }));
-  } 
+  }
 
   getLetters(): Observable<LetterData[]> {
     if (this.letters$)
@@ -557,7 +556,7 @@ export class YogaClassesService {
         image: letter.image || "",
         showLogo: letter.showLogo || false
       };
-          console.log('payload - ' + JSON.stringify(payload))
+      console.log('payload - ' + JSON.stringify(payload))
 
       const response = await fetch(endpoint, {
         method: "POST",
@@ -593,14 +592,23 @@ export class YogaClassesService {
       map((snapshot) =>
         snapshot.docs.map((doc) => {
           const data = doc.data();
-          
+          const rawRecipients = data['recipients'];
+          const recipients = Array.isArray(rawRecipients)
+            ? rawRecipients
+            : rawRecipients
+              ? [rawRecipients]
+              : [];
+
+          //console.log(JSON.stringify(data['recipients']))
+
           return {
             id: doc.id,
             title: data['subject'],
             content: data['text'],
             createdAt: data['created_at'],
-            recipients: [{ email: data['from'] }],
-            read: data['read'] === true
+            recipients,
+            read: data['read'] === true,
+            from: data['from']
           } as LetterData;
         })
       ),
@@ -620,14 +628,34 @@ export class YogaClassesService {
     if (!email.id) {
       throw new Error('Cannot save an email without an id');
     }
+    email.read = true;
+    email.sent = true;
+
+    const emailToSave = {
+      subject: email.title ?? '',
+      text: email.content ?? '',
+      created_at: email.createdAt ?? new Date(),
+      createdBy: email.createdBy ?? '',
+      updatedAt: email.updatedAt ?? new Date(),
+      updatedBy: email.updatedBy ?? '',
+      from: email.from || email.recipients?.[0]?.email || 'support@yoga-om-line.com',
+      recipients: email.recipients ?? [],
+      sent: !!email.sent,
+      image: email.image ?? '',
+      showLogo: !!email.showLogo,
+      read: !!email.read,
+    };
+
+    //console.log('emailToSave - ' + JSON.stringify(emailToSave));
 
     const emailDocRef = doc(this.firestore, `emails/${email.id}`);
 
     await runInInjectionContext(this.injector, () =>
-      setDoc(emailDocRef, { read: email.read }, { merge: true })
+      setDoc(emailDocRef, emailToSave, { merge: true })
     );
 
     this.emails$ = undefined;
+    this.emails$ = this.getEmails();
   }
 
   getStorageFiles(): Observable<string[]> {

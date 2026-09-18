@@ -1,10 +1,8 @@
 @if (letter$ | async; as letter) {
 <app-page-header [headerText]="'letters - ' + letter.title" [buttonText]="'save'" [showBack]="true"
     [headerTextHeight]="30" (backToListClick)="backToLetters()" (buttonClick)="saveLetter(letter)"></app-page-header>
-}
 
 <div class="container">
-    @if (letter$ | async; as letter) {
     <div class="left-side">
 
         <app-toggle-setting [labelText]="'Show Logo'" (switchStateChange)="showLogo($event)"
@@ -15,7 +13,7 @@
         <label>send to: {{ letter.recipients.length > 0 ? letter.recipients.map(recipient => recipient.email).join('; ')
             : 'None selected' }}</label>
 
-        <app-text-box [placeholderValue]="'enter title'" (textChange)="updatePreview($event)"
+        <app-text-box [placeholderValue]="'enter title'" (textChange)="titleChanged(letter,$event)"
             [inputValue]="letter.title" [textBoxWidth]="750"></app-text-box>
 
         <div class="logo">
@@ -23,7 +21,7 @@
         </div>
 
         <app-text-area #emailPreview [textAreaName]="'Write your letter...'" [textWidth]="750" [textHeight]="600"
-            [textValue]="letter.content" (textValueChange)="updatePreview($event)"></app-text-area>
+            [textValue]="letter.content" (textValueChange)="contentChanged(letter, $event)"></app-text-area>
         }
 
         @if (image$ | async; as image) {
@@ -47,6 +45,6 @@
         </div>
         }
     </div>
-    }
-
+    
 </div>
+}
