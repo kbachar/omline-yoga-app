@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PageHeader } from "../../shared/page-header-component/page-header/page-header";
 import { ToggleSetting } from "../../shared/toggle-setting-component/toggle-setting/toggle-setting";
 import { TextBox } from "../../shared/text-box-component/text-box/text-box";
@@ -6,10 +6,11 @@ import { TextArea } from "../../shared/text-area-component/text-area/text-area";
 import { firstValueFrom, map, Observable, switchMap, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { YogaClassesService } from '../../services/yoga-classes-service';
-import { LetterData } from '../../shared/letter-date';
+import { LetterData } from '../../shared/letter-data';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { SelectList } from "../../shared/select-list-component/select-list/select-list";
 import { CheckBox } from '../../shared/check-box-component/check-box/check-box';
+import { EmailData } from '../../shared/email-data';
 
 @Component({
   selector: 'app-letter',
@@ -28,7 +29,8 @@ export class Letter implements OnInit {
   images$!: Observable<string[]>
   image$!: Observable<string>
   teacherNamesAndIds$!: Observable<Array<{ name: string; email: string }>>;
-  recipients: Array<{ name: string; email: string; date: Date }> = [];
+  recipients: Array<{ name: string; email: string; date: Date; }> = [];
+
 
   private readonly defaultLetter: LetterData = {
     id: '',
@@ -38,12 +40,9 @@ export class Letter implements OnInit {
     createdBy: '',
     updatedAt: new Date(),
     updatedBy: '',
-    recipients: [],
-    sent: false,
     image: '',
     showLogo: false,
-    read: false,
-    from: ''
+    sentTo: []
   };
 
   ngOnInit() {
@@ -56,33 +55,17 @@ export class Letter implements OnInit {
       map((letter) => ({
         ...this.defaultLetter,
         ...letter,
-        id: letter?.id ?? '',
-        title: letter?.title ?? 'new letter',
-        content: letter?.content ?? '',
-        createdAt: letter?.createdAt ?? new Date(),
-        createdBy: letter?.createdBy ?? '',
-        updatedAt: letter?.updatedAt ?? new Date(),
-        updatedBy: letter?.updatedBy ?? '',
-        recipients: letter?.recipients ?? [],
-        sent: !!letter?.sent,
-        image: letter?.image ?? '',
-        showLogo: !!letter?.showLogo,
       })),
       tap((letter) => {
-        if (letter.showLogo) {
+        //console.log('letter - ' + JSON.stringify(letter))
+        if (letter.showLogo) 
           this.showLogo(letter.showLogo);
-        } else {
+        else 
           this.logo = '';
-        }
 
-        this.recipients = [...letter.recipients];
-        letter.recipients = [];
-
-        if (letter.image) {
+        if (letter.image) 
           this.image$ = this.yogaService.getStorageFile(letter.image);
-        } else {
-          this.image$ = this.yogaService.getStorageFile('');
-        }
+
       })
     );
 
@@ -110,20 +93,20 @@ export class Letter implements OnInit {
 
   addTeacher(checked: boolean, teacher: { name: string; email: string; }, letter: LetterData) {
     if (checked) {
-      if (!letter.recipients.some((recipient) => recipient.email === teacher.email)) {
-        letter.recipients.push({
+      if (!this.recipients.some((recipient) => recipient.email === teacher.email)) {
+        this.recipients.push({
           name: teacher.name,
           email: teacher.email,
           date: new Date(),
         });
       }
-    } else {
-      letter.recipients = letter.recipients.filter(
+    } 
+    else {
+      this.recipients = this.recipients.filter(
         (recipient) => recipient.email !== teacher.email
       );
     }
 
-    //console.log('letter.recipients - ' + JSON.stringify(letter.recipients))
   }
 
   backToLetters() {
@@ -152,21 +135,33 @@ export class Letter implements OnInit {
     ].join('');
 
     try {
-      await this.yogaService.sendLetter({
-        ...letter,
+      const email = {
+        id: '',
+        from: 'info@yoga-om-line.com',
+        title: letter.title,
+        content: letter.content,
+        updatedAt: new Date(),
+        updatedBy: '',
+        read: false,
+        recipients: this.recipients.map((recipient) => recipient.email),
+      } satisfies EmailData;
+      //console.log('letter.from - ' + letter.from)
+      //console.log('email recipients- ' + JSON.stringify(letter.recipients))
+
+      this.yogaService.sendEmail({
+        ...email,
         content: htmlContent,
-        showLogo: this.logo !== '',
+        // showLogo: this.logo !== '',
+      }).then(() => {
+        if (letter.sentTo == null)
+          letter.sentTo = [];
+        letter.sentTo = [...letter.sentTo, ...this.recipients];
+        this.yogaService.saveLetter(letter).then(() => {
+          this.yogaService.saveEmail(email).then(() => {
+            this.backToLetters();
+          });
+        })
       });
-
-      const recipientsByEmail = new Map(
-        [...this.recipients, ...letter.recipients].map((recipient) => [recipient.email, recipient])
-      );
-      letter.recipients = [...recipientsByEmail.values()];
-      letter.from = 'support@yoga-om-line.com'
-      //console.log(letter.content)
-
-      await this.yogaService.saveEmail(letter);
-      this.backToLetters();
     } catch (error) {
       console.error('Unable to send letter:', error);
     }

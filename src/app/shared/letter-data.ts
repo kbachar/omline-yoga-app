@@ -6,10 +6,7 @@ export interface LetterData {
     createdBy: string;
     updatedAt: Date;
     updatedBy: string;
-    recipients: Array<{ name: string; email: string; date: Date }>;
-    sent: boolean;
     image: string;
     showLogo: boolean;
-    read: boolean;
-    from: string;
+    sentTo: Array<{ name: string; email: string; date: Date }>;
 }

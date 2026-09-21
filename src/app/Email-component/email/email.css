@@ -15,6 +15,34 @@
   gap: 20px;
 }
 
+.email-content {
+  width: min(750px, 100%);
+  min-height: 320px;
+  box-sizing: border-box;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e1e5ee;
+  border-radius: 10px;
+  color: #333333;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.email-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 16px auto;
+}
+
+.email-content h1 {
+  margin: 0 0 20px;
+  font-size: 28px;
+  line-height: 1.2;
+  color: #333333;
+}
+
 label {
     font-family: 'Mona Sans';
     font-style: normal;

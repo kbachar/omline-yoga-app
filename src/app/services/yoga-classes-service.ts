@@ -5,10 +5,11 @@ import { Observable, firstValueFrom, from, map, merge, of, shareReplay, switchMa
 import { YogaClassData } from '../shared/yoga-class-data';
 import { yogaStyles } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
 import { YogaTeacher } from '../shared/yoga-teacher-data';
-import { LetterData } from '../shared/letter-date';
+import { LetterData } from '../shared/letter-data';
 import { TeacherInvite } from '../shared/teacher-invite-data';
 import { AuthService } from './auth-service';
 import { YogaStyleDescription } from '../shared/yoga-style-description-data';
+import { EmailData } from '../shared/email-data';
 
 export type { YogaClassData };
 
@@ -55,7 +56,7 @@ export class YogaClassesService {
   private yogaClasses$?: Observable<YogaClassData[]>;
   private yogaTeachers$?: Observable<YogaTeacher[]>;
   private letters$?: Observable<LetterData[]>;
-  private emails$?: Observable<LetterData[]>;
+  private emails$?: Observable<EmailData[]>;
   private readonly firestore = inject(Firestore);
   private readonly storage = inject(Storage);
   private readonly injector = inject(EnvironmentInjector);
@@ -462,17 +463,21 @@ export class YogaClassesService {
       map((snapshot) =>
         snapshot.docs.map((doc) => {
           const data = doc.data() as LetterData;
-          const recipients = (data.recipients ?? []).map((recipient) => {
-            const rawDate = recipient.date as unknown;
+          const sentTo = (data.sentTo ?? []).map((recipient) => {
+            const rawDate = recipient.date as unknown as {
+              toDate?: () => Date;
+            } | Date | string;
             const date = rawDate instanceof Date
               ? rawDate
-              : rawDate && typeof rawDate === 'object' && 'toDate' in rawDate && typeof rawDate.toDate === 'function'
+              : typeof rawDate === 'object' && rawDate !== null && rawDate.toDate
                 ? rawDate.toDate()
-                : new Date(String(rawDate));
+                : rawDate
+                  ? new Date(String(rawDate))
+                  : new Date();
 
             return { ...recipient, date };
           });
-
+          
           //console.log('yoga class - ' + JSON.stringify(data, null, 2));
 
           return {
@@ -481,12 +486,11 @@ export class YogaClassesService {
             content: data.content,
             createdAt: data.createdAt,
             createdBy: data.createdBy,
-            recipients,
-            sent: data.sent,
             updatedAt: data.updatedAt,
             updatedBy: data.updatedBy,
             showLogo: data.showLogo,
-            image: data.image
+            image: data.image,
+            sentTo
           } as LetterData;
         })
       ),
@@ -518,8 +522,6 @@ export class YogaClassesService {
       createdBy: letter.createdBy ?? '',
       updatedAt: new Date(),
       updatedBy: letter.updatedBy ?? '',
-      recipients: letter.recipients ?? [],
-      sent: !!letter.sent,
       image: letter.image ?? '',
       showLogo: !!letter.showLogo,
     };
@@ -532,7 +534,7 @@ export class YogaClassesService {
     this.letters$ = this.getLetters();
   }
 
-  async sendLetter(letter: LetterData): Promise<void> {
+  async sendEmail(email: EmailData): Promise<void> {
     try {
       const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
       const endpoint = isLocal
@@ -545,16 +547,14 @@ export class YogaClassesService {
         throw new Error("No authentication token available");
       }
 
-      if (!letter.recipients || letter.recipients.length === 0) {
+      if (!email.recipients || email.recipients.length === 0) {
         throw new Error("No recipients specified for letter");
       }
 
       const payload = {
-        recipients: letter.recipients.map((recipient) => recipient.email),
-        title: letter.title?.trim() || "Untitled",
-        content: letter.content,
-        image: letter.image || "",
-        showLogo: letter.showLogo || false
+        recipients: email.recipients,
+        title: email.title?.trim() || "Untitled",
+        content: email.content,
       };
       console.log('payload - ' + JSON.stringify(payload))
 
@@ -572,14 +572,14 @@ export class YogaClassesService {
         throw new Error(errorData.error || `HTTP ${response.status}: Failed to send email`);
       }
 
-      console.log("Letter sent successfully:", letter.id);
+      console.log("Letter sent successfully:", email.id);
     } catch (error) {
       console.error("Error sending letter:", error);
       throw error;
     }
   }
 
-  getEmails(): Observable<LetterData[]> {
+  getEmails(): Observable<EmailData[]> {
     if (this.emails$)
       return this.emails$;
 
@@ -593,23 +593,39 @@ export class YogaClassesService {
         snapshot.docs.map((doc) => {
           const data = doc.data();
           const rawRecipients = data['recipients'];
-          const recipients = Array.isArray(rawRecipients)
+          const recipients = (Array.isArray(rawRecipients)
             ? rawRecipients
             : rawRecipients
               ? [rawRecipients]
-              : [];
+              : [])
+            .map((recipient) => typeof recipient === 'string'
+              ? recipient
+              : recipient?.email ?? '')
+            .filter((recipient) => recipient !== '');
+          const rawUpdatedAt = data['updatedAt'] ?? data['created_at'];
+          const updatedAt = rawUpdatedAt && typeof rawUpdatedAt === 'object' &&
+            typeof rawUpdatedAt.toDate === 'function'
+            ? rawUpdatedAt.toDate()
+            : rawUpdatedAt instanceof Date
+              ? rawUpdatedAt
+              : rawUpdatedAt
+                ? new Date(String(rawUpdatedAt))
+                : new Date();
 
           //console.log(JSON.stringify(data['recipients']))
 
           return {
             id: doc.id,
-            title: data['subject'],
-            content: data['text'],
-            createdAt: data['created_at'],
-            recipients,
+            title: data['subject'] ?? '',
+            content: data['text'] ?? '',
+            updatedAt,
+            updatedBy: data['updatedBy'] ?? '',
+            image: data['image'] ?? '',
+            showLogo: data['showLogo'] === true,
             read: data['read'] === true,
-            from: data['from']
-          } as LetterData;
+            from: data['from'] ?? '',
+            recipients,
+          } as EmailData;
         })
       ),
       shareReplay({ bufferSize: 1, refCount: true })
@@ -618,37 +634,32 @@ export class YogaClassesService {
     return this.emails$;
   }
 
-  getEmail(emailID: string): Observable<LetterData | undefined> {
+  getEmail(emailID: string): Observable<EmailData | undefined> {
     return this.getEmails().pipe(
       map((emails) => emails.find((email) => email.id === emailID))
     );
   }
 
-  async saveEmail(email: LetterData): Promise<void> {
-    if (!email.id) {
-      throw new Error('Cannot save an email without an id');
-    }
+  async saveEmail(email: EmailData): Promise<void> {
+    const emailDocRef = email.id
+      ? doc(this.firestore, `emails/${email.id}`)
+      : doc(collection(this.firestore, 'emails'));
+
+    email.id = emailDocRef.id;
     email.read = true;
-    email.sent = true;
 
     const emailToSave = {
       subject: email.title ?? '',
       text: email.content ?? '',
-      created_at: email.createdAt ?? new Date(),
-      createdBy: email.createdBy ?? '',
+      created_at: email.updatedAt ?? new Date(),
       updatedAt: email.updatedAt ?? new Date(),
-      updatedBy: email.updatedBy ?? '',
-      from: email.from || email.recipients?.[0]?.email || 'support@yoga-om-line.com',
-      recipients: email.recipients ?? [],
-      sent: !!email.sent,
-      image: email.image ?? '',
-      showLogo: !!email.showLogo,
+      updatedBy: this.authService.getUserID(),
+      from: email.from || email.recipients?.[0] || 'support@yoga-om-line.com',
+      recipients: email.recipients,
       read: !!email.read,
     };
 
     //console.log('emailToSave - ' + JSON.stringify(emailToSave));
-
-    const emailDocRef = doc(this.firestore, `emails/${email.id}`);
 
     await runInInjectionContext(this.injector, () =>
       setDoc(emailDocRef, emailToSave, { merge: true })

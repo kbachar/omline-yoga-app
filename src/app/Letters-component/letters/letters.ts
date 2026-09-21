@@ -4,7 +4,7 @@ import { AsyncPipe } from '@angular/common';
 import { ViewEditButton } from '../../shared/view-edit-button-component/view-edit-button/view-edit-button';
 import { YogaClassesService } from '../../services/yoga-classes-service';
 import { Observable } from 'rxjs';
-import { LetterData } from '../../shared/letter-date';
+import { LetterData } from '../../shared/letter-data';
 import { Router } from '@angular/router';
 
 @Component({
