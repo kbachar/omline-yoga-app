@@ -3,10 +3,7 @@
 <app-inner-header [yogaStyleId]="yogaStyle.id" (onClassesNavbarClick)="classesNavbarClick($event)"></app-inner-header>
 
 <section class="classes-page">
-
-
   <main class="classes-main" [style.background-color]="yogaStyle.classesBodyBackgroundColor">
-
     <div class="header-section" [style.background-color]="yogaStyle.headerBackgroundColor"
       [style.background-image]="yogaStyle.headerBackgroundImage">
       <img class="yoga-style-img" [src]="isYogaImageHovered ? yogaStyle.yogaImgHover : yogaStyle.yogaImg"
@@ -18,11 +15,10 @@
           <div class="yoga-classes-header-bold">{{ yogaStyle.id }}</div>
           <div class="yoga-classes-header-normal">yoga classes</div>
         </div>
-        <div class="yoga-style-description">{{ yogaStyle.description }}</div>
+        <div class="yoga-style-description">{{ yogaStyle.innerDescription }}</div>
 
       </div>
     </div>
-
     <div class="filters-row-container" #filtersRowContainer>
       <div class="filter-img-container">
         <img src="/assets/images/filter.png" class="filter-img">

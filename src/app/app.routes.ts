@@ -18,6 +18,7 @@ import { Emails } from './Emails-component/emails/emails';
 import { Letter } from './Letter-component/letter/letter';
 import { Email } from './Email-component/email/email';
 import { SelectedClasses } from './selected-classes-component/selected-classes/selected-classes';
+import { BeyondPracticePage } from './beyond-practice-page-component/beyond-practice-page/beyond-practice-page';
 
 export const routes: Routes = [
 	{
@@ -35,6 +36,10 @@ export const routes: Routes = [
 	{
 		path: 'teacher-subscribe-page',
 		component: TeacherSubscribePage
+	},
+	{
+		path: 'beyond-practice-page',
+		component: BeyondPracticePage
 	},
 	{
 		path: 'teacher-dashboard',

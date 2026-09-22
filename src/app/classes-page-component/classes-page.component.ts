@@ -5,11 +5,10 @@ import { YogaClassesService } from '../services/yoga-classes-service';
 import { YogaClassData } from '../shared/yoga-class-data';
 import { Observable, map, switchMap, tap } from 'rxjs';
 import { YogaClass } from "../shared/yoga-class-component/yoga-class/yoga-class";
-import { yogaStyles } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
 import { InnerHeader } from "../shared/inner-header-component/inner-header/inner-header";
 import { YogaStyleDescription } from '../shared/yoga-style-description-data';
 
-type YogaStyleId = (typeof yogaStyles)[number] | 'all';
+//type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 
 @Component({
   selector: 'app-classes-page',
@@ -23,7 +22,7 @@ export class ClassesPageComponent implements OnInit {
   classes$!: Observable<YogaClassData[]>;
   protected selectedClasses: YogaClassData[] = [];
   protected isYogaImageHovered = false;
-  protected selectedStyleId: YogaStyleId = 'all';
+  protected selectedStyleId: string = 'all';
 
   private route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -34,7 +33,7 @@ export class ClassesPageComponent implements OnInit {
     this.yogaStyle$ = this.route.paramMap.pipe(
       map((params) => params.get('id')),
       tap((id) => {
-        this.selectedStyleId = (id as YogaStyleId) ?? 'all';
+        this.selectedStyleId = (id) ?? 'all';
         this.classes$ = this.yogaService.getFilteredClasses(this.selectedStyleId, null, null);
       }),
       switchMap((id) => this.yogaService.getYogaStyle(id))
@@ -44,12 +43,11 @@ export class ClassesPageComponent implements OnInit {
       .get('ids')
       ?.split(',')
       .filter(Boolean) ?? [];
-    console.log('classesIds - ' + JSON.stringify(classesIds))
-    //this.selectedClasses = this.yogaService.getClassByIDs(classesIds);
-
+    //console.log('classesIds - ' + JSON.stringify(classesIds))
   }
 
-  protected classesNavbarClick(page: YogaStyleId): void {
+  protected classesNavbarClick(page: string): void {
+    console.log.apply('page is ' + page)
     this.selectedStyleId = page;
     this.yogaStyle$ = this.yogaService.getYogaStyle(page);
     this.classes$ = this.yogaService.getFilteredClasses(this.selectedStyleId, null, null);

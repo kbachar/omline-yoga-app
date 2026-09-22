@@ -1,0 +1,77 @@
+.header-section {
+  width: auto;
+  height: 378px;
+  display: flex;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.yoga-style-img {
+  width: 477px;
+  height: 378px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.yoga-style-img img {
+  margin-top: 80px;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  /* gap: 12px; */
+  max-width: 900px;
+}
+
+.yoga-classes-header {
+  font-family: 'Cinzel Decorative';
+  font-style: normal;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 70px;
+  text-transform: capitalize;
+  color: #FFF8E6;
+  margin: 0;
+  width: auto;
+  height: 171px;
+  padding-left: 5px;
+}
+
+.yoga-classes-header-bold {
+  font-weight: 700;
+  font-style: normal;
+  margin-right: 12px;
+}
+
+.yoga-classes-header-normal {
+  font-weight: 300;
+  font-style: normal;
+}
+
+.yoga-style-description {
+  width: auto;
+  height: 207px;
+
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 30px;
+  /* or 150% */
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #F8F8FF;
+  text-align: left;
+  margin: 0;
+  padding-left: 5px;
+}

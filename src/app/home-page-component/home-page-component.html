@@ -12,12 +12,12 @@
 	</div>
 
 	<div class="yoga-styles-box">
-		@for (item of yogaStyles; track item.id) {
+		@for (item of yogaStyles | async; track item.id) {
 		@if (item.id != 'all' && item.id != 'beyond') {
 		<div class="yoga-style-item-with-image">
-			<img [src]="imageFor(item)" [id]="item.imageId" [alt]="item.title" tabindex="0"
-				(mouseenter)="setHoveredStyle(item.id)" (mouseleave)="setHoveredStyle(null)"
-				(focus)="setHoveredStyle(item.id)" (blur)="setHoveredStyle(null)">
+			<img [src]="imageFor(item)" [id]="item.yogaImg" [alt]="item.title" tabindex="0"
+				(mouseenter)="setHoveredStyle(item.id)" (mouseleave)="setHoveredStyle('')"
+				(focus)="setHoveredStyle(item.id)" (blur)="setHoveredStyle('')">
 			<div class="yoga-style-header-box">
 				<div class="yoga-style-header" (click)="onStyleHeaderClick(item.id)">{{ item.title }}</div>
 			</div>
@@ -33,16 +33,32 @@
 
 
 	<div class="all-yoga-styles-box">
-		@for (item of yogaStyles; track item.id) {
-		@if (item.id == 'all' || item.id == 'beyond') {
+		@for (item of yogaStyles | async; track item) {
+		@if (item.id == 'all') {
 		<div class="all-yoga-style-item-with-image">
-			<img class="all-img" [src]="imageFor(item)" [id]="item.imageId" [alt]="item.title" tabindex="0"
-				(mouseenter)="setHoveredStyle(item.id)" (mouseleave)="setHoveredStyle(null)"
-				(focus)="setHoveredStyle(item.id)" (blur)="setHoveredStyle(null)">
+			<img class="all-img" [src]="imageFor(item)" [id]="item.yogaImg" [alt]="item.title" tabindex="0"
+				(mouseenter)="setHoveredStyle(item.id)" (mouseleave)="setHoveredStyle('')"
+				(focus)="setHoveredStyle(item.id)" (blur)="setHoveredStyle('')">
 			<div class="yoga-style-item-with-image">
 
 				<div class="all-yoga-style-header-box">
 					<div class="yoga-style-header" (click)="onStyleHeaderClick(item.id)">{{ item.title }}</div>
+				</div>
+				<div class="all-yoga-style-description">
+					{{ item.description }}
+				</div>
+			</div>
+		</div>
+		}
+		@if (item.id == 'beyond') {
+		<div class="all-yoga-style-item-with-image">
+			<img class="all-img" [src]="imageFor(item)" [id]="item.yogaImg" [alt]="item.title" tabindex="0"
+				(mouseenter)="setHoveredStyle(item.id)" (mouseleave)="setHoveredStyle('')"
+				(focus)="setHoveredStyle(item.id)" (blur)="setHoveredStyle('')">
+			<div class="yoga-style-item-with-image">
+
+				<div class="all-yoga-style-header-box">
+					<div class="yoga-style-header" (click)="onBeyondHeaderClick()">{{ item.title }}</div>
 				</div>
 				<div class="all-yoga-style-description">
 					{{ item.description }}

@@ -17,22 +17,71 @@ export type { YogaClassData };
 
 type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 
-const STYLE_THEME: Record<YogaStyleId, Omit<YogaStyleDescription, 'id' | 'description' | 'yogaImg' | 'yogaImgHover' | 'headerBackgroundImage'>> = {
+const STYLE_THEME: Record<YogaStyleId, YogaStyleDescription> = {
   hatha: {
+    id: 'hatha',
+    title: 'Hatha Yoga',
+    description: 'a Gentle and traditional yoga practice focused on postures, breathing, and relaxation.',
+    innerDescription: 'hatha yoga is a fundamental, generally slow-paced style of yoga that focuses on aligning the body and mind through physical postures (asanas), breathing techniques (pranayama), and meditation. It balances "sun" (ha) and "moon" (tha) energies to increase strength, flexibility, and relaxation. It is highly accessible, making it excellent for beginners.',
+    yogaImg: '/assets/images/hatha1.png',
+    yogaImgHover: '/assets/images/hatha2.png',
+    headerBackgroundImage: "url('/assets/images/hatha-background.png')",
     headerBackgroundColor: '#4456A9',
-    classesBodyBackgroundColor: '#EBEBF5'
+    classesBodyBackgroundColor: '#EBEBF5',
+    defaultSrc: '/assets/images/hatha-main1.png',
+    hoverSrc: '/assets/images/hatha-main2.png'
   },
   vinyasa: {
+    id: 'vinyasa',
+    title: 'Vinyasa Yoga',
+    description: 'A dynamic flow of movements synchronized with the breath..',
+    innerDescription: 'vinyasa yoga is a dynamic, fluid style that links postures (asanas) together with breath, often called "flow" yoga. It focuses on moving between poses using inhales and exhales, creating a moving meditation that increases heat and strengthens the body, rather than holding static poses',
+    yogaImg: '/assets/images/vinyasa1.png',
+    yogaImgHover: '/assets/images/vinyasa2.png',
+    headerBackgroundImage: "url('/assets/images/vinyasa-background.png')",
     headerBackgroundColor: '#1F6B9A',
-    classesBodyBackgroundColor: '#DEE8F2'
+    classesBodyBackgroundColor: '#DEE8F2',
+    defaultSrc: '/assets/images/vinyasa-main1.png',
+    hoverSrc: '/assets/images/vinyasa-main2.png'
   },
   ashtanga: {
+    id: 'ashtanga',
+    title: 'Ashtanga Yoga',
+    description: 'A structured and energetic yoga practice based on fixed sequences of postures.',
+    innerDescription: 'The foundation of most modern yoga practices. It is typically practiced at a slower pace, focusing on physical postures (asanas) and breathing techniques. It’s perfect for beginners or those looking to find balance and relaxation.',
+    yogaImg: '/assets/images/ashtanga1.png',
+    yogaImgHover: '/assets/images/ashtanga2.png',
+    headerBackgroundImage: "url('/assets/images/ashtanga-background.png')",
     headerBackgroundColor: '#61619E',
-    classesBodyBackgroundColor: '#E7E7F5'
+    classesBodyBackgroundColor: '#E7E7F5',
+    defaultSrc: '/assets/images/ashtanga-main1.png',
+    hoverSrc: '/assets/images/ashtanga-main2.png'
   },
   all: {
+    id: 'all',
+    title: 'All Yoga Classes',
+    description: 'Welcome to all our yoga styles classes in one place',
+    innerDescription: 'Select videos from different yoga styles. Filter videos with style, difficulty and duration. Select several videos to choose from selected videos tab.',
+    yogaImg: '/assets/images/all1.png',
+    yogaImgHover: '/assets/images/all2.png',
+    headerBackgroundImage: "url('/assets/images/all-background.png')",
     headerBackgroundColor: '#3A559A',
-    classesBodyBackgroundColor: '#DEE8F2'
+    classesBodyBackgroundColor: '#DEE8F2',
+    defaultSrc: '/assets/images/all-main1.png',
+    hoverSrc: '/assets/images/all-main2.png'
+  },
+  beyond: {
+    id: 'beyond',
+    title: 'Beyond Practice',
+    description: 'links to yoga philosophy history, and enriching knowledge',
+    innerDescription: 'Dive deeper and explore timeless, worldwide wisdom gathered here for you from across the web. Enrich your knowledge and spirit by linking to the philosophy of yoga, its history, and profound wisdom. Discover curated insights that bring a wider meaning to your practice.',
+    yogaImg: '/assets/images/beyond1.png',
+    yogaImgHover: '/assets/images/beyond2.png',
+    headerBackgroundImage: "url('/assets/images/beyond-background.png')",
+    headerBackgroundColor: '#3A559A',
+    classesBodyBackgroundColor: '#DEE8F2',
+    defaultSrc: '/assets/images/beyond-main1.png',
+    hoverSrc: '/assets/images/beyond-main2.png'
   }
 };
 
@@ -50,6 +99,7 @@ const EMPTY_YOGA_CLASS: YogaClassData = {
 @Injectable({
   providedIn: 'root',
 })
+
 export class YogaClassesService {
 
   private yogaStyles$?: Observable<YogaStyleDescription[]>;
@@ -71,27 +121,7 @@ export class YogaClassesService {
       return this.yogaStyles$;
     }
 
-    this.yogaStyles$ = from(
-      runInInjectionContext(this.injector, () => {
-        const stylesRef = collection(this.firestore, 'yogaStyles');
-        return getDocs(stylesRef);
-      })
-    ).pipe(
-      map((snapshot) =>
-        snapshot.docs.map((doc) => {
-          const data = doc.data() as Partial<YogaStyleDescription>;
-          const styleId = (data.id ?? doc.id).toLowerCase();
-          return {
-            ...(data as Omit<YogaStyleDescription, 'id'>),
-            id: styleId,
-            yogaImg: `/assets/images/${styleId}1.png`,
-            yogaImgHover: `/assets/images/${styleId}2.png`,
-            headerBackgroundImage: `url('/assets/images/${styleId}-background.png')`
-          } as YogaStyleDescription;
-        })
-      ),
-    );
-
+    this.yogaStyles$ = of(Object.values(STYLE_THEME));
     return this.yogaStyles$;
   }
 
@@ -106,22 +136,21 @@ export class YogaClassesService {
         if (!found) {
           return {
             id: styleId,
+            title: theme.title,
             description: '',
+            innerDescription: '',
             yogaImg: `/assets/images/${styleId}1.png`,
             yogaImgHover: `/assets/images/${styleId}2.png`,
             headerBackgroundImage: `url('/assets/images/${styleId}-background.png')`,
             classesBodyBackgroundColor: theme.classesBodyBackgroundColor,
-            headerBackgroundColor: theme.headerBackgroundColor
+            headerBackgroundColor: theme.headerBackgroundColor,
+            defaultSrc: theme.defaultSrc,
+            hoverSrc: theme.hoverSrc
           };
         }
 
         return {
           ...found,
-          yogaImg: `/assets/images/${styleId}1.png`,
-          yogaImgHover: `/assets/images/${styleId}2.png`,
-          headerBackgroundImage: `url('/assets/images/${styleId}-background.png')`,
-          classesBodyBackgroundColor: theme.classesBodyBackgroundColor,
-          headerBackgroundColor: theme.headerBackgroundColor
         };
       })
     );
@@ -477,7 +506,7 @@ export class YogaClassesService {
 
             return { ...recipient, date };
           });
-          
+
           //console.log('yoga class - ' + JSON.stringify(data, null, 2));
 
           return {

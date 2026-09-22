@@ -1,0 +1,22 @@
+@if (yogaStyle$ | async; as yogaStyle) {
+
+    <app-inner-header [yogaStyleId]="'beyond'" (onClassesNavbarClick)="classesNavbarClick($event)"></app-inner-header>
+
+<div class="header-section" [style.background-color]="yogaStyle.headerBackgroundColor"
+    [style.background-image]="yogaStyle.headerBackgroundImage">
+    <div class="yoga-style-img">
+        <img [src]="isYogaImageHovered ? yogaStyle.yogaImgHover : yogaStyle.yogaImg"
+            [alt]="yogaStyle.id + ' yoga'" (mouseenter)="setYogaImageHovered(true)"
+            (mouseleave)="setYogaImageHovered(false)" (focus)="setYogaImageHovered(true)"
+            (blur)="setYogaImageHovered(false)" tabindex="0">
+    </div>
+    <div class="header-content">
+        <div class="yoga-classes-header">
+            <div class="yoga-classes-header-bold">{{ yogaStyle.id }}</div>
+            <div class="yoga-classes-header-normal">yoga classes</div>
+        </div>
+        <div class="yoga-style-description">{{ yogaStyle.innerDescription }}</div>
+
+    </div>
+</div>
+}
