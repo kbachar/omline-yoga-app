@@ -19,80 +19,50 @@
 
       </div>
     </div>
-    <div class="filters-row-container" #filtersRowContainer>
-      <div class="filter-img-container">
-        <img src="/assets/images/filter.png" class="filter-img">
-      </div>
-      <div class="filters-text-box">Filters</div>
-      <div class="filters-row">
-        <div class="duration-container">
-          <div class="container-text">Duration:</div>
-          <div class="container-check-box">
-            <input class="check-box" type="checkbox">
-            <div class="check-box-description">40 min</div>
-          </div>
-          <div class="container-check-box">
-            <input class="check-box" type="checkbox">
-            <div class="check-box-description">50 min</div>
-          </div>
-          <div class="container-check-box">
-            <input class="check-box" type="checkbox">
-            <div class="check-box-description">60 min</div>
-          </div>
+    <div class="main-container">
+      <div class="filters-row-container">
+        <div class="filter-img-container">
+          <img src="/assets/images/filter.png" class="filter-img">
+          <label class="filters-text-box">Filters</label>
         </div>
-        <div class="challenge-container">
-          <div class="container-text">Challenge level:</div>
-          <div class="container-check-box">
-            <input class="check-box" type="checkbox">
-            <div class="check-box-description">beginner</div>
-          </div>
-          <div class="container-check-box">
-            <input class="check-box" type="checkbox">
-            <div class="check-box-description">intermediate</div>
-          </div>
-          <div class="container-check-box">
-            <input class="check-box" type="checkbox">
-            <div class="check-box-description">advanced</div>
-          </div>
-        </div>
+        <app-yoga-classes-filter [filterName]="'duration'" [filterOptions]="durations"
+          (filterChange)="onFilterChange($event)"></app-yoga-classes-filter>
+        <app-yoga-classes-filter [filterName]="'challenge level'" [filterOptions]="challengeLevels"
+          (filterChange)="onFilterChange($event)"></app-yoga-classes-filter>
+        <div class="clear" (click)="clearFilters()">x clear</div>
       </div>
-      <div class="clear" (click)="clearFilters()">x clear</div>
 
-    </div>
-
-    <div class="selected-classes-container">
-      @if (selectedClasses.length === 0) {
-      <div class="selected-class-small">
-        <div class="small-class-img">
-          <video class="small-img-frame"></video>
+      <div class="selected-classes-container">
+        @if (selectedClasses.length === 0) {
+        <div class="selected-class-small">
+          <div class="small-class-img">
+            <video class="small-img-frame"></video>
+          </div>
+          <div class="selected-class-caption">Select a class</div>
         </div>
-        <div class="selected-class-caption">Select a class</div>
-      </div>
-      }
+        }
 
-      @for (selectedClass of selectedClasses; track selectedClass.id) {
-      <div class="selected-class-small">
-        <div class="small-class-img">
-          <video class="small-img-frame" [src]="selectedClass.videoLink"></video>
+        @for (selectedClass of selectedClasses; track selectedClass.id) {
+        <div class="selected-class-small">
+          <div class="small-class-img">
+            <video class="small-img-frame" [src]="selectedClass.videoLink"></video>
+          </div>
+          <div class="selected-class-caption">{{ selectedClass.title }}</div>
         </div>
-        <div class="selected-class-caption">{{ selectedClass.title }}</div>
+        }
+        <div class="show-on-page-container" (click)="selectedClassesClick(selectedClasses)">
+          <div class="show-on-page">Show on page</div>
+          <img src="/assets/images/ShowOnPageArrow.png">
+        </div>
+        <div class="selected-classes-clear">X clear</div>
       </div>
-      }
-      <div class="show-on-page-container" (click)="selectedClassesClick(selectedClasses)">
-        <div class="show-on-page">Show on page</div>
-        <img src="/assets/images/ShowOnPageArrow.png">
-      </div>
-    </div>
     @if (classes$ | async; as classes) {
-    <div class="yoga-classes-container">
-
       <div class="yoga-classes">
         @for (classItem of classes; track classItem.id) {
         <div class="yoga-class-meta" [class.is-selected]="isClassSelected(classItem)"
           (click)="addSelectedClass(classItem)">
-          <div class="yoga-class-img">
-            <video [src]="classItem.videoLink"></video>
-          </div>
+          <video class="yoga-class-img" [src]="classItem.videoLink"></video>
+
           <div class="class-header-row">
             <div class="teacher-name">{{ classItem.teacherName}}</div>
             <div class="yoga-class-time">{{classItem.classLength}}</div>
@@ -101,9 +71,9 @@
         </div>
         }
       </div>
+    }
     </div>
 
-    }
   </main>
 </section>
 }

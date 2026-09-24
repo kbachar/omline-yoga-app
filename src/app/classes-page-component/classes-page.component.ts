@@ -7,17 +7,24 @@ import { Observable, map, switchMap, tap } from 'rxjs';
 import { YogaClass } from "../shared/yoga-class-component/yoga-class/yoga-class";
 import { InnerHeader } from "../shared/inner-header-component/inner-header/inner-header";
 import { YogaStyleDescription } from '../shared/yoga-style-description-data';
+import { YogaClassesFilter } from '../shared/yoga-classes-filter-component/yoga-classes-filter/yoga-classes-filter';
+import { challengeLevels, durations } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
 
 //type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 
 @Component({
   selector: 'app-classes-page',
-  imports: [CommonModule, YogaClass, InnerHeader],
+  imports: [CommonModule, YogaClass, InnerHeader, YogaClassesFilter],
   templateUrl: './classes-page.component.html',
   styleUrl: './classes-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClassesPageComponent implements OnInit {
+durations = durations;
+challengeLevels = challengeLevels;
+onFilterChange($event: string) {
+throw new Error('Method not implemented.');
+}
   yogaStyle$!: Observable<YogaStyleDescription>;
   classes$!: Observable<YogaClassData[]>;
   protected selectedClasses: YogaClassData[] = [];
