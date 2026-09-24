@@ -1,16 +1,14 @@
 import { Component, EnvironmentInjector, inject, signal } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { MainHeader } from '../../main-header-component/main-header/main-header';
 import { Teacher } from '../../shared/teacher-component/teacher/teacher';
 import { YogaTeacher } from '../../shared/yoga-teacher-data';
-import { Firestore } from '@angular/fire/firestore';
 import { SubscribeThanks } from "../../subscribe-thanks-component/subscribe-thanks/subscribe-thanks";
-import { Auth } from '@angular/fire/auth';
 import { AuthService } from '../../services/auth-service';
+import { InnerHeader } from '../../shared/inner-header-component/inner-header/inner-header';
 
 @Component({
   selector: 'app-teacher-subscribe-page',
-  imports: [MainHeader, Teacher, SubscribeThanks, AsyncPipe],
+  imports: [ Teacher, SubscribeThanks, AsyncPipe, InnerHeader],
   templateUrl: './teacher-subscribe-page.html',
   styleUrl: './teacher-subscribe-page.css',
 })

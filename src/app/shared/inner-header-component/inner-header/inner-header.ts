@@ -1,9 +1,7 @@
 import { Component, inject, input, OnInit, output, signal } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { LoginComponent } from '../../login-component/login-component';
 import { yogaStyles } from '../../yoga-class-details-component/yoga-class-details/yoga-styles-data';
-import { map, Observable, switchMap, tap } from 'rxjs';
-import { YogaStyleDescription } from '../../yoga-style-description-data';
 
 type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 
@@ -17,10 +15,10 @@ type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 export class InnerHeader implements OnInit {
 
   private readonly router = inject(Router);
-  private route = inject(ActivatedRoute);
   protected readonly isLoginModalOpen = signal(false);
   readonly onClassesNavbarClick = output<YogaStyleId>();
   readonly yogaStyleId = input<YogaStyleId>();
+  readonly showNavigationBar = input<boolean>(true);
 
   protected readonly items: Array<{
     id: YogaStyleId;
