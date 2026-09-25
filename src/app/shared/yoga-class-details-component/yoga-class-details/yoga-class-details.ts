@@ -14,7 +14,6 @@ import { AuthService } from '../../../services/auth-service';
 import { CheckBox } from '../../check-box-component/check-box/check-box';
 import { DeleteComponent } from "../../delete-component-component/delete-component/delete-component";
 import { YogaTeacher } from '../../yoga-teacher-data';
-import { Teacher } from '../../teacher-component/teacher/teacher';
 
 const createEmptyYogaClass = (): YogaClassData => ({
   id: '',
@@ -29,7 +28,7 @@ const createEmptyYogaClass = (): YogaClassData => ({
 
 @Component({
   selector: 'app-yoga-class-details',
-  imports: [AsyncPipe, DatePipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, CheckBox, DeleteComponent, Teacher],
+  imports: [AsyncPipe, DatePipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, CheckBox, DeleteComponent],
   templateUrl: './yoga-class-details.html',
   styleUrl: './yoga-class-details.css',
 })
@@ -83,7 +82,7 @@ export class YogaClassDetails implements OnInit {
   }
 
   sendEmail(teacher: YogaTeacher){
-    
+
   }
 
   onSelectVideo(event: Event) {
