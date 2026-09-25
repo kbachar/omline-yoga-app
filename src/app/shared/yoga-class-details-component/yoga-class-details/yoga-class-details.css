@@ -26,6 +26,31 @@
 
 }
 
+.teacher-data-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.teacher-data-container button {
+    background: #78BDDC;
+    border-radius: 10px;
+    width: auto;
+    height: 60px;
+    font-family: 'Mona Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    margin-right: 40px;
+    cursor: pointer;
+}
+
+
 .update-container {
     display: flex;
     flex-direction: column;

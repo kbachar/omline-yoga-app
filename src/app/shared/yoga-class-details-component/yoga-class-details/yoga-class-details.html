@@ -3,6 +3,7 @@
     <app-page-header [showBack]="(isAdmin | async) === true || yogaClass.approved === true"
         [headerText]="headerText + yogaClass.title" [buttonText]="'save'" (backToListClick)="backToList()"
         (buttonClick)="save(yogaClass)"></app-page-header>
+
     <div class="body-container">
         <div class="left-side">
             <app-text-box [inputValue]="yogaClass.title" [placeholderValue]="'class name'"
@@ -21,12 +22,20 @@
         </div>
         <div class="right-side">
             @if (isAdmin | async) {
-            <div class="check-box">
-                <app-check-box [inputValue]="'approved'" [checked]="yogaClass.approved"
-                    (checkChange)="onApproveCheckChange(yogaClass, $event)"></app-check-box>
+            <div class="teacher-data-container">
+                @if (teacher$ | async; as teacher) {
+                <app-text-box [inputValue]="teacher.fullName" [textBoxWidth]="150" [readonly]="true"></app-text-box>
+                <button (click)="sendEmail(teacher)">send feedback</button>
+                }
+                <div class="check-box">
+                    <app-check-box [inputValue]="'approved'" [checked]="yogaClass.approved"
+                        (checkChange)="onApproveCheckChange(yogaClass, $event)"></app-check-box>
+                </div>
+
             </div>
             <app-text-box [inputType]="'text'" [inputValue]="yogaClass.videoLink" [readonly]="true"></app-text-box>
             }
+
             @else if (yogaClass.approved === true) {
             <div class="update-container">
                 <app-toggle-setting [labelText]="'hide video from site'" [imageSrc]="'/assets/images/class-hidden.png'"
@@ -59,6 +68,7 @@
                 <img class="video-preview-img" src="/assets/images/video-preview.png" alt="No video selected">
             </div>
             }
+
             <div class="labels-container">
                 <div class="start-label-container">
                     <label>Upload date:</label>
@@ -68,12 +78,12 @@
                     <label>number of views</label>
                 </div>
             </div>
-
         </div>
     </div>
+
     <hr class="divider">
     @if (yogaClass.approved == true) {
-        <app-delete-component></app-delete-component>
+    <app-delete-component></app-delete-component>
     <!-- <img src="/assets/images/delete.png" (click)="showDeleteClass()">
     <app-delete-class-message [isOpen]="isDeleteModalOpen()"
         (Click)="deleteClass(yogaClass, $event)"></app-delete-class-message> -->

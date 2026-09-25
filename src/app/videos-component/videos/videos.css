@@ -39,6 +39,10 @@ td {
     width: 100px;
 }
 
+tr.is-approved td {
+    font-weight: 400;
+}
+
 tr>td:first-child {
     width: 20px;
     border-top-left-radius: 10px;

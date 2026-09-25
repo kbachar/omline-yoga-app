@@ -5,7 +5,7 @@
         <table>
             <tbody>
                 @for (class of classes; track class) {
-                    <tr>
+                    <tr [class.is-approved]="class.approved === true">
                         <td>#</td>
                         <td>{{class.title}}</td>
                         <td>{{class.yogaStyle}}</td>

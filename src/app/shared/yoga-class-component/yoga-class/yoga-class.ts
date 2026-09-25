@@ -1,6 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { YogaClassesService } from '../../../services/yoga-classes-service';
+import { Component, input } from '@angular/core';
 import { YogaClassData } from '../../yoga-class-data';
 
 @Component({
@@ -9,12 +7,10 @@ import { YogaClassData } from '../../yoga-class-data';
   templateUrl: './yoga-class.html',
   styleUrl: './yoga-class.css',
 })
-export class YogaClass implements OnInit {
+export class YogaClass {
 
-  private yogaService = inject(YogaClassesService);
-readonly classData = input.required<YogaClassData>();
-readonly descriptionWidth = input<number>();
-  ngOnInit(): void {
-  }
+  readonly classData = input.required<YogaClassData>();
+  readonly descriptionWidth = input<number>();
+  readonly showClassLength = input<boolean>();
 
 }

@@ -13,6 +13,8 @@ import { ToggleSetting } from "../../toggle-setting-component/toggle-setting/tog
 import { AuthService } from '../../../services/auth-service';
 import { CheckBox } from '../../check-box-component/check-box/check-box';
 import { DeleteComponent } from "../../delete-component-component/delete-component/delete-component";
+import { YogaTeacher } from '../../yoga-teacher-data';
+import { Teacher } from '../../teacher-component/teacher/teacher';
 
 const createEmptyYogaClass = (): YogaClassData => ({
   id: '',
@@ -27,15 +29,16 @@ const createEmptyYogaClass = (): YogaClassData => ({
 
 @Component({
   selector: 'app-yoga-class-details',
-  imports: [AsyncPipe, DatePipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, CheckBox, DeleteComponent],
+  imports: [AsyncPipe, DatePipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, CheckBox, DeleteComponent, Teacher],
   templateUrl: './yoga-class-details.html',
   styleUrl: './yoga-class-details.css',
 })
 
 export class YogaClassDetails implements OnInit {
   yogaClass$: Observable<YogaClassData | undefined> | undefined;
+  teacher$: Observable<YogaTeacher | undefined> | undefined;
   private teacherId = '';
-  readonly yogaStyles = yogaStyles;
+  readonly yogaStyles = yogaStyles.filter((style) => style != 'beyond');
   readonly durations = durations;
   readonly challengeLevels = challengeLevels;
   protected readonly isDeleteModalOpen = signal(false);
@@ -61,7 +64,14 @@ export class YogaClassDetails implements OnInit {
         this.teacherId = yogaClass?.teacherId ?? this.auth.getUserID();
         if (yogaClass?.videoLink) {
           this.photoPreview.set(yogaClass?.videoLink)
-          this.headerText = 'class page - '
+          this.isAdmin.then((isAdmin) => {
+            if (isAdmin) { 
+              this.headerText = 'class to approve - ';
+              this.teacher$ = this.yogaService.getTeacher(yogaClass.teacherId); 
+            }
+            else
+              this.headerText = 'class page - ';
+          });
         }
         else {
           this.photoPreview.set('')
@@ -70,6 +80,10 @@ export class YogaClassDetails implements OnInit {
       })
     );
 
+  }
+
+  sendEmail(teacher: YogaTeacher){
+    
   }
 
   onSelectVideo(event: Event) {

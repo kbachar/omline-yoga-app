@@ -17,7 +17,6 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  /* gap: 12px; */
   max-width: 900px;
 }
 
@@ -40,7 +39,6 @@
   padding-left: 5px;
 }
 
-
 .yoga-classes-header-bold {
   font-weight: 700;
   font-style: normal;
@@ -55,13 +53,11 @@
 .yoga-style-description {
   width: auto;
   height: 207px;
-
   font-family: 'Raleway';
   font-style: normal;
   font-weight: 300;
   font-size: 20px;
   line-height: 30px;
-  /* or 150% */
   letter-spacing: 0.02em;
   text-transform: capitalize;
   color: #F8F8FF;
@@ -135,23 +131,28 @@
   cursor: pointer;
 }
 
-.selected-classes-container {
+.main-classes-container {
   position: relative;
   width: 68%;
-  height: 164px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  box-sizing: border-box;
-  height: 154px;
   background: rgba(28, 90, 142, 0.1);
   border: 1px solid #1F6B9A;
   border-radius: 10px;
-  gap: 35px;
-  padding-left: 60px;
-  padding-right: 60px;
+  padding: 10px;
   margin-top: 5px;
+  height: 164px;
+}
+
+.selected-classes-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  gap: 10px;
 }
 
 .show-on-page-container {
@@ -166,6 +167,9 @@
   gap: 10px;
 }
 
+.arrow-left:hover,
+.arrow-right:hover,
+.selected-classes-clear:hover,
 .show-on-page-container:hover {
   cursor: pointer;
 }
@@ -179,6 +183,10 @@
   text-transform: capitalize;
   color: #243376;
 }
+/* 
+.show-on-page:hover {
+  ADD HOVER IMAGE
+} */
 
 .selected-classes-clear {
   position: absolute;
@@ -186,10 +194,10 @@
   left: 60px;
   font-family: 'Raleway';
   font-style: normal;
-  font-weight: 900;
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 14px;
   line-height: 20px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   text-transform: capitalize;
   color: #101C50;
   z-index: 2;
@@ -209,49 +217,13 @@
   opacity: 0.5;
   border: 1px solid #1C5B90;
   border-radius: 10px;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
-/* 
-.goto-selected-container {
-  width: 270px;
-  height: 22px;
-  display: flex;
-  flex-direction: row;
-  margin-left: auto;
-  font-family: 'Cinzel Decorative';
-  font-style: normal;
-  font-size: 18px;
-  line-height: 20px;
-  letter-spacing: 0.04em;
-  text-transform: capitalize;
-
-  color: #101C50;
-
-  gap: 10px;
-  cursor: pointer;
-}
-
-.goto-selected {
-  font-weight: 400;
-}
-
-.goto-selected-bold {
-  font-weight: 700;
-} 
-
-.small-arrow {
-  width: 8px;
-  height: 16px;
-  margin-bottom: 1px;
-}
-*/
-
-.small-class-img {
+.selected-class-small video {
+  border-radius: 10px;
   width: 155px;
   height: 93px;
-  position: absolute;
-  inset: 0;
 }
 
 .selected-class-caption {
@@ -260,7 +232,6 @@
   font-weight: 400;
   font-size: 15px;
   line-height: 25px;
-  /* identical to box height, or 167% */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -269,28 +240,19 @@
   z-index: 1;
   text-transform: capitalize;
   color: rgba(36, 51, 118, 0.7);
-  width: 100%;
   text-align: center;
-}
-
-.small-img-frame {
   width: 155px;
   height: 93px;
-  opacity: 0.5;
-  border: 1px solid #1C5B90;
-  border-radius: 10px;
-  display: block;
-
 }
 
 .yoga-classes {
   width: 68%;
   gap: 34px;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
   margin-top: 50px;
+  min-height: 650px;
 }
 
 .yoga-class-img {
@@ -303,20 +265,23 @@
 }
 
 .yoga-class-meta {
-  width: 412px;
+  width: 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  height: 450px;
+  overflow-y: auto;
+  overflow-x: hidden;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 6px;
   cursor: pointer;
 }
 
 .yoga-class-meta.is-selected {
   border-color: #1F6B9A;
-  width: 412px;
 }
 
 .class-header-row {
@@ -340,73 +305,19 @@
   margin-bottom: 10px;
 }
 
-.class-name {
-  width: 391px;
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
-  display: flex;
-  align-items: center;
-  letter-spacing: 0.02em;
-  text-transform: capitalize;
-  color: #101C50;
-}
-
-.yoga-style-color {
-  width: 25px;
-  height: 11px;
-  background: #7183D7;
-  border-radius: 2px;
-}
-
-.class-style-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-}
-
-/* .style-description {
-  font-family: 'Raleway';
-  font-style: italic;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: 0.02em;
-  text-transform: capitalize;
-  color: #101C50;
-  margin-left: 10px;
-} */
-
 .yoga-class-time {
   margin-left: auto;
+  margin-right: 10px;
   font-family: 'Raleway';
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
   line-height: 20px;
-  /* or 167% */
   letter-spacing: 0.02em;
   text-transform: capitalize;
 
   color: #101C50;
 }
-
-.minutes {
-  margin-left: 4px;
-  font-family: 'Raleway';
-  font-style: italic;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: 0.02em;
-  text-transform: capitalize;
-  color: #101C50;
-}
-
-
 
 .yoga-class-img video {
   width: 391px;
@@ -414,16 +325,4 @@
   border-radius: 5px;
   border: none;
   display: block;
-}
-
-.class-description {
-  width: 391px;
-
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  text-transform: capitalize;
-  color: #101C50;
 }

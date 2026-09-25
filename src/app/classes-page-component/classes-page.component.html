@@ -32,31 +32,31 @@
         <div class="clear" (click)="clearFilters()">x clear</div>
       </div>
 
-      <div class="selected-classes-container">
-        @if (selectedClasses.length === 0) {
-        <div class="selected-class-small">
-          <div class="small-class-img">
-            <video class="small-img-frame"></video>
+      <div class="main-classes-container">
+        <img class="arrow-left" src="/assets/images/arrow-left.png">
+        <div class="selected-classes-container">
+          @if (selectedClasses.length === 0) {
+          <div class="selected-class-small">
+            <div class="selected-class-caption">Select a class</div>
           </div>
-          <div class="selected-class-caption">Select a class</div>
-        </div>
-        }
+          }
 
-        @for (selectedClass of selectedClasses; track selectedClass.id) {
-        <div class="selected-class-small">
-          <div class="small-class-img">
-            <video class="small-img-frame" [src]="selectedClass.videoLink"></video>
+          @for (selectedClass of selectedClasses; track selectedClass.id) {
+          <div class="selected-class-small">
+              <video [src]="selectedClass.videoLink"></video>
+            <div class="selected-class-caption">{{ selectedClass.title }}</div>
           </div>
-          <div class="selected-class-caption">{{ selectedClass.title }}</div>
+          }
+          <div class="show-on-page-container" (click)="selectedClassesClick(selectedClasses)">
+            <div class="show-on-page">Show on page</div>
+            <img src="/assets/images/ShowOnPageArrow.png">
+          </div>
+          <div class="selected-classes-clear">X clear</div>
+
         </div>
-        }
-        <div class="show-on-page-container" (click)="selectedClassesClick(selectedClasses)">
-          <div class="show-on-page">Show on page</div>
-          <img src="/assets/images/ShowOnPageArrow.png">
-        </div>
-        <div class="selected-classes-clear">X clear</div>
+        <img class="arrow-right" src="/assets/images/arrow-right.png">
       </div>
-    @if (classes$ | async; as classes) {
+      @if (classes$ | async; as classes) {
       <div class="yoga-classes">
         @for (classItem of classes; track classItem.id) {
         <div class="yoga-class-meta" [class.is-selected]="isClassSelected(classItem)"
@@ -67,11 +67,11 @@
             <div class="teacher-name">{{ classItem.teacherName}}</div>
             <div class="yoga-class-time">{{classItem.classLength}}</div>
           </div>
-          <app-yoga-class [classData]="classItem" [descriptionWidth]="391"></app-yoga-class>
+          <app-yoga-class [classData]="classItem" [descriptionWidth]="391" [showClassLength]="false"></app-yoga-class>
         </div>
         }
       </div>
-    }
+      }
     </div>
 
   </main>
