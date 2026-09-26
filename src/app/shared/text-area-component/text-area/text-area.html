@@ -1,5 +1,5 @@
 <div class="container">
-    <textarea 
+    <textarea [readOnly]="readOnly()"
     [style.height.px]="textHeight() ?? null"
     [style.width.px]="textWidth() ?? null"
     [value]="textValue()"

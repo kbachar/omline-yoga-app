@@ -10,6 +10,7 @@ import { TeacherInvite } from '../shared/teacher-invite-data';
 import { AuthService } from './auth-service';
 import { YogaStyleDescription } from '../shared/yoga-style-description-data';
 import { EmailData } from '../shared/email-data';
+import { FilterChange } from '../shared/filter-change-data';
 
 export type { YogaClassData };
 
@@ -251,20 +252,33 @@ export class YogaClassesService {
   }
 
 
-  getFilteredClasses(yogaStyle: string, difficulty: string | null, duration: string | null): Observable<YogaClassData[]> {
+  getFilteredClasses(yogaStyle: string, filters: Map<string, FilterChange[]> | null): Observable<YogaClassData[]> {
     const normalizedStyle = yogaStyle.trim().toLowerCase();
-    const normalizedDifficulty = difficulty?.trim().toLowerCase();
+    const activeFilters = filters ?? new Map<string, FilterChange[]>();
+    const difficultyFilters = (activeFilters.get('challenge level') ?? [])
+      .filter((filter) => filter.checked)
+      .map((filter) => filter.filterOption.trim().toLowerCase());
+    const durationFilters = (activeFilters.get('duration') ?? [])
+      .filter((filter) => filter.checked)
+      .map((filter) => filter.filterOption.trim());
+    const hasActiveFilters = difficultyFilters.length > 0 || durationFilters.length > 0;
 
     return this.getClasses().pipe(
       map((classes) =>
         classes.filter((yogaClass) => {
           const approved = yogaClass.approved;
-          const classStyle = yogaClass.yogaStyle;
-          const classDifficulty = yogaClass.difficulty?.toLowerCase() ?? '';
+          const classStyle = yogaClass.yogaStyle?.trim().toLowerCase() ?? '';
+          const classDifficulty = typeof yogaClass.difficulty === 'string'
+            ? yogaClass.difficulty.trim().toLowerCase()
+            : '';
 
           const matchesStyle = !normalizedStyle || normalizedStyle === 'all' || classStyle === normalizedStyle;
-          const matchesDifficulty = !normalizedDifficulty || classDifficulty === normalizedDifficulty;
-          const matchesDuration = !duration || yogaClass.classLength === duration;
+          if (!hasActiveFilters) {
+            return matchesStyle && approved;
+          }
+
+          const matchesDifficulty = difficultyFilters.length === 0 || difficultyFilters.includes(classDifficulty);
+          const matchesDuration = durationFilters.length === 0 || durationFilters.includes(yogaClass.classLength ?? '');
 
           return matchesStyle && matchesDifficulty && matchesDuration && approved;
         })

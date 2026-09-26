@@ -26,9 +26,9 @@
           <label class="filters-text-box">Filters</label>
         </div>
         <app-yoga-classes-filter [filterName]="'duration'" [filterOptions]="durations"
-          (filterChange)="onFilterChange($event)"></app-yoga-classes-filter>
+          (filterChange)="onFilterChange($event, 'duration')"></app-yoga-classes-filter>
         <app-yoga-classes-filter [filterName]="'challenge level'" [filterOptions]="challengeLevels"
-          (filterChange)="onFilterChange($event)"></app-yoga-classes-filter>
+          (filterChange)="onFilterChange( $event, 'challenge level')"></app-yoga-classes-filter>
         <div class="clear" (click)="clearFilters()">x clear</div>
       </div>
 

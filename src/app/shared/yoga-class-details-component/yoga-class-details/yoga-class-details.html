@@ -6,19 +6,20 @@
 
     <div class="body-container">
         <div class="left-side">
-            <app-text-box [inputValue]="yogaClass.title" [placeholderValue]="'class name'"
+            <app-text-box [inputValue]="yogaClass.title" [placeholderValue]="'class name'" [readonly]="(isAdmin | async) == true"
                 (textChange)="onTitleChange(yogaClass, $event)"></app-text-box>
             <app-yoga-classes-filter [filterName]="'yoga style'" [filterOptions]="yogaStyles"
-                [savedOption]="yogaClass.yogaStyle"
+                [savedOption]="yogaClass.yogaStyle" [readOnly]="(isAdmin | async) == true"
                 (filterChange)="onYogaStylesFilterChange(yogaClass, $event)"></app-yoga-classes-filter>
             <app-yoga-classes-filter [filterName]="'duration'" [filterOptions]="durations"
-                [savedOption]="yogaClass.classLength"
+                [savedOption]="yogaClass.classLength" [readOnly]="(isAdmin | async) == true"
                 (filterChange)="onDurationFilterChange(yogaClass, $event)"></app-yoga-classes-filter>
             <app-yoga-classes-filter [filterName]="'challenge level'" [filterOptions]="challengeLevels"
-                [savedOption]="yogaClass.difficulty"
+                [savedOption]="yogaClass.difficulty" [readOnly]="(isAdmin | async) == true"
                 (filterChange)="onChallengeFilterChange(yogaClass, $event)"></app-yoga-classes-filter>
             <app-text-area [textAreaName]="'class description'" [textValue]="yogaClass.description" [textWidth]="500"
-                [textHeight]="250" (textValueChange)="onTextValueChanged(yogaClass, $event)"></app-text-area>
+                [textHeight]="250" (textValueChange)="onTextValueChanged(yogaClass, $event)"
+                [readOnly]="(isAdmin | async) == true"></app-text-area>
         </div>
         <div class="right-side">
             @if (isAdmin | async) {

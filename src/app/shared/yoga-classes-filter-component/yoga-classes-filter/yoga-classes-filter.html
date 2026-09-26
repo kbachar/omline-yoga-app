@@ -3,8 +3,9 @@
     @for (filterOption of filterOptions(); track filterOption) {
     <app-check-box 
       [inputValue]="filterOption" 
+      [disabled]="readOnly() == true"
       [checked]="savedOption() == filterOption"
-      (checkChange)="onFilterChange(filterOption)"
+      (checkChange)="readOnly() == false ? onFilterChange(filterOption, $event) : null"
       >
     </app-check-box>
     }

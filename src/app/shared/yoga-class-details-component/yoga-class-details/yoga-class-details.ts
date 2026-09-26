@@ -14,6 +14,7 @@ import { AuthService } from '../../../services/auth-service';
 import { CheckBox } from '../../check-box-component/check-box/check-box';
 import { DeleteComponent } from "../../delete-component-component/delete-component/delete-component";
 import { YogaTeacher } from '../../yoga-teacher-data';
+import { FilterChange } from '../../filter-change-data';
 
 const createEmptyYogaClass = (): YogaClassData => ({
   id: '',
@@ -64,7 +65,7 @@ export class YogaClassDetails implements OnInit {
         if (yogaClass?.videoLink) {
           this.photoPreview.set(yogaClass?.videoLink)
           this.isAdmin.then((isAdmin) => {
-            if (isAdmin) { 
+            if (isAdmin && yogaClass.approved == false) { 
               this.headerText = 'class to approve - ';
               this.teacher$ = this.yogaService.getTeacher(yogaClass.teacherId); 
             }
@@ -117,18 +118,16 @@ export class YogaClassDetails implements OnInit {
     yogaClass.description = description;
   }
 
-  onChallengeFilterChange(yogaClass: YogaClassData, filterOption: string) {
-    yogaClass.difficulty = filterOption;
+  onChallengeFilterChange(yogaClass: YogaClassData, filterOption: FilterChange) {
+    yogaClass.difficulty = filterOption.filterOption;
   }
 
-  onDurationFilterChange(yogaClass: YogaClassData, filterOption: string) {
-    console.log('filterOption - ' + filterOption)
-    yogaClass.classLength = filterOption;
+  onDurationFilterChange(yogaClass: YogaClassData, filterOption: FilterChange) {
+    yogaClass.classLength = filterOption.filterOption;
   }
 
-  onYogaStylesFilterChange(yogaClass: YogaClassData, filterOption: string) {
-    console.log('filterOption - ' + filterOption)
-    yogaClass.yogaStyle = filterOption;
+  onYogaStylesFilterChange(yogaClass: YogaClassData, filterOption: FilterChange) {
+    yogaClass.yogaStyle = filterOption.filterOption;
   }
 
   onTitleChange(yogaClass: YogaClassData, title: string) {

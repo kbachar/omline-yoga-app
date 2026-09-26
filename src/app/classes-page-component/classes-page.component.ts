@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, inject, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { YogaClassesService } from '../services/yoga-classes-service';
 import { YogaClassData } from '../shared/yoga-class-data';
@@ -9,8 +9,8 @@ import { InnerHeader } from "../shared/inner-header-component/inner-header/inner
 import { YogaStyleDescription } from '../shared/yoga-style-description-data';
 import { YogaClassesFilter } from '../shared/yoga-classes-filter-component/yoga-classes-filter/yoga-classes-filter';
 import { challengeLevels, durations } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
+import { FilterChange } from '../shared/filter-change-data';
 
-//type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 
 @Component({
   selector: 'app-classes-page',
@@ -20,16 +20,14 @@ import { challengeLevels, durations } from '../shared/yoga-class-details-compone
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClassesPageComponent implements OnInit {
-durations = durations;
-challengeLevels = challengeLevels;
-onFilterChange($event: string) {
-throw new Error('Method not implemented.');
-}
+  durations = durations;
+  challengeLevels = challengeLevels;
   yogaStyle$!: Observable<YogaStyleDescription>;
   classes$!: Observable<YogaClassData[]>;
   protected selectedClasses: YogaClassData[] = [];
   protected isYogaImageHovered = false;
   protected selectedStyleId: string = 'all';
+  existingFilters = new Map<string, FilterChange[]>();
 
   private route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -41,7 +39,7 @@ throw new Error('Method not implemented.');
       map((params) => params.get('id')),
       tap((id) => {
         this.selectedStyleId = (id) ?? 'all';
-        this.classes$ = this.yogaService.getFilteredClasses(this.selectedStyleId, null, null);
+        this.classes$ = this.yogaService.getFilteredClasses(this.selectedStyleId, this.existingFilters);
       }),
       switchMap((id) => this.yogaService.getYogaStyle(id))
     );
@@ -53,11 +51,29 @@ throw new Error('Method not implemented.');
     //console.log('classesIds - ' + JSON.stringify(classesIds))
   }
 
+  onFilterChange(changed: FilterChange, filter: string) {
+    const filters = this.existingFilters.get(filter);
+    if (filters) {
+      if (changed.checked == false)
+        this.existingFilters.set(
+          filter,
+          filters.filter((currentFilter) => currentFilter.filterOption !== changed.filterOption)
+        );
+      else
+        filters.push(changed);
+    }
+    else if (changed.checked == true)
+      this.existingFilters.set(filter, [changed])
+
+    this.classes$ = this.yogaService.getFilteredClasses(this.selectedStyleId, this.existingFilters);
+
+  }
+
   protected classesNavbarClick(page: string): void {
     console.log.apply('page is ' + page)
     this.selectedStyleId = page;
     this.yogaStyle$ = this.yogaService.getYogaStyle(page);
-    this.classes$ = this.yogaService.getFilteredClasses(this.selectedStyleId, null, null);
+    this.classes$ = this.yogaService.getFilteredClasses(this.selectedStyleId, null);
   }
 
   protected setYogaImageHovered(isHovered: boolean): void {
