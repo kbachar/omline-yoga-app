@@ -1,13 +1,23 @@
 <app-inner-header [yogaStyleId]="yogaStyleId()" (onClassesNavbarClick)="classesNavbarClick($event)"></app-inner-header>
+
 <div class="container">
+    <header>
+        <img [src]="isBackHovered ? '/assets/images/back-hover.png' : '/assets/images/back.png'"
+            (mouseenter)="isBackHovered = true" (mouseleave)="isBackHovered = false" alt="Back">
+        <div class="my-selected-classes-container">
+            <div class="my-selected-classes">my</div>
+            <div class="my-selected-classes-bold">selected</div>
+            <div class="my-selected-classes">classes</div>
+        </div>
+    </header>
     <div class="classes-container">
         @for (yogaClass of classes$ | async; track yogaClass) {
         <div class="class-container">
+            <video [src]="yogaClass.videoLink"></video>
             <div class="inner-class-container">
                 <label class="teacher-name">{{yogaClass.teacherName}}</label>
-                <app-yoga-class [classData]="yogaClass" [descriptionWidth]="600"></app-yoga-class>
+                <app-yoga-class [classData]="yogaClass" [descriptionWidth]="300"></app-yoga-class>
             </div>
-            <video [src]="yogaClass.videoLink"></video>
         </div>
         }
     </div>

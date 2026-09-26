@@ -21,6 +21,7 @@ export class SelectedClasses implements OnInit {
   private readonly route = inject(ActivatedRoute);
   classes$!: Observable<YogaClassData[]>;
   protected classesIds: string[] = [];
+  protected isBackHovered = false;
   readonly yogaStyleId = input<YogaStyleId>();
 
    ngOnInit(): void {
