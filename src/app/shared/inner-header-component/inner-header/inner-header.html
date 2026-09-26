@@ -1,15 +1,24 @@
 <header class="classes-header">
   <nav class="classes-left-navbar">
-    <div type="button" class="navbar-item" (click)="openPopup('about')">About</div>
-    <div type="button" class="navbar-item" (click)="openPopup('contact')">Contact Us</div>
-    <div type="button" class="navbar-item" (click)="openPopup('plans')">Plans</div>
+    <div class="navbar-item" (click)="openPopup('about')">About</div>
+    <div class="navbar-item" (click)="openPopup('contact')">Contact Us</div>
+    <div class="navbar-item" (click)="openPopup('plans')">Plans</div>
   </nav>
 
   <img class="classes-header-img" src="/assets/images/yoga-classes-logo.png" alt="Yoga Classes Logo" (click)="goHome()">
 
-  <nav class="navbar" id="yogaClassesNavbar">
-    <div type="button" class="navbar-item" (click)="login()">Login</div>
-    <div type="button" class="navbar-item" (click)="subscribe()">Subscribe</div>
+  <nav class="navbar">
+    @if (!isLoggedIn()) {
+    <div class="navbar-item" (click)="login()">Login</div>
+    }
+    @if (isLoggedIn()) {
+    <div class="navbar-item" (click)="logout()">logout</div>
+    }
+    <div class="navbar-dropdown">
+      <div class="navbar-item">Subscribe</div>
+      <div routerLink="/teacher-subscribe-page" class="sub-navbar-item">Teacher</div>
+      <div class="sub-navbar-item">student</div>
+    </div>
   </nav>
 </header>
 
