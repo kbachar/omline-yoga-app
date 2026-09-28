@@ -5,16 +5,17 @@ import { YogaClassesService } from '../services/yoga-classes-service';
 import { YogaClassData } from '../shared/yoga-class-data';
 import { Observable, map, switchMap, tap } from 'rxjs';
 import { YogaClass } from "../shared/yoga-class-component/yoga-class/yoga-class";
-import { InnerHeader } from "../shared/inner-header-component/inner-header/inner-header";
 import { YogaStyleDescription } from '../shared/yoga-style-description-data';
 import { YogaClassesFilter } from '../shared/yoga-classes-filter-component/yoga-classes-filter/yoga-classes-filter';
 import { challengeLevels, durations } from '../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
 import { FilterChange } from '../shared/filter-change-data';
+import { ClassesNavbar } from '../shared/classes-navbar-component/classes-navbar/classes-navbar';
+import { MainHeader } from '../shared/main-header-component/main-header/main-header';
 
 
 @Component({
   selector: 'app-classes-page',
-  imports: [CommonModule, YogaClass, InnerHeader, YogaClassesFilter],
+  imports: [CommonModule, YogaClass, YogaClassesFilter, ClassesNavbar, MainHeader],
   templateUrl: './classes-page.component.html',
   styleUrl: './classes-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -104,7 +105,10 @@ export class ClassesPageComponent implements OnInit {
 
   selectedClassesClick(classes: YogaClassData[]) {
     this.router.navigate(['/selected-classes'], {
-      queryParams: { ids: classes.map((yogaClass) => yogaClass.id).join(',') }
+      queryParams: {
+        ids: classes.map((yogaClass) => yogaClass.id).join(','),
+        page: this.selectedStyleId
+      }
     });
   }
 }

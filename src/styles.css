@@ -10,7 +10,7 @@ html,
 body {
 	margin: 0;
 	min-width: 320px;
-	overflow-x: hidden;
+	overflow-x: clip;
 }
 
 img,
@@ -27,7 +27,8 @@ video {
 		display: flex !important;
 		flex-direction: column;
 		gap: 12px;
-		position: relative !important;
+		position: sticky !important;
+		top: 0;
 	}
 
 	.classes-header-img,

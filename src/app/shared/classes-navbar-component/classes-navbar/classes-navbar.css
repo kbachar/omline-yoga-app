@@ -1,0 +1,51 @@
+
+.classes-navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 130px;
+  z-index: 20;
+  padding: 0px 200px;
+  gap: 8px;
+  margin-right: auto;
+  margin-left: auto;
+  width: auto;
+  height: 50px;
+  left: 0px;
+  top: 130px;
+  margin: 0;
+  opacity: 1;
+  order: 1;
+  flex-grow: 0;
+  background: #243376;
+}
+
+.classes-navbar-item {
+  max-width: 260px;
+  min-width: 190px;
+  height: 25px;
+  font-family: 'Montserrat Alternates';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 35px;
+  text-align: left;
+  text-transform: capitalize;
+  color: #FFF8E6;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.classes-navbar-item.is-selected {
+  color: #FFC43D;
+}
+
+.classes-navbar-item :hover {
+  color: #717586;
+}
+

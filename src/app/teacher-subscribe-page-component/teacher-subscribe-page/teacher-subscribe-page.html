@@ -1,5 +1,4 @@
-<app-inner-header [showNavigationBar]="false"></app-inner-header>
-
+<app-main-header></app-main-header>
 <div class="header-wrapper">
   <div class="header-section">
     <div class="welcome-section">
@@ -60,7 +59,7 @@
       @if (role == 'teacher') {
       <app-subscribe-thanks [isOpen]="true" (closed)="closeThanksModal()"></app-subscribe-thanks>
       
-      } @else if (role == '') {
+      } @else if (role == 'none') {
       <app-teacher [form]="yogaTeacherData" (teacherDataChange)="onTeacherDataChange($event)"
         (passwordChange)="onPasswordChange(password)"></app-teacher>
       <div class="subscribe-btn-box">

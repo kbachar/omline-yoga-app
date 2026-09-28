@@ -24,16 +24,3 @@
 
 <app-login-component [isOpen]="isLoginModalOpen()" (closed)="closeLoginModal()"></app-login-component>
 
-@if (showNavigationBar() == true) {
-<div class="classes-navbar">
-  @for (item of items; track item) {
-  <div class="classes-navbar-item" [class.is-selected]="yogaStyleId() === item.id"
-    (click)="classesNavbarClick(item.id)">
-    {{ item.title }}
-  </div>
-  }
-</div>
-}
-
-
-<router-outlet></router-outlet>

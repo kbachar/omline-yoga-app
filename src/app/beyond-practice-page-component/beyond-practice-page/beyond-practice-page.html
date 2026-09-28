@@ -1,7 +1,6 @@
 @if (yogaStyle$ | async; as yogaStyle) {
-
-    <app-inner-header [yogaStyleId]="'beyond'" (onClassesNavbarClick)="classesNavbarClick($event)"></app-inner-header>
-
+<app-main-header></app-main-header>
+<app-classes-navbar [yogaStyleId]="'beyond'" (onClassesNavbarClick)="classesNavbarClick($event)"></app-classes-navbar>
 <div class="header-section" [style.background-color]="yogaStyle.headerBackgroundColor"
     [style.background-image]="yogaStyle.headerBackgroundImage">
     <div class="yoga-style-img">

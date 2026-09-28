@@ -1,6 +1,8 @@
 @if (yogaStyle$ | async; as yogaStyle) {
+<app-main-header></app-main-header>
 
-<app-inner-header [yogaStyleId]="yogaStyle.id" (onClassesNavbarClick)="classesNavbarClick($event)"></app-inner-header>
+<app-classes-navbar [yogaStyleId]="yogaStyle.id"
+  (onClassesNavbarClick)="classesNavbarClick($event)"></app-classes-navbar>
 
 <section class="classes-page">
   <main class="classes-main" [style.background-color]="yogaStyle.classesBodyBackgroundColor">
@@ -43,7 +45,7 @@
 
           @for (selectedClass of selectedClasses; track selectedClass.id) {
           <div class="selected-class-small">
-              <video [src]="selectedClass.videoLink"></video>
+            <video [src]="selectedClass.videoLink"></video>
             <div class="selected-class-caption">{{ selectedClass.title }}</div>
           </div>
           }
@@ -67,7 +69,8 @@
             <div class="teacher-name">{{ classItem.teacherName}}</div>
             <div class="yoga-class-time">{{classItem.classLength}}</div>
           </div>
-          <app-yoga-class [classData]="classItem" [descriptionWidth]="321" [showClassLength]="false"></app-yoga-class>
+          <app-yoga-class [classData]="classItem" [descriptionWidth]="321" [showClassLength]="false"
+            [descriptionWidth]="400"></app-yoga-class>
         </div>
         }
       </div>

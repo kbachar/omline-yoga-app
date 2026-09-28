@@ -1,18 +1,19 @@
-import { Component, EnvironmentInjector, inject, signal } from '@angular/core';
+import { Component, EnvironmentInjector, inject, OnInit, signal } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { Teacher } from '../../shared/teacher-component/teacher/teacher';
 import { YogaTeacher } from '../../shared/yoga-teacher-data';
 import { SubscribeThanks } from "../../subscribe-thanks-component/subscribe-thanks/subscribe-thanks";
 import { AuthService } from '../../services/auth-service';
-import { InnerHeader } from '../../shared/inner-header-component/inner-header/inner-header';
+import { MainHeader } from '../../shared/main-header-component/main-header/main-header';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-teacher-subscribe-page',
-  imports: [ Teacher, SubscribeThanks, AsyncPipe, InnerHeader],
+  imports: [Teacher, SubscribeThanks, AsyncPipe, MainHeader],
   templateUrl: './teacher-subscribe-page.html',
   styleUrl: './teacher-subscribe-page.css',
 })
-export class TeacherSubscribePage {
+export class TeacherSubscribePage implements OnInit {
   protected readonly isThanksModalOpen = signal(false);
   protected readonly isSubscribeHovered = signal(false);
   private readonly injector = inject(EnvironmentInjector);
@@ -30,8 +31,12 @@ export class TeacherSubscribePage {
   };
 
   private authService = inject(AuthService);
-  role$ = this.authService.getUserRole();
   password: string = '';
+  role$!: Observable<string>;
+
+  ngOnInit(): void {
+    this.role$ = this.authService.getUserRole();
+  }
 
   protected setSubscribeHovered(isHovered: boolean): void {
     this.isSubscribeHovered.set(isHovered);

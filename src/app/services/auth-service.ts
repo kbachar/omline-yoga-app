@@ -80,6 +80,10 @@ export class AuthService {
   }
 
   getUserProfile(uid: string) {
+    if (!uid) {
+      return of(null);
+    }
+
     return from(
       runInInjectionContext(this.injector, () => getDoc(doc(this.firestore, `users/${uid}`)))
     ).pipe(
@@ -90,10 +94,10 @@ export class AuthService {
   }
 
   getUserRole(): Observable<string> {
-    return authState(this.auth).pipe(
+    return runInInjectionContext(this.injector, () => authState(this.auth)).pipe(
       switchMap(user => {
-        if (!user) {
-          return of('');
+        if (!user?.uid) {
+          return of('none');
         }
 
         return from(
@@ -107,6 +111,7 @@ export class AuthService {
             }
 
             const data = snapshot.data() as Record<string, unknown>;
+            console.log(JSON.stringify(data))
             return typeof data['role'] === 'string' ? data['role'] : '';
           })
         );

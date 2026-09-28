@@ -1,8 +1,10 @@
-<app-inner-header [yogaStyleId]="yogaStyleId()" (onClassesNavbarClick)="classesNavbarClick($event)"></app-inner-header>
+<app-main-header></app-main-header>
+<app-classes-navbar [yogaStyleId]="yogaStyleId()"
+  (onClassesNavbarClick)="classesNavbarClick($event)"></app-classes-navbar>
 
 <div class="container">
     <header>
-        <img [src]="isBackHovered ? '/assets/images/back-hover.png' : '/assets/images/back.png'"
+        <img [src]="isBackHovered ? '/assets/images/back-hover.png' : '/assets/images/back.png'" (click)="back()"
             (mouseenter)="isBackHovered = true" (mouseleave)="isBackHovered = false" alt="Back">
         <div class="my-selected-classes-container">
             <div class="my-selected-classes">my</div>
@@ -16,7 +18,7 @@
             <video [src]="yogaClass.videoLink"></video>
             <div class="inner-class-container">
                 <label class="teacher-name">{{yogaClass.teacherName}}</label>
-                <app-yoga-class [classData]="yogaClass" [descriptionWidth]="300"></app-yoga-class>
+                <app-yoga-class [classData]="yogaClass" [descriptionWidth]="300" [showClassLength]="true"></app-yoga-class>
             </div>
         </div>
         }

@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { YogaClassesService } from '../services/yoga-classes-service';
 import { YogaStyleDescription } from '../shared/yoga-style-description-data';
 import { AsyncPipe } from '@angular/common';
-import { InnerHeader } from '../shared/inner-header-component/inner-header/inner-header';
+import { MainHeader } from '../shared/main-header-component/main-header/main-header';
 
 @Component({
   selector: 'app-home-page-component',
-  imports: [ AsyncPipe, InnerHeader],
+  imports: [AsyncPipe, MainHeader],
   templateUrl: './home-page-component.html',
   styleUrl: './home-page-component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
