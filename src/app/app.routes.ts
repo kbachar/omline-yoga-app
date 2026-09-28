@@ -19,6 +19,7 @@ import { Letter } from './Letter-component/letter/letter';
 import { Email } from './Email-component/email/email';
 import { SelectedClasses } from './selected-classes-component/selected-classes/selected-classes';
 import { BeyondPracticePage } from './beyond-practice-page-component/beyond-practice-page/beyond-practice-page';
+import { TeacherHomePage } from './teacher-home-page-component/teacher-home-page/teacher-home-page';
 
 export const routes: Routes = [
 	{
@@ -46,10 +47,12 @@ export const routes: Routes = [
 		canActivate: [authGuard],
 		component: TeacherDashboard,
 		children: [
+			{ path: '', pathMatch: 'full', component: TeacherHomePage },
 			{ path: 'teacher-profile/:teacherId', component: TeacherProfile },
 			{ path: 'teacher-classes/:teacherId', component: TeacherClasses },
 			{ path: 'yoga-class-details/:classID', component: YogaClassDetails },
-			{ path: 'yoga-class-details', component: YogaClassDetails }
+			{ path: 'yoga-class-details', component: YogaClassDetails },
+			{ path: 'teacher-home-page/:teacherId', component: TeacherHomePage}
 		]
 	},
 	{

@@ -1,0 +1,3 @@
+@if (user$ | async; as teacher) {
+	<app-page-header [headerText]="'welcome ' + teacher.fullName" [showButton]="false"></app-page-header>
+}
