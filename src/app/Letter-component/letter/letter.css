@@ -65,20 +65,28 @@
 }
 
 button {
-    background: #78BDDC;
+    height: 60px;
+    width: 149px;
+    background: #1F97CD;
     border-radius: 10px;
-    width: 120px;
-    height: 30px;
     font-family: 'Mona Sans';
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 20px;
     line-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     letter-spacing: 0.02em;
     text-transform: capitalize;
     color: #FFFFFF;
     margin-right: 40px;
     cursor: pointer;
+}
+
+button:hover {
+    color: #FFFFFF;
+    background: #3CBAFD;
 }
 
 button:disabled {

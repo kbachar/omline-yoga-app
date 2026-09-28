@@ -14,7 +14,7 @@ header {
 }
 
 .side-bar {
-    width: 339px;
+    width: 285px;
     min-height: 1000px;
 
     background: #9097AF;
@@ -56,22 +56,12 @@ header {
 }
 
 .side-bar-item:hover {
-    background-color: #7f88a5;
-    color: #ffffff;
+    font-weight: 600;
 }
 
 .side-bar-item.active {
-    background-color: #7f88a5;
-    color: #ffffff;
+    font-weight: 600;
 }
-
-.side-bar-item.active:hover,
-.side-bar-item.active:focus,
-.side-bar-item.active:focus-visible {
-    background-color: #7f88a5;
-    color: #ffffff;
-}
-
 
 .welcome-bar {
     width: 100%;

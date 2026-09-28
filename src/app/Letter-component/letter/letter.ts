@@ -34,7 +34,7 @@ export class Letter implements OnInit {
 
   private readonly defaultLetter: LetterData = {
     id: '',
-    title: '',
+    title: 'new letter',
     content: '',
     createdAt: new Date(),
     createdBy: '',

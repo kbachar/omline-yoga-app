@@ -5,7 +5,7 @@
     border-radius: 0px 0px 0px 20px;
     display: flex;
     align-items: center;
-    justify-content:space-between;
+    justify-content: space-between;
 }
 
 .header-container {
@@ -29,20 +29,29 @@ header {
 }
 
 button {
-    background: #78BDDC;
-    border-radius: 10px;
-    width: auto;
+    padding: 10px;
     height: 60px;
+    min-width: 91px;
+    background: #1F97CD;
+    border-radius: 10px;
     font-family: 'Mona Sans';
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 20px;
     line-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     letter-spacing: 0.02em;
     text-transform: capitalize;
     color: #FFFFFF;
     margin-right: 40px;
     cursor: pointer;
+}
+
+button:hover {
+    color: #FFFFFF;
+    background: #3CBAFD;
 }
 
 img {

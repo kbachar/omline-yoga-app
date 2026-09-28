@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterOutlet, RouterLinkWithHref } from '@angular/router';
+import { Router, RouterOutlet, RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthService } from '../../services/auth-service';
 import { YogaClassesService } from '../../services/yoga-classes-service';
@@ -7,7 +7,7 @@ import { map } from 'rxjs';
 
 @Component({
   selector: 'app-teacher-dashboard',
-  imports: [RouterOutlet, RouterLinkWithHref],
+  imports: [RouterOutlet, RouterLinkActive, RouterLinkWithHref],
   templateUrl: './teacher-dashboard.html',
   styleUrl: './teacher-dashboard.css',
 })
