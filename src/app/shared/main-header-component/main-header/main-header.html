@@ -15,10 +15,17 @@
     <div class="navbar-item" (click)="logout()">logout</div>
     }
     <div class="navbar-dropdown">
-      <div class="navbar-item">Subscribe</div>
-      <div routerLink="/teacher-subscribe-page" class="sub-navbar-item">Teacher</div>
-      <div class="sub-navbar-item">student</div>
+
+    <div class="navbar-item">
+      Subscribe
     </div>
+
+    <div class="dropdown-menu">
+      <div routerLink="/teacher-subscribe-page" class="sub-navbar-item teacher-sub-navbar-item">Teacher</div>
+      <div class="sub-navbar-item student-sub-navbar-item">Student</div>
+    </div>
+
+  </div>
   </nav>
 </header>
 
