@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, inject, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, inject, signal, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { YogaClassesService } from '../services/yoga-classes-service';
 import { YogaClassData } from '../shared/yoga-class-data';
-import { Observable, map, switchMap, tap } from 'rxjs';
+import { Observable, map, switchMap, take, tap } from 'rxjs';
 import { YogaClass } from "../shared/yoga-class-component/yoga-class/yoga-class";
 import { YogaStyleDescription } from '../shared/yoga-style-description-data';
 import { YogaClassesFilter } from '../shared/yoga-classes-filter-component/yoga-classes-filter/yoga-classes-filter';
@@ -25,8 +25,9 @@ export class ClassesPageComponent implements OnInit {
   challengeLevels = challengeLevels;
   yogaStyle$!: Observable<YogaStyleDescription>;
   classes$!: Observable<YogaClassData[]>;
-  protected selectedClasses: YogaClassData[] = [];
+  protected selectedClasses = signal<YogaClassData[]>([]);
   protected isYogaImageHovered = false;
+  protected isShowOnPageHovered = false;
   protected selectedStyleId: string = 'all';
   existingFilters = new Map<string, FilterChange[]>();
 
@@ -49,7 +50,11 @@ export class ClassesPageComponent implements OnInit {
       .get('ids')
       ?.split(',')
       .filter(Boolean) ?? [];
-    //console.log('classesIds - ' + JSON.stringify(classesIds))
+    console.log('classesIds - ' + JSON.stringify(classesIds))
+
+    this.yogaService.getClassByIDs(classesIds).pipe(take(1)).subscribe((classes) => {
+      this.selectedClasses.set(classes);
+    });
   }
 
   onFilterChange(changed: FilterChange, filter: string) {
@@ -67,7 +72,11 @@ export class ClassesPageComponent implements OnInit {
       this.existingFilters.set(filter, [changed])
 
     this.classes$ = this.yogaService.getFilteredClasses(this.selectedStyleId, this.existingFilters);
+  }
 
+  protected clearFilters(): void {
+    this.existingFilters.clear();
+    this.classes$ = this.yogaService.getFilteredClasses(this.selectedStyleId, null);
   }
 
   protected classesNavbarClick(page: string): void {
@@ -82,25 +91,21 @@ export class ClassesPageComponent implements OnInit {
   }
 
   protected addSelectedClass(yogaClass: YogaClassData): void {
-    const isAlreadySelected = this.selectedClasses.some((selected) => selected.id === yogaClass.id);
+    const selectedClasses = this.selectedClasses();
+    const isAlreadySelected = selectedClasses.some((selected) => selected.id === yogaClass.id);
     if (isAlreadySelected) {
-      this.selectedClasses = this.selectedClasses.filter((selected) => selected.id !== yogaClass.id);
+      this.selectedClasses.set(selectedClasses.filter((selected) => selected.id !== yogaClass.id));
       return;
     }
 
-    this.selectedClasses = [...this.selectedClasses, yogaClass];
+  this.selectedClasses.set([...selectedClasses, yogaClass]);
+  }
+    clearSelectedClasses() {
+    this.selectedClasses.set([]);
   }
 
   protected isClassSelected(yogaClass: YogaClassData): boolean {
-    return this.selectedClasses.some((selected) => selected.id === yogaClass.id);
-  }
-
-  protected clearFilters(): void {
-    const container = this.filtersRowContainer().nativeElement;
-    const checkboxes = container.querySelectorAll<HTMLInputElement>('input.check-box[type="checkbox"]');
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
+    return this.selectedClasses().some((selected) => selected.id === yogaClass.id);
   }
 
   selectedClassesClick(classes: YogaClassData[]) {

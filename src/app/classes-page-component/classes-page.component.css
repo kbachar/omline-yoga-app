@@ -168,6 +168,10 @@
   gap: 10px;
 }
 
+.arrow-right {
+  margin-right: 10px;
+}
+
 .arrow-left:hover,
 .arrow-right:hover,
 .selected-classes-clear:hover,
@@ -184,10 +188,6 @@
   text-transform: capitalize;
   color: #243376;
 }
-/* 
-.show-on-page:hover {
-  ADD HOVER IMAGE
-} */
 
 .selected-classes-clear {
   position: absolute;
@@ -204,6 +204,11 @@
   z-index: 2;
 }
 
+.selected-classes-clear:hover {
+  color: #47484d;
+}
+
+
 .selected-class-small {
   box-sizing: border-box;
   display: flex;
@@ -215,22 +220,24 @@
   width: 155px;
   height: 93px;
   background: #F8F8FF;
-  opacity: 0.5;
   border: 1px solid #1C5B90;
   border-radius: 10px;
   margin-top: 40px;
+  opacity: 0.5;
 }
 
 .selected-class-small video {
   border-radius: 10px;
-  width: 155px;
-  height: 93px;
+  width: 150px;
+  height: 90px;
 }
+
+/* .selected-class-small:hover, */
 
 .selected-class-caption {
   font-family: 'Mona Sans';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 800;
   font-size: 15px;
   line-height: 25px;
   display: flex;
@@ -240,10 +247,11 @@
   inset: 0;
   z-index: 1;
   text-transform: capitalize;
-  color: rgba(36, 51, 118, 0.7);
+  color: rgba(8, 2, 17, 0.555);
   text-align: center;
-  width: 155px;
-  height: 93px;
+  width: 150px;
+  height: 90px;
+  opacity: 0.9;
 }
 
 .yoga-classes {
@@ -273,34 +281,8 @@
   height: 450px;
   border: 1px solid transparent;
   border-radius: 3px;
-  padding: 6px;
+  padding: 10px;
   cursor: pointer;
-}
-
-.yoga-class-meta {
-  scrollbar-width: thin;
-  scrollbar-color: #c9dfec rgba(28, 90, 142, 0.1);
-}
-
-.yoga-class-meta::-webkit-scrollbar {
-  width: 6px;
-}
-
-.yoga-class-meta::-webkit-scrollbar-track {
-  background: rgba(28, 90, 142, 0.1);
-  border-radius: 4px;
-}
-
-.yoga-class-meta::-webkit-scrollbar-thumb {
-  background: #1F6B9A;
-  border-radius: 4px;
-  border: 2px solid transparent;
-  background-clip: content-box;
-}
-
-.yoga-class-meta::-webkit-scrollbar-thumb:hover {
-  background: #101C50;
-  background-clip: content-box;
 }
 
 .yoga-class-meta.is-selected {

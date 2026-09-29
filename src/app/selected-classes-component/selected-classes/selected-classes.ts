@@ -44,9 +44,9 @@ export class SelectedClasses implements OnInit {
 
   async back() {
     const page = await this.yogaStyleId();
-    console.log(page);
-    this.router.navigate(['/classes', page]);
-
+    this.router.navigate(['/classes', page], {
+      queryParams: { ids: this.classesIds.join(',') }
+    });
   }
 
 }

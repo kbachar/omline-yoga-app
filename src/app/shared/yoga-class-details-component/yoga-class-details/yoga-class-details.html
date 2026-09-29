@@ -77,8 +77,15 @@
                 </div>
             </div>
             }
-        </div>       
+        </div>
     </div>    
+    @if (yogaClass.approved == true) {
+    <hr class="divider">
+    <app-delete-component></app-delete-component>
+    <!-- <img src="/assets/images/delete.png" (click)="showDeleteClass()">
+    <app-delete-class-message [isOpen]="isDeleteModalOpen()"
+        (Click)="deleteClass(yogaClass, $event)"></app-delete-class-message> -->
+    }
 </div>
 
 }

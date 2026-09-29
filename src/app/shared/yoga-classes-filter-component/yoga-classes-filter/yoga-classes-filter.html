@@ -4,7 +4,7 @@
     <app-check-box 
       [inputValue]="filterOption" 
       [disabled]="readOnly() == true"
-      [checked]="savedOption() == filterOption"
+      [checked]="isOptionSaved(filterOption)"
       (checkChange)="readOnly() == false ? onFilterChange(filterOption, $event) : null"
       >
     </app-check-box>

@@ -28,8 +28,10 @@
           <label class="filters-text-box">Filters</label>
         </div>
         <app-yoga-classes-filter [filterName]="'duration'" [filterOptions]="durations"
+          [savedOptions]="existingFilters.get('duration')"
           (filterChange)="onFilterChange($event, 'duration')"></app-yoga-classes-filter>
         <app-yoga-classes-filter [filterName]="'challenge level'" [filterOptions]="challengeLevels"
+          [savedOptions]="existingFilters.get('challenge level')"
           (filterChange)="onFilterChange( $event, 'challenge level')"></app-yoga-classes-filter>
         <div class="clear" (click)="clearFilters()">x clear</div>
       </div>
@@ -37,24 +39,24 @@
       <div class="main-classes-container">
         <img class="arrow-left" src="/assets/images/arrow-left.png">
         <div class="selected-classes-container">
-          @if (selectedClasses.length === 0) {
+          @if (selectedClasses().length === 0) {
           <div class="selected-class-small">
             <div class="selected-class-caption">Select a class</div>
           </div>
           }
 
-          @for (selectedClass of selectedClasses; track selectedClass.id) {
+          @for (selectedClass of selectedClasses(); track selectedClass.id) {
           <div class="selected-class-small">
             <video [src]="selectedClass.videoLink"></video>
             <div class="selected-class-caption">{{ selectedClass.title }}</div>
           </div>
           }
-          <div class="show-on-page-container" (click)="selectedClassesClick(selectedClasses)">
-            <div class="show-on-page">Show on page</div>
-            <img src="/assets/images/ShowOnPageArrow.png">
+          <div class="show-on-page-container" (click)="selectedClassesClick(selectedClasses())"
+            (mouseenter)="isShowOnPageHovered = true" (mouseleave)="isShowOnPageHovered = false">
+            <img
+              [src]="isShowOnPageHovered ? '/assets/images/show-on-page-hover.png' : '/assets/images/show-on-page.png'">
           </div>
-          <div class="selected-classes-clear">X clear</div>
-
+          <div class="selected-classes-clear" (click)="clearSelectedClasses()">X clear</div>
         </div>
         <img class="arrow-right" src="/assets/images/arrow-right.png">
       </div>
@@ -69,7 +71,7 @@
             <div class="teacher-name">{{ classItem.teacherName}}</div>
             <div class="yoga-class-time">{{classItem.classLength}}</div>
           </div>
-          <app-yoga-class [classData]="classItem" [descriptionWidth]="371" [showClassLength]="false"></app-yoga-class>
+          <app-yoga-class [classData]="classItem" [descriptionWidth]="361" [showClassLength]="false"></app-yoga-class>
         </div>
         }
       </div>
