@@ -29,5 +29,5 @@
   </nav>
 </header>
 
-<app-login-component [isOpen]="isLoginModalOpen()" (closed)="closeLoginModal()"></app-login-component>
+<app-login-component [isOpen]="isLoginModalOpen()" (closed)="closeLoginModal()" (forgotPassword)="forgotPassword($event)"></app-login-component>
 

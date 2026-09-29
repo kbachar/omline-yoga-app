@@ -1,5 +1,5 @@
 import { EnvironmentInjector, inject, Injectable, runInInjectionContext } from '@angular/core';
-import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
+import { Auth, authState, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
 import { doc, Firestore, getDoc, serverTimestamp, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { from, map, of, switchMap } from 'rxjs';
@@ -141,4 +141,16 @@ export class AuthService {
     const data = snapshot.data() as Record<string, unknown>;
     return data['isAdmin'] === true || data['role'] === 'admin';
   } 
+
+  async resetPassword(email: string): Promise<string> {
+    try {
+      await runInInjectionContext(this.injector, () =>
+        sendPasswordResetEmail(this.auth, email.trim())
+      );
+      return 'Password reset email sent. Please check your inbox.';
+    }
+    catch (error) {
+      return 'Unable to send a password reset email. Please check the address and try again.';
+    }
+  }
 }

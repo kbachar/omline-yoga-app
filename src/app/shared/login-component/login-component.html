@@ -3,20 +3,23 @@
   <section class="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-modal-title"
     (click)="$event.stopPropagation()">
     <div class="popup">
-    <div type="button" class="close-btn" aria-label="Close login" (click)="close()">x</div>
+      <div type="button" class="close-btn" aria-label="Close login" (click)="close()">x</div>
       <div class="popup-body">
         <!-- <h2 id="login-modal-title">Login</h2> -->
         <input type="email" placeholder="Email" [value]="email()" (input)="onEmailInput($event)" />
         <input type="password" placeholder="Password" [value]="password()" (input)="onPasswordInput($event)"
           (keydown.enter)="login()" />
         <img src="/assets/images/login-yoga-pose.png" alt="Yoga pose illustration" />
-        <button type="button" (click)="login()" [disabled]="isSubmitting()">
-          @if (isSubmitting()) {
+        <div class="login-container">
+          <label (click)="forgotPasswordClick()">Forgot your password?</label>
+          <button type="button" (click)="login()" [disabled]="isSubmitting()">
+            @if (isSubmitting()) {
             Logging in...
-          } @else {
+            } @else {
             Login
-          }
-        </button>
+            }
+          </button>
+        </div>
         @if (errorMessage()) {
         <div class="error">{{ errorMessage() }}</div>
         }

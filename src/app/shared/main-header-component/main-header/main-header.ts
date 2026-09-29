@@ -41,4 +41,8 @@ export class MainHeader implements OnInit {
   protected closeLoginModal(): void {
     this.isLoginModalOpen.set(false);
   }
+
+  protected async forgotPassword(email: string) {
+    const message = await this.authService.resetPassword(email);
+  }
 }

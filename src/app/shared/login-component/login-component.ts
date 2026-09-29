@@ -14,6 +14,7 @@ import { firstValueFrom } from 'rxjs';
 export class LoginComponent {
     readonly isOpen = input(false);
     readonly closed = output<void>();
+    readonly forgotPassword = output<string>();
 
     private authService = inject(AuthService);
     private router = inject(Router);
@@ -39,6 +40,14 @@ export class LoginComponent {
         this.password.set(value);
     }
 
+    forgotPasswordClick() {
+        if (this.email() == '') {
+            this.errorMessage.set('Please enter your email.');
+            return;
+        }
+        this.forgotPassword.emit(this.email());
+    }
+    
     protected async login(): Promise<void> {
         if (this.isSubmitting()) {
             return;
