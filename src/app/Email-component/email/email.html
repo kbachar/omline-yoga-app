@@ -1,6 +1,6 @@
 @if (email$ | async; as email) {
 <app-page-header [headerText]="'emails - ' + email.title" [showBack]="true" [headerTextHeight]="30"
-    [showButton]="!email.from.includes('@yoga-om-line.com')" [buttonText]="'reply'" (buttonClick)="reply(email)"
+    [showButton]="!email.from.includes('@yoga-om-line.com') || !email.read" [buttonText]="'reply'" (buttonClick)="reply(email)"
     (backToListClick)="backToEmails()"></app-page-header>
 
 <div class="container">

@@ -50,7 +50,7 @@ export class ClassesPageComponent implements OnInit {
       .get('ids')
       ?.split(',')
       .filter(Boolean) ?? [];
-    console.log('classesIds - ' + JSON.stringify(classesIds))
+    //console.log('classesIds - ' + JSON.stringify(classesIds))
 
     this.yogaService.getClassByIDs(classesIds).pipe(take(1)).subscribe((classes) => {
       this.selectedClasses.set(classes);

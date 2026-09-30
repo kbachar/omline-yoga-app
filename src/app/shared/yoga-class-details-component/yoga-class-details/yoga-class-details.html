@@ -1,11 +1,18 @@
 @if (yogaClass$ | async; as yogaClass) {
 <app-page-header [showBack]="(isAdmin | async) === true || yogaClass.approved === true"
-        [headerText]="headerText + yogaClass.title" [buttonText]="'save'" (backToListClick)="backToList()"
-        (buttonClick)="save(yogaClass)"></app-page-header>
+    [headerText]="headerText + yogaClass.title" [buttonText]="'save'" (backToListClick)="backToList()"
+    (buttonClick)="save(yogaClass)"></app-page-header>
 <div class="container">
-    
+
     <div class="body-container">
         <div class="left-side">
+            @if (isAdmin | async) {
+            @if (teacher$ | async; as teacher) {
+            <div class="teacher-data-container">
+                <app-text-box [inputValue]="teacher.fullName" [readonly]="true" [textBoxWidth]="450"></app-text-box>
+                <img src="/assets/images/hide-icon.png" (click)="viewTeacher(teacher.teacherID)">
+            </div>
+            }}
             <app-text-box [inputValue]="yogaClass.title" [placeholderValue]="'class name'"
                 [readonly]="(isAdmin | async) == true" (textChange)="onTitleChange(yogaClass, $event)"></app-text-box>
             <app-yoga-classes-filter [filterName]="'yoga style'" [filterOptions]="yogaStyles"
@@ -25,8 +32,7 @@
             @if (isAdmin | async) {
             <div class="teacher-data-container">
                 @if (teacher$ | async; as teacher) {
-                <app-text-box [inputValue]="teacher.fullName" [textBoxWidth]="150" [readonly]="true"></app-text-box>
-                <button (click)="sendEmail(teacher)">send feedback</button>
+                <button (click)="sendEmail(teacher, yogaClass)">send feedback</button>
                 }
                 <div class="check-box">
                     <app-check-box [inputValue]="'approved'" [checked]="yogaClass.approved"
@@ -78,7 +84,7 @@
             </div>
             }
         </div>
-    </div>    
+    </div>
     @if (yogaClass.approved == true) {
     <hr class="divider">
     <app-delete-component></app-delete-component>

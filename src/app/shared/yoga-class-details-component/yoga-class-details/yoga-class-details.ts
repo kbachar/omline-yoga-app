@@ -65,7 +65,7 @@ export class YogaClassDetails implements OnInit {
         if (yogaClass?.videoLink) {
           this.photoPreview.set(yogaClass?.videoLink)
           this.isAdmin.then((isAdmin) => {
-            if (isAdmin && yogaClass.approved == false) { 
+            if (isAdmin) { 
               this.headerText = 'class to approve - ';
               this.teacher$ = this.yogaService.getTeacher(yogaClass.teacherId); 
             }
@@ -82,8 +82,18 @@ export class YogaClassDetails implements OnInit {
 
   }
 
-  sendEmail(teacher: YogaTeacher){
+  viewTeacher(teacherId: string) {
+    this.router.navigate(['/admin-dashboard/teacher-profile', teacherId]);
+  }
 
+  sendEmail(teacher: YogaTeacher, yogaClass: YogaClassData){
+    this.router.navigate(['/admin-dashboard/email'], {
+      queryParams: {
+        title: 'class to approve - ' + yogaClass.title,
+        content: yogaClass.description,
+        recipient: teacher.email
+      }
+    });  
   }
 
   onSelectVideo(event: Event) {

@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { YogaClassesService } from '../../services/yoga-classes-service';
 import { EmailData } from '../../shared/email-data';
 import { PageHeader } from '../../shared/page-header-component/page-header/page-header';
@@ -22,24 +22,48 @@ export class Email implements OnInit {
     protected email$!: Observable<EmailData>;
 
     ngOnInit(): void {
-        this.email$ = this.route.paramMap.pipe(
-            map((params) => params.get('emailID') ?? ''),
-            switchMap((emailId) => this.yogaService.getEmail(emailId)),
-            switchMap(async (email) => {
-                if (!email) {
-                    throw new Error('Email not found');
-                }
+        const title = this.route.snapshot.queryParamMap
+            .get('title');
+
+        const content = this.route.snapshot.queryParamMap
+            .get('content');
+
+            const recipient = this.route.snapshot.queryParamMap
+            .get('recipient');
+        if (title !== null && content !== null && recipient !== null) {
+            this.email$ = of({
+                id: '',
+                title: title,
+                content: content,
+                updatedAt: new Date(),
+                updatedBy: '',
+                read: false,
+                from: 'support@yoga-om-line.com',
+                recipients: [recipient],
+            });
+        }
+        else {
+            this.email$ = this.route.paramMap.pipe(
+                map((params) => params.get('emailID') ?? ''),
+                switchMap((emailId) => this.yogaService.getEmail(emailId)),
+                switchMap(async (email) => {
+                    if (!email) {
+                        throw new Error('Email not found');
+                    }
 
 
-                if (email.read == false) {
-                    await this.yogaService.saveEmail({
-                        ...email,
-                        read: true,
-                    });
-                }
-                return email;
-            })
-        );
+                    if (email.read == false) {
+                        await this.yogaService.saveEmail({
+                            ...email,
+                            read: true,
+                        });
+                    }
+                    return email;
+                })
+            );
+        }
+
+
     }
 
     contentChanged(email: EmailData, content: string) {
@@ -69,7 +93,7 @@ export class Email implements OnInit {
         email.read = true;
         email.from = "support@yoga-om-line.com",
 
-        await this.yogaService.saveEmail(email);
+            await this.yogaService.saveEmail(email);
         await this.backToEmails();
     }
 

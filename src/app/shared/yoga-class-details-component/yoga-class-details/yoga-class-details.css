@@ -34,6 +34,10 @@
     gap: 20px;
 }
 
+.teacher-data-container img:hover {
+    cursor: pointer;
+}
+
 .teacher-data-container button {
     background: #78BDDC;
     border-radius: 10px;
