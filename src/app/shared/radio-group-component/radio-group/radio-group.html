@@ -1,0 +1,9 @@
+<div class="container">
+    @for (radioName of radioNames(); track radioName) {
+    <label class="radio-option">
+        <input type="radio" name="recipientType" [checked]="selectedRadio() === radioName" [value]="radioName"
+            (change)="radioChanged($event, radioName)">
+        <span>{{radioName}}</span>
+    </label>
+    }
+</div>

@@ -6,7 +6,7 @@
     <div class="left-side">
 
         <app-toggle-setting [labelText]="'Show Logo'" (switchStateChange)="showLogo($event)"
-            [setState]="letter.showLogo"></app-toggle-setting>
+            [switchState]="letter.showLogo"></app-toggle-setting>
         @if (images$ | async; as images) {
         <app-select-list [inputValue]="letter.image" [options]="images"
             (selectedOption)="OnSelectedOption($event, letter)"></app-select-list>
@@ -15,27 +15,20 @@
         <app-text-box [placeholderValue]="'enter title'" (textChange)="titleChanged(letter,$event)"
             [inputValue]="letter.title" [textBoxWidth]="750"></app-text-box>
 
-        <div class="logo">
-            <img src="{{logo}}">
-        </div>
-
-        <app-text-area #emailPreview [textAreaName]="'Write your letter...'" [textWidth]="750" [textHeight]="600"
-            [textValue]="letter.content" (textValueChange)="contentChanged(letter, $event)"></app-text-area>
-        }
-
-        @if (image$ | async; as image) {
-        <div class="image">
-            <img src="{{image}}">
+        <div class="email-preview">
+            <app-text-area #emailPreview [textAreaName]="'Write your letter...'" [textHeight]="600"
+                [textValue]="letter.content" (textValueChange)="contentChanged(letter, $event)" [showLogo]="true"
+                [image]="image$ | async" [textWidth]="756"></app-text-area>
         </div>
         }
     </div>
 
     <div class="right-side">
-        <button (click)="sendMail(letter)" [disabled]="recipients.length === 0">Send letter</button>
-        <label>select teachers</label>
-        @for (teacher of teacherNamesAndIds$ | async; track teacher) {
-        <app-check-box [inputValue]="teacher.name" (checkChange)="addTeacher($event, teacher, letter)"></app-check-box>
-        }
+        <button (click)="sendLetter(letter)" [disabled]="recipients.length === 0">Send letter</button>
+
+        <app-radio-group [radioNames]="['teachers', 'invited teachers', 'invited links']" [selectedRadio]="'teachers'"
+            (selectedOptionChange)="radioChanged($event)"></app-radio-group>
+
         <label>sent to</label>
         @for (recipient of letter.sentTo; track recipient) {
         <div class="sent-to">
@@ -43,6 +36,13 @@
         </div>
         }
     </div>
-
+    <div class="recipients">
+        <label>select recipients</label>
+        @if (recipientsNamesAndIds$ | async) {
+        @for (recipient of recipientsNamesAndIds$ | async; track recipient) {
+        <app-check-box [inputValue]="recipient.name"
+            (checkChange)="addTeacher($event, recipient, letter)"></app-check-box>
+        }}
+    </div>
 </div>
 }

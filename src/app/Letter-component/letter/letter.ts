@@ -3,7 +3,7 @@ import { PageHeader } from "../../shared/page-header-component/page-header/page-
 import { ToggleSetting } from "../../shared/toggle-setting-component/toggle-setting/toggle-setting";
 import { TextBox } from "../../shared/text-box-component/text-box/text-box";
 import { TextArea } from "../../shared/text-area-component/text-area/text-area";
-import { firstValueFrom, map, Observable, switchMap, tap } from 'rxjs';
+import { firstValueFrom, map, Observable, of, switchMap, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { YogaClassesService } from '../../services/yoga-classes-service';
 import { LetterData } from '../../shared/letter-data';
@@ -11,10 +11,12 @@ import { AsyncPipe, DatePipe } from '@angular/common';
 import { SelectList } from "../../shared/select-list-component/select-list/select-list";
 import { CheckBox } from '../../shared/check-box-component/check-box/check-box';
 import { EmailData } from '../../shared/email-data';
+import { RadioGroup } from '../../shared/radio-group-component/radio-group/radio-group';
+import { FilterChange } from '../../shared/filter-change-data';
 
 @Component({
   selector: 'app-letter',
-  imports: [PageHeader, ToggleSetting, TextBox, TextArea, AsyncPipe, DatePipe, SelectList, CheckBox],
+  imports: [PageHeader, ToggleSetting, TextBox, TextArea, AsyncPipe, DatePipe, SelectList, CheckBox, RadioGroup],
   templateUrl: './letter.html',
   styleUrl: './letter.css',
 })
@@ -28,7 +30,7 @@ export class Letter implements OnInit {
   letter$!: Observable<LetterData>;
   images$!: Observable<string[]>
   image$!: Observable<string>
-  teacherNamesAndIds$!: Observable<Array<{ name: string; email: string }>>;
+  recipientsNamesAndIds$!: Observable<Array<{ name: string; email: string }>>;
   recipients: Array<{ name: string; email: string; date: Date; }> = [];
 
 
@@ -46,9 +48,9 @@ export class Letter implements OnInit {
   };
 
   ngOnInit() {
-    this.image$ = this.yogaService.getStorageFile('');
-    this.teacherNamesAndIds$ = this.yogaService.getTeacherNamesAndIds();
 
+    this.recipientsNamesAndIds$ = this.yogaService.getRecipientsNamesAndIds('teachers')
+    this.image$ = this.yogaService.getStorageFile('');
     this.letter$ = this.route.paramMap.pipe(
       map((params) => params.get('letterID') ?? ''),
       switchMap((id) => this.yogaService.getLetter(id)),
@@ -58,18 +60,27 @@ export class Letter implements OnInit {
       })),
       tap((letter) => {
         //console.log('letter - ' + JSON.stringify(letter))
-        if (letter.showLogo) 
+        if (letter.showLogo)
           this.showLogo(letter.showLogo);
-        else 
+        else
           this.logo = '';
 
-        if (letter.image) 
+        if (letter.image)
           this.image$ = this.yogaService.getStorageFile(letter.image);
 
       })
     );
 
     this.images$ = this.yogaService.getStorageFiles();
+  }
+
+  radioChanged(radioChange: FilterChange) {
+    if (radioChange.checked == true) {
+      this.recipientsNamesAndIds$ = this.yogaService.getRecipientsNamesAndIds(radioChange.filter).pipe(map((recipients) => {
+        return recipients;
+      }))
+    }
+    else this.recipientsNamesAndIds$ = of([]);
   }
 
   showLogo(showLogo: boolean) {
@@ -83,12 +94,14 @@ export class Letter implements OnInit {
 
   contentChanged(letter: LetterData, content: string) {
     letter.content = content;
-
   }
 
   OnSelectedOption(selectedOption: string, letter: LetterData) {
+    console.log('letter image was - ' + letter.image)
+
     this.image$ = this.yogaService.getStorageFile(selectedOption);
     letter.image = selectedOption;
+    console.log('letter image is - ' + letter.image)
   }
 
   addTeacher(checked: boolean, teacher: { name: string; email: string; }, letter: LetterData) {
@@ -100,13 +113,12 @@ export class Letter implements OnInit {
           date: new Date(),
         });
       }
-    } 
+    }
     else {
       this.recipients = this.recipients.filter(
         (recipient) => recipient.email !== teacher.email
       );
     }
-
   }
 
   backToLetters() {
@@ -119,7 +131,7 @@ export class Letter implements OnInit {
     await this.router.navigate(['/admin-dashboard/letters']);
   }
 
-  async sendMail(letter: LetterData) {
+  async sendLetter(letter: LetterData) {
     const imageUrl = letter.image
       ? await firstValueFrom(this.yogaService.getStorageFile(letter.image))
       : '';

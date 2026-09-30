@@ -13,6 +13,8 @@ export class TextArea {
   readonly textWidth = input<number>();
   readonly textHeight = input<number>();
   readonly readOnly = input<boolean>(false);
+  readonly showLogo = input<boolean>(false);
+  readonly image = input<string | null>();
 
 
   protected onInput(event: Event): void {

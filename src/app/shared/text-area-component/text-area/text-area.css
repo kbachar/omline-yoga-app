@@ -1,4 +1,15 @@
+.container {
+    background: rgba(194, 235, 233, 0.2);
+    outline: none;
+    resize: none;
+    border: 1px solid #CAD7DC;
+    border-radius: 10px;
+    padding: 10px;
+
+}
+
 textarea {
+    background: rgba(194, 235, 233, 0.2);
     font-family: 'Mona Sans';
     font-style: normal;
     font-weight: 400;
@@ -6,11 +17,24 @@ textarea {
     line-height: 25px;
     text-transform: capitalize;
     color: #243376;
-    background: rgba(194, 235, 233, 0.2);
     border: none;
-    outline: none;
     resize: none;
-    border: 1px solid #CAD7DC;
-    border-radius: 10px;
-    padding: 10px;
 }
+
+.logo {
+    height: 130px;
+    background: #0C133A;
+    border-radius: 10px;
+}
+
+.logo img {
+    border-radius: 10px;
+    align-self: center;
+}
+
+.image {
+    max-width: 756px;
+    display: flex;
+    justify-content: center;
+}
+

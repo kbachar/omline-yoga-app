@@ -1,17 +1,8 @@
 <div class="select-container">
   <select (change)="onSelectChange($event)">
-
-    <option>Select {{selectName()}}</option>
-
+    <option value="" [selected]="selectedValue === ''">Select</option>
     @for (option of options(); track option) {
-    @if (inputValue() != option) {
-    <option>{{option}}</option>
+    <option [value]="option" [selected]="option === selectedValue">{{option}}</option>
     }
-    }
-
-    @if (inputValue()) {
-    <option selected>{{inputValue()}}</option>
-    }
-
   </select>
 </div>

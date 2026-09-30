@@ -420,30 +420,33 @@ export class YogaClassesService {
     );
   }
 
-  getTeacherNamesAndIds(): Observable<Array<{ name: string; email: string }>> {
-    return this.getTeachers().pipe(
-      switchMap((teachers) =>
-        this.getTeacherInvites().pipe(
-          map((invites) => {
-            const teacherNamesAndIds = teachers
-              .map((teacher) => ({
-                name: teacher.fullName ?? '',
-                email: teacher.email ?? ''
-              }))
-              .filter((teacher) => teacher.name && teacher.email);
-
-            const inviteNamesAndIds = invites
-              .map((invite) => ({
-                name: invite.name ?? '',
-                email: invite.email ?? ''
-              }))
-              .filter((invite) => invite.name && invite.email);
-
-            return [...teacherNamesAndIds, ...inviteNamesAndIds];
-          })
+  getRecipientsNamesAndIds(recipientType: string): Observable<Array<{ name: string; email: string }>> {
+    if (recipientType === 'teachers') {
+      return this.getTeachers().pipe(
+        map((teachers) =>
+          teachers
+            .map((teacher) => ({
+              name: teacher.fullName ?? '',
+              email: teacher.email ?? ''
+            }))
+            .filter((teacher) => teacher.name && teacher.email)
+          )
+      );
+    }
+    if (recipientType === 'invited teachers') {
+      return this.getTeacherInvites().pipe(
+        map((invites) =>
+          invites
+            .map((invite) => ({
+              name: invite.name ?? '',
+              email: invite.email ?? ''
+            }))
+            .filter((invite) => invite.name && invite.email)
         )
-      )
-    );
+      );
+    }
+
+    return of([]);
   }
 
   getTeacherStatus(teacherID: string): Observable<string> {

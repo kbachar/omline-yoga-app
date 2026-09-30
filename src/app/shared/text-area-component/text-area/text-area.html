@@ -1,8 +1,14 @@
 <div class="container">
-    <textarea [readOnly]="readOnly()"
-    [style.height.px]="textHeight() ?? null"
-    [style.width.px]="textWidth() ?? null"
-    [value]="textValue()"
-    [placeholder]="textAreaName() ?? ''"
-        (input)="onInput($event)"></textarea>
+    @if (showLogo()) {
+    <div class="logo">
+        <img src="/assets/images/yoga-classes-logo.png">
+    </div>
+    }
+    <textarea [readOnly]="readOnly()" [style.height.px]="textHeight() ?? null" [style.width.px]="textWidth() ?? null"
+        [value]="textValue()" [placeholder]="textAreaName() ?? ''" (input)="onInput($event)"></textarea>
+    @if (image()) {
+    <div class="image">
+        <img [src]="image() ?? ''">
+        </div>
+    }
 </div>

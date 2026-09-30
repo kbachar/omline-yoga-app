@@ -1,17 +1,24 @@
 .container {
   position: relative;
-  height: 1283px;
   background: #F7F8FA;
   border-radius: 20px 0px 0px 0px;
   padding: 50px;
   display: flex;
   flex-direction: row;
-  gap: 70px;
+  gap: 40px;
 }
 
 .left-side {
   display: flex;
   flex-direction: column;
+}
+
+.email-preview {
+  display: flex;
+  flex-direction: column;
+  background: rgba(194, 235, 233, 0.2);
+  resize: none;
+  border-radius: 10px;
 }
 
 .left-side label {
@@ -23,12 +30,15 @@
   letter-spacing: 0.02em;
   text-transform: capitalize;
   color: #101C50;
-  margin-bottom: 20px;
 }
 
 .right-side {
   display: flex;
   flex-direction: column;
+  text-align: center;
+  gap: 10px;
+  width: 170px;
+  
 }
 
 .sent-to {
@@ -38,6 +48,7 @@
   justify-content: flex-start;
 }
 
+.recipients label,
 .right-side label {
   width: 289px;
   height: 25px;
@@ -53,7 +64,7 @@
   color: #243376;
 }
 
- .right-side .small-label {
+.right-side .small-label {
   font-family: 'Raleway';
   font-style: normal;
   font-weight: 400;
@@ -65,47 +76,36 @@
 }
 
 button {
-    height: 60px;
-    width: 149px;
-    background: #1F97CD;
-    border-radius: 10px;
-    font-family: 'Mona Sans';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    letter-spacing: 0.02em;
-    text-transform: capitalize;
-    color: #FFFFFF;
-    margin-right: 40px;
-    cursor: pointer;
+  height: 60px;
+  width: 149px;
+  background: #1F97CD;
+  border-radius: 10px;
+  font-family: 'Mona Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #FFFFFF;
 }
 
 button:hover {
-    color: #FFFFFF;
-    background: #3CBAFD;
+  color: #FFFFFF;
+  background: #3CBAFD;
+  cursor: pointer;
 }
 
 button:disabled {
   cursor: not-allowed;
 }
 
-.logo {
-  width: 765px;
-  background: #0C133A;
-
+.recipients {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.logo img {
-  align-self: center;
-  display: block;
-  margin-top: 0;
-}
-
-
-.image img {
-  max-width: 765px;
-}
