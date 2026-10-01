@@ -94,7 +94,8 @@ const EMPTY_YOGA_CLASS: YogaClassData = {
   difficulty: '',
   videoLink: '',
   yogaStyle: '',
-  approved: false
+  approved: false,
+  status: ''
 };
 
 @Injectable({
@@ -183,6 +184,7 @@ export class YogaClassesService {
             videoLink: data.videoLink,
             yogaStyle: data.yogaStyle,
             approved: data.approved,
+            status: data.status ?? '',
             createDate: rawCreateDate instanceof Date ? rawCreateDate : rawCreateDate?.toDate(),
             yogaStyleColor: theme?.headerBackgroundColor
           } as YogaClassData;

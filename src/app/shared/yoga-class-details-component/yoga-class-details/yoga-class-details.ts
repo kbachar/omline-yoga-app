@@ -24,7 +24,8 @@ const createEmptyYogaClass = (): YogaClassData => ({
   difficulty: '',
   videoLink: '',
   yogaStyle: '',
-  approved: false
+  approved: false,
+  status: ''
 });
 
 @Component({
@@ -65,9 +66,9 @@ export class YogaClassDetails implements OnInit {
         if (yogaClass?.videoLink) {
           this.photoPreview.set(yogaClass?.videoLink)
           this.isAdmin.then((isAdmin) => {
-            if (isAdmin) { 
+            if (isAdmin) {
               this.headerText = 'class to approve - ';
-              this.teacher$ = this.yogaService.getTeacher(yogaClass.teacherId); 
+              this.teacher$ = this.yogaService.getTeacher(yogaClass.teacherId);
             }
             else
               this.headerText = 'class page - ';
@@ -79,21 +80,23 @@ export class YogaClassDetails implements OnInit {
         }
       })
     );
-
   }
 
   viewTeacher(teacherId: string) {
     this.router.navigate(['/admin-dashboard/teacher-profile', teacherId]);
   }
 
-  sendEmail(teacher: YogaTeacher, yogaClass: YogaClassData){
+  sendEmail(teacher: YogaTeacher, yogaClass: YogaClassData) {
+    if (yogaClass.approved == false)
+      yogaClass.status = 'pending'
+    
     this.router.navigate(['/admin-dashboard/email'], {
       queryParams: {
         title: 'class to approve - ' + yogaClass.title,
         content: yogaClass.description,
         recipient: teacher.email
       }
-    });  
+    });
   }
 
   onSelectVideo(event: Event) {
@@ -124,35 +127,12 @@ export class YogaClassDetails implements OnInit {
 
   }
 
-  onTextValueChanged(yogaClass: YogaClassData, description: string) {
-    yogaClass.description = description;
-  }
-
-  onChallengeFilterChange(yogaClass: YogaClassData, filterOption: FilterChange) {
-    yogaClass.difficulty = filterOption.filterOption;
-  }
-
-  onDurationFilterChange(yogaClass: YogaClassData, filterOption: FilterChange) {
-    yogaClass.classLength = filterOption.filterOption;
-  }
-
-  onYogaStylesFilterChange(yogaClass: YogaClassData, filterOption: FilterChange) {
-    yogaClass.yogaStyle = filterOption.filterOption;
-  }
-
-  onTitleChange(yogaClass: YogaClassData, title: string) {
-    yogaClass.title = title;
-  }
-
-  onApproveCheckChange(yogaClass: YogaClassData, approved: boolean) {
-    yogaClass.approved = approved;
-  }
-
-  
   async save(yogaClass: YogaClassData) {
 
     yogaClass.teacherId = this.teacherId;
     yogaClass.createDate = new Date();
+    if (yogaClass.approved == false)
+      yogaClass.status = 'pending'
 
     await this.yogaService.saveClass(yogaClass, this.photoFile);
     this.resetYogaClassForm();
@@ -176,6 +156,30 @@ export class YogaClassDetails implements OnInit {
 
     this.router.navigate(['/teacher-dashboard/teacher-classes', this.teacherId]);
 
+  }
+
+  onTextValueChanged(yogaClass: YogaClassData, description: string) {
+    yogaClass.description = description;
+  }
+
+  onChallengeFilterChange(yogaClass: YogaClassData, filterOption: FilterChange) {
+    yogaClass.difficulty = filterOption.filterOption;
+  }
+
+  onDurationFilterChange(yogaClass: YogaClassData, filterOption: FilterChange) {
+    yogaClass.classLength = filterOption.filterOption;
+  }
+
+  onYogaStylesFilterChange(yogaClass: YogaClassData, filterOption: FilterChange) {
+    yogaClass.yogaStyle = filterOption.filterOption;
+  }
+
+  onTitleChange(yogaClass: YogaClassData, title: string) {
+    yogaClass.title = title;
+  }
+
+  onApproveCheckChange(yogaClass: YogaClassData, approved: boolean) {
+    yogaClass.approved = approved;
   }
 
   backToList() {

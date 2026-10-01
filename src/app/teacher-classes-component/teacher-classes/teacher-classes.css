@@ -24,12 +24,11 @@ header {
 .classes-container {
     flex-direction: column;
     display: flex;
-    gap: 20px;
+    gap: 15px;
     height: 1283px;
     background: #F7F8FA;
     border-radius: 20px 0px 0px 0px;
-    padding: 3%
-    ;
+    padding: 3%;
 }
 
 .class-container {
@@ -37,36 +36,23 @@ header {
     position: relative;
     width: 100%;
     max-width: 1107px;
+    max-height: 104px;
     background: rgba(113, 131, 215, 0.1);
     border: 1px solid #1F6B9A;
     border-radius: 10px;
-    padding: 24px;
+    padding: 10x;
     flex-direction: row;
     display: flex;
     gap: 20px;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     margin-left: 23px;
-}
-
-app-yoga-class {
-    flex: 1;
-    min-width: 0;
-}
-
-app-view-edit-button {
-    position: absolute;
-    top: 24px;
-    right: 24px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
 }
 
 video {
     position: relative;
     width: 178px;
-    height: 104px;
+    height: 100px;
     border-radius: 5px;
 }
 

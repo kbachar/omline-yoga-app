@@ -10,5 +10,6 @@ export interface YogaClassData {
   teacherName?: string;
   yogaStyleColor?: string;
   approved: boolean;
-  createDate?: Date
+  createDate?: Date;
+  status: string;
 }

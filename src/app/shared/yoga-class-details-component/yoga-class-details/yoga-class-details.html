@@ -1,5 +1,5 @@
 @if (yogaClass$ | async; as yogaClass) {
-<app-page-header [showBack]="(isAdmin | async) === true || yogaClass.approved === true"
+<app-page-header [showBack]="(isAdmin | async) === true || yogaClass.id != ''"
     [headerText]="headerText + yogaClass.title" [buttonText]="'save'" (backToListClick)="backToList()"
     (buttonClick)="save(yogaClass)"></app-page-header>
 <div class="container">
@@ -25,8 +25,7 @@
                 [savedOption]="yogaClass.difficulty" [readOnly]="(isAdmin | async) == true"
                 (filterChange)="onChallengeFilterChange(yogaClass, $event)"></app-yoga-classes-filter>
             <app-text-area [textAreaName]="'class description'" [textValue]="yogaClass.description" [textWidth]="500"
-                [textHeight]="250" (textValueChange)="onTextValueChanged(yogaClass, $event)"
-                [readOnly]="(isAdmin | async) == true"></app-text-area>
+                [textHeight]="250" (textValueChange)="onTextValueChanged(yogaClass, $event)"></app-text-area>
         </div>
         <div class="right-side">
             @if (isAdmin | async) {
@@ -52,16 +51,18 @@
                 <app-text-box [inputType]="'text'" [inputValue]="yogaClass.videoLink" [readonly]="true"></app-text-box>
             </div>
             }
-            @else {
+            @else if (yogaClass.videoLink == '') {
             <div class="upload-container">
                 <input #fileInput type="file" accept="video/*" hidden (change)="onSelectVideo($event)" />
                 <button (click)="fileInput.click()">upload video</button>
                 <label class="video-name">{{photoFile?.name}}</label>
             </div>
             <label class="or">or</label>
-            <app-text-box [inputType]="'text'" [placeholderValue]="'add video link'"
-                [textBoxWidth]="556"></app-text-box>
+            <app-text-box [inputType]="'text'" [placeholderValue]="'add video link'" [textBoxWidth]="565"></app-text-box>
 
+            }
+            @else {
+                <app-text-box [inputType]="'text'" [inputValue]="yogaClass.videoLink" [readonly]="true" [textBoxWidth]="565"></app-text-box>
             }
             @if (photoPreview()) {
             <video [src]="photoPreview()" controls></video>
@@ -72,7 +73,7 @@
             </div>
             }
 
-            @if (yogaClass.approved == true) {
+            @if (yogaClass.id != '') {
             <div class="labels-container">
                 <div class="start-label-container">
                     <label>Upload date:</label>
@@ -85,7 +86,7 @@
             }
         </div>
     </div>
-    @if (yogaClass.approved == true) {
+    @if (yogaClass.id != '') {
     <hr class="divider">
     <app-delete-component></app-delete-component>
     <!-- <img src="/assets/images/delete.png" (click)="showDeleteClass()">

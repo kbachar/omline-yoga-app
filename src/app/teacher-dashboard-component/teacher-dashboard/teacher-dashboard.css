@@ -6,7 +6,6 @@
 
 .content {
     min-height: 100%;
-    /* background: #9097AF; */
     border-radius: 12px;
     box-sizing: border-box;
 }
@@ -53,7 +52,7 @@ img {
 
 .side-bar {
     width: 285px;
-    min-height: 1000px;
+    min-height: 680px;
     background: #A6AECB;
     border-radius: 0px;
     padding-top: 60px;

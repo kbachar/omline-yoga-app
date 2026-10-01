@@ -6,11 +6,10 @@ import { YogaClassesService } from '../../services/yoga-classes-service';
 import { YogaClass } from '../../shared/yoga-class-component/yoga-class/yoga-class';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageHeader } from "../../shared/page-header-component/page-header/page-header";
-import { ViewEditButton } from '../../shared/view-edit-button-component/view-edit-button/view-edit-button';
 
 @Component({
   selector: 'app-teacher-classes',
-  imports: [AsyncPipe, YogaClass, PageHeader, ViewEditButton],
+  imports: [AsyncPipe, YogaClass, PageHeader],
   templateUrl: './teacher-classes.html',
   styleUrl: './teacher-classes.css',
 })

@@ -1,7 +1,20 @@
 @if (classData(); as yogaClass) {
 
 <div class="container">
-  <div class="class-name">{{ yogaClass.title }}</div>
+  @if (showViewEdit() == true) {
+  <div class="title-container">
+    <div class="yoga-style-color" [style.background-color]="yogaClass.yogaStyleColor"></div>
+    <div class="class-name">{{ yogaClass.title }}</div>
+    <div class="style-description">
+      {{yogaClass.yogaStyle}} {{yogaClass.difficulty}} {{showClassLength() ? yogaClass.classLength : ''}}
+    </div>
+    <div class="status">
+      {{yogaClass.status}}
+    </div>
+    <app-view-edit-button (viewEditButtonClick)="viewEditButtonClick()"></app-view-edit-button>
+  </div>
+  }
+  @else {
   <div class="minutes"></div>
   <div class="class-style-row">
     <div class="yoga-style-color" [style.background-color]="yogaClass.yogaStyleColor"></div>
@@ -9,7 +22,8 @@
       {{yogaClass.yogaStyle}} {{yogaClass.difficulty}} {{showClassLength() ? yogaClass.classLength : ''}}
     </div>
   </div>
-  <div class="class-description" [style.maxWidth.px]="descriptionWidth()">
+  }
+  <div class="class-description" [style.maxWidth.px]="descriptionWidth()" [style.maxHeight.px]="descriptionHeight()">
     {{yogaClass.description}}
   </div>
 </div>
