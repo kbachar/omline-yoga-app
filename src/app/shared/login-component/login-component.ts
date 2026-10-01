@@ -65,9 +65,8 @@ export class LoginComponent {
             const credential = await this.authService.login(this.email(), this.password());
 
             const uid = credential.user.uid;
-            const profile = await firstValueFrom(this.authService.getUserProfile(uid));
-
-            if (this.isAdminProfile(profile)) {
+            const isAdmin = await this.authService.isAdmin();
+            if (isAdmin) {
 
 
                 await this.router.navigate(['/admin-dashboard']);
@@ -82,19 +81,6 @@ export class LoginComponent {
         } finally {
             this.isSubmitting.set(false);
         }
-    }
-
-    private isAdminProfile(profile: unknown): boolean {
-        if (!profile || typeof profile !== 'object') {
-            return false;
-        }
-
-        const roles = (profile as Record<string, unknown>)['role'];
-        if (roles == 'admin') {
-            return true;
-        }
-
-        return false;
     }
 
     private getLoginErrorMessage(error: unknown): string {

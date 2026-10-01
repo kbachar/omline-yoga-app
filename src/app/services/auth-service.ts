@@ -79,16 +79,27 @@ export class AuthService {
     });
   }
 
-  getUserProfile(uid: string) {
-    if (!uid) {
-      return of(null);
-    }
+  getUserName(): Observable<string> {
+    return runInInjectionContext(this.injector, () => authState(this.auth)).pipe(
+      switchMap(user => {
+        if (!user?.uid) {
+          return of('none');
+        }
 
-    return from(
-      runInInjectionContext(this.injector, () => getDoc(doc(this.firestore, `users/${uid}`)))
-    ).pipe(
-      map((snapshot) => {
-        return snapshot.exists() ? (snapshot.data() as Record<string, unknown>) : null;
+        return from(
+          runInInjectionContext(this.injector, () =>
+            getDoc(doc(this.firestore, `users/${user.uid}`))
+          )
+        ).pipe(
+          map((snapshot) => {
+            if (!snapshot.exists()) {
+              return '';
+            }
+
+            const data = snapshot.data() as Record<string, unknown>;
+            return typeof data['Name'] === 'string' ? data['Name'] : '';
+          })
+        );
       })
     );
   }

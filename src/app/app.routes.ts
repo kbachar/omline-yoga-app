@@ -20,6 +20,7 @@ import { Email } from './Email-component/email/email';
 import { SelectedClasses } from './selected-classes-component/selected-classes/selected-classes';
 import { BeyondPracticePage } from './beyond-practice-page-component/beyond-practice-page/beyond-practice-page';
 import { TeacherHomePage } from './teacher-home-page-component/teacher-home-page/teacher-home-page';
+import { AdminHomePage } from './admin-home-page-component/admin-home-page/admin-home-page';
 
 export const routes: Routes = [
 	{
@@ -60,6 +61,7 @@ export const routes: Routes = [
 		canActivate: [authGuard],
 		component: AdminDashboard,
 		children: [
+			{ path: '', pathMatch: 'full', component: AdminHomePage },
 			{ path: 'teachers', component: TeachersComponent },
 			{ path: 'teacher-profile/:teacherId', component: TeacherProfile },
 			{ path: 'teacher-profile', component: TeacherProfile },

@@ -58,8 +58,6 @@ export class Teacher {
   private authService = inject(AuthService);
 
   uid$ = this.authService.getUserID();
-  profile$ = this.authService.getUserProfile(this.uid$)
-
   form = input.required<YogaTeacher>();
 
   protected handlePassword() {
