@@ -75,7 +75,8 @@
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: #c9dfec rgba(28, 90, 142, 0.1);
-  width: 1200px;
+  max-width: 1200px;
+  max-height: 165px;
 }
 
 .class-description::-webkit-scrollbar {
