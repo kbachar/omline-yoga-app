@@ -21,6 +21,7 @@ import { SelectedClasses } from './selected-classes-component/selected-classes/s
 import { BeyondPracticePage } from './beyond-practice-page-component/beyond-practice-page/beyond-practice-page';
 import { TeacherHomePage } from './teacher-home-page-component/teacher-home-page/teacher-home-page';
 import { AdminHomePage } from './admin-home-page-component/admin-home-page/admin-home-page';
+import { OurVisionPage } from './our-vision-page-component/our-vision-page/our-vision-page';
 
 export const routes: Routes = [
 	{
@@ -44,6 +45,9 @@ export const routes: Routes = [
 		component: BeyondPracticePage
 	},
 	{
+		path: 'our-vision-page',
+		component: OurVisionPage
+	},{
 		path: 'teacher-dashboard',
 		canActivate: [authGuard],
 		component: TeacherDashboard,
