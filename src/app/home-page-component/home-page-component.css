@@ -263,11 +263,16 @@ main {
 }
 
 .teachers-header-container {
-	width: 65%;
+	/* width: 65%; */
 	display: flex;
+	/* flex-direction: column; */
 	margin-left: auto;
 	margin-right: auto;
 	gap: 20px;
+	
+}
+
+.teachers-header {
 	justify-content: flex-start;
 	font-family: 'Cinzel Decorative';
 	font-style: normal;
@@ -276,13 +281,18 @@ main {
 	text-align: center;
 	text-transform: capitalize;
 	color: #101E52;
-}
-
-.teachers-header {
 	font-weight: 400;
 }
 
 .teachers-header-bold {
+	justify-content: flex-start;
+	font-family: 'Cinzel Decorative';
+	font-style: normal;
+	font-size: 50px;
+	line-height: 70px;
+	text-align: center;
+	text-transform: capitalize;
+	color: #101E52;
 	font-weight: 700;
 }
 
@@ -352,7 +362,6 @@ main {
 	align-items: flex-start;
 	justify-content: center;
 	margin-bottom: 30px;
-	/* max-height: 505px; */
 }
 
 .vision-title {
@@ -387,7 +396,7 @@ main {
 	line-height: 30px;
 	text-transform: capitalize;
 	color: #243376;
-	max-width: 962px;
+	max-width: 762px;
 }
 
 .teachers-main-vision button {
