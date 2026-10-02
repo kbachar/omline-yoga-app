@@ -30,8 +30,10 @@ export class ClassesNavbar implements OnInit {
   protected classesNavbarClick(page: YogaStyleId): void {
     console.log('page is ' + page)
 
-    if (page != 'beyond')
+    if (page != 'beyond') {
+      this.router.navigate(['/classes' + page]);
       this.onClassesNavbarClick.emit(page);
+    }
     else
       this.router.navigate(['/beyond-practice-page']);
   }

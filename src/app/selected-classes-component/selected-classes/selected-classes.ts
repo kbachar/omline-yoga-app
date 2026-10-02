@@ -38,10 +38,6 @@ export class SelectedClasses implements OnInit {
     this.classes$ = this.yogaService.getClassByIDs(this.classesIds);
   }
 
-  protected classesNavbarClick(page: YogaStyleId): void {
-    this.router.navigate(['/classes', page]);
-  }
-
   async back() {
     const page = await this.yogaStyleId();
     this.router.navigate(['/classes', page], {

@@ -23,16 +23,8 @@ header {
     line-height: 70px;
     text-transform: capitalize;
     color: #243376;
-}
-
-.vision-container {
     display: flex;
-    justify-content: center;
-    gap: 100px;
-}
-
-.vision-container img {
-    align-self: self-start;
+    align-self: center;
 }
 
 .vision-description-container {
@@ -61,4 +53,23 @@ header {
     line-height: 30px;
     text-transform: capitalize;
     color: #243376;
+}
+
+.vision-img {
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 50px;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    color: #243376;
+    padding-bottom: 50px;
 }

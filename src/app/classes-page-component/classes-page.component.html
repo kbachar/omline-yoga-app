@@ -1,8 +1,7 @@
 @if (yogaStyle$ | async; as yogaStyle) {
 <app-main-header></app-main-header>
 
-<app-classes-navbar [yogaStyleId]="yogaStyle.id"
-  (onClassesNavbarClick)="classesNavbarClick($event)"></app-classes-navbar>
+<app-classes-navbar [yogaStyleId]="yogaStyle.id" (onClassesNavbarClick)="classesNavbarClick($event)"></app-classes-navbar>
 
 <section class="classes-page">
   <main class="classes-main" [style.background-color]="yogaStyle.classesBodyBackgroundColor">
