@@ -3,26 +3,21 @@
     position: relative;
     width: 716px;
     height: 336px;
-    background: #F4FDFF;
-    border: 1px solid #243376;
     border-radius: 10px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 30px;
-    cursor: pointer;
+    align-items: center;
 }
 
 .subscribe-thanks-container {
     box-sizing: border-box;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: flex-end;
     gap: 20px;
     position: relative;
     margin: 0 auto;
+    margin-right: 20px;
     text-align: center;
 }
 
@@ -40,24 +35,28 @@
     color: #2148C8;
 }
 
-.subscribe-thanks-message {
-width: 656px;
-height: 17px;
-
-font-family: 'Mona Sans';
-font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 0px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-transform: capitalize;
-gap: 30px;
-color: #243376;
-
-
-
+button {
+    background: #78BDDC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 409px;
+    height: 60px;
+    font-family: 'Mona Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    cursor: pointer;
 }
 
+img {
+    margin-right: 40px;
+    margin-left: 20px;
+
+}
