@@ -61,13 +61,14 @@
 .yoga-style-description {
   width: auto;
   height: 207px;
-
+  min-width: 1129px;
   font-family: 'Raleway';
   font-style: normal;
   font-weight: 300;
   font-size: 20px;
   line-height: 30px;
-  /* or 150% */
+
+
   letter-spacing: 0.02em;
   text-transform: capitalize;
   color: #F8F8FF;

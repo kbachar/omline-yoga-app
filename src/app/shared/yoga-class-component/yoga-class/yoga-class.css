@@ -74,28 +74,26 @@
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
-  scrollbar-color: #c9dfec rgba(28, 90, 142, 0.1);
+  scrollbar-color: #c9dfec transparent;
   max-width: 1200px;
   max-height: 165px;
+  padding-bottom: 10px;
+  margin-top: 10px;
 }
 
 .class-description::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .class-description::-webkit-scrollbar-track {
-  background: rgba(28, 90, 142, 0.1);
-  border-radius: 4px;
+  background: transparent;
 }
 
 .class-description::-webkit-scrollbar-thumb {
   background: #1F6B9A;
-  border-radius: 4px;
-  border: 2px solid transparent;
-  background-clip: content-box;
+  border-radius: 999px;
 }
 
 .class-description::-webkit-scrollbar-thumb:hover {
   background: #101C50;
-  background-clip: content-box;
 }

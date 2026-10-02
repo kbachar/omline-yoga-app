@@ -71,7 +71,9 @@
             <div class="teacher-name">{{ classItem.teacherName}}</div>
             <div class="yoga-class-time">{{classItem.classLength}}</div>
           </div>
-          <app-yoga-class [classData]="classItem" [descriptionWidth]="361" [showClassLength]="false"></app-yoga-class>
+          <app-yoga-class [classData]="classItem" [descriptionWidth]="361" [descriptionHeight]="80"
+            [showClassLength]="false"></app-yoga-class>
+            <button>add to list</button>
         </div>
         }
       </div>
