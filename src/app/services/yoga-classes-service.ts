@@ -95,7 +95,8 @@ const EMPTY_YOGA_CLASS: YogaClassData = {
   videoLink: '',
   yogaStyle: '',
   approved: false,
-  status: ''
+  status: '',
+  errorMessage: ''
 };
 
 @Injectable({
@@ -172,7 +173,9 @@ export class YogaClassesService {
       map((snapshot) =>
         snapshot.docs.map((doc) => {
           const data = doc.data() as Partial<YogaClassData>;
-          const rawCreateDate = (data as { createDate?: Date | { toDate: () => Date } }).createDate;
+          const timestamp = (data as { createDate?: Date | { toDate: () => Date } }).createDate;
+          const createDate = timestamp instanceof Date ? timestamp : timestamp?.toDate().toDateString();
+          //console.log('createDate - ', createDate);
           const theme = STYLE_THEME[(data.yogaStyle?.toLowerCase() as YogaStyleId)];
           return {
             id: data.id ?? doc.id,
@@ -185,7 +188,8 @@ export class YogaClassesService {
             yogaStyle: data.yogaStyle,
             approved: data.approved,
             status: data.status ?? '',
-            createDate: rawCreateDate instanceof Date ? rawCreateDate : rawCreateDate?.toDate(),
+            errorMessage: data.errorMessage ?? '',
+            createDate,
             yogaStyleColor: theme?.headerBackgroundColor
           } as YogaClassData;
         })

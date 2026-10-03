@@ -12,4 +12,5 @@ export interface YogaClassData {
   approved: boolean;
   createDate?: Date;
   status: string;
+  errorMessage: string;
 }

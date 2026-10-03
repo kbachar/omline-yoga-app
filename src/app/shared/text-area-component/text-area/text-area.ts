@@ -11,6 +11,7 @@ export class TextArea {
   readonly textValue = input<string>('');
   readonly textValueChange = output<string>();
   readonly textWidth = input<number>();
+  readonly textColor = input<string>();
   readonly textHeight = input<number>();
   readonly readOnly = input<boolean>(false);
   readonly showLogo = input<boolean>(false);

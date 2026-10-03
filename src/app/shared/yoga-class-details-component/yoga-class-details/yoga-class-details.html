@@ -25,7 +25,8 @@
                 [savedOption]="yogaClass.difficulty" [readOnly]="(isAdmin | async) == true"
                 (filterChange)="onChallengeFilterChange(yogaClass, $event)"></app-yoga-classes-filter>
             <app-text-area [textAreaName]="'class description'" [textValue]="yogaClass.description" [textWidth]="500"
-                [textHeight]="250" (textValueChange)="onTextValueChanged(yogaClass, $event)"></app-text-area>
+                [textHeight]="250" (textValueChange)="onTextValueChanged(yogaClass, $event)"
+                [readOnly]="(isAdmin | async) == true"></app-text-area>
         </div>
         <div class="right-side">
             @if (isAdmin | async) {
@@ -53,16 +54,18 @@
             }
             @else if (yogaClass.videoLink == '') {
             <div class="upload-container">
-                <input #fileInput type="file" accept="video/*" hidden (change)="onSelectVideo($event)" />
+                <input #fileInput type="file" hidden (change)="onSelectVideo($event)" />
                 <button (click)="fileInput.click()">upload video</button>
                 <label class="video-name">{{photoFile?.name}}</label>
             </div>
             <label class="or">or</label>
-            <app-text-box [inputType]="'text'" [placeholderValue]="'add video link'" [textBoxWidth]="565"></app-text-box>
+            <app-text-box [inputType]="'text'" [placeholderValue]="'add video link'"
+                [textBoxWidth]="565"></app-text-box>
 
             }
             @else {
-                <app-text-box [inputType]="'text'" [inputValue]="yogaClass.videoLink" [readonly]="true" [textBoxWidth]="565"></app-text-box>
+            <app-text-box [inputType]="'text'" [inputValue]="yogaClass.videoLink" [readonly]="true"
+                [textBoxWidth]="565"></app-text-box>
             }
             @if (photoPreview()) {
             <video [src]="photoPreview()" controls></video>
@@ -77,7 +80,7 @@
             <div class="labels-container">
                 <div class="start-label-container">
                     <label>Upload date:</label>
-                    <label class="date">{{ yogaClass.createDate | date:'dd/MM/yyyy' }}</label>
+                    <label class="date">{{ yogaClass.createDate }}</label>
                 </div>
                 <div class="end-label-container">
                     <label>number of views</label>
@@ -87,11 +90,17 @@
         </div>
     </div>
     @if (yogaClass.id != '') {
+    @if ((isAdmin | async) || (yogaClass.errorMessage != '')) {
+    <div class="error-message">
+        <app-text-area [textWidth]="1000" [textAreaName]="'Enter error messages'" [textColor]="'red'"
+            [textValue]="yogaClass.errorMessage" [readOnly]="(isAdmin | async) !== true"
+            (textValueChange)="errorMessageChanged($event, yogaClass)"></app-text-area>
+    </div>
+    }
     <hr class="divider">
-    <app-delete-component></app-delete-component>
-    <!-- <img src="/assets/images/delete.png" (click)="showDeleteClass()">
-    <app-delete-class-message [isOpen]="isDeleteModalOpen()"
-        (Click)="deleteClass(yogaClass, $event)"></app-delete-class-message> -->
+    <img class="delete-img" src="/assets/images/delete.png" (click)="showDeleteClass()">
+    <app-delete-message [itemName]="'class'" [isOpen]="isDeleteModalOpen()"
+        (messageClick)="deleteClass(yogaClass, $event)"></app-delete-message>
     }
 </div>
 

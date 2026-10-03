@@ -218,5 +218,19 @@ button {
 
 .check-box {
     margin-bottom: 20px;
+}
 
+.error-message {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.delete-img {
+    width: 100px;
+    margin-left: 100px;
+    margin-top: 20PX;
+    margin-bottom: 20PX;
+    cursor: pointer;
+    padding: 2px; 
 }

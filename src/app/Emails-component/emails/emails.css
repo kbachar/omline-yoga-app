@@ -25,9 +25,95 @@ table {
     table-layout: fixed;
 }
 
+.row-number-column {
+    width: 50px;
+}
+
+.date-column {
+    width: 80px;
+}
+
+.actions-column {
+    width: 80px;
+}
+
+.trash-column {
+    width: 25px;
+}
+
 
 .emails-table tr {
     height: 46px;
+}
+
+.emails-table th {
+    text-align: start;
+    position: relative;
+}
+
+.sort-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: start;
+    text-transform: inherit;
+    cursor: pointer;
+}
+
+.sort-button:focus-visible,
+.column-resizer:focus-visible {
+    outline: 2px solid #1f97cd;
+    outline-offset: 2px;
+}
+
+.emails-table th[aria-sort="ascending"] .sort-button::after {
+    content: "\25B2";
+    font-size: 10px;
+}
+
+.emails-table th[aria-sort="descending"] .sort-button::after {
+    content: "\25BC";
+    font-size: 10px;
+}
+
+.column-resizer {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    bottom: 6px;
+    width: 10px;
+    cursor: col-resize;
+    touch-action: none;
+}
+
+.column-resizer::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 4px;
+    width: 2px;
+    background: #aab7c4;
+    content: "";
+}
+
+.column-resizer:hover::after {
+    background: #1f97cd;
+}
+
+.emails-table th:nth-child(2),
+.emails-table td:nth-child(2),
+.emails-table th:nth-child(3),
+.emails-table td:nth-child(3),
+.emails-table th:nth-child(4),
+.emails-table td:nth-child(4) {
+    overflow: hidden;
 }
 
 .emails-table .unread-row td, th {
@@ -52,14 +138,17 @@ table {
     text-overflow: ellipsis;
 }
 
-.emails-table th:nth-child(4),
-.emails-table td:nth-child(4) {
-    text-align: center;
+.emails-table td:first-child {
+    font-weight: 700;
+}
+
+.emails-table td:nth-child(6),
+.emails-table td:nth-child(6) img {
+    cursor: pointer;
 }
 
 .emails-table th:first-child, 
 .emails-table td:first-child {
-    width: 50px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }

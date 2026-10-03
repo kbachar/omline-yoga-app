@@ -1,12 +1,22 @@
 <div class="container">
     <app-page-header [headerText]="'Our Yoga Classes'" [showButton]="false"></app-page-header>
     <div class="classes-container">
-        @if (classes$ | async; as classes) {
+        @if (classes(); as classes) {
         <table>
+            <thead>
+                <tr>
+                    <th scope="col" [attr.aria-sort]="sortColumn() === 'title' ? sortDirection() : 'none'"><button type="button" class="sort-button" (click)="sortBy('title')">title</button></th>
+                    <th scope="col" [attr.aria-sort]="sortColumn() === 'yogaStyle' ? sortDirection() : 'none'"><button type="button" class="sort-button" (click)="sortBy('yogaStyle')">yoga style</button></th>
+                    <th scope="col" [attr.aria-sort]="sortColumn() === 'difficulty' ? sortDirection() : 'none'"><button type="button" class="sort-button" (click)="sortBy('difficulty')">difficulty</button></th>
+                    <th scope="col" [attr.aria-sort]="sortColumn() === 'classLength' ? sortDirection() : 'none'"><button type="button" class="sort-button" (click)="sortBy('classLength')">duration</button></th>
+                    <th scope="col" [attr.aria-sort]="sortColumn() === 'approved' ? sortDirection() : 'none'"><button type="button" class="sort-button" (click)="sortBy('approved')">approved</button></th>
+                    <th scope="col" [attr.aria-sort]="sortColumn() === 'status' ? sortDirection() : 'none'"><button type="button" class="sort-button" (click)="sortBy('status')">status</button></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
             <tbody>
-                @for (class of classes; track class) {
+                @for (class of sortedClasses(); track class.id) {
                     <tr [class.is-approved]="class.approved === true">
-                        <td>#</td>
                         <td>{{class.title}}</td>
                         <td>{{class.yogaStyle}}</td>
                         <td>{{class.difficulty}}</td>

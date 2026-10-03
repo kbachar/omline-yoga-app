@@ -1,5 +1,5 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { YogaClassData } from '../../yoga-class-data';
 import { YogaClassesService } from '../../../services/yoga-classes-service';
 import { map, Observable, of, switchMap, tap } from 'rxjs';
@@ -12,9 +12,9 @@ import { TextArea } from "../../text-area-component/text-area/text-area";
 import { ToggleSetting } from "../../toggle-setting-component/toggle-setting/toggle-setting";
 import { AuthService } from '../../../services/auth-service';
 import { CheckBox } from '../../check-box-component/check-box/check-box';
-import { DeleteComponent } from "../../delete-component-component/delete-component/delete-component";
 import { YogaTeacher } from '../../yoga-teacher-data';
 import { FilterChange } from '../../filter-change-data';
+import { DeleteMessage } from '../../delete-message-component/delete-message/delete-message';
 
 const createEmptyYogaClass = (): YogaClassData => ({
   id: '',
@@ -25,17 +25,18 @@ const createEmptyYogaClass = (): YogaClassData => ({
   videoLink: '',
   yogaStyle: '',
   approved: false,
-  status: ''
+  status: '',
+  errorMessage: ''
 });
 
 @Component({
   selector: 'app-yoga-class-details',
-  imports: [AsyncPipe, DatePipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, CheckBox, DeleteComponent],
+  imports: [AsyncPipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, CheckBox, DeleteMessage],
   templateUrl: './yoga-class-details.html',
   styleUrl: './yoga-class-details.css',
 })
 
-export class YogaClassDetails implements OnInit {
+export class YogaClassDetails implements OnInit, OnDestroy {
   yogaClass$: Observable<YogaClassData | undefined> | undefined;
   teacher$: Observable<YogaTeacher | undefined> | undefined;
   private teacherId = '';
@@ -61,7 +62,7 @@ export class YogaClassDetails implements OnInit {
         classId ? this.yogaService.getClassByID(classId) : of(createEmptyYogaClass())
       ),
       tap((yogaClass) => {
-
+        //console.log(JSON.stringify(yogaClass))
         this.teacherId = yogaClass?.teacherId ?? this.auth.getUserID();
         if (yogaClass?.videoLink) {
           this.photoPreview.set(yogaClass?.videoLink)
@@ -82,6 +83,18 @@ export class YogaClassDetails implements OnInit {
     );
   }
 
+  showDeleteClass() {
+    this.isDeleteModalOpen.set(true);
+  }
+
+  ngOnDestroy(): void {
+    this.revokePhotoPreviewUrl();
+  }
+
+  errorMessageChanged(message: string, yogaClass: YogaClassData) {
+    yogaClass.errorMessage = message;
+  }
+
   viewTeacher(teacherId: string) {
     this.router.navigate(['/admin-dashboard/teacher-profile', teacherId]);
   }
@@ -89,7 +102,7 @@ export class YogaClassDetails implements OnInit {
   sendEmail(teacher: YogaTeacher, yogaClass: YogaClassData) {
     if (yogaClass.approved == false)
       yogaClass.status = 'pending'
-    
+
     this.router.navigate(['/admin-dashboard/email'], {
       queryParams: {
         title: 'class to approve - ' + yogaClass.title,
@@ -108,31 +121,26 @@ export class YogaClassDetails implements OnInit {
 
     const file = input.files[0];
 
-    if (!file.type.startsWith('video/')) {
+    if (!file.type.startsWith('video/') && !file.name.toLowerCase().endsWith('.mp4')) {
       alert('Please select a video');
       input.value = '';
       return;
     }
 
+    this.revokePhotoPreviewUrl();
     this.photoFile = file;
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.photoPreview.set(reader.result as string);
-    };
-
-    reader.readAsDataURL(file);
+    this.photoPreview.set(URL.createObjectURL(file));
   }
-
-  uploadVideo() {
-
-  }
-
+  
   async save(yogaClass: YogaClassData) {
-
+    //console.log(this.photoFile)
     yogaClass.teacherId = this.teacherId;
     yogaClass.createDate = new Date();
-    if (yogaClass.approved == false)
-      yogaClass.status = 'pending'
+    const isAdmin = await this.isAdmin;
+    if (isAdmin && yogaClass.approved == false && yogaClass.errorMessage.length > 0)
+      yogaClass.status = 'see remarks';
+    else if (!isAdmin && yogaClass.id == '')
+      yogaClass.status = 'waiting for approval'
 
     await this.yogaService.saveClass(yogaClass, this.photoFile);
     this.resetYogaClassForm();
@@ -142,9 +150,7 @@ export class YogaClassDetails implements OnInit {
         this.router.navigate(['/admin-dashboard/videos']);
       else
         this.router.navigate(['/teacher-dashboard/teacher-classes', this.teacherId]);
-
     })
-
   }
 
   async deleteClass(yogaClass: YogaClassData, remove: boolean) {
@@ -152,10 +158,8 @@ export class YogaClassDetails implements OnInit {
 
     if (remove == true) {
       await this.yogaService.deleteYogaClass(yogaClass)
+      this.router.navigate(['/teacher-dashboard/teacher-classes', this.teacherId]);
     }
-
-    this.router.navigate(['/teacher-dashboard/teacher-classes', this.teacherId]);
-
   }
 
   onTextValueChanged(yogaClass: YogaClassData, description: string) {
@@ -200,8 +204,16 @@ export class YogaClassDetails implements OnInit {
   private resetYogaClassForm(): void {
     this.yogaClass$ = of(createEmptyYogaClass());
     this.photoFile = null;
+    this.revokePhotoPreviewUrl();
     this.photoPreview.set('');
     this.headerText = 'upload class ';
+  }
+
+  private revokePhotoPreviewUrl(): void {
+    const previewUrl = this.photoPreview();
+    if (previewUrl.startsWith('blob:')) {
+      URL.revokeObjectURL(previewUrl);
+    }
   }
 
 }

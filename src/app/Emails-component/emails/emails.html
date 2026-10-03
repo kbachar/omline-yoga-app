@@ -1,34 +1,72 @@
 <app-page-header [headerText]="'our emails'" [buttonText]="'+ new email'" (buttonClick)="addEmail()"></app-page-header>
 <div class="emails-container">
     <table class="emails-table">
+        <colgroup>
+            <col class="row-number-column">
+            <col [style.width.px]="columnWidths().from">
+            <col [style.width.px]="columnWidths().recipients">
+            <col [style.width.px]="columnWidths().title">
+            <col class="date-column">
+            <col class="trash-column">
+            <col class="actions-column">
+        </colgroup>
         <thead>
-            <th>#</th>
-            <th>from</th>
-            <th>to</th>
-            <th>date</th>
-            <th>title</th>
-            <th></th>
+            <tr>
+                <th scope="col" [attr.aria-sort]="sortColumn() === 'origin' ? sortDirection() : 'none'">
+                    <button type="button" class="sort-button" aria-label="Sort by email origin"
+                        (click)="sortBy('origin')">#</button>
+                </th>
+                <th scope="col" [attr.aria-sort]="sortColumn() === 'from' ? sortDirection() : 'none'">
+                    <button type="button" class="sort-button" (click)="sortBy('from')">from</button>
+                    <span class="column-resizer" role="separator" aria-label="Resize From column"
+                        aria-orientation="vertical" tabindex="0" [attr.aria-valuenow]="columnWidths().from"
+                        aria-valuemin="80" aria-valuemax="700" (pointerdown)="startColumnResize($event, 'from')"
+                        (pointermove)="resizeColumn($event)" (pointerup)="stopColumnResize($event)"
+                        (pointercancel)="stopColumnResize($event)"
+                        (keydown)="resizeColumnWithKeyboard($event, 'from')"></span>
+                </th>
+                <th scope="col" [attr.aria-sort]="sortColumn() === 'recipients' ? sortDirection() : 'none'">
+                    <button type="button" class="sort-button" (click)="sortBy('recipients')">to</button>
+                    <span class="column-resizer" role="separator" aria-label="Resize To column"
+                        aria-orientation="vertical" tabindex="0" [attr.aria-valuenow]="columnWidths().recipients"
+                        aria-valuemin="80" aria-valuemax="700" (pointerdown)="startColumnResize($event, 'recipients')"
+                        (pointermove)="resizeColumn($event)" (pointerup)="stopColumnResize($event)"
+                        (pointercancel)="stopColumnResize($event)"
+                        (keydown)="resizeColumnWithKeyboard($event, 'recipients')"></span>
+                </th>
+                <th scope="col" [attr.aria-sort]="sortColumn() === 'title' ? sortDirection() : 'none'">
+                    <button type="button" class="sort-button" (click)="sortBy('title')">title</button>
+                    <span class="column-resizer" role="separator" aria-label="Resize Title column"
+                        aria-orientation="vertical" tabindex="0" [attr.aria-valuenow]="columnWidths().title"
+                        aria-valuemin="80" aria-valuemax="700" (pointerdown)="startColumnResize($event, 'title')"
+                        (pointermove)="resizeColumn($event)" (pointerup)="stopColumnResize($event)"
+                        (pointercancel)="stopColumnResize($event)"
+                        (keydown)="resizeColumnWithKeyboard($event, 'title')"></span>
+                </th>
+                <th scope="col" [attr.aria-sort]="sortColumn() === 'updatedAt' ? sortDirection() : 'none'">
+                    <button type="button" class="sort-button" (click)="sortBy('updatedAt')">date</button>
+                </th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
         </thead>
         <tbody>
-            @if (emails$ | async; as emails) {
-            @for (email of emails; track email.id; let index = $index) {
+            @for (email of sortedEmails(); track email.id) {
             <tr [class.unread-row]="email.read === false">
-                <td>{{ index + 1 }}</td>
+                <td>{{setEmailOrigin(email)}}</td>
                 <td>{{ email.from }}</td>
                 <td>{{ email.recipients.join('; ') }}</td>
-                <td>{{ email.updatedAt | date:'dd/MM/yy' }}</td>
                 <td>{{ email.title }}</td>
+                <td>{{ email.updatedAt | date:'dd/MM/yy' }}</td>
+                <td>
+                    <img src="/assets/images/trash.png" (click)="deleteEmail(email)">
+                </td>
                 <td>
                     <app-view-edit-button (viewEditButtonClick)="onViewEditClick(email.id)">
                     </app-view-edit-button>
                 </td>
-                <!-- @if (email.from != "support@yoga-om-line.com") {
-                    <td>
-                        <button>Mark as unread</button>
-                    </td>
-                } -->
             </tr>
-            }}
+            }
         </tbody>
     </table>
 </div>

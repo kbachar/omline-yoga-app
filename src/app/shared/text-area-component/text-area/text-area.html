@@ -5,10 +5,11 @@
     </div>
     }
     <textarea [readOnly]="readOnly()" [style.height.px]="textHeight() ?? null" [style.width.px]="textWidth() ?? null"
-        [value]="textValue()" [placeholder]="textAreaName() ?? ''" (input)="onInput($event)"></textarea>
+        [style.color]="textColor() ?? null" [value]="textValue()" [placeholder]="textAreaName() ?? ''"
+        (input)="onInput($event)" required></textarea>
     @if (image()) {
     <div class="image">
         <img [src]="image() ?? ''">
-        </div>
+    </div>
     }
 </div>
