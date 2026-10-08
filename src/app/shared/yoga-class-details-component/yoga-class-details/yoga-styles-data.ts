@@ -3,7 +3,8 @@ export const yogaStyles = [
     'vinyasa',
     'ashtanga',
     'all',
-    'beyond'
+    'beyond',
+    'teachers'
   ]
   
   export const durations = [

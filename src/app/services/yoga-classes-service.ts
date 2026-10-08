@@ -83,6 +83,19 @@ const STYLE_THEME: Record<YogaStyleId, YogaStyleDescription> = {
     classesBodyBackgroundColor: '#DEE8F2',
     defaultSrc: '/assets/images/beyond-main1.png',
     hoverSrc: '/assets/images/beyond-main2.png'
+  },
+  teachers: {
+    id: 'teachers',
+    title: 'our teachers',
+    description: '',
+    innerDescription: 'Meet our yoga teachers from around the world, bringing their unique style, experience, and approach to the mat. Explore their classes, discover new perspectives, and find the teacher who inspires your yoga journey.',
+    yogaImg: '/assets/images/teachers1.png',
+    yogaImgHover: '/assets/images/teachers2.png',
+    headerBackgroundImage: "url('/assets/images/teachers-background.png')",
+    headerBackgroundColor: '#3994D0',
+    classesBodyBackgroundColor: '#96C2DD',
+    defaultSrc: '',
+    hoverSrc: ''
   }
 };
 
