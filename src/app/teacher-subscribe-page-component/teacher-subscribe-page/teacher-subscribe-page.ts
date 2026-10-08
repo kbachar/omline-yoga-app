@@ -6,6 +6,7 @@ import { SubscribeThanks } from "../../subscribe-thanks-component/subscribe-than
 import { AuthService } from '../../services/auth-service';
 import { MainHeader } from '../../shared/main-header-component/main-header/main-header';
 import { Observable, tap } from 'rxjs';
+import { YogaClassesService } from '../../services/yoga-classes-service';
 
 @Component({
   selector: 'app-teacher-subscribe-page',
@@ -31,6 +32,7 @@ export class TeacherSubscribePage implements OnInit {
   };
 
   private authService = inject(AuthService);
+  private yogaService = inject(YogaClassesService);
   password: string = '';
   role$!: Observable<string>;
 
@@ -49,7 +51,13 @@ export class TeacherSubscribePage implements OnInit {
   }
 
   protected async subscribe() {
-    await this.authService.subscribe(this.yogaTeacherData?.fullName, this.yogaTeacherData?.email, this.password, 'teacher');
+    console.log('password is - ' + this.password)
+    const userId = await this.authService.subscribe(this.yogaTeacherData?.fullName, this.yogaTeacherData?.email, this.password, 'teacher');
+    this.yogaTeacherData.approved = false;
+    this.yogaTeacherData.status = 'subscribed';
+    this.yogaTeacherData.teacherID = userId;
+    console.log('yogaTeacherData - ' + JSON.stringify(this.yogaTeacherData))
+    await this.yogaService.saveTeacher(this.yogaTeacherData);
   }
 
   protected onTeacherDataChange(data: YogaTeacher): void {

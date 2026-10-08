@@ -14,7 +14,7 @@ import { AuthService } from '../../../services/auth-service';
 import { CheckBox } from '../../check-box-component/check-box/check-box';
 import { YogaTeacher } from '../../yoga-teacher-data';
 import { FilterChange } from '../../filter-change-data';
-import { DeleteMessage } from '../../delete-message-component/delete-message/delete-message';
+import { MessageComponent } from '../../message-component-component/message-component/message-component';
 
 const createEmptyYogaClass = (): YogaClassData => ({
   id: '',
@@ -31,7 +31,7 @@ const createEmptyYogaClass = (): YogaClassData => ({
 
 @Component({
   selector: 'app-yoga-class-details',
-  imports: [AsyncPipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, CheckBox, DeleteMessage],
+  imports: [AsyncPipe, TextBox, PageHeader, YogaClassesFilter, TextArea, ToggleSetting, CheckBox, MessageComponent],
   templateUrl: './yoga-class-details.html',
   styleUrl: './yoga-class-details.css',
 })
@@ -44,6 +44,7 @@ export class YogaClassDetails implements OnInit, OnDestroy {
   readonly durations = durations;
   readonly challengeLevels = challengeLevels;
   protected readonly isDeleteModalOpen = signal(false);
+  protected readonly isSaveModalOpen = signal(false);
   private yogaService = inject(YogaClassesService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -133,7 +134,7 @@ export class YogaClassDetails implements OnInit, OnDestroy {
   }
   
   async save(yogaClass: YogaClassData) {
-    //console.log(this.photoFile)
+    this.isSaveModalOpen.set(true);
     yogaClass.teacherId = this.teacherId;
     yogaClass.createDate = new Date();
     const isAdmin = await this.isAdmin;
@@ -144,6 +145,7 @@ export class YogaClassDetails implements OnInit, OnDestroy {
 
     await this.yogaService.saveClass(yogaClass, this.photoFile);
     this.resetYogaClassForm();
+    this.isSaveModalOpen.set(false);
 
     this.isAdmin.then((isAdmin) => {
       if (isAdmin)

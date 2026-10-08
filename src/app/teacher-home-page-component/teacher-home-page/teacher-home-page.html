@@ -1,6 +1,16 @@
-@if (user$ | async; as teacher) {
+@if (teacher$ | async; as teacher) {
 <app-page-header [headerText]="'welcome ' + teacher.fullName" [showButton]="false"></app-page-header>
 <div class="container">
-	
+    <div class="messages-container">
+        @if (teacher.approved == false) {
+        @if (teacher.description.length > 100 && teacher.photo != '') {
+        <app-message-component [isOpen]="true" [border]="'1px solid #CAD7DC'"
+            [messageText]="'Thank you! your details are reviewed and will be approved shortly'"></app-message-component>
+        }
+        @else if (teacher.approved == false) {
+        <app-message-component [isOpen]="true" [border]="'1px solid #CAD7DC'"
+            [messageText]="'Please complete filling Your details in your personal profile to continue.  '"></app-message-component>
+        }}
+    </div>
 </div>
 }

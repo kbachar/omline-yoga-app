@@ -79,6 +79,11 @@ export class Teacher {
     this.teacherDataChange.emit(teacher);
   }
 
+  onCountryChange(teacher: YogaTeacher, country: string) {
+    teacher.country = country;
+    this.teacherDataChange.emit(teacher);
+  }
+  
   protected passwordIconSrc(): string {
     return this.isPasswordVisible()
       ? '/assets/images/show-password.png'

@@ -54,6 +54,7 @@ video {
     width: 178px;
     height: 100px;
     border-radius: 5px;
+    padding: 10px;
 }
 
 .class-container>img {

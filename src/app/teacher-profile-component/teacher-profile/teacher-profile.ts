@@ -44,9 +44,9 @@ export class TeacherProfile implements OnInit {
       }),
       switchMap((teacherId) => this.yogaService.getTeacher(teacherId)),
       tap((profile) => {
-        //console.log('profile = ' + JSON.stringify(profile))
         this.description$ = profile.description;
-        this.photoPreview.set(profile.photo);
+        if (profile.photo != '')
+          this.photoPreview.set(profile.photo);
       }),
       shareReplay({ bufferSize: 1, refCount: true })
     );
@@ -116,7 +116,7 @@ export class TeacherProfile implements OnInit {
 
   async save(teacher: YogaTeacher): Promise<void> {
     const admin = await this.isAdmin$;
-    if (admin) {
+    if (admin && teacher.teacherID == '') {
       const teacherInvite: TeacherInvite = {
         id: '',
         email: teacher.email,
@@ -136,6 +136,7 @@ export class TeacherProfile implements OnInit {
         description: this.description$ || teacher.description || ''
       };
       await this.yogaService.saveTeacher(teacherToSave, this.photoFile);
+      this.router.navigate(['/admin-dashboard/teachers']);
     }
   }
 

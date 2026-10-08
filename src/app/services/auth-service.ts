@@ -24,8 +24,8 @@ export class AuthService {
     return runInInjectionContext(this.injector, () => signOut(this.auth));
   }
 
-  async subscribe(fullName:string, email: string, password: string, role: string) {
-    await runInInjectionContext(this.injector, async () => {
+  async subscribe(fullName:string, email: string, password: string, role: string): Promise<string> {
+    return runInInjectionContext(this.injector, async () => {
       const credential = await createUserWithEmailAndPassword(
         this.auth,
         email,
@@ -43,22 +43,22 @@ export class AuthService {
         )
       );
 
-      await runInInjectionContext(this.injector, async () => {
-        const teacherPayload = {
-          password: password,
-          userId: credential.user.uid,
-          status: 'pending',
-          createdAt: serverTimestamp()
-        };
+      return credential.user.uid;
 
-        console.table(teacherPayload);
+      // await runInInjectionContext(this.injector, async () => {
+      //   const teacherPayload = {
+      //     password: password,
+      //     userId: credential.user.uid,
+      //     status: 'pending',
+      //     createdAt: serverTimestamp()
+      //   };
 
-        await setDoc(
-          doc(this.firestore, `teachers/${credential.user.uid}`),
-          teacherPayload,
-          { merge: true }
-        );
-      });
+      //   await setDoc(
+      //     doc(this.firestore, `teachers/${credential.user.uid}`),
+      //     teacherPayload,
+      //     { merge: true }
+      //   );
+      // });
     });
   }
 
@@ -122,7 +122,6 @@ export class AuthService {
             }
 
             const data = snapshot.data() as Record<string, unknown>;
-            console.log(JSON.stringify(data))
             return typeof data['role'] === 'string' ? data['role'] : '';
           })
         );

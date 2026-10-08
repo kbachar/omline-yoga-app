@@ -1,9 +1,21 @@
 .container {
+    position: relative;
     display: flex;
     flex-direction: column;
     min-height: 1083px;
     background: #F7F8FA;
     border-radius: 20px 0px 0px 0px;
+}
+
+.loading-message {
+    margin-top: 50px;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .body-container {

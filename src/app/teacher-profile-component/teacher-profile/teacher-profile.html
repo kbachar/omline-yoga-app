@@ -12,7 +12,7 @@
         }
         @if (!newTeacher) {
         <input #fileInput type="file" accept="image/*" hidden (change)="onPhotoSelected($event)" />
-        <img [src]="photoPreview()" alt="Selected photo" (click)="fileInput.click()" />
+        <img [src]="photoPreview()" (click)="fileInput.click()" />
         }
         <div class="teacher-container">
             <app-teacher [form]="profile" (teacherDataChange)="onTeacherChange(profile)"></app-teacher>

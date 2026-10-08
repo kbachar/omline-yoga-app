@@ -4,7 +4,7 @@
         <table>
             <tbody>
                 @for (teacher of teachers; track teacher) {
-                    <tr>
+                    <tr [class.unapproved]="teacher.status !== 'approved'">
                         <td>#</td>
                         <td>{{teacher.fullName}}</td>
                         <td>{{teacher.email}}</td>

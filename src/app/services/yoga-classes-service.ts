@@ -301,7 +301,7 @@ export class YogaClassesService {
     const videoId = videoDocRef.id;
 
     if (yogaClass.videoLink == '') {
-      const videoRef = ref(this.storage, `class-videos/${videoId}/${yogaClass.title}`);
+      const videoRef = ref(this.storage, `class-videos/${yogaClass.title}-${videoId}`);
       if (videoFile) {
         await uploadBytes(videoRef, videoFile);
         yogaClass.videoLink = await getDownloadURL(videoRef);
@@ -396,7 +396,7 @@ export class YogaClassesService {
           status: 'invited',
           approved: false
         };
-      })
+      }),
     );
   }
 
@@ -455,9 +455,12 @@ export class YogaClassesService {
     return of([]);
   }
 
-  getTeacherStatus(teacherID: string): Observable<string> {
-    return this.getTeacher(teacherID).pipe(
-      map((teacher) => (teacher.status ?? ''))
+  async getTeacherStatus(): Promise<string> {
+    const teacherId = this.authService.getUserID();
+    return firstValueFrom(
+      this.getTeacher(teacherId).pipe(
+        map((teacher) => teacher.status ?? ''),
+      )
     );
   }
 
@@ -608,7 +611,6 @@ export class YogaClassesService {
         title: email.title?.trim() || "Untitled",
         content: email.content,
       };
-      console.log('payload - ' + JSON.stringify(payload))
 
       const response = await fetch(endpoint, {
         method: "POST",

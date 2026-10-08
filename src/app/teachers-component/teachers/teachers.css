@@ -17,15 +17,19 @@ table {
 }
 
 tr {
+    font-weight: 400;
     height: 46px;
     background: #D9D9D9;
     
 }
 
+tr.unapproved td {
+    font-weight: 700;
+}
+
 td {
     font-family: 'Raleway';
     font-style: normal;
-    font-weight: 600;
     font-size: 16px;
     line-height: 20px;
     letter-spacing: 0.1em;

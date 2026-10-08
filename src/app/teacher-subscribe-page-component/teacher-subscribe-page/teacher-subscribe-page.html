@@ -61,7 +61,7 @@
       
       } @else if (role == 'none') {
       <app-teacher [form]="yogaTeacherData" (teacherDataChange)="onTeacherDataChange($event)"
-        (passwordChange)="onPasswordChange(password)"></app-teacher>
+        (passwordChange)="onPasswordChange($event)"></app-teacher>
       <div class="subscribe-btn-box">
         <img [src]="subscribeButtonSrc()" id="subscribeImg" tabindex="0" (mouseenter)="setSubscribeHovered(true)"
           (mouseleave)="setSubscribeHovered(false)" (focus)="setSubscribeHovered(true)"

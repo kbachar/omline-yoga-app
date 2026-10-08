@@ -41,6 +41,7 @@ th, td {
 
 th {
     text-align: start;
+    font-weight: 500;
 }
 
 .sort-button {

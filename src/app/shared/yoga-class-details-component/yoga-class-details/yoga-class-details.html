@@ -3,7 +3,11 @@
     [headerText]="headerText + yogaClass.title" [buttonText]="'save'" (backToListClick)="backToList()"
     (buttonClick)="save(yogaClass)"></app-page-header>
 <div class="container">
-
+    <div class="loading-message">
+        <app-message-component [isOpen]="isSaveModalOpen()" [border]="'1px solid #CAD7DC'"
+            [messageText]="'please wait while loading class....'"
+            (messageClick)="isSaveModalOpen.set(false)"></app-message-component>
+    </div>
     <div class="body-container">
         <div class="left-side">
             @if (isAdmin | async) {
@@ -99,8 +103,8 @@
     }
     <hr class="divider">
     <img class="delete-img" src="/assets/images/delete.png" (click)="showDeleteClass()">
-    <app-delete-message [itemName]="'class'" [isOpen]="isDeleteModalOpen()"
-        (messageClick)="deleteClass(yogaClass, $event)"></app-delete-message>
+    <app-message-component [messageText]="'remove class from your collection?'" [isOpen]="isDeleteModalOpen()"
+        (messageClick)="deleteClass(yogaClass, $event)" [yesButton]="true" [noButton]="true"></app-message-component>
     }
 </div>
 

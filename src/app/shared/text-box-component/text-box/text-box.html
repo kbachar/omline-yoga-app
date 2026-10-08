@@ -1,4 +1,15 @@
 <div class="container-text-box" [style.width.px]="textBoxWidth()" >
-    <input class="text-box" type="{{inputType()}}" placeholder="{{placeholderValue()}}" value="{{inputValue()}}"
+    <input class="text-box" [type]="passwordVisible() ? 'text' : inputType()" placeholder="{{placeholderValue()}}" value="{{inputValue()}}"
         [readOnly]="readonly()" (change)="onTextChange($event)">
+        @if (inputType() == 'password') {
+            <button class="password-toggle" type="button" aria-label="Hold to show password"
+                [attr.aria-pressed]="passwordVisible()"
+                (pointerdown)="showPassword($event)" (pointerup)="hidePassword($event)"
+                (pointercancel)="hidePassword($event)" (lostpointercapture)="hidePassword()"
+                (keydown)="showPasswordWithKeyboard($event)" (keyup)="hidePasswordWithKeyboard($event)"
+                (blur)="hidePassword()">
+                <img [src]="passwordVisible() ? '/assets/images/hide-icon.png' : '/assets/images/show-password.png'"
+                    alt="">
+            </button>
+        }
 </div>

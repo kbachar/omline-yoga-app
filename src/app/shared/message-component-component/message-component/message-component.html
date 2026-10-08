@@ -1,0 +1,21 @@
+@if (isOpen()) {
+<div class="border" [style.border]="border()">
+    <div class="inner-border" [style.border]="border()">
+        <label>{{messageText()}}</label>
+        <div class="remove-row">
+            <div class="remove-container">
+                @if (yesButton()) {
+                <img src="/assets/images/trash.png">
+                <div class="remove" (click)="onClick(true)">yes, remove</div>
+                }
+            </div>
+            @if (noButton()) {
+            <div class="keep" (click)="onClick(false)">keep</div>
+            }
+            @if (okButton()) {
+            <div class="keep" (click)="messageClick.emit(false)">OK</div>
+            }
+        </div>
+    </div>
+</div>
+}

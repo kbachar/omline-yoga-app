@@ -28,7 +28,35 @@
 }
 
 input {
+  flex: 1;
+  min-width: 0;
   border: none;
   outline: none;
-  width: 513px;
+  width: auto;
+}
+
+.password-toggle {
+  display: inline-flex;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.password-toggle img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.password-toggle:focus-visible {
+  outline: 2px solid #1f97cd;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
