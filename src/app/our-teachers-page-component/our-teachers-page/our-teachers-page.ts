@@ -8,13 +8,14 @@ import { YogaClassesService } from '../../services/yoga-classes-service';
 import { YogaStyleDescription } from '../../shared/yoga-style-description-data';
 import { AsyncPipe } from '@angular/common';
 import { YogaTeacher } from '../../shared/yoga-teacher-data';
+import { HeaderPageComponent } from '../../header-page-component/header-page-component/header-page-component';
 
 type YogaStyleId = (typeof yogaStyles)[number] | 'teachers';
 
 
 @Component({
   selector: 'app-our-teachers-page',
-  imports: [MainHeader, ClassesNavbar, AsyncPipe],
+  imports: [MainHeader, ClassesNavbar, AsyncPipe, HeaderPageComponent],
   templateUrl: './our-teachers-page.html',
   styleUrl: './our-teachers-page.css',
 })

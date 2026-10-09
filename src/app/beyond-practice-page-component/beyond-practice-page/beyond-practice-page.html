@@ -1,21 +1,6 @@
 @if (yogaStyle$ | async; as yogaStyle) {
 <app-main-header></app-main-header>
 <app-classes-navbar [yogaStyleId]="'beyond'" (onClassesNavbarClick)="classesNavbarClick($event)"></app-classes-navbar>
-<div class="header-section" [style.background-color]="yogaStyle.headerBackgroundColor"
-    [style.background-image]="yogaStyle.headerBackgroundImage">
-    <div class="yoga-style-img">
-        <img [src]="isYogaImageHovered ? yogaStyle.yogaImgHover : yogaStyle.yogaImg"
-            [alt]="yogaStyle.id + ' yoga'" (mouseenter)="setYogaImageHovered(true)"
-            (mouseleave)="setYogaImageHovered(false)" (focus)="setYogaImageHovered(true)"
-            (blur)="setYogaImageHovered(false)" tabindex="0">
-    </div>
-    <div class="header-content">
-        <div class="yoga-classes-header">
-            <div class="yoga-classes-header-bold">{{ yogaStyle.id }}</div>
-            <div class="yoga-classes-header-normal">yoga classes</div>
-        </div>
-        <div class="yoga-style-description">{{ yogaStyle.innerDescription }}</div>
+<app-header-page-component [page]="'beyond'" [suffix]="'practice'"></app-header-page-component>
 
-    </div>
-</div>
 }

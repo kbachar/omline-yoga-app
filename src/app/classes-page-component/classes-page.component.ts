@@ -11,11 +11,12 @@ import { challengeLevels, durations } from '../shared/yoga-class-details-compone
 import { FilterChange } from '../shared/filter-change-data';
 import { ClassesNavbar } from '../shared/classes-navbar-component/classes-navbar/classes-navbar';
 import { MainHeader } from '../shared/main-header-component/main-header/main-header';
+import { HeaderPageComponent } from '../header-page-component/header-page-component/header-page-component';
 
 
 @Component({
   selector: 'app-classes-page',
-  imports: [CommonModule, YogaClass, YogaClassesFilter, ClassesNavbar, MainHeader],
+  imports: [CommonModule, YogaClass, YogaClassesFilter, ClassesNavbar, MainHeader, HeaderPageComponent],
   templateUrl: './classes-page.component.html',
   styleUrl: './classes-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

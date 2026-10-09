@@ -7,12 +7,13 @@ import { YogaClassesService } from '../../services/yoga-classes-service';
 import { AsyncPipe } from '@angular/common';
 import { MainHeader } from '../../shared/main-header-component/main-header/main-header';
 import { ClassesNavbar } from '../../shared/classes-navbar-component/classes-navbar/classes-navbar';
+import { HeaderPageComponent } from '../../header-page-component/header-page-component/header-page-component';
 
 type YogaStyleId = (typeof yogaStyles)[number] | 'beyond';
 
 @Component({
   selector: 'app-beyond-practice-page',
-  imports: [AsyncPipe, MainHeader, ClassesNavbar],
+  imports: [AsyncPipe, MainHeader, ClassesNavbar, HeaderPageComponent],
   templateUrl: './beyond-practice-page.html',
   styleUrl: './beyond-practice-page.css',
 })
