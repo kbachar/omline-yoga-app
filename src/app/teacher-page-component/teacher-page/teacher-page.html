@@ -1,1 +1,23 @@
-<p>teacher-page works!</p>
+@if (teacher$ | async; as teacher) {
+<app-main-header></app-main-header>
+<app-classes-navbar></app-classes-navbar>
+<div class="container">
+    <div class="teacher-container">
+        <div class="header-container">
+            <header>meet</header>
+            <header class="bold">{{teacher.fullName}}</header>
+        </div>
+        <div class="header-container">
+            <img src="{{teacher.photo}}">
+            <label>{{teacher.description}}</label>
+        </div>
+        <div class="filters-container">
+            <app-main-filter></app-main-filter>
+        </div>
+        @if (classes$ | async; as classes) {
+        <app-classes-display [classes]="classes"></app-classes-display>
+        }
+
+    </div>
+</div>
+}

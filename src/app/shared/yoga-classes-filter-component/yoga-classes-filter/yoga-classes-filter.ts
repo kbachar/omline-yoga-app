@@ -16,6 +16,7 @@ export class YogaClassesFilter {
   readonly savedOptions = input<FilterChange[]>();
   readonly readOnly = input<boolean>(false);
   readonly selectedOption = signal<string>('');
+  readonly showFiltersBorder = input<boolean>(true);
 
   readonly filterChange = output<FilterChange>();
 

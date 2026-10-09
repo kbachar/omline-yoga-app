@@ -35,6 +35,7 @@ export class OurTeachersPage {
   }
 
   gotoTeacherPage(teacher: YogaTeacher) {
+    console.log('teacher.teacherID - ' + teacher.teacherID)
     this.router.navigate([`teacher-page/${teacher.teacherID}`]);
 
   }

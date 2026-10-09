@@ -4,64 +4,11 @@
   justify-content: flex-start;
   align-items: center;
   padding-bottom: 200px;
+  gap: 25px;
 }
 
-.filters-row-container {
-  width: 68%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: auto;
-  margin-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.filter-img-container {
-  width: auto;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 10px;
-  height: 35px;
-}
-
-.filter-img {
-  margin-top: 5px;
-  width: 16px;
-  height: 13px;
-}
-
-.filters-text-box {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.02em;
-  text-transform: capitalize;
-  color: #1C5A8E;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-.clear {
-  width: fit-content;
-  height: 35px;
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 900;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.02em;
-  text-transform: capitalize;
-  color: #101C50;
-  flex: none;
-  order: 3;
-  flex-grow: 0;
-  cursor: pointer;
+.filters-container {
+  margin-top: 20px;
 }
 
 .main-classes-container {
@@ -74,7 +21,6 @@
   border: 1px solid #1F6B9A;
   border-radius: 10px;
   padding: 10px;
-  margin-top: 5px;
   height: 164px;
 }
 
@@ -183,96 +129,3 @@
   height: 90px;
 }
 
-.yoga-classes {
-  width: 68%;
-  gap: 34px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: start;
-  margin-top: 50px;
-  min-height: 650px;
-}
-
-.yoga-class-img {
-  width: 391px;
-  border-radius: 10px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-.yoga-class-meta {
-  width: 371px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  height: 440px;
-  border: 1px solid transparent;
-  border-radius: 3px;
-  padding: 10px;
-  gap: 10px;
-}
-
-.yoga-class-meta.is-selected {
-  border-color: #1F6B9A;
-}
-
-.yoga-class-meta button {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 25px;
-  text-align: center;
-  letter-spacing: 0.02em;
-  text-transform: capitalize;
-  color: #6E60A1;
-  border: 1px solid #6E60A1;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 111px;
-}
-
-.class-header-row {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.teacher-name {
-  width: auto;
-  font-family: 'Cinzel Decorative';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 21px;
-  line-height: 20px;
-  letter-spacing: 0.04em;
-  text-transform: capitalize;
-  color: #101C50;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.yoga-class-time {
-  margin-left: auto;
-  margin-right: 10px;
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: 0.02em;
-  text-transform: capitalize;
-
-  color: #101C50;
-}
-
-.yoga-class-img video {
-  width: 391px;
-  height: 228px;
-  border-radius: 5px;
-  border: none;
-  display: block;
-}

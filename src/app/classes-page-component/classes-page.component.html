@@ -1,23 +1,14 @@
 @if (yogaStyle$ | async; as yogaStyle) {
 <app-main-header></app-main-header>
-<app-classes-navbar [yogaStyleId]="yogaStyle.id" (onClassesNavbarClick)="classesNavbarClick($event)"></app-classes-navbar>
+<app-classes-navbar [yogaStyleId]="yogaStyle.id"
+  (onClassesNavbarClick)="classesNavbarClick($event)"></app-classes-navbar>
 <app-header-page-component [page]="yogaStyle.id" [suffix]="'yoga classes'"></app-header-page-component>
 
 <section class="classes-page">
   <main class="classes-main" [style.background-color]="yogaStyle.classesBodyBackgroundColor">
-    <div class="main-container"> 
-      <div class="filters-row-container">
-        <div class="filter-img-container">
-          <img src="/assets/images/filter.png" class="filter-img">
-          <label class="filters-text-box">Filters</label>
-        </div>
-        <app-yoga-classes-filter [filterName]="'duration'" [filterOptions]="durations"
-          [savedOptions]="existingFilters.get('duration')"
-          (filterChange)="onFilterChange($event, 'duration')"></app-yoga-classes-filter>
-        <app-yoga-classes-filter [filterName]="'challenge level'" [filterOptions]="challengeLevels"
-          [savedOptions]="existingFilters.get('challenge level')"
-          (filterChange)="onFilterChange( $event, 'challenge level')"></app-yoga-classes-filter>
-        <div class="clear" (click)="clearFilters()">x clear</div>
+    <div class="main-container">
+      <div class="filters-container">
+        <app-main-filter (selectedFilters)="onFilterChange($event)"></app-main-filter>
       </div>
 
       <div class="main-classes-container">
@@ -44,7 +35,11 @@
         </div>
         <img class="arrow-right" src="/assets/images/arrow-right.png">
       </div>
+
       @if (classes$ | async; as classes) {
+      <app-classes-display [classes]="classes"></app-classes-display>
+      }
+      <!-- @if (classes$ | async; as classes) {
       <div class="yoga-classes">
         @for (classItem of classes; track classItem.id) {
         <div class="yoga-class-meta" [class.is-selected]="isClassSelected(classItem)"
@@ -61,7 +56,7 @@
         </div>
         }
       </div>
-      }
+      } -->
     </div>
 
   </main>

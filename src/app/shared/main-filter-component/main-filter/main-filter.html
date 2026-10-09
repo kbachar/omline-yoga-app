@@ -1,0 +1,13 @@
+<div class="filters-row-container">
+        <div class="filter-img-container">
+          <img src="/assets/images/filter.png" class="filter-img">
+          <label class="filters-text-box">Filters</label>
+        </div>
+        <app-yoga-classes-filter [filterName]="'duration'" [filterOptions]="durations"
+          [savedOptions]="existingFilters.get('duration')" [showFiltersBorder]="false"
+          (filterChange)="onFilterChange($event, 'duration')"></app-yoga-classes-filter>
+        <app-yoga-classes-filter [filterName]="'challenge level'" [filterOptions]="challengeLevels"
+          [savedOptions]="existingFilters.get('challenge level')" [showFiltersBorder]="false"
+          (filterChange)="onFilterChange( $event, 'challenge level')"></app-yoga-classes-filter>
+        <div class="clear" (click)="clearFilters()">x clear</div>
+      </div>

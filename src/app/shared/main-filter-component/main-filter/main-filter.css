@@ -1,0 +1,57 @@
+.filters-row-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.filter-img-container {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  height: 35px;
+}
+
+.filter-img {
+  margin-top: 5px;
+  width: 16px;
+  height: 13px;
+}
+
+.filters-text-box {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #1C5A8E;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.clear {
+  width: fit-content;
+  height: 35px;
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+  flex: none;
+  order: 3;
+  flex-grow: 0;
+  cursor: pointer;
+}
+
