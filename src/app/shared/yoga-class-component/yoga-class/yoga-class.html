@@ -11,7 +11,9 @@
     <div class="status">
       {{yogaClass.status}}
     </div>
-    <app-view-edit-button (viewEditButtonClick)="viewEditButtonClick()"></app-view-edit-button>
+    <div class="edit-container">
+      <app-view-edit-button (viewEditButtonClick)="viewEditButtonClick()"></app-view-edit-button>
+    </div>
   </div>
   }
   @else {

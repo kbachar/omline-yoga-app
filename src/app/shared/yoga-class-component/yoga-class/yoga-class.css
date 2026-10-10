@@ -1,11 +1,15 @@
+:host {
+  display: block;
+  flex: 1;
+  min-width: 0;
+}
+
 .container {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 5px;
-
 }
 
 .class-style-row {
@@ -19,13 +23,18 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
   width: 100%;
   gap: 20px;
 }
 
+.edit-container {
+  display: flex;
+  margin-left: auto;
+  flex-shrink: 0;
+  margin-right: 20px;
+}
+
 .class-name {
-  width: 391px;
   font-family: 'Raleway';
   font-style: normal;
   font-weight: 600;
@@ -77,8 +86,6 @@
   scrollbar-color: #c9dfec transparent;
   max-width: 1200px;
   max-height: 165px;
-  padding-bottom: 10px;
-  margin-top: 10px;
 }
 
 .class-description::-webkit-scrollbar {

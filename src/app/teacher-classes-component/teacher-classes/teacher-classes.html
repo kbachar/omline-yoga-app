@@ -6,11 +6,10 @@
         @for (yogaClass of classes; track yogaClass.id) {
         <div class="class-container">
             <video [src]="yogaClass.videoLink"></video>
-            <app-yoga-class [classData]="yogaClass" [descriptionWidth]="880" [descriptionHeight]="50" [showViewEdit]="true"
-            (viewEditClick)="editClass(yogaClass)"></app-yoga-class>
-            <!-- @if (yogaClass.approved == true) {
-                <app-view-edit-button (viewEditButtonClick)="editClass(yogaClass)"></app-view-edit-button>
-                } -->
+            <div class="class-description-container">
+                <app-yoga-class [classData]="yogaClass" [descriptionWidth]="1050" [descriptionHeight]="140"
+                    [showViewEdit]="true" (viewEditClick)="editClass(yogaClass)"></app-yoga-class>
+            </div>
         </div>
         }}
     </div>
