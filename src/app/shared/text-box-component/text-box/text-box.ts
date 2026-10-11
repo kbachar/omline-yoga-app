@@ -17,7 +17,6 @@ export class TextBox {
 
   onTextChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;
-    console.log('password is ' + value)
     this.textChange.emit(value);
   }
 

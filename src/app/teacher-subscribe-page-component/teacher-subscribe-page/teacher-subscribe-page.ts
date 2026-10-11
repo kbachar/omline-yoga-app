@@ -52,6 +52,9 @@ export class TeacherSubscribePage implements OnInit {
 
   protected async subscribe() {
     console.log('password is - ' + this.password)
+    if (this.password == '' || this.yogaTeacherData.fullName == '' || this.yogaTeacherData.email == '')
+      return;
+
     const userId = await this.authService.subscribe(this.yogaTeacherData?.fullName, this.yogaTeacherData?.email, this.password, 'teacher');
     this.yogaTeacherData.approved = false;
     this.yogaTeacherData.status = 'subscribed';

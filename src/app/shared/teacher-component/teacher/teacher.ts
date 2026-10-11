@@ -59,6 +59,7 @@ export class Teacher {
 
   uid$ = this.authService.getUserID();
   form = input.required<YogaTeacher>();
+  password: string = '';
 
   protected handlePassword() {
     this.isPasswordVisible.update((visible) => !visible);
@@ -83,7 +84,17 @@ export class Teacher {
     teacher.country = country;
     this.teacherDataChange.emit(teacher);
   }
-  
+
+  onPasswordChange(password: string) {
+    this.password = password;
+    this.passwordChange.emit(password);
+  }
+  validatePassword(confirmedPassword: string) {
+    if (this.password != confirmedPassword)
+      this.passwordChange.emit('');
+
+  }
+
   protected passwordIconSrc(): string {
     return this.isPasswordVisible()
       ? '/assets/images/show-password.png'

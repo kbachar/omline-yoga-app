@@ -11,8 +11,8 @@
 
 @if (!user()) {
 <app-text-box [inputValue]="teacherPassword()" [placeholderValue]="'password'" [inputType]="'password'"
-  (textChange)="passwordChange.emit($event)"></app-text-box>
-<app-text-box [inputValue]="teacherPassword()" [placeholderValue]="'confirm password'"
-  [inputType]="'password'"></app-text-box>
+  (textChange)="onPasswordChange($event)"></app-text-box>
+<app-text-box [placeholderValue]="'confirm password'" [inputType]="'password'"
+  (textChange)="validatePassword($event)"></app-text-box>
 
 }
