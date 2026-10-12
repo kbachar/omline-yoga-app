@@ -4,7 +4,6 @@
   @if (showViewEdit() == true) {
   <div class="title-container">
     <div class="yoga-style-color" [style.background-color]="yogaClass.yogaStyleColor"></div>
-    <div class="class-name">{{ yogaClass.title }}</div>
     <div class="style-description">
       {{yogaClass.yogaStyle}} - {{yogaClass.difficulty}} {{showClassLength() ? ' - ' + yogaClass.classLength : ''}}
     </div>
@@ -17,7 +16,10 @@
   </div>
   }
   @else {
-  <div class="minutes"></div>
+  @if (showTeacherName() == true) {
+  <div class="teacher-name">{{ yogaClass.teacherName}}</div>
+  }
+  <div class="class-name">{{ yogaClass.title }}</div>
   <div class="class-style-row">
     <div class="yoga-style-color" [style.background-color]="yogaClass.yogaStyleColor"></div>
     <div class="style-description">

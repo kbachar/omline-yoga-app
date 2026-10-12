@@ -47,41 +47,6 @@
   width: 111px;
 }
 
-.class-header-row {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.teacher-name {
-  width: auto;
-  font-family: 'Cinzel Decorative';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 21px;
-  line-height: 20px;
-  letter-spacing: 0.04em;
-  text-transform: capitalize;
-  color: #101C50;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.yoga-class-time {
-  margin-left: auto;
-  margin-right: 10px;
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 20px;
-  letter-spacing: 0.02em;
-  text-transform: capitalize;
-
-  color: #101C50;
-}
-
 .yoga-class-img video {
   width: 391px;
   height: 228px;

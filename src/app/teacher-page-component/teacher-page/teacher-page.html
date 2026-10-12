@@ -12,10 +12,11 @@
             <label>{{teacher.description}}</label>
         </div>
         <div class="filters-container">
-            <app-main-filter></app-main-filter>
+            <app-main-filter (selectedFilters)="onFilterChange($event)"></app-main-filter>
         </div>
         @if (classes$ | async; as classes) {
-        <app-classes-display [classes]="classes"></app-classes-display>
+        <app-classes-display [classes]="classes" [showTeacherName]="false" [showAddToList]="false"
+        [descriptionHeight]="160" [showClassLength]="true"></app-classes-display>
         }
 
     </div>

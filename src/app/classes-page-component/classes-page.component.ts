@@ -23,7 +23,7 @@ import { ClassesDisplay } from '../shared/classes-display-component/classes-disp
 export class ClassesPageComponent implements OnInit {
    yogaStyle$!: Observable<YogaStyleDescription>;
   classes$!: Observable<YogaClassData[]>;
-  protected selectedClasses = signal<YogaClassData[]>([]);
+  protected selectedClasses: YogaClassData[] = [];
   protected isYogaImageHovered = false;
   protected isShowOnPageHovered = false;
   protected selectedStyleId: string = 'all';
@@ -51,7 +51,7 @@ export class ClassesPageComponent implements OnInit {
     //console.log('classesIds - ' + JSON.stringify(classesIds))
 
     this.yogaService.getClassByIDs(classesIds).pipe(take(1)).subscribe((classes) => {
-      this.selectedClasses.set(classes);
+      this.selectedClasses = classes;
     });
   }
 
@@ -82,25 +82,17 @@ export class ClassesPageComponent implements OnInit {
     this.isYogaImageHovered = isHovered;
   }
 
-  // protected addSelectedClass(yogaClass: YogaClassData): void {
-  //   const selectedClasses = this.selectedClasses();
-  //   const isAlreadySelected = selectedClasses.some((selected) => selected.id === yogaClass.id);
-  //   if (isAlreadySelected) {
-  //     this.selectedClasses.set(selectedClasses.filter((selected) => selected.id !== yogaClass.id));
-  //     return;
-  //   }
-
-  // this.selectedClasses.set([...selectedClasses, yogaClass]);
-  // }
-  
-  clearSelectedClasses() {
-    this.selectedClasses.set([]);
+  selectedClassChanged(change: { yogaClass: YogaClassData; checked: boolean }): void {
+    if (change.checked)
+      this.selectedClasses = [...this.selectedClasses, change.yogaClass];
+    else
+      this.selectedClasses = this.selectedClasses.filter((selected) => selected.id !== change.yogaClass.id);
   }
 
-  // protected isClassSelected(yogaClass: YogaClassData): boolean {
-  //   return this.selectedClasses().some((selected) => selected.id === yogaClass.id);
-  // }
-
+  clearSelectedClasses(): void {
+    this.selectedClasses = [];
+  }
+ 
   selectedClassesClick(classes: YogaClassData[]) {
     this.router.navigate(['/selected-classes'], {
       queryParams: {

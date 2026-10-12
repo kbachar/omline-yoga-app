@@ -1,18 +1,15 @@
 @if (classes(); as classes) {
-      <div class="yoga-classes">
-        @for (classItem of classes; track classItem.id) {
-        <div class="yoga-class-meta" [class.is-selected]="isClassSelected(classItem)"
-          (click)="addSelectedClass(classItem)">
-          <video class="yoga-class-img" [src]="classItem.videoLink"></video>
+<div class="yoga-classes">
+  @for (classItem of classes; track classItem.id) {
+  <div class="yoga-class-meta" [class.is-selected]="isClassSelected(classItem)" (click)="addSelectedClass(classItem)">
+    <video class="yoga-class-img" [src]="classItem.videoLink"></video>
 
-          <div class="class-header-row">
-            <div class="teacher-name">{{ classItem.teacherName}}</div>
-            <div class="yoga-class-time">{{classItem.classLength}}</div>
-          </div>
-          <app-yoga-class [classData]="classItem" [descriptionWidth]="361" [descriptionHeight]="80"
-            [showClassLength]="false"></app-yoga-class>
-            <button>add to list</button>
-        </div>
-        }
-      </div>
-      }
+    <app-yoga-class [classData]="classItem" [descriptionWidth]="361" [descriptionHeight]="80" [showClassLength]="false"
+      [showTeacherName]="showTeacherName()" [descriptionHeight]="descriptionHeight()" [showClassLength]="showClassLength()"></app-yoga-class>
+    @if (showAddToList()) {
+    <button>add to list</button>
+    }
+  </div>
+  }
+</div>
+}

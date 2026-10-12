@@ -33,9 +33,8 @@ export class YogaClassesFilter {
     this.filterChange.emit({
       checked,
       filterOption,
-      filter: filter ?? ''
+      filter: filter ?? '',
     });
     this.selectedOption.set(filterOption)
   }
-
 }

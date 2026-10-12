@@ -16,6 +16,7 @@ export class YogaClass {
   readonly showClassLength = input<boolean>();
   readonly showViewEdit = input<boolean>();
   readonly viewEditClick = output<void>();
+  readonly showTeacherName = input<boolean>(true);
 
   viewEditButtonClick() {
     this.viewEditClick.emit();

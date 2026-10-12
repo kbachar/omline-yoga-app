@@ -8,6 +8,7 @@ import { YogaClassData, YogaClassesService } from '../../services/yoga-classes-s
 import { AsyncPipe } from '@angular/common';
 import { MainFilter } from '../../shared/main-filter-component/main-filter/main-filter';
 import { ClassesDisplay } from '../../shared/classes-display-component/classes-display/classes-display';
+import { FilterChange } from '../../shared/filter-change-data';
 
 @Component({
   selector: 'app-teacher-page',
@@ -20,6 +21,7 @@ export class TeacherPage implements OnInit {
   private yogaService = inject(YogaClassesService);
   teacher$!: Observable<YogaTeacher>;
   classes$!: Observable<YogaClassData[]>;
+  existingFilters = new Map<string, FilterChange[]>();
 
   ngOnInit(): void {
     this.teacher$ = this.route.paramMap.pipe(
@@ -31,4 +33,16 @@ export class TeacherPage implements OnInit {
       switchMap((teacher) => this.yogaService.getClassesByTeacherID(teacher.teacherID)),
     );
   }
+
+  onFilterChange(filters: FilterChange[]) {
+  console.log('hello')
+    this.existingFilters = filters.reduce((groupedFilters, filter) => {
+        const group = groupedFilters.get(filter.filter) ?? [];
+        group.push(filter);
+        groupedFilters.set(filter.filter, group);
+        return groupedFilters;
+      }, new Map<string, FilterChange[]>());
+  
+      this.classes$ = this.yogaService.getFilteredClasses("all", this.existingFilters);
+    }
 }

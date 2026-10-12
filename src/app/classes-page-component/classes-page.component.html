@@ -14,19 +14,19 @@
       <div class="main-classes-container">
         <img class="arrow-left" src="/assets/images/arrow-left.png">
         <div class="selected-classes-container">
-          @if (selectedClasses().length === 0) {
+          @if (selectedClasses.length === 0) {
           <div class="selected-class-small">
             <div class="selected-class-caption">Select a class</div>
           </div>
           }
 
-          @for (selectedClass of selectedClasses(); track selectedClass.id) {
+          @for (selectedClass of selectedClasses; track selectedClass.id) {
           <div class="selected-class-small">
             <video [src]="selectedClass.videoLink"></video>
             <div class="selected-class-caption">{{ selectedClass.title }}</div>
           </div>
           }
-          <div class="show-on-page-container" (click)="selectedClassesClick(selectedClasses())"
+          <div class="show-on-page-container" (click)="selectedClassesClick(selectedClasses)"
             (mouseenter)="isShowOnPageHovered = true" (mouseleave)="isShowOnPageHovered = false">
             <img
               [src]="isShowOnPageHovered ? '/assets/images/show-on-page-hover.png' : '/assets/images/show-on-page.png'">
@@ -37,28 +37,10 @@
       </div>
 
       @if (classes$ | async; as classes) {
-      <app-classes-display [classes]="classes"></app-classes-display>
-      }
-      <!-- @if (classes$ | async; as classes) {
-      <div class="yoga-classes">
-        @for (classItem of classes; track classItem.id) {
-        <div class="yoga-class-meta" [class.is-selected]="isClassSelected(classItem)"
-          (click)="addSelectedClass(classItem)">
-          <video class="yoga-class-img" [src]="classItem.videoLink"></video>
-
-          <div class="class-header-row">
-            <div class="teacher-name">{{ classItem.teacherName}}</div>
-            <div class="yoga-class-time">{{classItem.classLength}}</div>
-          </div>
-          <app-yoga-class [classData]="classItem" [descriptionWidth]="361" [descriptionHeight]="80"
-            [showClassLength]="false"></app-yoga-class>
-            <button>add to list</button>
-        </div>
-        }
-      </div>
-      } -->
+      <app-classes-display [classes]="classes" [selectedClasses]="selectedClasses"
+        (selectedClassChanged)="selectedClassChanged($event)"></app-classes-display>
+      }    
     </div>
-
   </main>
 </section>
 }

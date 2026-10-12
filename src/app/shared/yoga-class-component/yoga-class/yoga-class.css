@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  gap: 5px;
 }
 
 .class-style-row {
@@ -32,6 +33,18 @@
   margin-left: auto;
   flex-shrink: 0;
   margin-right: 20px;
+}
+
+.teacher-name {
+  width: auto;
+  font-family: 'Cinzel Decorative';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 20px;
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+  color: #101C50;
 }
 
 .class-name {
