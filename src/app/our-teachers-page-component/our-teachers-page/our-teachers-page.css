@@ -33,11 +33,17 @@
     order: 0;
     flex-grow: 0;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .teacher img {
     width: 199px;
     height: 168px;
+    border-radius: 10px;
+
+
+
+
 }
 
 .teacher label {

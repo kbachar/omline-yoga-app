@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { YogaClassData } from '../../yoga-class-data';
 import { YogaClass } from '../../yoga-class-component/yoga-class/yoga-class';
 
@@ -15,7 +15,6 @@ export class ClassesDisplay {
   readonly showAddToList = input<boolean>(true);
   readonly descriptionHeight = input<number>();
   readonly showClassLength = input<boolean>(false);
-  
   public selectedClassChanged = output<{ yogaClass: YogaClassData; checked: boolean }>();
 
   protected isClassSelected(yogaClass: YogaClassData): boolean {

@@ -31,20 +31,40 @@
   border-color: #1F6B9A;
 }
 
+.buttons-container {
+  display: flex;
+  gap: 10px;
+}
+
 .yoga-class-meta button {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 10px;
+  gap: 10px;
+  border: 1px solid #243376;
+  border-radius: 5px;
+  height: 25px;
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 25px;
+  display: flex;
+  align-items: center;
   text-align: center;
-  letter-spacing: 0.02em;
   text-transform: capitalize;
-  color: #6E60A1;
-  border: 1px solid #6E60A1;
-  border-radius: 10px;
-  cursor: pointer;
-  width: 111px;
+  color: #243376;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.yoga-class-meta button:hover {
+  background: #4C98C8;
+  color: white;
 }
 
 .yoga-class-img video {

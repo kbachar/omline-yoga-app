@@ -5,9 +5,13 @@
     <video class="yoga-class-img" [src]="classItem.videoLink"></video>
 
     <app-yoga-class [classData]="classItem" [descriptionWidth]="361" [descriptionHeight]="80" [showClassLength]="false"
-      [showTeacherName]="showTeacherName()" [descriptionHeight]="descriptionHeight()" [showClassLength]="showClassLength()"></app-yoga-class>
+      [showTeacherName]="showTeacherName()" [descriptionHeight]="descriptionHeight()"
+      [showClassLength]="showClassLength()"></app-yoga-class>
     @if (showAddToList()) {
-    <button>add to list</button>
+    <div class="buttons-container">
+      <button>add to list</button>
+      <button>class page</button>
+    </div>
     }
   </div>
   }

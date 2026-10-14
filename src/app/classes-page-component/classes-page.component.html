@@ -37,7 +37,7 @@
       </div>
 
       @if (classes$ | async; as classes) {
-      <app-classes-display [classes]="classes" [selectedClasses]="selectedClasses"
+      <app-classes-display [classes]="classes" [selectedClasses]="selectedClasses" [descriptionHeight]="70"
         (selectedClassChanged)="selectedClassChanged($event)"></app-classes-display>
       }    
     </div>
