@@ -4,11 +4,11 @@
     <div class="container">
         <label>contact us</label>
         <app-text-box [inputValue]="name()" [placeholderValue]="'full name'" (textChange)="nameChanged($event)"
-            [textBoxWidth]="900"></app-text-box>
+            [textBoxWidth]="900" [backgroundColor]="'rgba(255, 255, 255, 0.5)'"></app-text-box>
         <app-text-box [placeholderValue]="'email'" [inputValue]="email()" (textChange)="emailChanged($event)"
-            [textBoxWidth]="900"></app-text-box>
+            [textBoxWidth]="900" [backgroundColor]="'rgba(255, 255, 255, 0.5)'"></app-text-box>
         <app-text-area [textAreaName]="'message'" [textValue]="message()" (textValueChange)="messageChanged($event)" [textWidth]="880"
-            [textHeight]="200"></app-text-area>
+            [textHeight]="200" [backgroundColor]="'rgba(255, 255, 255, 0.5)'"></app-text-area>
         <div class="message-sent">
             @if (messageSent() == true) {
             <label>Thank you for reaching out, Your message has been sent successfully!</label>

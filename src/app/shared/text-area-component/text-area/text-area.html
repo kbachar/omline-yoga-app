@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [style.background]="backgroundColor()">
     @if (showLogo()) {
     <div class="logo">
         <img src="/assets/images/yoga-classes-logo.png">
@@ -6,7 +6,7 @@
     }
     <textarea [readOnly]="readOnly()" [style.height.px]="textHeight() ?? null" [style.width.px]="textWidth() ?? null"
         [style.color]="textColor() ?? null" [value]="textValue()" [placeholder]="textAreaName() ?? ''"
-        (input)="onInput($event)" required></textarea>
+        [style.background]="backgroundColor()" (input)="onInput($event)" required></textarea>
     @if (image()) {
     <div class="image">
         <img [src]="image() ?? ''">

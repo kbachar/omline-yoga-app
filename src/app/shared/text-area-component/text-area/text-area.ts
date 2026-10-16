@@ -16,6 +16,7 @@ export class TextArea {
   readonly readOnly = input<boolean>(false);
   readonly showLogo = input<boolean>(false);
   readonly image = input<string | null>();
+  readonly backgroundColor = input<string>();
 
 
   protected onInput(event: Event): void {

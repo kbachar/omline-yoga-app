@@ -28,7 +28,7 @@ export class Email implements OnInit {
         const content = this.route.snapshot.queryParamMap
             .get('content');
 
-            const recipient = this.route.snapshot.queryParamMap
+        const recipient = this.route.snapshot.queryParamMap
             .get('recipient');
         if (title !== null && content !== null && recipient !== null) {
             this.email$ = of({
@@ -71,7 +71,6 @@ export class Email implements OnInit {
     }
 
     async reply(email: EmailData) {
-        email.recipients = [email.from];
 
         const bodyHtml = this.escapeHtml(email.content)
             .replace(/\\r\\n/g, '<br>')
@@ -84,6 +83,13 @@ export class Email implements OnInit {
             '</div>',
         ].join('');
 
+        //console.log('recipients - ' + JSON.stringify(email.recipients))
+        //console.log('email.from - ' + email.from)
+
+        const from = email.recipients[0];
+        email.recipients = [email.from];
+        email.from = from;
+
         await this.yogaService.sendEmail({
             ...email,
             content: htmlContent,
@@ -91,10 +97,9 @@ export class Email implements OnInit {
 
         email.id = '';
         email.read = true;
-        email.from = "support@yoga-om-line.com",
-
-            await this.yogaService.saveEmail(email);
-        await this.backToEmails();
+             
+        await this.yogaService.saveEmail(email);
+        this.backToEmails();
     }
 
     protected async backToEmails(): Promise<void> {

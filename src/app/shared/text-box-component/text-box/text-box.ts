@@ -14,6 +14,7 @@ export class TextBox {
   readonly textBoxWidth = input<number>();
   readonly textChange = output<string>();
   readonly passwordVisible = signal(false);
+  readonly backgroundColor = input<string>();
 
   onTextChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;

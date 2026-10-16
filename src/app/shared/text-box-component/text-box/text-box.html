@@ -1,4 +1,4 @@
-<div class="container-text-box" [style.width.px]="textBoxWidth()" >
+<div class="container-text-box" [style.width.px]="textBoxWidth()" [style.background]="backgroundColor()">
     <input class="text-box" [type]="passwordVisible() ? 'text' : inputType()" placeholder="{{placeholderValue()}}" value="{{inputValue()}}"
         [readOnly]="readonly()" (change)="onTextChange($event)">
         @if (inputType() == 'password') {
