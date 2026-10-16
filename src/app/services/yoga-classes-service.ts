@@ -117,7 +117,7 @@ const EMPTY_YOGA_CLASS: YogaClassData = {
 })
 
 export class YogaClassesService {
-
+  
   private yogaStyles$?: Observable<YogaStyleDescription[]>;
   private yogaClasses$?: Observable<YogaClassData[]>;
   private yogaTeachers$?: Observable<YogaTeacher[]>;
@@ -392,7 +392,6 @@ export class YogaClassesService {
     return this.yogaTeachers$;
   }
 
-
   getTeacher(id: string | undefined): Observable<YogaTeacher> {
     return this.getTeachers().pipe(
       map((teachers) => {
@@ -502,7 +501,6 @@ export class YogaClassesService {
     this.yogaTeachers$ = undefined;
     this.yogaTeachers$ = this.getTeachers();
   }
-
 
   async saveTeacherInvite(teacher: TeacherInvite): Promise<void> {
     const inviteDocRef = teacher.id
@@ -713,7 +711,6 @@ export class YogaClassesService {
       : doc(collection(this.firestore, 'emails'));
 
     email.id = emailDocRef.id;
-    email.read = true;
 
     const emailToSave = {
       subject: email.title ?? '',
@@ -723,7 +720,7 @@ export class YogaClassesService {
       updatedBy: this.authService.getUserID(),
       from: email.from || email.recipients?.[0] || 'support@yoga-om-line.com',
       recipients: email.recipients,
-      read: !!email.read,
+      read: email.read,
     };
 
     //console.log('emailToSave - ' + JSON.stringify(emailToSave));
@@ -735,6 +732,16 @@ export class YogaClassesService {
     this.emails$ = undefined;
     this.emails$ = this.getEmails();
   }
+
+  async deleteEmail(id: string): Promise<void> {
+    await runInInjectionContext(this.injector, () =>
+      deleteDoc(doc(this.firestore, `emails/${id}`))
+    );
+
+    this.emails$ = undefined;
+    this.emails$ = this.getEmails();
+  }
+
 
   getStorageFiles(): Observable<string[]> {
     return from(

@@ -24,6 +24,7 @@ import { AdminHomePage } from './admin-home-page-component/admin-home-page/admin
 import { OurVisionPage } from './our-vision-page-component/our-vision-page/our-vision-page';
 import { OurTeachersPage } from './our-teachers-page-component/our-teachers-page/our-teachers-page';
 import { TeacherPage } from './teacher-page-component/teacher-page/teacher-page';
+import { ContactUs } from './shared/contact-us-component/contact-us/contact-us';
 
 export const routes: Routes = [
 	{
@@ -57,6 +58,10 @@ export const routes: Routes = [
 	{
 		path: 'our-vision-page',
 		component: OurVisionPage
+	},
+	{
+		path: 'contact-us',
+		component: ContactUs
 	},
 	{
 		path: 'teacher-dashboard',

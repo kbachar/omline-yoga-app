@@ -142,6 +142,14 @@ table {
     font-weight: 700;
 }
 
+app-message-component {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
 .emails-table td:nth-child(6),
 .emails-table td:nth-child(6) img {
     cursor: pointer;

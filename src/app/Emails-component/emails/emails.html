@@ -59,7 +59,7 @@
                 <td>{{ email.title }}</td>
                 <td>{{ email.updatedAt | date:'dd/MM/yy' }}</td>
                 <td>
-                    <img src="/assets/images/trash.png" (click)="deleteEmail(email)">
+                    <img src="/assets/images/trash.png" (click)="confirmDeleteEmail(email)">
                 </td>
                 <td>
                     <app-view-edit-button (viewEditButtonClick)="onViewEditClick(email.id)">
@@ -69,4 +69,6 @@
             }
         </tbody>
     </table>
+    <app-message-component [isOpen]="isDeleteModalOpen()" [messageText]="'delete email ?'" [noButton]="true"
+        [yesButton]="true" (messageClick)="deleteEmail($event)"></app-message-component>
 </div>

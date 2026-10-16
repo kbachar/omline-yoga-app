@@ -6,6 +6,7 @@ import { YogaClassesService } from '../../services/yoga-classes-service';
 import { Router } from '@angular/router';
 import { EmailData } from '../../shared/email-data';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MessageComponent } from '../../shared/message-component-component/message-component/message-component';
 
 type EmailSortColumn = 'origin' | 'from' | 'recipients' | 'title' | 'updatedAt';
 type SortDirection = 'ascending' | 'descending';
@@ -13,18 +14,21 @@ type ResizableEmailColumn = 'from' | 'recipients' | 'title';
 
 @Component({
   selector: 'app-emails',
-  imports: [PageHeader, DatePipe, ViewEditButton],
+  imports: [PageHeader, DatePipe, ViewEditButton, MessageComponent],
   templateUrl: './emails.html',
   styleUrl: './emails.css',
 })
 export class Emails {
   private readonly router = inject(Router);
   private readonly yogaService = inject(YogaClassesService);
-  readonly emails = toSignal(this.yogaService.getEmails(), { initialValue: [] });
+  private readonly loadedEmails = toSignal(this.yogaService.getEmails(), { initialValue: [] as EmailData[] });
+  private readonly deletedEmailIds = signal<ReadonlySet<string>>(new Set());
+  readonly emails = computed(() => this.loadedEmails().filter((email) => !this.deletedEmailIds().has(email.id)));
   readonly sortColumn = signal<EmailSortColumn>('updatedAt');
   readonly sortDirection = signal<SortDirection>('descending');
   readonly columnWidths = signal({ from: 180, recipients: 150, title: 220 });
-  protected readonly isDeleteModalOpen = signal(false);
+  protected readonly emailToDelete = signal<EmailData | null>(null);
+  protected readonly isDeleteModalOpen = computed(() => this.emailToDelete() !== null);
 
   setEmailOrigin(email: EmailData): string {
     if (email.from.includes("yoga-om-line.com"))
@@ -33,8 +37,17 @@ export class Emails {
     return 'in';
   }
   
-  deleteEmail(email: EmailData) {
-    this.isDeleteModalOpen.set(true);
+  confirmDeleteEmail(email: EmailData) {
+    this.emailToDelete.set(email);
+  }
+
+  async deleteEmail(remove: boolean) {
+    const email = this.emailToDelete();
+    this.emailToDelete.set(null);
+    if (remove && email) {
+      await this.yogaService.deleteEmail(email.id);
+      this.deletedEmailIds.update((ids) => new Set(ids).add(email.id));
+    }
   }
 
   readonly sortedEmails = computed(() => {

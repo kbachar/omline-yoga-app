@@ -19,10 +19,6 @@
     justify-content: flex-end;
 }
 
-.yoga-style-img img {
-    margin-top: 80px;
-}
-
 .header-content {
     display: flex;
     flex-direction: column;

@@ -1,0 +1,73 @@
+main {
+    background: #EAEAFA;
+    min-height: 750px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+label {
+    width: 408px;
+    height: 91px;
+    font-family: 'Cinzel Decorative';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 70px;
+    text-align: center;
+    text-transform: capitalize;
+    color: #243376;
+}
+
+button {
+    justify-content: center;
+    align-self: flex-end;
+    padding: 14px 20px;
+    gap: 10px;
+    width: 120px;
+    height: 67px;
+    background: #243376;
+    border-radius: 10px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 35px;
+    display: flex;
+    text-align: center;
+    letter-spacing: 0.01em;
+    text-transform: capitalize;
+    color: #F4FDFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin-top: 20px;
+}
+.message-sent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.message-sent label {
+    width: 758px;
+    height: 43px;
+    font-family: 'Mona Sans';
+    font-style: italic;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    color: #460C7F;
+}
