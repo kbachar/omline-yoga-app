@@ -32,6 +32,8 @@ export class ClassesNavbar implements OnInit {
       this.router.navigate(['/beyond-practice-page']);
     else if (page == 'teachers')
       this.router.navigate(['/our-teachers-page']);
+    else if (page == 'events')
+      this.router.navigate(['/events-board-page']);
     else {
       this.router.navigate(['/classes', page]);
       this.onClassesNavbarClick.emit(page);

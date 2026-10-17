@@ -25,6 +25,7 @@ import { OurVisionPage } from './our-vision-page-component/our-vision-page/our-v
 import { OurTeachersPage } from './our-teachers-page-component/our-teachers-page/our-teachers-page';
 import { TeacherPage } from './teacher-page-component/teacher-page/teacher-page';
 import { ContactUs } from './shared/contact-us-component/contact-us/contact-us';
+import { EventsBoardPageComponent } from './events-board-page-component/events-board-page-component/events-board-page-component';
 
 export const routes: Routes = [
 	{
@@ -50,6 +51,10 @@ export const routes: Routes = [
 	{
 		path: 'our-teachers-page',
 		component: OurTeachersPage
+	},
+	{
+		path: 'events-board-page',
+		component: EventsBoardPageComponent
 	},
 	{
 		path: 'teacher-page/:id',

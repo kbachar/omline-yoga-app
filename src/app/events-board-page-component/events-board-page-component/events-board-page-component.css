@@ -1,0 +1,55 @@
+.header-section {
+    width: auto;
+    height: 378px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    order: 0;
+    flex-grow: 0;
+    background: #A3AADF;
+    background-image: url('/assets/images/events-background.png');
+    mix-blend-mode: normal;
+}
+
+img {
+    width: 293px;
+    height: 205px;
+}
+
+.yoga-classes-header-bold {
+    width: 1264px;
+    height: 71px;
+    font-family: 'Cinzel Decorative';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 70px;
+    text-align: center;
+    text-transform: capitalize;
+    color: #243376;
+}
+
+.yoga-style-description {
+    width: 1248px;
+    height: 87px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
+    color: #243376;
+}
+
+.container {
+    width: 68%;
+    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: start;
+    margin-top: 50px;
+    min-height: 650px;
+}
