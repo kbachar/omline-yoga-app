@@ -1,9 +1,8 @@
 .main-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  padding-bottom: 200px;
   gap: 25px;
 }
 
@@ -14,40 +13,113 @@
 .main-classes-container {
   position: relative;
   width: 68%;
+  height: 190px;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 50px;
+  margin-right: 20px;
+  box-sizing: border-box;
+  background: #B2C3DE;
+  border: 1px solid #3A82B8;
+  border-radius: 10px;
+}
+
+.selected-header-classes-container {
+  display: flex;
+  height: 25%;
   flex-direction: row;
   align-items: center;
-  background: rgba(28, 90, 142, 0.1);
-  border: 1px solid #1F6B9A;
-  border-radius: 10px;
-  padding: 10px;
-  height: 164px;
+  justify-content: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.selected-header-classes-container label {
+  width: 627px;
+  height: 30px;
+  display: flex;
+  align-self: flex-start;
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #243376;
+  margin-left: 250px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.selected-header-classes-container button {
+  background: #243376;
+  border-radius: 10px 10px 0px 10px;
+  width: 163px;
+  height: 37px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #FFF8E6;
+  margin-right: 30px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.selected-classes-clear {
+  width: 200px;
+  font-family: 'Mona Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+  display: flex;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.selected-classes-clear-icon {
+  font-weight: 900;
+}
+
+.selected-classes-clear:hover {
+  color: #47484d;
+}
+
+.selected-divider {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid #1F6B9A;
+}
+
+.selected-classes-main-container {
+  width: 100%;
+  height: 65%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .selected-classes-container {
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  box-sizing: border-box;
-  gap: 10px;
-}
-
-.show-on-page-container {
-  position: absolute;
-  top: 14px;
-  right: 20px;
-  height: 25px;
+  height: 65%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  text-align: right;
+  justify-content: flex-start;
   gap: 10px;
-}
-
-.arrow-right {
-  margin-right: 10px;
 }
 
 .arrow-left:hover,
@@ -55,35 +127,6 @@
 .selected-classes-clear:hover,
 .show-on-page-container:hover {
   cursor: pointer;
-}
-
-.show-on-page {
-  font-family: 'Mona Sans';
-  font-style: italic;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 25px;
-  text-transform: capitalize;
-  color: #243376;
-}
-
-.selected-classes-clear {
-  position: absolute;
-  top: 14px;
-  left: 60px;
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.04em;
-  text-transform: capitalize;
-  color: #101C50;
-  z-index: 2;
-}
-
-.selected-classes-clear:hover {
-  color: #47484d;
 }
 
 .selected-class-small {
@@ -94,38 +137,35 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  width: 155px;
-  height: 93px;
-  background: #F8F8FF;
+  width: 151px;
+  background: rgba(36, 58, 118, 0.5);
   border: 1px solid #1C5B90;
   border-radius: 10px;
-  margin-top: 40px;
   opacity: 0.5;
-  padding: 5px;
-}
-
-.selected-class-small video {
-  border-radius: 10px;
-  width: 150px;
-  height: 90px;
 }
 
 .selected-class-caption {
   font-family: 'Mona Sans';
   font-style: normal;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 15px;
   line-height: 25px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: absolute;
   inset: 0;
   z-index: 1;
   text-transform: capitalize;
-  color: rgba(8, 2, 17, 0.555);
+  color: #FFFFFF;
   text-align: center;
-  width: 90%;
-  height: 90px;
 }
 
+.selected-class-caption span {
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 4px;
+  cursor: pointer;
+}

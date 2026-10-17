@@ -27,8 +27,8 @@ const STYLE_THEME: Record<YogaStyleId, YogaStyleDescription> = {
     yogaImg: '/assets/images/hatha1.png',
     yogaImgHover: '/assets/images/hatha2.png',
     headerBackgroundImage: "url('/assets/images/hatha-background.png')",
-    headerBackgroundColor: '#4456A9',
-    classesBodyBackgroundColor: '#EBEBF5',
+    headerBackgroundColor: '#4998E3',
+    classesBodyBackgroundColor: '#D1E4F5',
     defaultSrc: '/assets/images/hatha-main1.png',
     hoverSrc: '/assets/images/hatha-main2.png'
   },
@@ -40,8 +40,8 @@ const STYLE_THEME: Record<YogaStyleId, YogaStyleDescription> = {
     yogaImg: '/assets/images/vinyasa1.png',
     yogaImgHover: '/assets/images/vinyasa2.png',
     headerBackgroundImage: "url('/assets/images/vinyasa-background.png')",
-    headerBackgroundColor: '#1F6B9A',
-    classesBodyBackgroundColor: '#DEE8F2',
+    headerBackgroundColor: '#175B94',
+    classesBodyBackgroundColor: '#D1E4F5',
     defaultSrc: '/assets/images/vinyasa-main1.png',
     hoverSrc: '/assets/images/vinyasa-main2.png'
   },
@@ -53,8 +53,8 @@ const STYLE_THEME: Record<YogaStyleId, YogaStyleDescription> = {
     yogaImg: '/assets/images/ashtanga1.png',
     yogaImgHover: '/assets/images/ashtanga2.png',
     headerBackgroundImage: "url('/assets/images/ashtanga-background.png')",
-    headerBackgroundColor: '#61619E',
-    classesBodyBackgroundColor: '#E7E7F5',
+    headerBackgroundColor: '#34347A',
+    classesBodyBackgroundColor: '#D1E4F5',
     defaultSrc: '/assets/images/ashtanga-main1.png',
     hoverSrc: '/assets/images/ashtanga-main2.png'
   },
@@ -66,8 +66,8 @@ const STYLE_THEME: Record<YogaStyleId, YogaStyleDescription> = {
     yogaImg: '/assets/images/all1.png',
     yogaImgHover: '/assets/images/all2.png',
     headerBackgroundImage: "url('/assets/images/all-background.png')",
-    headerBackgroundColor: '#3A559A',
-    classesBodyBackgroundColor: '#DEE8F2',
+    headerBackgroundColor: '#1F3F95',
+    classesBodyBackgroundColor: '#D1E4F5',
     defaultSrc: '/assets/images/all-main1.png',
     hoverSrc: '/assets/images/all-main2.png'
   },
@@ -79,7 +79,7 @@ const STYLE_THEME: Record<YogaStyleId, YogaStyleDescription> = {
     yogaImg: '/assets/images/beyond1.png',
     yogaImgHover: '/assets/images/beyond2.png',
     headerBackgroundImage: "url('/assets/images/beyond-background.png')",
-    headerBackgroundColor: '#3A559A',
+    headerBackgroundColor: '#7C70B7',
     classesBodyBackgroundColor: '#DEE8F2',
     defaultSrc: '/assets/images/beyond-main1.png',
     hoverSrc: '/assets/images/beyond-main2.png'
@@ -92,8 +92,21 @@ const STYLE_THEME: Record<YogaStyleId, YogaStyleDescription> = {
     yogaImg: '/assets/images/teachers1.png',
     yogaImgHover: '/assets/images/teachers2.png',
     headerBackgroundImage: "url('/assets/images/teachers-background.png')",
-    headerBackgroundColor: '#3994D0',
+    headerBackgroundColor: '#2D85BF',
     classesBodyBackgroundColor: '#96C2DD',
+    defaultSrc: '',
+    hoverSrc: ''
+  },
+  events: {
+    id: 'events',
+    title: 'events',
+    description: '',
+    innerDescription: 'Community Events Board ',
+    yogaImg: '',
+    yogaImgHover: '',
+    headerBackgroundImage: "url('/assets/images/events-background.png')",
+    headerBackgroundColor: '#A3AADF',
+    classesBodyBackgroundColor: '#FFFBFB',
     defaultSrc: '',
     hoverSrc: ''
   }

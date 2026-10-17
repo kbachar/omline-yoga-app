@@ -1,8 +1,11 @@
-.classes-navbar {
+.navbar-row {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  padding: 0px 200px;
+  gap: 10px;
+
   position: sticky;
   top: 130px;
   z-index: 20;
@@ -10,27 +13,44 @@
   gap: 8px;
   margin-right: auto;
   margin-left: auto;
-  width: auto;
-  height: 50px;
   left: 0px;
   top: 130px;
   margin: 0;
   opacity: 1;
   order: 1;
   flex-grow: 0;
+  height: 50px;
   background: #243376;
 }
 
-.classes-navbar-item {
-  cursor: pointer;
+.classes-navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 6px;
+  width: 1194px;
+  height: 50px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.navbar-item {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   padding: 0px 20px;
   gap: 8px;
+  height: 50px;
   flex: none;
   order: 0;
   flex-grow: 0;
+  cursor: pointer;
+}
+
+.classes-navbar-item {
   font-family: 'Montserrat Alternates';
   font-style: normal;
   font-weight: 500;

@@ -7,39 +7,44 @@
 <section class="classes-page">
   <main class="classes-main" [style.background-color]="yogaStyle.classesBodyBackgroundColor">
     <div class="main-container">
-      <div class="filters-container">
-        <app-main-filter (selectedFilters)="onFilterChange($event)"></app-main-filter>
-      </div>
 
       <div class="main-classes-container">
-        <img class="arrow-left" src="/assets/images/arrow-left.png">
-        <div class="selected-classes-container">
-          @if (selectedClasses.length === 0) {
-          <div class="selected-class-small">
-            <div class="selected-class-caption">Select a class</div>
+        <div class="selected-header-classes-container">
+          <div class="selected-classes-clear" (click)="clearSelectedClasses()">
+            <span class="selected-classes-clear-icon">X</span> clear all selections
           </div>
-          }
-
-          @for (selectedClass of selectedClasses; track selectedClass.id) {
-          <div class="selected-class-small">
-            <video [src]="selectedClass.videoLink"></video>
-            <div class="selected-class-caption">{{ selectedClass.title }}</div>
-          </div>
-          }
-          <div class="show-on-page-container" (click)="selectedClassesClick(selectedClasses)"
-            (mouseenter)="isShowOnPageHovered = true" (mouseleave)="isShowOnPageHovered = false">
-            <img
-              [src]="isShowOnPageHovered ? '/assets/images/show-on-page-hover.png' : '/assets/images/show-on-page.png'">
-          </div>
-          <div class="selected-classes-clear" (click)="clearSelectedClasses()">X clear</div>
+          <label>all Your chosen lessons, all gathered here into a single page</label>
+          <button>show on page</button>
         </div>
-        <img class="arrow-right" src="/assets/images/arrow-right.png">
+        <hr class="selected-divider">
+
+
+        <div class="selected-classes-main-container">
+          <img class="arrow-left" src="/assets/images/arrow-left.png">
+        
+          <div class="selected-classes-container">
+            @for (selectedClass of selectedClasses; track selectedClass.id) {
+            <div class="selected-class-small">
+              <video [src]="selectedClass.videoLink"></video>
+              <div class="selected-class-caption">
+                <span>X</span>
+                {{ selectedClass.title }}</div>
+            </div>
+            }
+          </div>
+        
+          <img class="arrow-right" src="/assets/images/arrow-right.png">
+        </div>
+      </div>
+
+      <div class="filters-container">
+        <app-main-filter (selectedFilters)="onFilterChange($event)"></app-main-filter>
       </div>
 
       @if (classes$ | async; as classes) {
       <app-classes-display [classes]="classes" [selectedClasses]="selectedClasses" [descriptionHeight]="70"
         (selectedClassChanged)="selectedClassChanged($event)"></app-classes-display>
-      }    
+      }
     </div>
   </main>
 </section>

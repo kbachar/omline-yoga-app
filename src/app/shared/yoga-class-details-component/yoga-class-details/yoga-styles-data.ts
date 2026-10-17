@@ -4,7 +4,8 @@ export const yogaStyles = [
     'ashtanga',
     'all',
     'beyond',
-    'teachers'
+    'teachers',
+    'events'
   ]
   
   export const durations = [

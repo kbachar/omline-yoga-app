@@ -8,12 +8,8 @@
 }
 
 .yoga-style-img {
-
     width: 457px;
     height: 378px;
-    margin-right: 20px;
-
-
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
