@@ -71,19 +71,6 @@ const STYLE_THEME: Record<YogaStyleId, YogaStyleDescription> = {
     defaultSrc: '/assets/images/all-main1.png',
     hoverSrc: '/assets/images/all-main2.png'
   },
-  beyond: {
-    id: 'beyond',
-    title: 'Beyond Practice',
-    description: 'links to yoga philosophy history, and enriching knowledge',
-    innerDescription: 'Dive deeper and explore timeless, worldwide wisdom gathered here for you from across the web. Enrich your knowledge and spirit by linking to the philosophy of yoga, its history, and profound wisdom. Discover curated insights that bring a wider meaning to your practice.',
-    yogaImg: '/assets/images/beyond1.png',
-    yogaImgHover: '/assets/images/beyond2.png',
-    headerBackgroundImage: "url('/assets/images/beyond-background.png')",
-    headerBackgroundColor: '#7C70B7',
-    classesBodyBackgroundColor: '#DEE8F2',
-    defaultSrc: '/assets/images/beyond-main1.png',
-    hoverSrc: '/assets/images/beyond-main2.png'
-  },
   teachers: {
     id: 'teachers',
     title: 'teachers',
@@ -96,6 +83,19 @@ const STYLE_THEME: Record<YogaStyleId, YogaStyleDescription> = {
     classesBodyBackgroundColor: '#96C2DD',
     defaultSrc: '',
     hoverSrc: ''
+  },
+  beyond: {
+    id: 'beyond',
+    title: 'Beyond Practice',
+    description: 'links to yoga philosophy history, and enriching knowledge',
+    innerDescription: 'Dive deeper and explore timeless, worldwide wisdom gathered here for you from across the web. Enrich your knowledge and spirit by linking to the philosophy of yoga, its history, and profound wisdom. Discover curated insights that bring a wider meaning to your practice.',
+    yogaImg: '/assets/images/beyond1.png',
+    yogaImgHover: '/assets/images/beyond2.png',
+    headerBackgroundImage: "url('/assets/images/beyond-background.png')",
+    headerBackgroundColor: '#7C70B7',
+    classesBodyBackgroundColor: '#DEE8F2',
+    defaultSrc: '/assets/images/beyond-main1.png',
+    hoverSrc: '/assets/images/beyond-main2.png'
   },
   events: {
     id: 'events',
