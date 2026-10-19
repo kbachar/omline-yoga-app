@@ -1,12 +1,11 @@
 .filters-row-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  margin: auto;
-  margin-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
+  width: 1297px;
+  height: 21px;
+  gap: 40px;
 }
 
 .filter-img-container {
@@ -19,39 +18,21 @@
 }
 
 .filter-img {
-  margin-top: 5px;
-  width: 16px;
-  height: 13px;
-}
-
-.filters-text-box {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.02em;
-  text-transform: capitalize;
-  color: #1C5A8E;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  width: 21px;
+  height: 21px;
 }
 
 .clear {
-  width: fit-content;
   height: 35px;
   font-family: 'Raleway';
   font-style: normal;
-  font-weight: 900;
+  font-weight: 600;
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.02em;
   text-transform: capitalize;
   color: #101C50;
-  flex: none;
-  order: 3;
-  flex-grow: 0;
   cursor: pointer;
+  margin-left: auto;
+  margin-right: 10px;
 }
-

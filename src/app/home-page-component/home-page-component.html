@@ -13,7 +13,7 @@
 
 	<div class="yoga-styles-box">
 		@for (item of yogaStyles | async; track item.id) {
-		@if (item.id != 'all' && item.id != 'beyond' && item.id != 'teachers') {
+		@if (item.id != 'all' && item.id != 'beyond' && item.id != 'teachers' && item.id != 'events') {
 		<div class="yoga-style-item-with-image">
 			<img [src]="imageFor(item)" [id]="item.yogaImg" [alt]="item.title" tabindex="0"
 				(mouseenter)="setHoveredStyle(item.id)" (mouseleave)="setHoveredStyle('')"

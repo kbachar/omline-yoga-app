@@ -21,7 +21,7 @@ import { ClassesDisplay } from '../shared/classes-display-component/classes-disp
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClassesPageComponent implements OnInit {
-   yogaStyle$!: Observable<YogaStyleDescription>;
+  yogaStyle$!: Observable<YogaStyleDescription>;
   classes$!: Observable<YogaClassData[]>;
   protected selectedClasses: YogaClassData[] = [];
   protected isYogaImageHovered = false;
@@ -92,7 +92,11 @@ export class ClassesPageComponent implements OnInit {
   clearSelectedClasses(): void {
     this.selectedClasses = [];
   }
- 
+
+  async removeSelectedClass(selectedClass: YogaClassData) {
+    this.selectedClasses = this.selectedClasses.filter((selected) => selected.id !== selectedClass.id);
+  }
+
   selectedClassesClick(classes: YogaClassData[]) {
     this.router.navigate(['/selected-classes'], {
       queryParams: {

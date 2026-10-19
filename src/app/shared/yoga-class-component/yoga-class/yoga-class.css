@@ -47,7 +47,7 @@
 }
 
 .class-name {
-  font-family: 'Raleway';
+  font-family: 'Montserrat';
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
@@ -61,7 +61,7 @@
 
 .status,
 .style-description {
-  font-family: 'Raleway';
+  font-family: 'Montserrat';
   font-style: italic;
   font-weight: 400;
   font-size: 12px;
@@ -85,19 +85,19 @@
 }
 
 .class-description {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
-  text-transform: capitalize;
-  color: #101C50;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: #c9dfec transparent;
-  max-width: 1200px;
-  max-height: 165px;
+  width: 380px;
+  height: 60px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  text-transform: capitalize;
+  color: #101C50;
 }
 
 .class-description::-webkit-scrollbar {

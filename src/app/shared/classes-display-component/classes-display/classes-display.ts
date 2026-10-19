@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { YogaClassData } from '../../yoga-class-data';
 import { YogaClass } from '../../yoga-class-component/yoga-class/yoga-class';
 
@@ -28,5 +28,9 @@ export class ClassesDisplay {
       yogaClass,
       checked: !isAlreadySelected,
     });
+  }
+
+  isSelected(yogaClass: YogaClassData): boolean {
+    return this.selectedClasses().some((selected) => selected.id === yogaClass.id);
   }
 }

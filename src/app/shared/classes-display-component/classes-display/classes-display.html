@@ -1,15 +1,16 @@
 @if (classes(); as classes) {
 <div class="yoga-classes">
   @for (classItem of classes; track classItem.id) {
-  <div class="yoga-class-meta" [class.is-selected]="isClassSelected(classItem)" (click)="addSelectedClass(classItem)">
+  <div class="yoga-class-meta" [class.is-selected]="isClassSelected(classItem)">
     <video class="yoga-class-img" [src]="classItem.videoLink"></video>
-
     <app-yoga-class [classData]="classItem" [descriptionWidth]="361" [descriptionHeight]="80" [showClassLength]="false"
       [showTeacherName]="showTeacherName()" [descriptionHeight]="descriptionHeight()"
       [showClassLength]="showClassLength()"></app-yoga-class>
     @if (showAddToList()) {
     <div class="buttons-container">
-      <button>add to list</button>
+      <button (click)="addSelectedClass(classItem)"
+        [style.background]="isSelected(classItem) ? '#9DB2D2' : null">{{ isSelected(classItem) ? 'remove from list'
+        : 'add to list' }}</button>
       <button>class page</button>
     </div>
     }

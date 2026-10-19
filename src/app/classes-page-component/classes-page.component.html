@@ -21,25 +21,24 @@
 
         <div class="selected-classes-main-container">
           <img class="arrow-left" src="/assets/images/arrow-left.png">
-        
+
           <div class="selected-classes-container">
             @for (selectedClass of selectedClasses; track selectedClass.id) {
             <div class="selected-class-small">
               <video [src]="selectedClass.videoLink"></video>
               <div class="selected-class-caption">
-                <span>X</span>
-                {{ selectedClass.title }}</div>
+                <span (click)="removeSelectedClass(selectedClass)">X</span>
+                {{ selectedClass.title }}
+              </div>
             </div>
             }
           </div>
-        
+
           <img class="arrow-right" src="/assets/images/arrow-right.png">
         </div>
       </div>
 
-      <div class="filters-container">
-        <app-main-filter (selectedFilters)="onFilterChange($event)"></app-main-filter>
-      </div>
+      <app-main-filter (selectedFilters)="onFilterChange($event)"></app-main-filter>
 
       @if (classes$ | async; as classes) {
       <app-classes-display [classes]="classes" [selectedClasses]="selectedClasses" [descriptionHeight]="70"

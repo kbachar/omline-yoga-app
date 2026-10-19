@@ -86,7 +86,7 @@ const STYLE_THEME: Record<YogaStyleId, YogaStyleDescription> = {
   },
   teachers: {
     id: 'teachers',
-    title: 'our teachers',
+    title: 'teachers',
     description: '',
     innerDescription: 'Meet our yoga teachers from around the world, bringing their unique style, experience, and approach to the mat. Explore their classes, discover new perspectives, and find the teacher who inspires your yoga journey.',
     yogaImg: '/assets/images/teachers1.png',
