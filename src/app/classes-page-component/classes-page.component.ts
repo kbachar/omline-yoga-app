@@ -97,10 +97,10 @@ export class ClassesPageComponent implements OnInit {
     this.selectedClasses = this.selectedClasses.filter((selected) => selected.id !== selectedClass.id);
   }
 
-  selectedClassesClick(classes: YogaClassData[]) {
+  selectedClassesClick() {
     this.router.navigate(['/selected-classes'], {
       queryParams: {
-        ids: classes.map((yogaClass) => yogaClass.id).join(','),
+        ids: this.selectedClasses.map((yogaClass) => yogaClass.id).join(','),
         page: this.selectedStyleId
       }
     });

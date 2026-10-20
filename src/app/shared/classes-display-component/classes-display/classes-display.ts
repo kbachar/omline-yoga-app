@@ -15,6 +15,7 @@ export class ClassesDisplay {
   readonly showAddToList = input<boolean>(true);
   readonly descriptionHeight = input<number>();
   readonly showClassLength = input<boolean>(false);
+  readonly showMainTime = input<boolean>(false);
   public selectedClassChanged = output<{ yogaClass: YogaClassData; checked: boolean }>();
 
   protected isClassSelected(yogaClass: YogaClassData): boolean {

@@ -2,6 +2,7 @@
   display: block;
   flex: 1;
   min-width: 0;
+  width: 100%;
 }
 
 .container {
@@ -34,6 +35,45 @@
   flex-shrink: 0;
   margin-right: 20px;
 }
+
+.teacher-name-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.time-container {
+  height: 22px;
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  gap: 5px;
+  margin-right: 5px;
+}
+
+.time {
+  font-family: 'Mona Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+}
+
+.time-bold {
+  font-family: 'Mona Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: #101C50;
+}
+
 
 .teacher-name {
   font-family: 'Cinzel Decorative';

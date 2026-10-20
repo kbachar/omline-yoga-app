@@ -55,11 +55,12 @@
 .selected-header-classes-container button {
   background: #243376;
   border-radius: 10px 10px 0px 10px;
+  border: 1px solid #243376;
   width: 163px;
   height: 37px;
   font-family: 'Montserrat';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
   line-height: 25px;
   text-align: center;

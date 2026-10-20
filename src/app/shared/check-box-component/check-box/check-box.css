@@ -12,15 +12,13 @@
 }
 
 .check-box {
-    box-sizing: border-box;
-    width: 15px;
-    height: 15px;
-    background: #DEE8F2;
-    border: 1px solid #243376;
-    border-radius: 2px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #243376;
+  border-radius: 2px;
+  background: #DEE8F2;
 }
 
 .check-box-description {

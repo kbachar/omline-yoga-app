@@ -14,7 +14,7 @@
             <span class="selected-classes-clear-icon">X</span> clear all selections
           </div>
           <label>all Your chosen lessons, all gathered here into a single page</label>
-          <button>show on page</button>
+          <button (click)="selectedClassesClick()">show on page</button>
         </div>
         <hr class="selected-divider">
 
@@ -41,8 +41,8 @@
       <app-main-filter (selectedFilters)="onFilterChange($event)"></app-main-filter>
 
       @if (classes$ | async; as classes) {
-      <app-classes-display [classes]="classes" [selectedClasses]="selectedClasses" [descriptionHeight]="70"
-        (selectedClassChanged)="selectedClassChanged($event)"></app-classes-display>
+      <app-classes-display [classes]="classes" [selectedClasses]="selectedClasses" [descriptionHeight]="60"
+        (selectedClassChanged)="selectedClassChanged($event)" [showMainTime]="true"></app-classes-display>
       }
     </div>
   </main>
