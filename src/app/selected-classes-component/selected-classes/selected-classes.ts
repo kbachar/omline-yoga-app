@@ -7,12 +7,13 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MainHeader } from '../../shared/main-header-component/main-header/main-header';
 import { ClassesNavbar } from '../../shared/classes-navbar-component/classes-navbar/classes-navbar';
+import { MainFilter } from '../../shared/main-filter-component/main-filter/main-filter';
 
 type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 
 @Component({
   selector: 'app-selected-classes',
-  imports: [YogaClass, AsyncPipe, MainHeader, ClassesNavbar],
+  imports: [YogaClass, AsyncPipe, MainHeader, ClassesNavbar, MainFilter],
   templateUrl: './selected-classes.html',
   styleUrl: './selected-classes.css',
 })

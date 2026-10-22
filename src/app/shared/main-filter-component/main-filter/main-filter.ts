@@ -15,7 +15,7 @@ export class MainFilter {
   durations = durations;
   challengeLevels = challengeLevels;
   existingFilters = new Map<string, FilterChange[]>();
-  readonly selectedStyleId = input<string>();
+  readonly width = input<number>();
   readonly selectedFilters = output<FilterChange[]>();
   
   onFilterChange(changed: FilterChange, filter: string) {

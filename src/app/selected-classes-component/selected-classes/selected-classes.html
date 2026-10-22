@@ -2,14 +2,21 @@
 <app-classes-navbar [yogaStyleId]="yogaStyleId()"></app-classes-navbar>
 
 <div class="container">
+    <div class="back-container" (click)="back()">
+        <img [src]="'/assets/images/back.png'">
+        <label>back</label>
+    </div>
     <header>
-        <img [src]="isBackHovered ? '/assets/images/back-hover.png' : '/assets/images/back.png'" (click)="back()"
-            (mouseenter)="isBackHovered = true" (mouseleave)="isBackHovered = false" alt="Back">
         <div class="my-selected-classes-container">
             <div class="my-selected-classes">my</div>
-            <div class="my-selected-classes-bold">selected</div>
-            <div class="my-selected-classes">classes</div>
+            <div class="my-selected-classes-bold">yoga space</div>
         </div>
+            
+        <div class="selected-classes-description">
+            <label>This page brings together all the lessons you gathered from the site</label>
+        </div>
+
+        <app-main-filter [width]="1285"></app-main-filter>
     </header>
     <div class="classes-container">
         @for (yogaClass of classes$ | async; track yogaClass) {

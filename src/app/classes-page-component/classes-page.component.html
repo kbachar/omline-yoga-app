@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <app-main-filter (selectedFilters)="onFilterChange($event)"></app-main-filter>
+      <app-main-filter (selectedFilters)="onFilterChange($event)" [width]="1297"></app-main-filter>
 
       @if (classes$ | async; as classes) {
       <app-classes-display [classes]="classes" [selectedClasses]="selectedClasses" [descriptionHeight]="60"

@@ -92,7 +92,7 @@ const STYLE_THEME: Record<YogaStyleId, YogaStyleDescription> = {
     yogaImg: '/assets/images/beyond1.png',
     yogaImgHover: '/assets/images/beyond2.png',
     headerBackgroundImage: "url('/assets/images/beyond-background.png')",
-    headerBackgroundColor: '#7C70B7',
+    headerBackgroundColor: '#8978DB',
     classesBodyBackgroundColor: '#DEE8F2',
     defaultSrc: '/assets/images/beyond-main1.png',
     hoverSrc: '/assets/images/beyond-main2.png'
