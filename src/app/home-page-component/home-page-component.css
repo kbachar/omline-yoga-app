@@ -32,17 +32,9 @@
 	height: 100dvh;
 }
 
-main {
-	width: 100%;
-	max-height: 989px;
-}
-
-.content {
+.main-container {
 	display: flex;
-	justify-content: space-around;
-	width: 100%;
-	max-width: 700px;
-	margin-bottom: 3rem;
+	flex-direction: column;
 }
 
 .main {
@@ -52,74 +44,60 @@ main {
 	background-repeat: no-repeat;
 	background-position: center top;
 	background-size: cover;
+	height: 789px;
 }
-
 
 .intro {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 0px;
-	/* gap: 6px; */
 	position: relative;
-	width: 926px;
-	/* height: 146px; */
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-	padding-top: 40px;
+	gap: 10px;
+	margin-top: 40px;
 }
 
 .first-row {
-
-	width: 1106px;
-	/* height: 50px; */
-
 	font-family: 'Cinzel Decorative';
 	font-style: normal;
 	font-weight: 400;
 	font-size: 35px;
 	line-height: 40px;
-	/* or 114% */
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
 	text-transform: capitalize;
-
 	color: #F6EEDB;
-	/* Inside auto layout */
 	flex: none;
 	order: 0;
 	flex-grow: 0;
 }
 
 .second-row {
-	width: 900px;
-	font-family: 'Raleway';
+	font-family: 'Montserrat';
 	font-style: italic;
 	font-weight: 300;
 	font-size: 20px;
-	line-height: 28px;
+	line-height: 35px;
 	text-align: center;
 	letter-spacing: 0.06em;
 	text-transform: capitalize;
 	color: #F2DFB2;
-	flex: none;
-	order: 1;
-	flex-grow: 0;
 }
 
 .yoga-styles-box {
 	width: 125px;
 	position: relative;
-	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	gap: 100px;
+	margin-top: 50px;
 }
 
 .yoga-style-item-with-image {
@@ -134,19 +112,16 @@ main {
 	width: 978px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 10px;
 }
 
 .all-yoga-styles-box {
 	position: relative;
-	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
-	gap: 100px;
-	margin-bottom: 50px;
+	margin-top: 20px;
 }
 
 .all-img {
@@ -193,7 +168,6 @@ main {
 	font-family: 'Cinzel Decorative';
 	font-style: normal;
 	font-weight: 400;
-	font-size: 25px;
 	line-height: 25px;
 	display: flex;
 	align-items: center;
@@ -201,6 +175,9 @@ main {
 	text-transform: capitalize;
 	color: #FFF8E6;
 	cursor: pointer;
+
+	font-size: 22px;
+	line-height: 25px;
 }
 
 .yoga-style-header:hover {
@@ -210,66 +187,53 @@ main {
 .yoga-style-description {
 	width: 260px;
 	height: 107px;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
 	font-family: 'Montserrat';
 	font-style: normal;
 	font-weight: 400;
-	line-height: 30px;
-	text-align: start;
-	letter-spacing: 0.02em;
-	text-transform: capitalize;
-	color: #FFFBFB;
-	margin-top: 10px;
-	margin-left: auto;
-	margin-right: auto;
 	font-size: 16px;
 	line-height: 25px;
 	letter-spacing: 0.02em;
 	text-transform: capitalize;
 	color: #FFFBFB;
-	margin-top: 20px;
+
 }
 
 .all-yoga-style-description {
 	width: 320px;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
 	font-family: 'Montserrat';
 	font-style: normal;
 	font-weight: 400;
-	line-height: 30px;
-	text-align: start;
-	letter-spacing: 0.02em;
-	text-transform: capitalize;
-	color: #FFFBFB;
-	margin-top: 10px;
-	margin-left: auto;
-	margin-right: auto;
-	font-size: 18px;
+	font-size: 16px;
 	line-height: 25px;
 	letter-spacing: 0.02em;
 	text-transform: capitalize;
 	color: #FFFBFB;
-	margin-top: 20px;
 }
 
 .teachers-section {
-	padding-top: 130px;
-	background: #EAEAFA;
-	min-height: 1051px;
+	background: #CCC5E0;
 }
 
 .teachers-container {
 	display: flex;
 	flex-direction: column;
-
+	height: 702px;
+	margin-top: 200px;
 }
 
 .teachers-header-container {
-	/* width: 65%; */
 	display: flex;
-	/* flex-direction: column; */
 	margin-left: auto;
 	margin-right: auto;
-	gap: 20px;
-	
+	gap: 10px;
+	margin-bottom: 50px;
+	background: #CCC5E0;
 }
 
 .teachers-header {
@@ -297,12 +261,12 @@ main {
 }
 
 .teachers-text-container {
-	width: 65%;
+	width: 70%;
 	display: flex;
 	flex-direction: column;
 	margin-left: auto;
 	margin-right: auto;
-
+	gap: 50px;
 }
 
 .teachers-text {
@@ -319,7 +283,6 @@ main {
 
 .teachers-text-bold {
 	font-family: 'Montserrat';
-	font-style: normal;
 	font-style: italic;
 	font-weight: 600;
 	font-size: 30px;
@@ -328,32 +291,48 @@ main {
 	letter-spacing: 0.02em;
 	text-transform: capitalize;
 	color: #101E52;
+	display: flex;
+	flex-direction: column;
 }
 
-.teachers-main-vision button,
 .teachers-text-container button {
-	font-family: 'Mona Sans';
-	font-style: normal;
-	font-weight: 500;
-	font-size: 20px;
-	line-height: 13px;
+	box-sizing: border-box;
 	display: flex;
+	flex-direction: row;
+	justify-content: center;
 	align-items: center;
-	letter-spacing: 0.05em;
-	text-transform: capitalize;
-	color: #111F54;
-
-	padding: 4px 12px;
+	align-self: center;
+	padding: 1px 0px;
 	gap: 10px;
-	background: #CED6ED;
-	border-radius: 50px;
-	align-self: flex-end;
-	margin-top: 30px;
+	background: #2B79C1;
+	border-radius: 8px;
+	width: 365px;
+	height: 86px;
+	font-family: 'Montserrat';
+	font-style: italic;
+	font-weight: 600;
+	font-size: 30px;
+	line-height: 45px;
+	text-align: center;
+	letter-spacing: 0.02em;
+	text-transform: capitalize;
+	color: #FFFFFF;
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+	margin-top: 100px;
+	margin-bottom: 200px;
 }
 
-.teachers-main-container {
+.vision-main-container {
+	width: 100%;
 	display: flex;
-	max-height: 805px;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	background: #FFFFFF;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 .teachers-main-vision {
@@ -361,7 +340,11 @@ main {
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: center;
-	margin-bottom: 30px;
+	background: #FFFFFF;
+	gap: 30px;
+	width: 687px;
+	margin-top: 100px;
+	margin-bottom: 200px;
 }
 
 .vision-title {
@@ -369,11 +352,10 @@ main {
 	font-style: normal;
 	font-weight: 700;
 	font-size: 40px;
-	line-height: 70px;
+	line-height: 40px;
 	text-align: center;
 	text-transform: capitalize;
 	color: #243376;
-	margin-bottom: 30px;
 }
 
 .vision-bold {
@@ -381,15 +363,14 @@ main {
 	font-style: normal;
 	font-weight: 700;
 	font-size: 21px;
-	line-height: 20px;
+	line-height: 30px;
 	letter-spacing: 0.04em;
 	text-transform: capitalize;
 	color: #101C50;
-	margin-bottom: 30px;
 }
 
 .vision-text {
-	font-family: 'Raleway';
+	font-family: 'Montserrat';
 	font-style: normal;
 	font-weight: 400;
 	font-size: 20px;
@@ -400,7 +381,72 @@ main {
 }
 
 .teachers-main-vision button {
-	align-self: flex-start;
+	font-family: 'Montserrat';
+	font-style: italic;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 30px;
+	text-transform: capitalize;
+	color: #243376;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+}
+
+.footer {
+	position: relative;
+	height: 600px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	margin-right: auto;
+	margin-left: auto;
+	background: #1E1F4D;
+	padding: 20px;
+}
+
+.rights {
+	font-family: 'Montserrat Alternates';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 30px;
+	text-transform: capitalize;
+	color: #F9F3F3;
+}
+
+.references {
+	width: 1133px;
+	height: 66px;
+	display: flex;
+	justify-content: center;
+}
+
+.references label {
+	font-family: 'Montserrat';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 15px;
+	line-height: 30px;
+	text-transform: capitalize;
+	color: #6DBDB9;
+}
+
+.references label + label::before {
+	content: '•';
+	margin: 0 10px;
+}
+
+.footer img {
+	width: 56px;
+	height: 55px;
+}
+
+.divider {
+	border: 1px solid #58679E;
+	width: 1316px;
 }
 
 @media screen and (max-width: 650px) {
