@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { YogaClassesService } from '../services/yoga-classes-service';
 import { YogaStyleDescription } from '../shared/yoga-style-description-data';
 import { AsyncPipe } from '@angular/common';
@@ -7,7 +7,7 @@ import { MainHeader } from '../shared/main-header-component/main-header/main-hea
 
 @Component({
   selector: 'app-home-page-component',
-  imports: [AsyncPipe, MainHeader],
+  imports: [AsyncPipe, MainHeader, RouterLink],
   templateUrl: './home-page-component.html',
   styleUrl: './home-page-component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -52,5 +52,12 @@ export class HomePageComponent {
     this.router.navigate(['/classes', 'all']);
   }
 
+  subscribe() {
+    this.router.navigate(['teacher-subscribe-page']);
+  }
 
+  ourVision() {
+    this.router.navigate(['our-vision-page']);
+
+  }
 }

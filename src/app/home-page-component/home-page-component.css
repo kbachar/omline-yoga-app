@@ -56,7 +56,7 @@
 	margin-right: auto;
 	text-align: center;
 	gap: 10px;
-	margin-top: 40px;
+	margin-top: 30px;
 }
 
 .first-row {
@@ -97,7 +97,7 @@
 	justify-content: center;
 	align-items: center;
 	gap: 100px;
-	margin-top: 50px;
+	margin-top: 30px;
 }
 
 .yoga-style-item-with-image {
@@ -322,6 +322,7 @@
 	flex-grow: 0;
 	margin-top: 100px;
 	margin-bottom: 200px;
+	cursor: pointer;
 }
 
 .vision-main-container {
@@ -424,19 +425,23 @@
 	justify-content: center;
 }
 
-.references label {
+.references button {
 	font-family: 'Montserrat';
 	font-style: normal;
 	font-weight: 700;
 	font-size: 15px;
-	line-height: 30px;
+	line-height: 20px;
 	text-transform: capitalize;
 	color: #6DBDB9;
+	cursor: pointer;
+	background: transparent;
+	border: none;
 }
 
-.references label + label::before {
+.references button + button::before {
 	content: '•';
 	margin: 0 10px;
+	cursor: default;
 }
 
 .footer img {

@@ -80,7 +80,7 @@
 						<label>Ready to join us?</label>
 						<label>Click the Subscribe button below to get started.</label>
 					</div>
-					<button>Subscribe</button>
+					<button (click)="subscribe()">Subscribe</button>
 				</div>
 			</div>
 		</div>
@@ -101,7 +101,7 @@
 					yoga community was missing a true home — a single, unified sanctuary that brings the entire
 					world
 					of yoga together into one fluid space.</div>
-				<button>read more...</button>
+				<button (click)="ourVision()">read more...</button>
 				<!-- <div class="vision-title">Thanks</div>
 					<div class="vision-text">Gal Levy</div>
 					<div class="vision-text">Yotvat</div> -->
@@ -112,20 +112,20 @@
 			<div class="rights">Keren Bachar & Gal Levi. All rights reserved. 2026 © </div>
 			<hr class="divider">
 			<div class="references">
-				<label>hatha yoga </label>
-				<label>ashtanga yoga </label>
-				<label>all yoga classes </label>
-				<label>Beyond Practice</label>
-				<label>teachers</label>
-				<label>events</label>
-				<label>vision</label>
-				<label>contact us</label>
-				<label>plans</label>
+				<button [routerLink]="['classes', 'hatha']">hatha yoga </button>
+				<button [routerLink]="['classes', 'ashtanga']">ashtanga yoga </button>
+				<button [routerLink]="['classes', 'all']">all yoga classes </button>
+				<button [routerLink]="['beyond-practice-page']">Beyond Practice</button>
+				<button [routerLink]="['our-teachers-page']">teachers</button>
+				<button [routerLink]="['events-board-page']">events</button>
+				<button [routerLink]="['our-vision-page']">vision</button>
+				<button [routerLink]="['contact-us']">contact us</button>
+				<button>plans</button>
 			</div>
 			<div class="references">
-				<label>Privacy Policy</label>
-				<label>Terms of Service</label>
-				<label>Accessibility Statement</label>
+				<button>Privacy Policy</button>
+				<button>Terms of Service</button>
+				<button>Accessibility Statement</button>
 			</div>
 		</div>
 </div>
