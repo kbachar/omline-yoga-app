@@ -17,14 +17,17 @@ export class YogaClassesFilter {
   readonly readOnly = input<boolean>(false);
   readonly selectedOption = signal<string>('');
   readonly showFiltersBorder = input<boolean>(true);
+  readonly addMinSuffix = input<string>('');
 
   readonly filterChange = output<FilterChange>();
 
   isOptionSaved(filterOption: string): boolean {
-    return this.savedOption() === filterOption ||
+    const isSaved = this.savedOption() === filterOption ||
       (this.savedOptions()?.some((savedFilter) =>
         savedFilter.checked && savedFilter.filterOption === filterOption
       ) ?? false);
+
+    return isSaved;
   }
 
   onFilterChange(filterOption: string, checked: boolean) {

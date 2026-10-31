@@ -26,6 +26,7 @@ import { OurTeachersPage } from './our-teachers-page-component/our-teachers-page
 import { TeacherPage } from './teacher-page-component/teacher-page/teacher-page';
 import { ContactUs } from './shared/contact-us-component/contact-us/contact-us';
 import { EventsBoardPageComponent } from './events-board-page-component/events-board-page-component/events-board-page-component';
+import { EventComponent } from './shared/event-component/event-component/event-component';
 
 export const routes: Routes = [
 	{
@@ -78,7 +79,8 @@ export const routes: Routes = [
 			{ path: 'teacher-classes/:teacherId', component: TeacherClasses },
 			{ path: 'yoga-class-details/:classID', component: YogaClassDetails },
 			{ path: 'yoga-class-details', component: YogaClassDetails },
-			{ path: 'teacher-home-page/:teacherId', component: TeacherHomePage}
+			{ path: 'teacher-home-page/:teacherId', component: TeacherHomePage},
+			{ path: 'event-component', component: EventComponent }
 		]
 	},
 	{

@@ -1,0 +1,38 @@
+    @if (event$ | async; as event){
+<app-page-header [headerText]="'upload New event'" [buttonText]="'save'" (buttonClick)="saveEvent(event)"></app-page-header>
+<div class="container">
+    <div class="details-container">
+        <app-text-box [placeholderValue]="'event name'" (textChange)="eventNameChange($event, event)"></app-text-box>
+        <app-text-box [placeholderValue]="'location'" (textChange)="locationChange($event, event)"></app-text-box>
+        <app-text-box [placeholderValue]="'date'" (textChange)="eventDateChange($event, event)"></app-text-box>
+        <app-text-box [placeholderValue]="'time'" (textChange)="eventTimeChange($event, event)"></app-text-box>
+        <app-text-box [placeholderValue]="'link'" (textChange)="eventLinkChange($event, event)"></app-text-box>
+        <app-text-area [textAreaName]="'description'" (textValueChange)="descriptionChange($event, event)" [textHeight]="255" [textWidth]="500"></app-text-area>
+        
+    </div>
+    <div class="upload-container">
+        <input #fileInput type="file" accept="image/*" hidden (change)="onPhotoSelected($event)" />
+        <button>upload file</button>
+        @if (photoPreview() != '') {
+        <img [src]="photoPreview()" (click)="fileInput.click()" />
+        }
+        @else {
+        <label>upload image</label>
+        }
+    </div>
+    <div class="instructions-container">
+        <h1>Yoga Event Upload Instructions</h1>
+        <h2>1. File Specifications:</h2>
+        <label>Dimensions: 385 x 923 pixels</label>
+        <label>Supported Formats: PDF or PNG</label>
+        <h2>2. What Will Be Displayed:</h2>
+        <label>Only your uploaded file and the "More Details" link will be visible on the public bulletin board. All
+            other fields filled out on this form are strictly for internal system purposes.</label>
+        <h2>3. Add Click Behavior:</h2>
+        <label>Clicking on your advertisement banner will immediately redirect users to the link you provided.</label>
+        <h2>4. Automatic Removal:</h2>
+        <label>To keep the board updated, your event advertisement will automatically be removed one day after the
+            scheduled event date.</label>
+    </div>
+</div>
+}

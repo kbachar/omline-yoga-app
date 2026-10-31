@@ -19,6 +19,19 @@
   border: 1px solid #243376;
   border-radius: 2px;
   background: #DEE8F2;
+  position: relative;
+}
+
+.check-box:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0px;
+  width: 4px;
+  height: 9px;
+  border: solid #243376;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 .check-box-description {

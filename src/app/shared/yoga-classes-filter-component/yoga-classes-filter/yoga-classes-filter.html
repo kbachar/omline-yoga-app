@@ -3,7 +3,7 @@
     <div class="filter-text">{{filterName()}}</div>
     @for (filterOption of filterOptions(); track filterOption) {
     <app-check-box 
-      [inputValue]="filterOption" 
+      [inputValue]="filterOption + ' ' + addMinSuffix()" 
       [disabled]="readOnly() == true"
       [checked]="isOptionSaved(filterOption)"
       (checkChange)="readOnly() == false ? onFilterChange(filterOption, $event) : null"

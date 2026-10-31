@@ -1,6 +1,11 @@
 @if (teacher$ | async; as teacher) {
 <app-page-header [headerText]="'welcome ' + teacher.fullName" [showButton]="false"></app-page-header>
 <div class="container">
+     @if (teacher.approved == true) {
+    <div class="main">
+        <button [routerLink]="['event-component']">add event</button>
+    </div>
+    }
     <div class="messages-container">
         @if (teacher.approved == false) {
         @if (teacher.description.length > 100 && teacher.photo != '') {
@@ -11,6 +16,6 @@
         <app-message-component [isOpen]="true" [border]="'1px solid #CAD7DC'"
             [messageText]="'Please complete filling Your details in your personal profile to continue.  '"></app-message-component>
         }}
-    </div>
+    </div>   
 </div>
 }

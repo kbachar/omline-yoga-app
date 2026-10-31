@@ -40,7 +40,7 @@ export class YogaClassDetails implements OnInit, OnDestroy {
   yogaClass$: Observable<YogaClassData | undefined> | undefined;
   teacher$: Observable<YogaTeacher | undefined> | undefined;
   private teacherId = '';
-  readonly yogaStyles = yogaStyles.filter((style) => style != 'beyond');
+  readonly yogaStyles = yogaStyles.filter((style) => style == 'hatha' || style == 'vinyasa' || style == 'ashtanga');
   readonly durations = durations;
   readonly challengeLevels = challengeLevels;
   protected readonly isDeleteModalOpen = signal(false);
@@ -74,6 +74,8 @@ export class YogaClassDetails implements OnInit, OnDestroy {
             }
             else
               this.headerText = 'class page - ';
+              console.log('filterOption is - ' + JSON.stringify(yogaClass.classLength))
+
           });
         }
         else {
@@ -132,7 +134,7 @@ export class YogaClassDetails implements OnInit, OnDestroy {
     this.photoFile = file;
     this.photoPreview.set(URL.createObjectURL(file));
   }
-  
+
   async save(yogaClass: YogaClassData) {
     this.isSaveModalOpen.set(true);
     yogaClass.teacherId = this.teacherId;
@@ -175,6 +177,7 @@ export class YogaClassDetails implements OnInit, OnDestroy {
   onDurationFilterChange(yogaClass: YogaClassData, filterOption: FilterChange) {
     yogaClass.classLength = filterOption.filterOption;
   }
+
 
   onYogaStylesFilterChange(yogaClass: YogaClassData, filterOption: FilterChange) {
     yogaClass.yogaStyle = filterOption.filterOption;

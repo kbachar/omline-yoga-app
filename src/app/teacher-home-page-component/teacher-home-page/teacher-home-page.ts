@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { PageHeader } from '../../shared/page-header-component/page-header/page-header';
 import { AuthService } from '../../services/auth-service';
 import { YogaClassesService } from '../../services/yoga-classes-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map, Observable, switchMap, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { YogaTeacher } from '../../shared/yoga-teacher-data';
@@ -10,7 +10,7 @@ import { MessageComponent } from '../../shared/message-component-component/messa
 
 @Component({
   selector: 'app-teacher-home-page',
-  imports: [PageHeader, AsyncPipe, MessageComponent],
+  imports: [PageHeader, AsyncPipe, MessageComponent, RouterLink],
   templateUrl: './teacher-home-page.html',
   styleUrl: './teacher-home-page.css',
 })

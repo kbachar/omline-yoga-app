@@ -9,9 +9,9 @@ export const yogaStyles = [
   ]
   
   export const durations = [
-    '40 min',
-    '50 min',
-    '60 min',
+    '40',
+    '50',
+    '60',
   ]
   
   export const challengeLevels = [
