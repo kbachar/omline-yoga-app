@@ -26,6 +26,7 @@
 .back-container img {
     width: 10px;
     height: 15px;
+    cursor: pointer;
 }
 
 .back-container label {
@@ -42,6 +43,7 @@
     order: 0;
     flex-grow: 0;
     height: 20px;
+    cursor: pointer;
 }
 
 header {

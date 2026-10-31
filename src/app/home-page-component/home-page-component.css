@@ -334,6 +334,12 @@
 	background: #FFFFFF;
 	margin-right: auto;
 	margin-left: auto;
+	margin-top: 100px;
+	gap: 30px;
+}
+
+.vision-main-container img {
+	align-self: flex-start;
 }
 
 .teachers-main-vision {
@@ -342,10 +348,15 @@
 	align-items: flex-start;
 	justify-content: center;
 	background: #FFFFFF;
-	gap: 30px;
+	gap: 20px;
 	width: 687px;
 	margin-top: 100px;
 	margin-bottom: 200px;
+}
+
+.teachers-main-vision img {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .vision-title {
