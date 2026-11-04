@@ -2,35 +2,57 @@
 <app-classes-navbar [yogaStyleId]="yogaStyleId()"></app-classes-navbar>
 
 <div class="container">
-    <div class="back-container" (click)="back()">
-        <img [src]="'/assets/images/back.png'">
-        <label>back</label>
-    </div>
-    <header>
-        <div class="my-selected-classes-container">
-            <div class="my-selected-classes">my</div>
-            <div class="my-selected-classes-bold">yoga space</div>
-        </div>
-            
-        <div class="selected-classes-description">
-            <label>This page brings together all the lessons you gathered from the site</label>
-        </div>
-
-        <app-main-filter [width]="1285"></app-main-filter>
-    </header>
-    <div class="classes-container">
-        @for (yogaClass of classes$ | async; track yogaClass) {
-        <div class="class-container">
-            <video [src]="yogaClass.videoLink"></video>
-            <div class="inner-class-container">
-                <app-yoga-class [classData]="yogaClass" [descriptionWidth]="300" [descriptionHeight]="145"
-                    [showClassLength]="true"></app-yoga-class>
+    <div class="left-side">
+        <header>
+            <div class="back-container" (click)="back()">
+                <img [src]="'/assets/images/back.png'">
+                <label>back</label>
             </div>
-        </div>
-        }
+            <div class="header-container">
+
+                <div class="my-selected-classes-container">
+                    <div class="my-selected-classes">my</div>
+                    <div class="my-selected-classes-bold">yoga space</div>
+                </div>
+
+                <label>This page brings together all the lessons you gathered from the site</label>
+
+                <!-- <app-main-filter [width]="1285"></app-main-filter> -->
+            </div>
+        </header>
+        <button (click)="removeAllClasses()"><span class="delete-x">x</span> Delete all classes</button>
+        <hr class="selected-divider">
+
+        <body>
+            <div class="classes-container">
+                @for (yogaClass of selectedClasses$ | async; track yogaClass) {
+                <div class="class-container">
+                    <div class="video-container">
+                        <video [src]="yogaClass.videoLink"></video>
+                        <span class="remove-class" (click)="removeClass(yogaClass)">X</span>
+                    </div>
+                    <div class="inner-class-container">
+                        <app-yoga-class [classData]="yogaClass" [descriptionWidth]="450" [descriptionHeight]="300"
+                            [showClassLength]="true"></app-yoga-class>
+                    </div>
+                </div>
+                }
+            </div>
+
+        </body>
     </div>
-    <div class="suggested-classes-continer">
-        <div class="suggested-classes">
+    <div class="right-side">
+        <header>
+            <label>choose <span class="bold"> more</span></label>
+        </header>
+        <div class="suggested-classes-container">
+        @for (suggestedClass of suggestedClasses$ | async; track suggestedClass) {
+
+            <div class="suggested-class">
+                <video [src]="suggestedClass.videoLink" (click)="addClass(suggestedClass)"></video>
+                <label>{{suggestedClass.title}}</label>
+            </div>
+        }
         </div>
     </div>
 </div>

@@ -7,13 +7,12 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MainHeader } from '../../shared/main-header-component/main-header/main-header';
 import { ClassesNavbar } from '../../shared/classes-navbar-component/classes-navbar/classes-navbar';
-import { MainFilter } from '../../shared/main-filter-component/main-filter/main-filter';
 
 type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 
 @Component({
   selector: 'app-selected-classes',
-  imports: [YogaClass, AsyncPipe, MainHeader, ClassesNavbar, MainFilter],
+  imports: [YogaClass, AsyncPipe, MainHeader, ClassesNavbar],
   templateUrl: './selected-classes.html',
   styleUrl: './selected-classes.css',
 })
@@ -21,7 +20,8 @@ export class SelectedClasses implements OnInit {
   private yogaService = inject(YogaClassesService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  classes$!: Observable<YogaClassData[]>;
+  selectedClasses$!: Observable<YogaClassData[]>;
+  suggestedClasses$!: Observable<YogaClassData[]>;
   protected classesIds: string[] = [];
   protected isBackHovered = false;
   readonly yogaStyleId = signal<YogaStyleId>('all');
@@ -36,9 +36,29 @@ export class SelectedClasses implements OnInit {
       ?.split(',')
       .filter(Boolean) ?? [];
 
-    this.classes$ = this.yogaService.getClassByIDs(this.classesIds);
+    this.selectedClasses$ = this.yogaService.getClassByIDs(this.classesIds);
+    this.suggestedClasses$ = this.yogaService.getFilteredClasses('all', null);
   }
 
+  removeClass(yogaClass: YogaClassData) {
+    this.classesIds = this.classesIds.filter((id) => id !== yogaClass.id);
+    this.selectedClasses$ = this.yogaService.getClassByIDs(this.classesIds);
+  }
+
+  addClass(suggestedClass: YogaClassData) {
+    if (this.classesIds.includes(suggestedClass.id)) {
+      return;
+    }
+
+    this.classesIds = [...this.classesIds, suggestedClass.id];
+    this.selectedClasses$ = this.yogaService.getClassByIDs(this.classesIds);
+  }
+
+  removeAllClasses() {
+    this.classesIds = [];
+    this.selectedClasses$ = this.yogaService.getClassByIDs(this.classesIds);
+  }
+  
   async back() {
     const page = await this.yogaStyleId();
     this.router.navigate(['/classes', page], {
