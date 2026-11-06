@@ -1,12 +1,6 @@
+@if (yogaStyle$ | async; as yogaStyle) {
 <app-main-header></app-main-header>
 <app-classes-navbar [yogaStyleId]="'events'"></app-classes-navbar>
-
-<div class="header-section">
-    <img [src]="'/assets/images/events.png'">
-    <div class="yoga-classes-header-bold">Community Events Board </div>
-    <div class="yoga-style-description">Explore upcoming workshops, local events and gatherings</div>
-
-    <div class="container">
-
-    </div>
-</div>
+<app-header-page-component [page]="'events'" [color]="'#243376'" [headerSectionClass]="'events-header-section'"
+    [headerClass]="'events-header-bold'" [descriptionClass]="'events-description'"></app-header-page-component>
+}

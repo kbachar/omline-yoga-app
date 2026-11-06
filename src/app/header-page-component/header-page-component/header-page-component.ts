@@ -22,6 +22,10 @@ private readonly router = inject(Router);
   readonly page = input<string>();
   readonly prefix = input<string>();
   readonly suffix = input<string>();
+  readonly color = input<string>('white');
+  readonly headerClass = input<string>('yoga-classes-header-bold');
+  readonly descriptionClass = input<string>('yoga-style-description');
+  readonly headerSectionClass = input<string>('header-section');
   
   yogaStyle$: Observable<YogaStyleDescription> = toObservable(this.page).pipe(
     switchMap((page) => this.yogaService.getYogaStyle(page ?? null))

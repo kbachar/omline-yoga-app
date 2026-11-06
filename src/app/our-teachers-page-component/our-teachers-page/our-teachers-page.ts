@@ -28,11 +28,7 @@ export class OurTeachersPage {
 
   protected classesNavbarClick(page: YogaStyleId): void {
     this.router.navigate([`classes/${page}`]);
-  }
-
-  protected setYogaImageHovered(isHovered: boolean): void {
-    this.isYogaImageHovered = isHovered;
-  }
+  } 
 
   gotoTeacherPage(teacher: YogaTeacher) {
     console.log('teacher.teacherID - ' + teacher.teacherID)

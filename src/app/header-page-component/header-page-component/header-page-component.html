@@ -1,19 +1,31 @@
 @if (yogaStyle$ | async; as yogaStyle) {
-<div class="header-section" [style.background-color]="yogaStyle.headerBackgroundColor"
+<div class="{{headerSectionClass()}}" [style.background-color]="yogaStyle.headerBackgroundColor"
     [style.background-image]="yogaStyle.headerBackgroundImage">
+    @if (yogaStyle.id != 'events') {
     <div class="yoga-style-img">
         <img [src]="isYogaImageHovered ? yogaStyle.yogaImgHover : yogaStyle.yogaImg"
-            (mouseenter)="setYogaImageHovered(true)"
-            (mouseleave)="setYogaImageHovered(false)" (focus)="setYogaImageHovered(true)"
-            (blur)="setYogaImageHovered(false)" tabindex="0">
+            (mouseenter)="setYogaImageHovered(true)" (mouseleave)="setYogaImageHovered(false)"
+            (focus)="setYogaImageHovered(true)" (blur)="setYogaImageHovered(false)" tabindex="0">
     </div>
+    }
+    @else {
+        <img [src]="isYogaImageHovered ? yogaStyle.yogaImgHover : yogaStyle.yogaImg"
+            (mouseenter)="setYogaImageHovered(true)" (mouseleave)="setYogaImageHovered(false)"
+            (focus)="setYogaImageHovered(true)" (blur)="setYogaImageHovered(false)" tabindex="0">
+    }
     <div class="header-content">
-        <div class="yoga-classes-header">
+        <div class="yoga-classes-header" [style.color]="color()">
+            @if (yogaStyle.id != 'events') {
             <div class="yoga-classes-header-normal">{{prefix()}}</div>
-            <div class="yoga-classes-header-bold">{{ yogaStyle.id }}</div>
+            <div class="{{headerClass()}}">{{yogaStyle.id}}</div>
             <div class="yoga-classes-header-normal">{{suffix()}}</div>
+            }
+            @else {
+            <div class="{{headerClass()}}">{{yogaStyle.description}}</div>
+
+            }
         </div>
-        <div class="yoga-style-description">{{ yogaStyle.innerDescription }}</div>
+        <div class="{{descriptionClass()}}" [style.color]="color()">{{ yogaStyle.innerDescription }}</div>
 
     </div>
 </div>
