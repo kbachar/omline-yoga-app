@@ -12,7 +12,7 @@
     </div>
     <div class="upload-container">
         <input #fileInput type="file" accept="image/*" hidden (change)="onPhotoSelected($event)" />
-        <button>upload file</button>
+        <button (click)="fileInput.click()">upload file</button>
         @if (photoPreview() != '') {
         <img [src]="photoPreview()" (click)="fileInput.click()" />
         }
