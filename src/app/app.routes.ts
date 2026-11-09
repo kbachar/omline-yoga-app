@@ -3,30 +3,13 @@ import { Routes } from '@angular/router';
 import { ClassesPageComponent } from './classes-page-component/classes-page.component';
 import { HomePageComponent } from './home-page-component/home-page-component';
 import { TeacherSubscribePage } from './teacher-subscribe-page-component/teacher-subscribe-page/teacher-subscribe-page';
-import { Teacher } from './shared/teacher-component/teacher/teacher';
-import { AdminDashboard } from './admin-dashboard-component/admin-dashboard/admin-dashboard';
-import { TeachersComponent } from './teachers-component/teachers/teachers';
-import { TeacherDashboard } from './teacher-dashboard-component/teacher-dashboard/teacher-dashboard';
 import { authGuard } from './guards/auth-guard';
-import { TeacherCompleteRegister } from './teacher-complete-register-component/teacher-complete-register/teacher-complete-register';
-import { TeacherProfile } from './teacher-profile-component/teacher-profile/teacher-profile';
-import { TeacherClasses } from './teacher-classes-component/teacher-classes/teacher-classes';
-import { YogaClassDetails } from './shared/yoga-class-details-component/yoga-class-details/yoga-class-details';
-import { Videos } from './videos-component/videos/videos';
-import { Letters } from './Letters-component/letters/letters';
-import { Emails } from './Emails-component/emails/emails';
-import { Letter } from './Letter-component/letter/letter';
-import { Email } from './Email-component/email/email';
 import { SelectedClasses } from './selected-classes-component/selected-classes/selected-classes';
 import { BeyondPracticePage } from './beyond-practice-page-component/beyond-practice-page/beyond-practice-page';
-import { TeacherHomePage } from './teacher-home-page-component/teacher-home-page/teacher-home-page';
-import { AdminHomePage } from './admin-home-page-component/admin-home-page/admin-home-page';
 import { OurVisionPage } from './our-vision-page-component/our-vision-page/our-vision-page';
 import { OurTeachersPage } from './our-teachers-page-component/our-teachers-page/our-teachers-page';
 import { TeacherPage } from './teacher-page-component/teacher-page/teacher-page';
 import { ContactUs } from './shared/contact-us-component/contact-us/contact-us';
-import { EventsBoardPageComponent } from './events-board-page-component/events-board-page-component/events-board-page-component';
-import { EventComponent } from './shared/event-component/event-component/event-component';
 
 export const routes: Routes = [
 	{
@@ -55,7 +38,9 @@ export const routes: Routes = [
 	},
 	{
 		path: 'events-board-page',
-		component: EventsBoardPageComponent
+		loadComponent: () =>
+			import('./events-board-page-component/events-board-page-component/events-board-page-component')
+				.then(m => m.EventsBoardPageComponent)
 	},
 	{
 		path: 'teacher-page/:id',
@@ -72,34 +57,34 @@ export const routes: Routes = [
 	{
 		path: 'teacher-dashboard',
 		canActivate: [authGuard],
-		component: TeacherDashboard,
+		loadComponent: () => import('./teacher-dashboard-component/teacher-dashboard/teacher-dashboard').then(m => m.TeacherDashboard),
 		children: [
-			{ path: '', pathMatch: 'full', component: TeacherHomePage },
-			{ path: 'teacher-profile/:teacherId', component: TeacherProfile },
-			{ path: 'teacher-classes/:teacherId', component: TeacherClasses },
-			{ path: 'yoga-class-details/:classID', component: YogaClassDetails },
-			{ path: 'yoga-class-details', component: YogaClassDetails },
-			{ path: 'teacher-home-page/:teacherId', component: TeacherHomePage},
-			{ path: 'event-component', component: EventComponent }
+			{ path: '', pathMatch: 'full', loadComponent: () => import('./teacher-home-page-component/teacher-home-page/teacher-home-page').then(m => m.TeacherHomePage) },
+			{ path: 'teacher-profile/:teacherId', loadComponent: () => import('./teacher-profile-component/teacher-profile/teacher-profile').then(m => m.TeacherProfile) },
+			{ path: 'teacher-classes/:teacherId', loadComponent: () => import('./teacher-classes-component/teacher-classes/teacher-classes').then(m => m.TeacherClasses) },
+			{ path: 'yoga-class-details/:classID', loadComponent: () => import('./shared/yoga-class-details-component/yoga-class-details/yoga-class-details').then(m => m.YogaClassDetails) },
+			{ path: 'yoga-class-details', loadComponent: () => import('./shared/yoga-class-details-component/yoga-class-details/yoga-class-details').then(m => m.YogaClassDetails) },
+			{ path: 'teacher-home-page/:teacherId', loadComponent: () => import('./teacher-home-page-component/teacher-home-page/teacher-home-page').then(m => m.TeacherHomePage) },
+			{ path: 'event-component', loadComponent: () => import('./shared/event-component/event-component/event-component').then(m => m.EventComponent) }
 		]
 	},
 	{
 		path: 'admin-dashboard',
 		canActivate: [authGuard],
-		component: AdminDashboard,
+		loadComponent: () => import('./admin-dashboard-component/admin-dashboard/admin-dashboard').then(m => m.AdminDashboard),
 		children: [
-			{ path: '', pathMatch: 'full', component: AdminHomePage },
-			{ path: 'teachers', component: TeachersComponent },
-			{ path: 'teacher-profile/:teacherId', component: TeacherProfile },
-			{ path: 'teacher-profile', component: TeacherProfile },
-			{ path: 'videos', component: Videos },
-			{ path: 'yoga-class-details/:classID', component: YogaClassDetails },
-			{ path: 'letters', component: Letters },
-			{ path: 'emails', component: Emails },
-			{ path: 'letter', component: Letter },
-			{ path: 'letter/:letterID', component: Letter },
-			{ path: 'email', component: Email },
-			{ path: 'email/:emailID', component: Email },
+			{ path: '', pathMatch: 'full', loadComponent: () => import('./admin-home-page-component/admin-home-page/admin-home-page').then(m => m.AdminHomePage) },
+			{ path: 'teachers', loadComponent: () => import('./teachers-component/teachers/teachers').then(m => m.TeachersComponent) },
+			{ path: 'teacher-profile/:teacherId', loadComponent: () => import('./teacher-profile-component/teacher-profile/teacher-profile').then(m => m.TeacherProfile) },
+			{ path: 'teacher-profile', loadComponent: () => import('./teacher-profile-component/teacher-profile/teacher-profile').then(m => m.TeacherProfile) },
+			{ path: 'videos', loadComponent: () => import('./videos-component/videos/videos').then(m => m.Videos) },
+			{ path: 'yoga-class-details/:classID', loadComponent: () => import('./shared/yoga-class-details-component/yoga-class-details/yoga-class-details').then(m => m.YogaClassDetails) },
+			{ path: 'letters', loadComponent: () => import('./Letters-component/letters/letters').then(m => m.Letters) },
+			{ path: 'emails', loadComponent: () => import('./Emails-component/emails/emails').then(m => m.Emails) },
+			{ path: 'letter', loadComponent: () => import('./Letter-component/letter/letter').then(m => m.Letter) },
+			{ path: 'letter/:letterID', loadComponent: () => import('./Letter-component/letter/letter').then(m => m.Letter) },
+			{ path: 'email', loadComponent: () => import('./Email-component/email/email').then(m => m.Email) },
+			{ path: 'email/:emailID', loadComponent: () => import('./Email-component/email/email').then(m => m.Email) },
 		]
 	}
 ];
