@@ -1,5 +1,5 @@
 import { Injectable, EnvironmentInjector, inject, runInInjectionContext } from '@angular/core';
-import { Firestore, collection, deleteDoc, doc, getDocs, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, deleteDoc, doc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { Storage, deleteObject, getDownloadURL, listAll, ref, uploadBytes } from '@angular/fire/storage';
 import { Observable, firstValueFrom, from, map, merge, of, shareReplay, switchMap, tap } from 'rxjs';
 import { YogaClassData } from '../shared/yoga-class-data';
@@ -376,8 +376,8 @@ export class YogaClassesService {
     this.yogaTeachers$ = from(
       runInInjectionContext(this.injector, () => {
         const teachersRef = collection(this.firestore, 'teachers');
-        //console.log('teachersRef - ' + JSON.stringify(teachersRef));
-        return getDocs(teachersRef);
+        const approvedTeachersQuery = query(teachersRef, where('approved', '==', true));
+        return getDocs(approvedTeachersQuery);
       })
     ).pipe(
       map((snapshot) =>
