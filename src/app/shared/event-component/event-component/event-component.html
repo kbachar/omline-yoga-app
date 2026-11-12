@@ -3,7 +3,8 @@
 <div class="container">
     <div class="details-container">
         <app-text-box [placeholderValue]="'event name'" (textChange)="eventNameChange($event, event)"></app-text-box>
-        <app-text-box [placeholderValue]="'location'" (textChange)="locationChange($event, event)"></app-text-box>
+        <!-- <app-text-box [placeholderValue]="'location'" (textChange)="locationChange($event, event)"></app-text-box> -->
+        <app-location-picker [(location)]="event.location"></app-location-picker>
         <app-text-box [placeholderValue]="'date'" (textChange)="eventDateChange($event, event)"></app-text-box>
         <app-text-box [placeholderValue]="'time'" (textChange)="eventTimeChange($event, event)"></app-text-box>
         <app-text-box [placeholderValue]="'link'" (textChange)="eventLinkChange($event, event)"></app-text-box>

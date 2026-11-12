@@ -1,7 +1,9 @@
+import { Location } from './location-data';
+
 export interface EventData {
   id: string; 
   eventName: string;
-  location: string;
+  location: Location | null;
   date: Date;
   time: string;
   link: string;

@@ -18,7 +18,32 @@ video {
 	max-width: 100%;
 }
 
+app-location-picker .location-picker gmp-place-autocomplete {
+	width: 513px;
+	max-width: 100%;
+	background-color: rgba(194, 235, 233, 0.2);
+	border: 1px solid #CAD7DC;
+	border-radius: 10px;
+	color: #243376;
+	font-family: 'Mona Sans', sans-serif;
+	font-size: 15px;
+	margin-bottom: 20px;
+}
+
+
+app-location-picker .location-picker gmp-place-autocomplete::part(focus-ring) {
+	border: none;
+	outline: none;
+	box-shadow: none;
+}
+
+
+app-location-picker .location-picker gmp-place-autocomplete::part(input) {
+	height: 50px;
+}
+
 @media (max-width: 768px) {
+
 	.classes-header,
 	.main-header {
 		height: auto !important;

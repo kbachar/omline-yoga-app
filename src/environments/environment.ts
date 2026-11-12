@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
+    mapsApiKey: "AIzaSyB_0EZz2anjIjR8KcKQyEIAQiV34qQOzc8",
     firebase: {
         apiKey: "AIzaSyCG5ewoT5mSJNlV60lkzCvXyLTfwI5ZxXU",
         authDomain: "yoga-app-a3585.firebaseapp.com",

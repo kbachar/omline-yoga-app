@@ -5,10 +5,11 @@ import { TextArea } from '../../text-area-component/text-area/text-area';
 import { EventData } from '../../event-data';
 import { Observable, of } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { LocationPicker } from '../../location-picker-component/location-picker/location-picker';
 
 @Component({
   selector: 'app-event-component',
-  imports: [PageHeader, TextBox, TextArea, AsyncPipe],
+  imports: [PageHeader, TextBox, TextArea, AsyncPipe, LocationPicker],
   templateUrl: './event-component.html',
   styleUrl: './event-component.css',
 })
@@ -16,10 +17,11 @@ export class EventComponent {
   photoFile: File | null = null;
   photoPreview = signal<string>('');
 
+ 
   event$: Observable<EventData> = of({
     id: '',
     eventName: '',
-    location: '',
+    location: null,
     date: new Date(),
     time: '',
     link: '',
@@ -35,7 +37,7 @@ export class EventComponent {
   }
 
   locationChange(location: string, event: EventData) {
-    event.location = location;
+   // event.location = location;
   }
 
   eventDateChange(date: string, event: EventData) {
