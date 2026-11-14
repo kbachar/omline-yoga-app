@@ -1,0 +1,11 @@
+@if (yogaClass$ | async; as yogaClass){
+<app-main-header></app-main-header>
+<app-classes-navbar></app-classes-navbar>
+
+<body>
+    <div class="container">
+        <video [src]="yogaClass.videoLink" controls preload="auto"></video>
+        <app-yoga-class [classData]="yogaClass" [descriptionWidth]="853"></app-yoga-class>
+    </div>
+</body>
+}

@@ -11,7 +11,7 @@
       <button (click)="addSelectedClass(classItem)"
         [style.background]="isSelected(classItem) ? '#9DB2D2' : null">{{ isSelected(classItem) ? 'remove from list'
         : 'add to list' }}</button>
-      <button>class page</button>
+      <button [routerLink]="['/yoga-class-page', classItem.id]">class page</button>
     </div>
     }
   </div>

@@ -1,6 +1,5 @@
 
 import { Routes } from '@angular/router';
-import { ClassesPageComponent } from './classes-page-component/classes-page.component';
 import { HomePageComponent } from './home-page-component/home-page-component';
 import { TeacherSubscribePage } from './teacher-subscribe-page-component/teacher-subscribe-page/teacher-subscribe-page';
 import { authGuard } from './guards/auth-guard';
@@ -15,11 +14,19 @@ export const routes: Routes = [
 	{
 		path: '',
 		component: HomePageComponent
-	},
+	},	
 	{
 		path: 'classes/:id',
-		component: ClassesPageComponent
+		loadComponent: () =>
+			import('./classes-page-component/classes-page.component')
+				.then(m => m.ClassesPageComponent)				
 	},
+	{
+
+	path: 'yoga-class-page/:classID',
+				loadComponent: () =>
+					import('./yoga-class-page-component/yoga-class-page/yoga-class-page')
+						.then(m => m.YogaClassPage)},
 	{
 		path: 'selected-classes',
 		component: SelectedClasses

@@ -20,7 +20,7 @@ export class TeachersComponent implements OnInit {
   teachers$!: Observable<YogaTeacher[]>;
   
   ngOnInit(): void {
-    this.teachers$ = this.yogaService.getTeachers();
+    this.teachers$ = this.yogaService.getAllTeachers();
   }
 
   onViewEditClick(teacherId: string) {

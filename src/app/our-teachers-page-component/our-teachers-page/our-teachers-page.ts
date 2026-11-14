@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MainHeader } from '../../shared/main-header-component/main-header/main-header';
 import { ClassesNavbar } from '../../shared/classes-navbar-component/classes-navbar/classes-navbar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { yogaStyles } from '../../shared/yoga-class-details-component/yoga-class-details/yoga-styles-data';
 import { Observable } from 'rxjs';
 import { YogaClassesService } from '../../services/yoga-classes-service';
@@ -19,13 +19,14 @@ type YogaStyleId = (typeof yogaStyles)[number] | 'teachers';
   templateUrl: './our-teachers-page.html',
   styleUrl: './our-teachers-page.css',
 })
-export class OurTeachersPage {
+export class OurTeachersPage {  
+  private route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private yogaService = inject(YogaClassesService);
   protected isYogaImageHovered = false;
   yogaStyle$: Observable<YogaStyleDescription> = this.yogaService.getYogaStyle("teachers");
-  teachers$ = this.yogaService.getTeachers();
-
+  teachers$ = this.yogaService.getApprovedTeachers();
+  
   protected classesNavbarClick(page: YogaStyleId): void {
     this.router.navigate([`classes/${page}`]);
   } 

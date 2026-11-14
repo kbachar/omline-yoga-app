@@ -1,7 +1,6 @@
 @if (yogaStyle$ | async; as yogaStyle) {
 <app-main-header></app-main-header>
-<app-classes-navbar [yogaStyleId]="yogaStyle.id"
-  (onClassesNavbarClick)="classesNavbarClick($event)"></app-classes-navbar>
+<app-classes-navbar [yogaStyleId]="yogaStyle.id"></app-classes-navbar>
 <app-header-page-component [page]="yogaStyle.id" [suffix]="'yoga classes'"></app-header-page-component>
 
 <section class="classes-page">
@@ -13,7 +12,7 @@
           <div class="selected-classes-clear" (click)="clearSelectedClasses()">
             <span class="selected-classes-clear-icon">X</span> clear all selections
           </div>
-          <label>all Your chosen lessons, all gathered here into a single page</label>
+          <label>all Your chosen lessons, all gathered here on a single page</label>
           <button (click)="selectedClassesClick()">show on page</button>
         </div>
         <hr class="selected-divider">
@@ -25,7 +24,7 @@
           <div class="selected-classes-container">
             @for (selectedClass of selectedClasses; track selectedClass.id) {
             <div class="selected-class-small">
-              <video [src]="selectedClass.videoLink"></video>
+              <video [src]="selectedClass.videoLink" preload="metadata"></video>
               <div class="selected-class-caption">
                 <span (click)="removeSelectedClass(selectedClass)">X</span>
                 {{ selectedClass.title }}

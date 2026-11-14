@@ -140,11 +140,20 @@ export class YogaClassesService {
   private readonly storage = inject(Storage);
   private readonly injector = inject(EnvironmentInjector);
   private authService = inject(AuthService);
+  private selectedClassesIds: string[] = [];
 
   constructor() {
-    this.yogaTeachers$ = this.getTeachers();
+    this.yogaTeachers$ = this.getAllTeachers();
   }
 
+  setSelectedClasses(classesIds: string[]) {
+    this.selectedClassesIds = classesIds;
+  }
+  
+  getSelectedClasses(): string[] {
+    return this.selectedClassesIds;
+  }
+  
   getYogaStyles(): Observable<YogaStyleDescription[]> {
     if (this.yogaStyles$) {
       return this.yogaStyles$;
@@ -223,7 +232,7 @@ export class YogaClassesService {
 
 
       switchMap((classes) =>
-        this.getTeachers().pipe(
+        this.getApprovedTeachers().pipe(
           map((teachers) => {
             const teachersById = new Map(
               teachers.map((teacher) => [teacher.teacherID, teacher.fullName] as const)
@@ -368,22 +377,21 @@ export class YogaClassesService {
     this.yogaClasses$ = this.getClasses();
   }
 
-  getTeachers(): Observable<YogaTeacher[]> {
-    if (this.yogaTeachers$) {
+  getAllTeachers(): Observable<YogaTeacher[]> {
+  if (this.yogaTeachers$) {
       return this.yogaTeachers$;
     }
 
     this.yogaTeachers$ = from(
       runInInjectionContext(this.injector, () => {
         const teachersRef = collection(this.firestore, 'teachers');
-        const approvedTeachersQuery = query(teachersRef, where('approved', '==', true));
+        const approvedTeachersQuery = query(teachersRef);
         return getDocs(approvedTeachersQuery);
       })
     ).pipe(
       map((snapshot) =>
         snapshot.docs.map((doc) => {
           const data = doc.data() as YogaTeacher;
-
 
           return {
             fullName: data.fullName,
@@ -405,8 +413,16 @@ export class YogaClassesService {
     return this.yogaTeachers$;
   }
 
+  getApprovedTeachers(): Observable<YogaTeacher[]> {
+    const teachers$ = this.yogaTeachers$ ?? this.getAllTeachers();
+
+    return teachers$.pipe(
+      map((teachers) => teachers.filter((teacher) => teacher.approved))
+    );
+  }
+
   getTeacher(id: string | undefined): Observable<YogaTeacher> {
-    return this.getTeachers().pipe(
+    return this.getApprovedTeachers().pipe(
       map((teachers) => {
         const found = teachers.find((teacher) => teacher.teacherID === id);
         return found ?? {
@@ -453,7 +469,7 @@ export class YogaClassesService {
 
   getRecipientsNamesAndIds(recipientType: string): Observable<Array<{ name: string; email: string }>> {
     if (recipientType === 'teachers') {
-      return this.getTeachers().pipe(
+      return this.getAllTeachers().pipe(
         map((teachers) =>
           teachers
             .map((teacher) => ({
@@ -512,7 +528,7 @@ export class YogaClassesService {
     );
 
     this.yogaTeachers$ = undefined;
-    this.yogaTeachers$ = this.getTeachers();
+    this.yogaTeachers$ = this.getAllTeachers();
   }
 
   async saveTeacherInvite(teacher: TeacherInvite): Promise<void> {

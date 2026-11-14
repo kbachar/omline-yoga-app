@@ -1,10 +1,11 @@
 import { Component, input, output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { YogaClassData } from '../../yoga-class-data';
 import { YogaClass } from '../../yoga-class-component/yoga-class/yoga-class';
 
 @Component({
   selector: 'app-classes-display',
-  imports: [YogaClass],
+  imports: [YogaClass, RouterLink],
   templateUrl: './classes-display.html',
   styleUrl: './classes-display.css',
 })
