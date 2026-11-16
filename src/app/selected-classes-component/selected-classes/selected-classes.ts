@@ -31,11 +31,7 @@ export class SelectedClasses implements OnInit {
       (this.route.snapshot.queryParamMap.get('page') as YogaStyleId | null) ?? 'all'
     );
 
-    this.classesIds = this.route.snapshot.queryParamMap
-      .get('ids')
-      ?.split(',')
-      .filter(Boolean) ?? [];
-
+    this.classesIds = this.yogaService.getSelectedClasses();
     this.selectedClasses$ = this.yogaService.getClassByIDs(this.classesIds);
     this.suggestedClasses$ = this.yogaService.getFilteredClasses('all', null);
   }

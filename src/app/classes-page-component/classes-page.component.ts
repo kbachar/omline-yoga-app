@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { YogaClassesService } from '../services/yoga-classes-service';
 import { YogaClassData } from '../shared/yoga-class-data';
-import { Observable, map, switchMap, take, tap } from 'rxjs';
+import { Observable, map, switchMap, tap } from 'rxjs';
 import { YogaStyleDescription } from '../shared/yoga-style-description-data';
 import { FilterChange } from '../shared/filter-change-data';
 import { ClassesNavbar } from '../shared/classes-navbar-component/classes-navbar/classes-navbar';
@@ -23,7 +23,8 @@ import { ClassesDisplay } from '../shared/classes-display-component/classes-disp
 export class ClassesPageComponent implements OnInit {
   yogaStyle$!: Observable<YogaStyleDescription>;
   classes$!: Observable<YogaClassData[]>;
-  protected selectedClasses: YogaClassData[] = [];
+  selectedClasses$!: Observable<YogaClassData[]>;
+
   protected isYogaImageHovered = false;
   protected isShowOnPageHovered = false;
   protected selectedStyleId: string = 'all';
@@ -32,7 +33,6 @@ export class ClassesPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private yogaService = inject(YogaClassesService);
-  private readonly filtersRowContainer = viewChild.required<ElementRef<HTMLDivElement>>('filtersRowContainer');
 
   ngOnInit() {
     this.yogaStyle$ = this.route.paramMap.pipe(
@@ -44,15 +44,8 @@ export class ClassesPageComponent implements OnInit {
       switchMap((id) => this.yogaService.getYogaStyle(id))
     );
 
-    const classesIds = this.route.snapshot.queryParamMap
-      .get('ids')
-      ?.split(',')
-      .filter(Boolean) ?? [];
-    //console.log('classesIds - ' + JSON.stringify(classesIds))
-
-    this.yogaService.getClassByIDs(classesIds).pipe(take(1)).subscribe((classes) => {
-      this.selectedClasses = classes;
-    });
+    const selectedClassesIds = this.yogaService.getSelectedClasses();
+    this.selectedClasses$ = this.yogaService.getClassByIDs(selectedClassesIds);
   }
 
   onFilterChange(filters: FilterChange[]) {
@@ -71,38 +64,34 @@ export class ClassesPageComponent implements OnInit {
     this.classes$ = this.yogaService.getFilteredClasses(this.selectedStyleId, null);
   }
 
-  protected classesNavbarClick(page: string): void {
-    console.log.apply('page is ' + page)
-    this.selectedStyleId = page;
-    this.yogaStyle$ = this.yogaService.getYogaStyle(page);
-    this.classes$ = this.yogaService.getFilteredClasses(this.selectedStyleId, null);
-  }
-
   protected setYogaImageHovered(isHovered: boolean): void {
     this.isYogaImageHovered = isHovered;
   }
 
   selectedClassChanged(change: { yogaClass: YogaClassData; checked: boolean }): void {
+    let selectedClassesIds = this.yogaService.getSelectedClasses();
     if (change.checked)
-      this.selectedClasses = [...this.selectedClasses, change.yogaClass];
+      selectedClassesIds.push(change.yogaClass.id);
     else
-      this.selectedClasses = this.selectedClasses.filter((selected) => selected.id !== change.yogaClass.id);
+      selectedClassesIds = selectedClassesIds.filter(c => c == change.yogaClass.id);
+
+    this.yogaService.setSelectedClasses(selectedClassesIds);
+    this.selectedClasses$ = this.yogaService.getClassByIDs(selectedClassesIds);
   }
 
   clearSelectedClasses(): void {
-    this.selectedClasses = [];
+    this.yogaService.setSelectedClasses([]);
+    this.selectedClasses$ = this.yogaService.getClassByIDs([]);
   }
 
   async removeSelectedClass(selectedClass: YogaClassData) {
-    this.selectedClasses = this.selectedClasses.filter((selected) => selected.id !== selectedClass.id);
+    let selectedClassesIds = this.yogaService.getSelectedClasses();
+    selectedClassesIds = selectedClassesIds.filter(c => c != selectedClass.id);
+    this.yogaService.setSelectedClasses(selectedClassesIds);
+    this.selectedClasses$ = this.yogaService.getClassByIDs(selectedClassesIds);
   }
 
   selectedClassesClick() {
-    this.router.navigate(['/selected-classes'], {
-      queryParams: {
-        ids: this.selectedClasses.map((yogaClass) => yogaClass.id).join(','),
-        page: this.selectedStyleId
-      }
-    });
+    this.router.navigate(['/selected-classes']);
   }
 }
