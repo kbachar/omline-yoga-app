@@ -70,7 +70,7 @@ export class YogaClassDetails implements OnInit, OnDestroy {
           this.isAdmin.then((isAdmin) => {
             if (isAdmin) {
               this.headerText = 'class to approve - ';
-              this.teacher$ = this.yogaService.getTeacher(yogaClass.teacherId);
+              this.teacher$ = this.yogaService.getApprovedTeacher(yogaClass.teacherId);
             }
             else
               this.headerText = 'class page - ';

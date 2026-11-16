@@ -422,6 +422,26 @@ export class YogaClassesService {
   }
 
   getTeacher(id: string | undefined): Observable<YogaTeacher> {
+    return this.getAllTeachers().pipe(
+      map((teachers) => {
+        const found = teachers.find((teacher) => teacher.teacherID === id);
+        return found ?? {
+          fullName: '',
+          yogaStyle: [],
+          email: '',
+          website: '',
+          country: '',
+          teacherID: id ?? '',
+          photo: '',
+          description: '',
+          status: 'invited',
+          approved: false
+        };
+      }),
+    );
+  }
+
+  getApprovedTeacher(id: string | undefined): Observable<YogaTeacher> {
     return this.getApprovedTeachers().pipe(
       map((teachers) => {
         const found = teachers.find((teacher) => teacher.teacherID === id);
