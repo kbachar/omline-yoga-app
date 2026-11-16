@@ -22,7 +22,6 @@ export class SelectedClasses implements OnInit {
   private readonly route = inject(ActivatedRoute);
   selectedClasses$!: Observable<YogaClassData[]>;
   suggestedClasses$!: Observable<YogaClassData[]>;
-  protected classesIds: string[] = [];
   protected isBackHovered = false;
   readonly yogaStyleId = signal<YogaStyleId>('all');
 
@@ -31,35 +30,38 @@ export class SelectedClasses implements OnInit {
       (this.route.snapshot.queryParamMap.get('page') as YogaStyleId | null) ?? 'all'
     );
 
-    this.classesIds = this.yogaService.getSelectedClasses();
-    this.selectedClasses$ = this.yogaService.getClassByIDs(this.classesIds);
+    const classesIds = this.yogaService.getSelectedClasses();
+    this.selectedClasses$ = this.yogaService.getClassByIDs(classesIds);
     this.suggestedClasses$ = this.yogaService.getFilteredClasses('all', null);
   }
 
   removeClass(yogaClass: YogaClassData) {
-    this.classesIds = this.classesIds.filter((id) => id !== yogaClass.id);
-    this.selectedClasses$ = this.yogaService.getClassByIDs(this.classesIds);
+    let classesIds = this.yogaService.getSelectedClasses();
+    
+    classesIds = classesIds.filter((id) => id !== yogaClass.id);
+    this.yogaService.setSelectedClasses(classesIds);
+    this.selectedClasses$ = this.yogaService.getClassByIDs(classesIds);
   }
 
   addClass(suggestedClass: YogaClassData) {
-    if (this.classesIds.includes(suggestedClass.id)) {
+    let classesIds = this.yogaService.getSelectedClasses();
+    if (classesIds.includes(suggestedClass.id)) {
       return;
     }
 
-    this.classesIds = [...this.classesIds, suggestedClass.id];
-    this.selectedClasses$ = this.yogaService.getClassByIDs(this.classesIds);
+    classesIds.push(suggestedClass.id);
+    this.yogaService.setSelectedClasses(classesIds);
+    this.selectedClasses$ = this.yogaService.getClassByIDs(classesIds);
   }
 
   removeAllClasses() {
-    this.classesIds = [];
-    this.selectedClasses$ = this.yogaService.getClassByIDs(this.classesIds);
+    this.yogaService.setSelectedClasses([]);
+    this.selectedClasses$ = this.yogaService.getClassByIDs([]);
   }
   
   async back() {
     const page = await this.yogaStyleId();
-    this.router.navigate(['/classes', page], {
-      queryParams: { ids: this.classesIds.join(',') }
-    });
+    this.router.navigate(['/classes', page]);
   }
 
 }
