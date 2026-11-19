@@ -15,6 +15,7 @@ export class YogaClassesFilter {
   readonly savedOption = input<string>();
   readonly savedOptions = input<FilterChange[]>();
   readonly readOnly = input<boolean>(false);
+  readonly titleClass = input<string>('filter-text-bold');
   readonly selectedOption = signal<string>('');
   readonly showFiltersBorder = input<boolean>(true);
   readonly addMinSuffix = input<string>('');

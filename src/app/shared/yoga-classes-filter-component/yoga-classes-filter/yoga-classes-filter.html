@@ -1,6 +1,6 @@
 <div class="container"
   [style.border]="showFiltersBorder() ? null : 'none'">
-    <div class="filter-text">{{filterName()}}</div>
+    <div class="{{titleClass()}}">{{filterName()}}</div>
     @for (filterOption of filterOptions(); track filterOption) {
     <app-check-box 
       [inputValue]="filterOption + ' ' + addMinSuffix()" 
@@ -9,5 +9,5 @@
       (checkChange)="readOnly() == false ? onFilterChange(filterOption, $event) : null"
       >
     </app-check-box>
-    }
+    }    
 </div>

@@ -29,13 +29,18 @@
 .left-side {
     display: flex;
     flex-direction: column;
+}
 
+.left-side .divider {
+    border: 1px solid #CAD7DC;
+    margin: 0;
 }
 
 .right-side {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 20px;
 }
 
 .teacher-data-container {
@@ -76,21 +81,14 @@
 
 .video-preview,
 video {
-    position: relative;
-    width: 565px;
-    height: auto;
-    max-height: 320px;
-    min-height: 300px;
+    height: 365px;  
+    width: 665px;
     box-sizing: border-box;
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 10px;
+    flex-direction: column;
     background: rgba(194, 235, 233, 0.2);
     border: 1px solid #CAD7DC;
     border-radius: 10px;
-    margin-top: 20px;
 }
 
 .video-preview {
@@ -171,9 +169,16 @@ label {
     margin-top: 40px;
 }
 
+.upload-details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .upload-container {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    gap: 20px;
 }
 
 button {
@@ -188,34 +193,22 @@ button {
     font-weight: 400;
     font-size: 15px;
     line-height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     text-transform: capitalize;
     color: rgba(36, 51, 118, 0.7);
-    margin-bottom: 20px;
     cursor: pointer;
 }
 
 .video-name {
-    width: 288px;
-    height: 46px;
     font-family: 'Mona Sans';
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
     line-height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
     text-transform: capitalize;
     color: #243376;
-    margin-left: 20px;
 }
 
 .or {
-    width: 18px;
-    height: 50px;
     font-family: 'Mona Sans';
     font-style: normal;
     font-weight: 400;

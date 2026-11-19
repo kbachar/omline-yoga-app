@@ -19,14 +19,19 @@
             }}
             <app-text-box [inputValue]="yogaClass.title" [placeholderValue]="'class name'"
                 [readonly]="(isAdmin | async) == true" (textChange)="onTitleChange(yogaClass, $event)"></app-text-box>
-            <app-yoga-classes-filter [filterName]="'yoga style'" [filterOptions]="yogaStyles" [showFiltersBorder]="false"
-                [savedOption]="yogaClass.yogaStyle" [readOnly]="(isAdmin | async) == true"
+            <app-yoga-classes-filter [filterName]="'yoga style'" [filterOptions]="yogaStyles"
+                [showFiltersBorder]="false" [savedOption]="yogaClass.yogaStyle" [readOnly]="(isAdmin | async) == true"
+                [titleClass]="'filter-text'"
                 (filterChange)="onYogaStylesFilterChange(yogaClass, $event)"></app-yoga-classes-filter>
+            <hr class="divider">
             <app-yoga-classes-filter [filterName]="'duration'" [filterOptions]="durations" [showFiltersBorder]="false"
                 [savedOption]="yogaClass.classLength" [readOnly]="(isAdmin | async) == true" [addMinSuffix]="'Min'"
+                [titleClass]="'filter-text'"
                 (filterChange)="onDurationFilterChange(yogaClass, $event)"></app-yoga-classes-filter>
+            <hr class="divider">
             <app-yoga-classes-filter [filterName]="'challenge level'" [filterOptions]="challengeLevels"
                 [savedOption]="yogaClass.difficulty" [readOnly]="(isAdmin | async) == true" [showFiltersBorder]="false"
+                [titleClass]="'filter-text'"
                 (filterChange)="onChallengeFilterChange(yogaClass, $event)"></app-yoga-classes-filter>
             <app-text-area [textAreaName]="'class description'" [textValue]="yogaClass.description" [textWidth]="500"
                 [textHeight]="250" (textValueChange)="onTextValueChanged(yogaClass, $event)"
@@ -57,14 +62,16 @@
             </div>
             }
             @else if (yogaClass.videoLink == '') {
-            <div class="upload-container">
-                <input #fileInput type="file" hidden (change)="onSelectVideo($event)" />
-                <button (click)="fileInput.click()">upload video</button>
-                <label class="video-name">{{photoFile?.name}}</label>
+            <div class="upload-details-container">
+                <div class="upload-container">
+                    <input #fileInput type="file" hidden (change)="onSelectVideo($event)" />
+                    <button (click)="fileInput.click()">upload video</button>
+                    <label class="video-name" [innerText]="'file name'">{{photoFile?.name}}</label>
+                </div>
+                <label class="or">or</label>
+                <app-text-box [inputType]="'text'" [placeholderValue]="'add video link'"
+                    [textBoxWidth]="565"></app-text-box>
             </div>
-            <label class="or">or</label>
-            <app-text-box [inputType]="'text'" [placeholderValue]="'add video link'"
-                [textBoxWidth]="565"></app-text-box>
 
             }
             @else {

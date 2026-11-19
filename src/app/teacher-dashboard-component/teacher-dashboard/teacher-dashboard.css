@@ -1,7 +1,7 @@
 .body {
     flex: 1;
     min-width: 0;
-    background: #9097AF;
+    background: #A6AECB;  
 }
 
 .content {
@@ -13,13 +13,11 @@
 .dashboard-layout {
     display: flex;
     align-items: stretch;
-    /* min-height: calc(100vh - 105px); */
 }
 
 header {
     padding-top: 10px;
     width: 100%;
-    /* height: 105px; */
     background: #0C133A;
     display: flex;
     align-items: center;

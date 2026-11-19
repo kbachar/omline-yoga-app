@@ -3,18 +3,15 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0px;
+    padding: 5px;
     gap: 20px;
     height: 50px;
     border: 1px solid #CAD7DC;
     border-radius: 10px;
     margin-bottom: 15px;
-    max-width: 513px;
 }
 
-.filter-text {
-    max-width: 116px;
-    height: 20px;
+.filter-text-bold {
     font-family: 'Mona Sans';
     font-style: normal;
     font-weight: 600;
@@ -23,8 +20,15 @@
     letter-spacing: 0.03em;
     text-transform: capitalize;
     color: #101C50;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-
 }
+
+.filter-text {
+    font-family: 'Mona Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 25px;
+    text-transform: capitalize;
+    color: #565F83;
+}
+
