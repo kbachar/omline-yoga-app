@@ -22,6 +22,9 @@
         </header>
         <button (click)="removeAllClasses()"><span class="delete-x">x</span> Delete all classes</button>
         <hr class="selected-divider">
+                <app-message-component [isOpen]="isDeleteModalOpen()" [yesButton]="true" [noButton]="true" (messageClick)="messageClick($event)"
+          [messageText]="'Are you sure you want to clear your space?'">
+        </app-message-component>
 
         <body>
             <div class="classes-container">

@@ -18,6 +18,9 @@
         </div>
         <hr class="selected-divider">
 
+        <app-message-component [isOpen]="isDeleteModalOpen()" [yesButton]="true" [noButton]="true" (messageClick)="messageClick($event)"
+          [messageText]="'Are you sure you want to clear your space?'">
+        </app-message-component>
 
         <div class="selected-classes-main-container">
           <img class="arrow-left" src="/assets/images/arrow-left.png">

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { YogaClassesService } from '../services/yoga-classes-service';
 import { YogaClassData } from '../shared/yoga-class-data';
@@ -11,11 +11,12 @@ import { MainHeader } from '../shared/main-header-component/main-header/main-hea
 import { HeaderPageComponent } from '../header-page-component/header-page-component/header-page-component';
 import { MainFilter } from '../shared/main-filter-component/main-filter/main-filter';
 import { ClassesDisplay } from '../shared/classes-display-component/classes-display/classes-display';
+import { MessageComponent } from '../shared/message-component-component/message-component/message-component';
 
 
 @Component({
   selector: 'app-classes-page',
-  imports: [CommonModule, ClassesNavbar, MainHeader, HeaderPageComponent, MainFilter, ClassesDisplay],
+  imports: [CommonModule, ClassesNavbar, MainHeader, HeaderPageComponent, MainFilter, ClassesDisplay, MessageComponent],
   templateUrl: './classes-page.component.html',
   styleUrl: './classes-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,6 +34,7 @@ export class ClassesPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private yogaService = inject(YogaClassesService);
+  protected readonly isDeleteModalOpen = signal(false);
 
   ngOnInit() {
     this.yogaStyle$ = this.route.paramMap.pipe(
@@ -46,6 +48,15 @@ export class ClassesPageComponent implements OnInit {
 
     const selectedClassesIds = this.yogaService.getSelectedClasses();
     this.selectedClasses$ = this.yogaService.getClassByIDs(selectedClassesIds);
+  }
+
+  messageClick(remove: boolean) {
+    this.isDeleteModalOpen.set(false);
+
+    if (remove == true) {
+      this.yogaService.setSelectedClasses([]);
+      this.selectedClasses$ = this.yogaService.getClassByIDs([]);
+    }
   }
 
   onFilterChange(filters: FilterChange[]) {
@@ -80,8 +91,9 @@ export class ClassesPageComponent implements OnInit {
   }
 
   clearSelectedClasses(): void {
-    this.yogaService.setSelectedClasses([]);
-    this.selectedClasses$ = this.yogaService.getClassByIDs([]);
+    this.isDeleteModalOpen.set(true);
+
+
   }
 
   async removeSelectedClass(selectedClass: YogaClassData) {

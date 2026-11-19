@@ -15,4 +15,9 @@ body {
 
 video {
     width: 853px;
+    border-radius: 10px;
+}
+
+video::-webkit-media-controls-overflow-button {
+    display: none;
 }

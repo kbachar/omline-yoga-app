@@ -3,6 +3,12 @@
 <app-classes-navbar></app-classes-navbar>
 <div class="container">
     <div class="teacher-container">
+        <header>
+            <div class="back-container" (click)="back()">
+                <img [src]="'/assets/images/back.png'">
+                <label>back</label>
+            </div>
+        </header>
         <div class="header-container">
             <header>meet</header>
             <header class="bold">{{teacher.fullName}}</header>

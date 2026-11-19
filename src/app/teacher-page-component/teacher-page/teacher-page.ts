@@ -3,7 +3,7 @@ import { MainHeader } from '../../shared/main-header-component/main-header/main-
 import { ClassesNavbar } from '../../shared/classes-navbar-component/classes-navbar/classes-navbar';
 import { Observable, map, tap, switchMap, shareReplay } from 'rxjs';
 import { YogaTeacher } from '../../shared/yoga-teacher-data';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { YogaClassData, YogaClassesService } from '../../services/yoga-classes-service';
 import { AsyncPipe } from '@angular/common';
 import { MainFilter } from '../../shared/main-filter-component/main-filter/main-filter';
@@ -22,6 +22,7 @@ export class TeacherPage implements OnInit {
   teacher$!: Observable<YogaTeacher>;
   classes$!: Observable<YogaClassData[]>;
   existingFilters = new Map<string, FilterChange[]>();
+  private readonly router = inject(Router);
 
   ngOnInit(): void {
     this.teacher$ = this.route.paramMap.pipe(
@@ -35,14 +36,18 @@ export class TeacherPage implements OnInit {
   }
 
   onFilterChange(filters: FilterChange[]) {
-  console.log('hello')
+    console.log('hello')
     this.existingFilters = filters.reduce((groupedFilters, filter) => {
-        const group = groupedFilters.get(filter.filter) ?? [];
-        group.push(filter);
-        groupedFilters.set(filter.filter, group);
-        return groupedFilters;
-      }, new Map<string, FilterChange[]>());
-  
-      this.classes$ = this.yogaService.getFilteredClasses("all", this.existingFilters);
-    }
+      const group = groupedFilters.get(filter.filter) ?? [];
+      group.push(filter);
+      groupedFilters.set(filter.filter, group);
+      return groupedFilters;
+    }, new Map<string, FilterChange[]>());
+
+    this.classes$ = this.yogaService.getFilteredClasses("all", this.existingFilters);
+  }
+
+  async back() {
+    this.router.navigate(['/our-teachers-page']);
+  }
 }

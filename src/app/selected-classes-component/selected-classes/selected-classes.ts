@@ -7,12 +7,13 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { MainHeader } from '../../shared/main-header-component/main-header/main-header';
 import { ClassesNavbar } from '../../shared/classes-navbar-component/classes-navbar/classes-navbar';
+import { MessageComponent } from '../../shared/message-component-component/message-component/message-component';
 
 type YogaStyleId = (typeof yogaStyles)[number] | 'all';
 
 @Component({
   selector: 'app-selected-classes',
-  imports: [YogaClass, AsyncPipe, MainHeader, ClassesNavbar],
+  imports: [YogaClass, AsyncPipe, MainHeader, ClassesNavbar, MessageComponent],
   templateUrl: './selected-classes.html',
   styleUrl: './selected-classes.css',
 })
@@ -24,6 +25,7 @@ export class SelectedClasses implements OnInit {
   suggestedClasses$!: Observable<YogaClassData[]>;
   protected isBackHovered = false;
   readonly yogaStyleId = signal<YogaStyleId>('all');
+  protected readonly isDeleteModalOpen = signal(false);
 
   ngOnInit(): void {
     this.yogaStyleId.set(
@@ -33,6 +35,15 @@ export class SelectedClasses implements OnInit {
     const classesIds = this.yogaService.getSelectedClasses();
     this.selectedClasses$ = this.yogaService.getClassByIDs(classesIds);
     this.suggestedClasses$ = this.yogaService.getFilteredClasses('all', null);
+  } 
+
+   messageClick(remove: boolean) {
+    this.isDeleteModalOpen.set(false);
+
+    if (remove == true) {
+      this.yogaService.setSelectedClasses([]);
+      this.selectedClasses$ = this.yogaService.getClassByIDs([]);
+    }
   }
 
   removeClass(yogaClass: YogaClassData) {
@@ -55,8 +66,7 @@ export class SelectedClasses implements OnInit {
   }
 
   removeAllClasses() {
-    this.yogaService.setSelectedClasses([]);
-    this.selectedClasses$ = this.yogaService.getClassByIDs([]);
+    this.isDeleteModalOpen.set(true);
   }
   
   async back() {

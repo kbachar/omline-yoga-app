@@ -4,7 +4,7 @@
   </div>
   <app-yoga-classes-filter [filterName]="'duration'" [filterOptions]="durations"
     [savedOptions]="existingFilters.get('duration')" [showFiltersBorder]="false"
-    (filterChange)="onFilterChange($event, 'duration')"></app-yoga-classes-filter>
+    (filterChange)="onFilterChange($event, 'duration')" [addMinSuffix]="'min'"></app-yoga-classes-filter>
   <app-yoga-classes-filter [filterName]="'challenge level'" [filterOptions]="challengeLevels"
     [savedOptions]="existingFilters.get('challenge level')" [showFiltersBorder]="false"
     (filterChange)="onFilterChange( $event, 'challenge level')"></app-yoga-classes-filter>

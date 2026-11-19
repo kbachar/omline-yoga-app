@@ -58,36 +58,50 @@ label {
 .remove-container {
     display: flex;
     flex-direction: row;
-    width: 350px;
     gap: 10px;
 }
 
 .remove {
+    box-sizing: border-box;
+    padding: 2px 10px;
+    background: #9A0C0C;
+    border-radius: 5px;
+
     font-family: 'Montserrat';
     font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 26px;
-    letter-spacing: 0.05em;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
     text-transform: capitalize;
-    color: #9A0C0C;
+    color: #FFFFFF;
     cursor: pointer;
+}
+
+.remove:hover {
+    color: #9A0C0C;
+    background: #FFFFFF;
+
 }
 
 .keep {
-    width: 63px;
-    /* height: 58px; */
+    box-sizing: border-box;
+    padding: 2px 10px;
+    background: #243376;
+    border-radius: 5px;
     font-family: 'Montserrat';
     font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 0px;
-    display: flex;
-    justify-content: flex-end;
-    letter-spacing: 0.05em;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 25px;
+    letter-spacing: 0.02em;
     text-transform: capitalize;
-    color: #1F6B9A;
+    color: #FFFFFF;
     cursor: pointer;
 }
 
+.keep:hover {
+    color: #243376;
+    background: #FFFFFF;
 
+}
