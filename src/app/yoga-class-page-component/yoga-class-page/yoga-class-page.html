@@ -4,9 +4,13 @@
 
 <body>
     <div class="container">
+    <div class="back-container" (click)="back()">
+                <img [src]="'/assets/images/back.png'">
+                <label>back</label>
+            </div>
         <video [src]="yogaClass.videoLink" controls controlsList="nodownload noremoteplayback"
-            disablePictureInPicture preload="auto"></video>
-        <app-yoga-class [classData]="yogaClass" [descriptionWidth]="853"></app-yoga-class>
+            disablePictureInPicture preload="metadata" (contextmenu)="$event.preventDefault()"></video>
+        <app-yoga-class [classData]="yogaClass" [descriptionWidth]="853" [descriptionHeight]="500"></app-yoga-class>
     </div>
 </body>
 }

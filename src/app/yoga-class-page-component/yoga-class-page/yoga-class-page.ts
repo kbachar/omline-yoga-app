@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, switchMap } from 'rxjs';
 import { YogaClassesService } from '../../services/yoga-classes-service';
 import { YogaClassData } from '../../shared/yoga-class-data';
@@ -18,14 +18,23 @@ export class YogaClassPage implements OnInit {
   private yogaService = inject(YogaClassesService);
   private readonly route = inject(ActivatedRoute);
   yogaClass$!: Observable<YogaClassData | undefined>;
+  backPage: string | null = null;
+  private readonly router = inject(Router);
 
    ngOnInit(): void {
+      this.backPage = this.route.snapshot.queryParamMap.get('backPage');
       this.yogaClass$ = this.route.paramMap.pipe(
         switchMap((params) => {
           const classId = params.get('classID');
           return classId ? this.yogaService.getClassByID(classId) : of(undefined);
         })
       );
-  }
+  }  
 
+  back() {
+    if (this.backPage == 'hatha' || this.backPage == 'vinyasa' || this.backPage == 'ashtanga' || this.backPage == 'all')
+      this.router.navigate([`classes/${this.backPage}`]);
+    else 
+      this.router.navigate([`teacher-page/${this.backPage}`]);
+  }
 }

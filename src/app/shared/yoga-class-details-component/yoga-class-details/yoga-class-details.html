@@ -79,7 +79,8 @@
                 [textBoxWidth]="565"></app-text-box>
             }
             @if (photoPreview()) {
-            <video [src]="photoPreview()" controls></video>
+            <video [src]="photoPreview()" controls controlsList="nodownload noremoteplayback" disablePictureInPicture
+                (contextmenu)="$event.preventDefault()"></video>
             }
             @else {
             <div class="video-preview">

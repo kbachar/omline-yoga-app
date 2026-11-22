@@ -1,15 +1,16 @@
-import { Component, input, output } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, input, output } from '@angular/core';
+import { Router } from '@angular/router';
 import { YogaClassData } from '../../yoga-class-data';
 import { YogaClass } from '../../yoga-class-component/yoga-class/yoga-class';
 
 @Component({
   selector: 'app-classes-display',
-  imports: [YogaClass, RouterLink],
+  imports: [YogaClass],
   templateUrl: './classes-display.html',
   styleUrl: './classes-display.css',
 })
 export class ClassesDisplay {
+  private readonly router = inject(Router);
   readonly classes = input<YogaClassData[]>();
   readonly selectedClasses = input<YogaClassData[]>([]);
   readonly showTeacherName = input<boolean>(true);
@@ -17,7 +18,15 @@ export class ClassesDisplay {
   readonly descriptionHeight = input<number>();
   readonly showClassLength = input<boolean>(false);
   readonly showMainTime = input<boolean>(false);
+  readonly backPage = input<string>('');
+  
   public selectedClassChanged = output<{ yogaClass: YogaClassData; checked: boolean }>();
+
+  protected gotoClass(yogaClass: YogaClassData): void {
+    this.router.navigate(['/yoga-class-page', yogaClass.id], {
+      queryParams: { backPage: this.backPage() },
+    });
+  }
 
   protected isClassSelected(yogaClass: YogaClassData): boolean {
     return this.selectedClasses().some((selected) => selected.id === yogaClass.id);

@@ -2,18 +2,20 @@
 <div class="yoga-classes">
   @for (classItem of classes; track classItem.id) {
   <div class="yoga-class-meta" [class.is-selected]="isClassSelected(classItem)">
-    <video class="yoga-class-img" [src]="classItem.videoLink" preload="metadata"></video>
+    <video class="yoga-class-img" [src]="classItem.videoLink" preload="metadata"
+      controlsList="nodownload noremoteplayback" disablePictureInPicture
+      (contextmenu)="$event.preventDefault()"></video>
     <app-yoga-class [classData]="classItem" [descriptionWidth]="361" [descriptionHeight]="80" [showClassLength]="false"
       [showTeacherName]="showTeacherName()" [descriptionHeight]="descriptionHeight()"
       [showClassLength]="showClassLength()" [showMainTime]="showMainTime()"></app-yoga-class>
-    @if (showAddToList()) {
     <div class="buttons-container">
-      <button (click)="addSelectedClass(classItem)"
-        [style.background]="isSelected(classItem) ? '#9DB2D2' : null">{{ isSelected(classItem) ? 'remove from list'
+      @if (showAddToList()) {
+      <button (click)="addSelectedClass(classItem)" [style.background]="isSelected(classItem) ? '#9DB2D2' : null">{{
+        isSelected(classItem) ? 'remove from list'
         : 'add to list' }}</button>
-      <button [routerLink]="['/yoga-class-page', classItem.id]">class page</button>
+      }
+      <button (click)="gotoClass(classItem)">class page</button>
     </div>
-    }
   </div>
   }
 </div>
